@@ -196,24 +196,32 @@ def paginate_help(page_number, loaded_plugins, prefix):
     max_num_pages = ceil(len(pairs) / number_of_rows)
     modulo_page = page_number % max_num_pages
     if len(pairs) > number_of_rows:
-        pairs = [
-            (
-                custom.Button.inline(
-                    "«]", data="{}_prev({})".format(prefix, modulo_page)
-                ),
-                custom.Button.inline("Close 🙅‍♀️", data="close"),
-                custom.Button.inline(
-                    "[»", data="{}_next({})".format(prefix, modulo_page)
-                ),
-            )
-        ] + pairs[modulo_page * number_of_rows : number_of_rows * (modulo_page + 1)] + [
-            (
-                custom.Button.inline(
-                    "Heroku", data="CMD_LIST[heroku].__doc__.format(i=rx)".format(prefix, modulo_page)
-                ),
-                custom.Button.inline("tools", data="CMD_LIST[tools].__doc__.format(i=rx)"
-                ),
-            )
-        ]
+        pairs = (
+            [
+                (
+                    custom.Button.inline(
+                        "«]", data="{}_prev({})".format(prefix, modulo_page)
+                    ),
+                    custom.Button.inline("Close 🙅‍♀️", data="close"),
+                    custom.Button.inline(
+                        "[»", data="{}_next({})".format(prefix, modulo_page)
+                    ),
+                )
+            ]
+            + pairs[modulo_page * number_of_rows : number_of_rows * (modulo_page + 1)]
+            + [
+                (
+                    custom.Button.inline(
+                        "Heroku",
+                        data="CMD_LIST[heroku].__doc__.format(i=rx)".format(
+                            prefix, modulo_page
+                        ),
+                    ),
+                    custom.Button.inline(
+                        "tools", data="CMD_LIST[tools].__doc__.format(i=rx)"
+                    ),
+                )
+            ]
+        )
 
     return pairs
