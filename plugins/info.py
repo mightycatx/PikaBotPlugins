@@ -1,5 +1,5 @@
 """Get Telegram Profile Picture and other information
-Syntax: .info @username"""
+{i}info @username/reply to user msg"""
 
 import html
 from telethon.tl.functions.photos import GetUserPhotosRequest
@@ -9,7 +9,7 @@ from telethon.utils import get_input_location
 from pikabot.utils import *
 
 
-@itzzSj(outgoing=True, pattern="^.info(.*)")
+@ItzSjDude(outgoing=True, pattern="info(.*)")
 async def _(event):
     if event.fwd_from:
         return
