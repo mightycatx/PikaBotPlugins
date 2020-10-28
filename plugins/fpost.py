@@ -7,8 +7,6 @@ credit: @pureindialover"""
 
 import string
 
-from telethon import events
-from telethon.tl import types
 from uniborg.util import ItzSjDude
 
 msg_cache = {}

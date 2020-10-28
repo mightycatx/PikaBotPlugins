@@ -1,7 +1,7 @@
 """Spamming Module
 {i}spam <no of msgs> <msg>
 
-Note:- Don't use to much""" 
+Note:- Don't use to much"""
 
 # Copyright (C) 2019 The Raphielscape Company LLC.
 #
@@ -11,9 +11,6 @@ Note:- Don't use to much"""
 
 from asyncio import wait
 
-from telethon import events
-
-
 
 @ItzSjDude(outgoing=True, pattern=r"spam")
 async def spammer(e):
@@ -22,14 +19,10 @@ async def spammer(e):
         counter = int(message[6:8])
         spam_message = str(e.text[8:])
 
-        await wait(
-            [e.respond(spam_message) for i in range(counter)]
-            )
+        await wait([e.respond(spam_message) for i in range(counter)])
 
         await e.delete()
         if LOGGER:
             await e.client.send_message(
-                LOGGER_GROUP,
-                "#SPAM \n\n"
-                "Spam was executed successfully"
-                )
+                LOGGER_GROUP, "#SPAM \n\n" "Spam was executed successfully"
+            )

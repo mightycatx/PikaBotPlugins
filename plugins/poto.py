@@ -1,16 +1,11 @@
-
 import logging
+
 from pikabot.utils import ItzSjDude
-from telethon.tl.functions.photos import GetUserPhotosRequest
-from telethon.tl.functions.users import GetFullUserRequest
-from telethon.tl.types import MessageEntityMentionName
-from telethon.utils import get_input_location
-
-
 
 logger = logging.getLogger(__name__)
 if 1 == 1:
     name = "Profile Photos"
+
     @ItzSjDude(outgoing=True, pattern="poto(.*)")
     async def potocmd(event):
         id = "".join(event.raw_text.split(maxsplit=2)[1:])
@@ -32,9 +27,9 @@ if 1 == 1:
                 if id <= 0:
                     await event.edit("`ID number you entered is invalid`")
                     return
-            except:
-                 await event.edit("`Are you Comedy Me ?`")
-                 return
+            except BaseException:
+                await event.edit("`Are you Comedy Me ?`")
+                return
             if int(id) <= (len(photos)):
                 send_photos = await event.client.download_media(photos[id - 1])
                 await event.client.send_file(event.chat_id, send_photos)

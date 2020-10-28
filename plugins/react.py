@@ -2,9 +2,8 @@
 # -*- coding: utf-8 -*-
 # (c) @INF1N17Y
 
-from telethon import events
 import random
-import asyncio
+
 
 @ItzSjDude(outgoing=True, pattern=r"react (.*)")
 async def _(event):
@@ -90,10 +89,10 @@ async def _(event):
             "-ᄒᴥᄒ-",
             "◖⚆ᴥ⚆◗",
         ]
-    else:    
+    else:
         emoticons = [
             "( ͡° ͜ʖ ͡°)",
-            "¯\_(ツ)_/¯",
+            r"¯\_(ツ)_/¯",
             "( ͡°( ͡° ͜ʖ( ͡° ͜ʖ ͡°)ʖ ͡°) ͡°)",
             "ʕ•ᴥ•ʔ",
             "(▀̿Ĺ̯▀̿ ̿)",
@@ -101,7 +100,7 @@ async def _(event):
             "༼ つ ◕_◕ ༽つ",
             "ಠ_ಠ",
             "(☞ ͡° ͜ʖ ͡°)☞",
-            "¯\_༼ ି ~ ି ༽_/¯",
+            r"¯\_༼ ି ~ ି ༽_/¯",
             "c༼ ͡° ͜ʖ ͡° ༽⊃",
         ]
     index = random.randint(0, len(emoticons))

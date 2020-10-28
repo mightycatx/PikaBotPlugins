@@ -1,6 +1,5 @@
 """Quickly make a decision
 Syntax: .decide"""
-from telethon import events
 import requests
 from pikabot.utils import ItzSjDude
 
@@ -14,9 +13,6 @@ async def _(event):
         message_id = event.reply_to_msg_id
     r = requests.get("https://yesno.wtf/api").json()
     await event.client.send_message(
-        event.chat_id,
-        r["answer"],
-        reply_to=message_id,
-        file=r["image"]
+        event.chat_id, r["answer"], reply_to=message_id, file=r["image"]
     )
     await event.delete()

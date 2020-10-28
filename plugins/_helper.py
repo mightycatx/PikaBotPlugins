@@ -1,8 +1,7 @@
 from pikabot import CMD_LIST
-from SysRuntime import *
 from pikabot.main_plugs.plug import *
-import sys
-from telethon import events, functions, __version__
+from SysRuntime import *
+
 
 @ItzSjDude(outgoing=True, pattern=r"help ?(.*)")
 async def cmd_list(event):
@@ -26,7 +25,7 @@ async def cmd_list(event):
                         force_document=True,
                         allow_cache=False,
                         caption="**COMMANDS**",
-                        reply_to=reply_to_id
+                        reply_to=reply_to_id,
                     )
                     await event.delete()
             else:
@@ -43,15 +42,13 @@ async def cmd_list(event):
         else:
             help_string = f"""Pïkå¢hµ Úsêrßð† {helpstr}"""
             results = await event.client.inline_query(  # pylint:disable=E0602
-                tgbotusername,
-                help_string
+                tgbotusername, help_string
             )
             await results[0].click(
-                event.chat_id,
-                reply_to=event.reply_to_msg_id,
-                hide_via=True
+                event.chat_id, reply_to=event.reply_to_msg_id, hide_via=True
             )
             await event.delete()
+
 
 @ItzSjDude(outgoing=True, pattern="syntax (.*)")
 async def _(event):
@@ -60,7 +57,9 @@ async def _(event):
     plugin_name = event.pattern_match.group(1)
     if plugin_name in CMD_LIST:
         help_string = CMD_LIST[plugin_name]
-        unload_string = f"Use `.unload {plugin_name}` to remove this plugin.\n           © Pikabot"
+        unload_string = (
+            f"Use `.unload {plugin_name}` to remove this plugin.\n           © Pikabot"
+        )
         if help_string:
             plugin_syntax = f"Syntax for plugin **{plugin_name}**:\n\n{help_string}\n{unload_string}"
         else:

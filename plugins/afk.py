@@ -2,9 +2,9 @@
 {i}afk <reason> """
 import asyncio
 import datetime
+
 from telethon import events
 from telethon.tl import functions, types
-from pikabot.utils import admin_cmd
 
 global USER_AFK  # pylint:disable=E0602
 global afk_time  # pylint:disable=E0602
@@ -24,21 +24,21 @@ async def set_not_afk(event):
         try:
             await event.client.send_message(  # pylint:disable=E0602
                 Var.BOTLOG_CHATID,  # pylint:disable=E0602
-                "Mine Owner has gone for some Important work he is very busy😅"
+                "Mine Owner has gone for some Important work he is very busy😅",
             )
         except Exception as e:  # pylint:disable=C0103,W0703
             await event.client.send_message(  # pylint:disable=E0602
                 event.chat_id,
-                "Please set `BOTLOG_CHATID` " + \
-                "for the proper functioning of afk functionality ",
+                "Please set `BOTLOG_CHATID` "
+                + "for the proper functioning of afk functionality ",
                 reply_to=event.message.id,
-                silent=True
+                silent=True,
             )
         USER_AFK = {}  # pylint:disable=E0602
         afk_time = None  # pylint:disable=E0602
 
-@ItzSjDude(pattern=r"afk ?(.*)")
 
+@ItzSjDude(pattern=r"afk ?(.*)")
 async def _(event):
     if event.fwd_from:
         return
@@ -52,9 +52,7 @@ async def _(event):
     reason = event.pattern_match.group(1)
     if not USER_AFK:  # pylint:disable=E0602
         last_seen_status = await event.client(  # pylint:disable=E0602
-            functions.account.GetPrivacyRequest(
-                types.InputPrivacyKeyStatusTimestamp()
-            )
+            functions.account.GetPrivacyRequest(types.InputPrivacyKeyStatusTimestamp())
         )
         if isinstance(last_seen_status.rules, types.PrivacyValueAllowAll):
             afk_time = datetime.datetime.now()  # pylint:disable=E0602
@@ -67,17 +65,17 @@ async def _(event):
         await event.delete()
         try:
             await event.client.send_message(  # pylint:disable=E0602
-                Var.BOTLOG_CHATID,  # pylint:disable=E0602
-                f"My Boss Want {reason}"
+                Var.BOTLOG_CHATID, f"My Boss Want {reason}"  # pylint:disable=E0602
             )
         except Exception as e:  # pylint:disable=C0103,W0703
             logger.warn(str(e))  # pylint:disable=E0602
 
 
-@borg.on(events.NewMessage(  # pylint:disable=E0602
-    incoming=True,
-    func=lambda e: bool(e.mentioned or e.is_private)
-))
+@borg.on(
+    events.NewMessage(  # pylint:disable=E0602
+        incoming=True, func=lambda e: bool(e.mentioned or e.is_private)
+    )
+)
 async def on_afk(event):
     if event.fwd_from:
         return
@@ -106,13 +104,13 @@ async def on_afk(event):
                 afk_since = "**Yesterday**"
             elif days > 1:
                 if days > 6:
-                    date = now + \
-                        datetime.timedelta(
-                            days=-days, hours=-hours, minutes=-minutes)
+                    date = now + datetime.timedelta(
+                        days=-days, hours=-hours, minutes=-minutes
+                    )
                     afk_since = date.strftime("%A, %Y %B %m, %H:%I")
                 else:
                     wday = now + datetime.timedelta(days=-days)
-                    afk_since = wday.strftime('%A')
+                    afk_since = wday.strftime("%A")
             elif hours > 1:
                 afk_since = f"`{int(hours)}h{int(minutes)}m` **ago**"
             elif minutes > 0:
@@ -120,10 +118,12 @@ async def on_afk(event):
             else:
                 afk_since = f"`{int(seconds)}s` **ago**"
         msg = None
-        message_to_reply = f"My Master Has Been Gone For {afk_since}\nWhere He Is: **Only God Knows** " + \
-            f"\n\n__ I'll back in a few Light years__\n**REASON**: {reason}" \
-            if reason \
+        message_to_reply = (
+            f"My Master Has Been Gone For {afk_since}\nWhere He Is: **Only God Knows** "
+            + f"\n\n__ I'll back in a few Light years__\n**REASON**: {reason}"
+            if reason
             else f"**Important Notice**\n\n[This User Is Ded Forever...](https://telegra.ph/file/a4821748db331a0c899a0.mp4) "
+        )
         msg = await event.reply(message_to_reply)
         await asyncio.sleep(5)
         if event.chat_id in last_afk_message:  # pylint:disable=E0602

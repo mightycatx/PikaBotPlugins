@@ -1,8 +1,7 @@
 """Pins the replied message
 Syntax: .ipin [LOUD]"""
-from telethon import events
-from telethon.tl import functions, types
 from pikabot.utils import ItzSjDude
+from telethon.tl import functions
 
 
 @ItzSjDude(outgoing=True, pattern="ipin ?(.*)")
@@ -16,11 +15,11 @@ async def _(event):
     if event.message.reply_to_msg_id is not None:
         message_id = event.message.reply_to_msg_id
         try:
-            await event.client(functions.messages.UpdatePinnedMessageRequest(
-                event.chat_id,
-                message_id,
-                silent
-            ))
+            await event.client(
+                functions.messages.UpdatePinnedMessageRequest(
+                    event.chat_id, message_id, silent
+                )
+            )
         except Exception as e:
             await event.edit(str(e))
         else:

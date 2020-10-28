@@ -1,10 +1,10 @@
 """Color Plugin for PikaBot
 {i}color <color_code>"""
-#credits @Uniborg 
-from telethon import events
+# credits @Uniborg
 import os
-from PIL import Image, ImageColor
+
 from pikabot.utils import ItzSjDude
+from PIL import Image, ImageColor
 
 
 @ItzSjDude(outgoing=True, pattern="color (.*)")
@@ -30,7 +30,7 @@ async def _(event):
                 "UniBorg.png",
                 force_document=False,
                 caption=input_str,
-                reply_to=message_id
+                reply_to=message_id,
             )
             os.remove("UniBorg.png")
             await event.delete()

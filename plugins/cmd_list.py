@@ -1,8 +1,7 @@
-from telethon import events
-import subprocess
 import asyncio
-import time
+
 from pikabot.utils import ItzSjDude
+
 
 @ItzSjDude(outgoing=True, pattern=r"cmds")
 async def install(event):

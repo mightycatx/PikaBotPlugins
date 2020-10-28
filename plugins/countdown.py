@@ -1,96 +1,80 @@
 """COMMAND : .cd, .scd, .padmin"""
 
-from telethon import events
-
-from datetime import datetime
-
-from uniborg.util import ItzSjDude
-
-import importlib.util
 
 import asyncio
 
-import random
+from uniborg.util import ItzSjDude
 
 
-
-
-
-@ItzSjDude(outgoing=True, pattern='(f?c)d ')
-
+@ItzSjDude(outgoing=True, pattern="(f?c)d ")
 async def timer_blankx(e):
 
- txt=e.text[4:] + '\nDeleting in '
+    txt = e.text[4:] + "\nDeleting in "
 
- j=86400
+    j = 86400
 
- k=j
+    k = j
 
- for j in range(j):
+    for j in range(j):
 
-  await e.edit(txt + str(k))
+        await e.edit(txt + str(k))
 
-  k=k-50
+        k = k - 50
 
-  await asyncio.sleep(50)
+        await asyncio.sleep(50)
 
- if e.pattern_match.group(1) == 'c':
+    if e.pattern_match.group(1) == "c":
 
-  await e.delete()
+        await e.delete()
 
- else:
+    else:
 
-  await e.edit(txt + 'NaN')
+        await e.edit(txt + "NaN")
 
 
-@ItzSjDude(outgoing=True, pattern='(f?s)cd ')
-
+@ItzSjDude(outgoing=True, pattern="(f?s)cd ")
 async def timer_blankx(e):
 
- txt=e.text[4:] + '\nDeleting in '
+    txt = e.text[4:] + "\nDeleting in "
 
- j=10
+    j = 10
 
- k=j
+    k = j
 
- for j in range(j):
+    for j in range(j):
 
-  await e.edit(txt + str(k))
+        await e.edit(txt + str(k))
 
-  k=k-1
+        k = k - 1
 
-  await asyncio.sleep(1)
+        await asyncio.sleep(1)
 
- if e.pattern_match.group(1) == 's':
+    if e.pattern_match.group(1) == "s":
 
-  await e.delete()
+        await e.delete()
 
- else:
+    else:
 
-  await e.edit(txt + 'NaN')
-
-
+        await e.edit(txt + "NaN")
 
 
 @ItzSjDude(outgoing=True, pattern="(f?p)an")
-
 async def timer_blankx(e):
 
- txt=e.text[7:] + '\n\n`Promoting You As Admin In` '
+    txt = e.text[7:] + "\n\n`Promoting You As Admin In` "
 
- j=5
+    j = 5
 
- k=j
+    k = j
 
- for j in range(j):
+    for j in range(j):
 
-  await e.edit(txt + str(k))
+        await e.edit(txt + str(k))
 
-  k=k-1
+        k = k - 1
 
-  await asyncio.sleep(1)
+        await asyncio.sleep(1)
 
- if e.pattern_match.group(1) == 'f':
+    if e.pattern_match.group(1) == "f":
 
-  await e.edit("`Successfully Promoted As Admin.` ")
-
+        await e.edit("`Successfully Promoted As Admin.` ")

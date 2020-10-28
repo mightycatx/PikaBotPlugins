@@ -7,24 +7,16 @@
 
 """ Userbot module for having some fun with people. """
 
-import asyncio
 import random
 import re
 import time
 
-from collections import deque
-
 import requests
-
+from cowpy import cow
+from pikabot import *
+from pikabot.utils import register
 from telethon.tl.functions.users import GetFullUserRequest
 from telethon.tl.types import MessageEntityMentionName
-
-from cowpy import cow
-
-from pikabot import *
-from pikabot.utils import register,admin_cmd
-
-
 
 
 @register(outgoing=True, pattern=r"^.(\w+)say (.*)")
@@ -71,8 +63,11 @@ async def who(event):
         try:
             await event.edit(caption)
 
-        except:
-            await event.edit("`Can't slap this person, need to fetch some sticks and stones !!`")
+        except BaseException:
+            await event.edit(
+                "`Can't slap this person, need to fetch some sticks and stones !!`"
+            )
+
 
 async def get_user(event):
     """ Get the user from argument or replied message. """
@@ -106,6 +101,7 @@ async def get_user(event):
 
     return replied_user
 
+
 async def slap(replied_user, event):
     """ Construct a funny slap sentence !! """
     user_id = replied_user.user.id
@@ -126,6 +122,7 @@ async def slap(replied_user, event):
 
     return caption
 
+
 @register(outgoing=True, pattern="^.-_-$")
 async def lol(lel):
     if not lel.text[0].isalpha() and lel.text[0] not in ("/", "#", "@", "!"):
@@ -135,7 +132,7 @@ async def lol(lel):
             okay = okay[:-1] + "_-"
             await lel.edit(okay)
 
- 
+
 @register(outgoing=True, pattern="^.;_;$")
 async def fun(e):
     if not e.text[0].isalpha() and e.text[0] not in ("/", "#", "@", "!"):
@@ -144,17 +141,20 @@ async def fun(e):
             t = t[:-1] + "_;"
             await e.edit(t)
 
+
 @register(outgoing=True, pattern="^.cry$")
 async def cry(e):
     """ y u du dis, i cry everytime !! """
     if not e.text[0].isalpha() and e.text[0] not in ("/", "#", "@", "!"):
         await e.edit(random.choice(CRI))
 
+
 @register(outgoing=True, pattern="^.insult$")
 async def insult(e):
     """ I make you cry !! """
     if not e.text[0].isalpha() and e.text[0] not in ("/", "#", "@", "!"):
         await e.edit(random.choice(INSULT_STRINGS))
+
 
 @register(outgoing=True, pattern="^.cp(?: |$)(.*)")
 async def copypasta(cp_e):
@@ -172,9 +172,8 @@ async def copypasta(cp_e):
             return
 
         reply_text = random.choice(EMOJIS)
-        b_char = random.choice(
-            message
-        ).lower()  # choose a random character in the message to be substituted with 🅱️
+        # choose a random character in the message to be substituted with 🅱️
+        b_char = random.choice(message).lower()
         for owo in message:
             if owo == " ":
                 reply_text += random.choice(EMOJIS)
@@ -217,13 +216,15 @@ async def vapor(vpr):
 
         await vpr.edit("".join(reply_text))
 
-			  
+
 @register(outgoing=True, pattern="^.repo$")
 async def source(e):
     if not e.text[0].isalpha() and e.text[0] not in ("/", "#", "@", "!"):
-        await e.edit("Click [Here](https://github.com/ItzSjDude/PikachuUserbot) to open this mdafuk'in cool userbot repo .")
-			  
-			  
+        await e.edit(
+            "Click [Here](https://github.com/ItzSjDude/PikachuUserbot) to open this mdafuk'in cool userbot repo ."
+        )
+
+
 @register(outgoing=True, pattern="^.str(?: |$)(.*)")
 async def stretch(stret):
     """ Stretch it."""
@@ -241,9 +242,7 @@ async def stretch(stret):
 
         count = random.randint(3, 10)
         reply_text = re.sub(
-            r"([aeiouAEIOUａｅｉｏｕＡＥＩＯＵаеиоуюяыэё])",
-            (r"\1"*count),
-            message
+            r"([aeiouAEIOUａｅｉｏｕＡＥＩＯＵаеиоуюяыэё])", (r"\1" * count), message
         )
         await stret.edit(reply_text)
 
@@ -274,29 +273,28 @@ async def zal(zgfy):
                 randint = random.randint(0, 2)
 
                 if randint == 0:
-                    charac = charac.strip() + \
-                        random.choice(ZALG_LIST[0]).strip()
+                    charac = charac.strip() + random.choice(ZALG_LIST[0]).strip()
                 elif randint == 1:
-                    charac = charac.strip() + \
-                        random.choice(ZALG_LIST[1]).strip()
+                    charac = charac.strip() + random.choice(ZALG_LIST[1]).strip()
                 else:
-                    charac = charac.strip() + \
-                        random.choice(ZALG_LIST[2]).strip()
+                    charac = charac.strip() + random.choice(ZALG_LIST[2]).strip()
 
             reply_text.append(charac)
 
         await zgfy.edit("".join(reply_text))
-			  
+
+
 @register(outgoing=True, pattern="^.pkill$")
-async def killing (killed):
+async def killing(killed):
     """ Dont Kill Too much -_-"""
     if not killed.text[0].isalpha() and killed.text[0] not in ("/", "#", "@", "!"):
         if await killed.get_reply_message():
             await killed.edit(
                 "`My Master killed targeted user by Headshot 😈......`\n"
-		"#Sad_Reacts_Onli\n"
+                "#Sad_Reacts_Onli\n"
             )
-			  
+
+
 @register(outgoing=True, pattern="^.bt$")
 async def bluetext(bte):
     """ Believe me, you will find this useful. """
@@ -306,67 +304,78 @@ async def bluetext(bte):
                 "`BLUETEXT MUST CLICK.`\n"
                 "`Are you a stupid animal which is attracted to colours?`"
             )
-			  
+
+
 @register(outgoing=True, pattern="^.rape$")
-async def raping (raped):
+async def raping(raped):
     """ Dont Rape Too much -_-"""
     if not raped.text[0].isalpha() and raped.text[0] not in ("/", "#", "@", "!"):
         index = random.randint(0, len(RAPE_STRINGS) - 1)
         reply_text = RAPE_STRINGS[index]
         await raped.edit(reply_text)
-			  
+
+
 @register(outgoing=True, pattern="^.pro$")
-async def proo (pros):
+async def proo(pros):
     """ String for Pros only -_-"""
     if not pros.text[0].isalpha() and pros.text[0] not in ("/", "#", "@", "!"):
         index = random.randint(0, len(PRO_STRINGS) - 1)
         reply_text = PRO_STRINGS[index]
         await pros.edit(reply_text)
 
+
 @register(outgoing=True, pattern="^.fuk$")
-async def chutiya (fuks):
+async def chutiya(fuks):
     """ String for fhu only -_-"""
     if not fuks.text[0].isalpha() and fuks.text[0] not in ("/", "#", "@", "!"):
         index = random.randint(0, len(FUK_STRINGS) - 1)
         reply_text = FUK_STRINGS[index]
         await fuks.edit(reply_text)
 
+
 @register(outgoing=True, pattern="^.chu$")
-async def chutiya (chus):
+async def chutiya(chus):
     """ String for Chu only -_-"""
     if not chus.text[0].isalpha() and chus.text[0] not in ("/", "#", "@", "!"):
         index = random.randint(0, len(CHU_STRINGS) - 1)
         reply_text = CHU_STRINGS[index]
         await chus.edit(reply_text)
-			  			  
+
+
 @register(outgoing=True, pattern="^.thanos$")
-async def thanos (thanos):
+async def thanos(thanos):
     """ String for thanos only -_-"""
     if not thanos.text[0].isalpha() and thanos.text[0] not in ("/", "#", "@", "!"):
         index = random.randint(0, len(THANOS_STRINGS) - 1)
         reply_text = THANOS_STRINGS[index]
-        await thanos.edit(reply_text)	
-			  
+        await thanos.edit(reply_text)
+
+
 @register(outgoing=True, pattern="^.hardabuse$")
-async def fuckedd (abusehard):
+async def fuckedd(abusehard):
     """ Dont Use this Too much bsdk -_-"""
-    if not abusehard.text[0].isalpha() and abusehard.text[0] not in ("/", "#", "@", "!"):
+    if not abusehard.text[0].isalpha() and abusehard.text[0] not in (
+        "/",
+        "#",
+        "@",
+        "!",
+    ):
         index = random.randint(0, len(ABUSEHARD_STRING) - 1)
         reply_text = ABUSEHARD_STRING[index]
         await abusehard.edit(reply_text)
-			  
-			  
+
+
 @register(outgoing=True, pattern="^.gey$")
-async def geys (geyed):
+async def geys(geyed):
     """ Use only for gey ppl -_-"""
     if not geyed.text[0].isalpha() and geyed.text[0] not in ("/", "#", "@", "!"):
         index = random.randint(0, len(GEY_STRINGS) - 1)
         reply_text = GEY_STRINGS[index]
         await geyed.edit(reply_text)
-			  
-			  
+
+
 @register(outgoing=True, pattern="^.abuse$")
-async def abusing (abused):
+async def abusing(abused):
     """ Dont Abuse Too much bsdk -_-"""
     if not abused.text[0].isalpha() and abused.text[0] not in ("/", "#", "@", "!"):
         index = random.randint(0, len(ABUSE_STRINGS) - 1)
@@ -412,20 +421,20 @@ async def shrugger(shg):
         await shg.edit(random.choice(SHGS))
 
 
-
-
 @register(outgoing=True, pattern="^.noob$")
 async def metoo(hahayes):
     """ Haha yes """
     if not hahayes.text[0].isalpha() and hahayes.text[0] not in ("/", "#", "@", "!"):
         await hahayes.edit(random.choice(NOOBSTR))
-			  
+
+
 @register(outgoing=True, pattern="^.rendi$")
 async def metoo(hahayes):
     """ Haha yes """
     if not hahayes.text[0].isalpha() and hahayes.text[0] not in ("/", "#", "@", "!"):
         await hahayes.edit(random.choice(RENDISTR))
-			 			  
+
+
 @register(outgoing=True, pattern="^.oof$")
 async def Oof(e):
     if not e.text[0].isalpha() and e.text[0] not in ("/", "#", "@", "!"):
@@ -434,12 +443,11 @@ async def Oof(e):
             t = t[:-1] + "of"
             await e.edit(t)
 
+
 @register(outgoing=True, pattern="^.10iq$")
 async def iqless(e):
     if not e.text[0].isalpha() and e.text[0] not in ("/", "#", "@", "!"):
         await e.edit("♿")
-
-
 
 
 @register(outgoing=True, pattern="^.mock(?: |$)(.*)")
@@ -470,7 +478,12 @@ async def spongemocktext(mock):
 @register(outgoing=True, pattern="^.clap(?: |$)(.*)")
 async def claptext(memereview):
     """ Praise people! """
-    if not memereview.text[0].isalpha() and memereview.text[0] not in ("/", "#", "@", "!"):
+    if not memereview.text[0].isalpha() and memereview.text[0] not in (
+        "/",
+        "#",
+        "@",
+        "!",
+    ):
         textx = await memereview.get_reply_message()
         message = memereview.pattern_match.group(1)
         if message:
@@ -486,31 +499,29 @@ async def claptext(memereview):
         await memereview.edit(reply_text)
 
 
-
-
 @register(outgoing=True, pattern="^.smk (.*)")
 async def smrk(smk):
-        if not smk.text[0].isalpha() and smk.text[0] not in ("/", "#", "@", "!"):
-            textx = await smk.get_reply_message()
-            message = smk.text
-        if message[5:]:
-            message = str(message[5:])
-        elif textx:
-            message = textx
-            message = str(message.message)
-        if message == 'dele':
-            await smk.edit( message +'te the hell' + "ツ" )
-            await smk.edit("ツ")
-        else:
-             smirk = " ツ"
-             reply_text = message + smirk
-             await smk.edit(reply_text)
+    if not smk.text[0].isalpha() and smk.text[0] not in ("/", "#", "@", "!"):
+        textx = await smk.get_reply_message()
+        message = smk.text
+    if message[5:]:
+        message = str(message[5:])
+    elif textx:
+        message = textx
+        message = str(message.message)
+    if message == "dele":
+        await smk.edit(message + "te the hell" + "ツ")
+        await smk.edit("ツ")
+    else:
+        smirk = " ツ"
+        reply_text = message + smirk
+        await smk.edit(reply_text)
 
 
-
-
-
-@register(outgoing=True, pattern="^.lfy (.*)",)
+@register(
+    outgoing=True,
+    pattern="^.lfy (.*)",
+)
 async def let_me_google_that_for_you(lmgtfy_q):
     if not lmgtfy_q.text[0].isalpha() and lmgtfy_q.text[0] not in ("/", "#", "@", "!"):
         textx = await lmgtfy_q.get_reply_message()
@@ -522,17 +533,19 @@ async def let_me_google_that_for_you(lmgtfy_q):
             query = query.message
         query_encoded = query.replace(" ", "+")
         lfy_url = f"http://lmgtfy.com/?s=g&iie=1&q={query_encoded}"
-        payload = {'format': 'json', 'url': lfy_url}
-        r = requests.get('http://is.gd/create.php', params=payload)
+        payload = {"format": "json", "url": lfy_url}
+        r = requests.get("http://is.gd/create.php", params=payload)
         await lmgtfy_q.edit(f"[{query}]({r.json()['shorturl']})")
         if BOTLOG:
             await bot.send_message(
                 BOTLOG_CHATID,
                 "LMGTFY query `" + query + "` was executed successfully",
-            )			  
+            )
 
-CMD_HELP.update({
-    "memes": ".cowsay\
+
+CMD_HELP.update(
+    {
+        "memes": ".cowsay\
 \nUsage: cow which says things.\
 \n\n.milksay\
 \nUsage: Weird Milk that can speak\
@@ -609,4 +622,5 @@ CMD_HELP.update({
 \n\n.abuse\
 \nUsage: Protects you from unwanted peeps.\
 \n\n\nThanks to 🅱️ottom🅱️ext🅱️ot (@NotAMemeBot) for some of these."
-})
+    }
+)

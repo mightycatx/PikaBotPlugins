@@ -1,20 +1,18 @@
 """
-command: .singer singer name - song name 
+command: .singer singer name - song name
 by @quiec
 """
-from telethon import events
-from uniborg.util import ItzSjDude
-import asyncio
 from PyLyrics import *
+from uniborg.util import ItzSjDude
+
 
 @ItzSjDude(outgoing=True, pattern="singer (.*)")
 async def _(event):
     if event.fwd_from:
         return
-    i = 0
 
     input_str = event.pattern_match.group(1)
-    
+
     try:
         song = input_str.split("-")
         if len(song) == 1:
@@ -26,9 +24,8 @@ async def _(event):
             lyric_message += "\n\n" + "\n".join(lyrics)
             try:
                 await event.edit(lyric_message)
-            except:
+            except BaseException:
                 # TODO: send as file
                 logger.info(lyric_message)
     except ValueError:
         await event.edit("Song not found")
-

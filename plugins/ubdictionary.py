@@ -3,7 +3,6 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 """Urban Dictionary
 Syntax: .ud Query"""
-from telethon import events
 import urbandict
 from pikabot.utils import ItzSjDude
 
@@ -18,16 +17,16 @@ async def _(event):
         mean = urbandict.define(str)
         if len(mean) > 0:
             await event.edit(
-                'Text: **' +
-                str +
-                '**\n\nMeaning: **' +
-                mean[0]['def'] +
-                '**\n\n' +
-                'Example: \n__' +
-                mean[0]['example'] +
-                '__'
+                "Text: **"
+                + str
+                + "**\n\nMeaning: **"
+                + mean[0]["def"]
+                + "**\n\n"
+                + "Example: \n__"
+                + mean[0]["example"]
+                + "__"
             )
         else:
             await event.edit("No result found for **" + str + "**")
-    except:
+    except BaseException:
         await event.edit("No result found for **" + str + "**")

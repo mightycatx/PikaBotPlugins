@@ -1,13 +1,11 @@
-from telethon import events
-import random, re
-from pikabot.utils import *
-import asyncio 
+import asyncio
 
+from pikabot.utils import *
 
 
 @ItzSjDude(outgoing=True, pattern="gangasta(.*)")
 async def _(event):
-     if not event.text[0].isalpha() and event.text[0] not in ("/", "#", "@", "!"):
+    if not event.text[0].isalpha() and event.text[0] not in ("/", "#", "@", "!"):
         await event.edit("EVERyBOdy")
         await asyncio.sleep(0.3)
         await event.edit("iZ")

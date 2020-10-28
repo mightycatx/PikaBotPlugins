@@ -1,6 +1,8 @@
+import asyncio
+
 from pikabot.sql_helper.mute_sql import *
 from pikabot.utils import admin_cmd
-import asyncio
+
 
 @bot.on(admin_cmd(pattern=r"mute ?(\d+)?"))
 async def startmute(event):
@@ -22,28 +24,37 @@ async def startmute(event):
         elif private is True:
             userid = event.chat_id
         else:
-            return await event.reply("Please reply to a user or add their userid into the command to mute them.")
+            return await event.reply(
+                "Please reply to a user or add their userid into the command to mute them."
+            )
         chat_id = event.chat_id
         chat = await event.get_chat()
-        if "admin_rights" in vars(chat) and vars(chat)["admin_rights"] is not None: 
+        if "admin_rights" in vars(chat) and vars(chat)["admin_rights"] is not None:
             if chat.admin_rights.delete_messages is True:
                 pass
             else:
-                return await event.reply("`You can't mute a person if you dont have delete messages permission. ಥ﹏ಥ`")
+                return await event.reply(
+                    "`You can't mute a person if you dont have delete messages permission. ಥ﹏ಥ`"
+                )
         elif "creator" in vars(chat):
             pass
-        elif private == True:
+        elif private:
             pass
         else:
-            return await event.reply("`You can't mute a person without admin rights niqq.` ಥ﹏ಥ  ")
+            return await event.reply(
+                "`You can't mute a person without admin rights niqq.` ಥ﹏ಥ  "
+            )
         if is_muted(userid, chat_id):
-            return await event.reply("This user is already muted in this chat ~~lmfao sed rip~~")
+            return await event.reply(
+                "This user is already muted in this chat ~~lmfao sed rip~~"
+            )
         try:
             mute(userid, chat_id)
         except Exception as e:
             await event.reply("Error occured!\nError is " + str(e))
         else:
             await event.reply("Successfully muted that person.\n**｀-´)⊃━☆ﾟ.*･｡ﾟ **")
+
 
 @bot.on(admin_cmd(pattern=r"unmute ?(\d+)?"))
 async def endmute(event):
@@ -65,21 +76,23 @@ async def endmute(event):
         elif private is True:
             userid = event.chat_id
         else:
-            return await event.reply("Please reply to a user or add their userid into the command to unmute them.")
+            return await event.reply(
+                "Please reply to a user or add their userid into the command to unmute them."
+            )
         chat_id = event.chat_id
         if not is_muted(userid, chat_id):
-            return await event.reply("__This user is not muted in this chat__\n（ ^_^）o自自o（^_^ ）")
+            return await event.reply(
+                "__This user is not muted in this chat__\n（ ^_^）o自自o（^_^ ）"
+            )
         try:
             unmute(userid, chat_id)
         except Exception as e:
             await event.reply("Error occured!\nError is " + str(e))
         else:
             await event.reply("Successfully unmuted that person\n乁( ◔ ౪◔)「    ┑(￣Д ￣)┍")
-            
 
 
 @bot.on(admin_cmd(incoming=True))
 async def watcher(event):
     if is_muted(event.sender_id, event.chat_id):
         await event.delete()
-

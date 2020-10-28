@@ -2,20 +2,25 @@
 {i}pack <reply to msg filename.extension>
 
 """
-#Made by @ItzSjDude. All Rights reserved
+# Made by @ItzSjDude. All Rights reserved
 
-import os, asyncio
+import asyncio
+import os
+
+
 @ItzSjDude(pattern="pack ?(.*)")
 async def _(event):
     a = await event.get_reply_message()
     input_str = event.pattern_match.group(1)
-    b = open(input_str, 'w')
+    b = open(input_str, "w")
     b.write(str(a.message))
     b.close()
     await event.edit(f"**Packing into** `{input_str}`")
     await asyncio.sleep(2)
     await event.edit(f"**Uploading** `{input_str}`")
     await asyncio.sleep(2)
-    await event.client.send_file(event.chat_id, input_str, caption="Here is your {}".format(input_str))
+    await event.client.send_file(
+        event.chat_id, input_str, caption="Here is your {}".format(input_str)
+    )
     await event.delete()
     os.remove(input_str)

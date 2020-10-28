@@ -1,7 +1,7 @@
 """Congrats Module
 {i}Congo"""
-from telethon import events
-import random, re
+import random
+
 from pikabot.utils import ItzSjDude
 
 RUNSREACTS = [
@@ -17,10 +17,11 @@ RUNSREACTS = [
     "`Feeling so much joy for you today. What an impressive achievement!`",
 ]
 
+
 @ItzSjDude(outgoing=True, pattern="congo")
 async def _(event):
     if event.fwd_from:
-         return
-    bro = random.randint(0, len(RUNSREACTS) - 1)    
+        return
+    bro = random.randint(0, len(RUNSREACTS) - 1)
     reply_text = RUNSREACTS[bro]
     await event.edit(reply_text)

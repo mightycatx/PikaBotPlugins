@@ -1,4 +1,3 @@
-
 import os
 import time
 from datetime import datetime
@@ -61,7 +60,7 @@ async def git_commit(file_name, mone):
             return await mone.edit("File Already Exists")
             create_file = False
     file_name = "plugins/" + file_name
-    if create_file == True:
+    if create_file:
         file_name = file_name.replace(f"{GIT_TEMP_DIR}", "")
         print(file_name)
         try:
@@ -71,10 +70,8 @@ async def git_commit(file_name, mone):
             print("Committed File")
             ccess = Var.GIT_REPO_NAME
             ccess = ccess.strip()
-            await mone.edit(
-                f"Commited On Your **Github**"
-            )
-        except:
+            await mone.edit(f"Commited On Your **Github**")
+        except BaseException:
             print("Cannot Create Plugin")
             await mone.edit("Cannot Upload Plugin")
     else:
