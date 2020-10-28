@@ -184,10 +184,11 @@ def paginate_help(page_number, loaded_plugins, prefix):
         ] + [
             (
                 custom.Button.inline(
-                    "<<þrêvïðµ§>>", data="{}_prev({})".format(prefix, modulo_page)
+                    "«]", data="{}_prev({})".format(prefix, modulo_page)
                 ),
+                custom.Button.inline("Close 🙅‍♀️", data="close"),
                 custom.Button.inline(
-                    "<<ñêx†>>", data="{}_next({})".format(prefix, modulo_page)
+                    "[»", data="{}_next({})".format(prefix, modulo_page)
                 ),
             )
         ]
