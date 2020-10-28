@@ -216,12 +216,7 @@ def paginate_help(page_number, loaded_plugins, prefix):
                         data="CMD_LIST[heroku].__doc__.format(i=rx)".format(
                             prefix, modulo_page
                         ),
-                    ),
-                    custom.Button.inline(
-                        "tools", data="CMD_LIST[tools].__doc__.format(i=rx)"
-                    ),
-                )
-            ]
+             ]
         )
 
     return pairs
