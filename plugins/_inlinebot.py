@@ -209,14 +209,7 @@ def paginate_help(page_number, loaded_plugins, prefix):
                 )
             ]
             + pairs[modulo_page * number_of_rows : number_of_rows * (modulo_page + 1)]
-            + [
-                (
-                    custom.Button.inline(
-                        "Heroku",
-                        data="CMD_LIST[heroku].__doc__.format(i=rx)".format(
-                            prefix, modulo_page
-                        ),
-             ]
+            + [(custom.Button.inline("Heroku", data="CMD_LIST[heroku].__doc__.format(i=rx)"),)]
         )
 
     return pairs
