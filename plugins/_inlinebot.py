@@ -206,7 +206,5 @@ def paginate_help(page_number, loaded_plugins, prefix):
                     "[»", data="{}_next({})".format(prefix, modulo_page)
                 ),
             )
-        ] + pairs[
-            modulo_page * number_of_rows : number_of_rows * (modulo_page + 1)
-        ] 
+        ] + pairs[modulo_page * number_of_rows : number_of_rows * (modulo_page + 1)]
     return pairs
