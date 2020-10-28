@@ -1,19 +1,35 @@
-name: Small Fix
+name: PyLint
+
 on: push
+
 jobs:
-  build:
+  PEP8:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Find and Replace
-        uses: jacobtomlinson/gha-find-replace@master
+
+      - name: Setup Python
+        uses: actions/setup-python@v1
         with:
-          find: "event.from_id"
-          replace: "event.sender_id"
-      - name: Create Pull Request
-        uses: stefanzweifel/git-auto-commit-action@v4
+          python-version: 3.8
+
+      - name: Install Python lint libraries
+        run: |
+          pip install autopep8 autoflake isort black
+      - name: Check for showstoppers
+        run: |
+          autopep8 --verbose --in-place --recursive --aggressive --aggressive . *.py
+      - name: Remove unused imports and variables
+        run: |
+          autoflake --in-place --recursive --remove-all-unused-imports --remove-unused-variables --ignore-init-module-imports .
+      - name: lint with isort and black
+        run: |
+          isort plugins/*.py
+          black plugins/*.py
+      # commit changes
+      - uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: 'Fix for from_id'
+          commit_message: 'pylint: auto fixes'
           commit_options: '--no-verify'
           repository: .
           commit_user_name: ItzSjDude
