@@ -181,7 +181,7 @@ def paginate_help(page_number, loaded_plugins, prefix):
     number_of_cols = 2
     helpable_plugins = []
     for p in loaded_plugins:
-        if not p.startswith("_"):
+        if not p.startswith("_", "tools", "heroku"):
             helpable_plugins.append(p)
     helpable_plugins = sorted(helpable_plugins)
     modules = [
@@ -206,5 +206,14 @@ def paginate_help(page_number, loaded_plugins, prefix):
                     "[»", data="{}_next({})".format(prefix, modulo_page)
                 ),
             )
-        ] + pairs[modulo_page * number_of_rows : number_of_rows * (modulo_page + 1)]
+        ] + pairs[modulo_page * number_of_rows : number_of_rows * (modulo_page + 1)] + [
+            (
+                custom.Button.inline(
+                    "Heroku", data="CMD_LIST[heroku].__doc__.format(i=rx)".format(prefix, modulo_page)
+                ),
+                custom.Button.inline("tools", data="CMD_LIST[tools].__doc__.format(i=rx)"
+                ),
+            )
+        ]
+
     return pairs
