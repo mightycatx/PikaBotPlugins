@@ -181,7 +181,7 @@ def paginate_help(page_number, loaded_plugins, prefix):
     number_of_cols = 3
     helpable_plugins = []
     for p in loaded_plugins:
-        if not p.startswith("_"):
+        if not p.startswith("_") or not p.startswith("tools") or not p.startswith("heroku"):
             helpable_plugins.append(p)
     helpable_plugins = sorted(helpable_plugins)
     modules = [
