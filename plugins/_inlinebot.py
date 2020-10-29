@@ -29,11 +29,20 @@ else:
     b4 = b1
 
 emoji = os.environ.get("INLINE_EMOJI", "")
-
+incols = os.environ.get("INLINE_COLUMNS", "")
+inrows = os.environ.get("INLINE_ROWS", "")
 if emoji is not None:
     xl = emoji
 else:
     xl = ""
+if incols:
+  pikcl=incols
+else:
+  pikacl=7
+if inrows:
+  pikarws=inrows
+else:
+  pikarws=3
 if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
 
     @tgbot.on(events.InlineQuery)  # pylint:disable=E0602
@@ -177,8 +186,8 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
 
 def paginate_help(page_number, loaded_plugins, prefix):
 
-    number_of_rows = 7
-    number_of_cols = 3
+    number_of_rows = pikarws
+    number_of_cols = pikacl
     helpable_plugins = []
     pfix = ["_", "herok", "tool"]
     for p in loaded_plugins:
