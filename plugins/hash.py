@@ -13,7 +13,7 @@ from userbot import CMD_HELP
 from userbot.events import errors_handler, register
 
 
-@register(outgoing=True, pattern="^.hash (.*)")
+@ItzSjDude(outgoing=True, pattern="hash (.*)")
 @errors_handler
 async def gethash(hash_q):
     """ For .hash command, find the md5, sha1, sha256, sha512 of the string. """
@@ -58,7 +58,7 @@ async def gethash(hash_q):
         await hash_q.reply(ans)
 
 
-@register(outgoing=True, pattern="^.hbase (en|de) (.*)")
+@ItzSjDude(outgoing=True, pattern="hbase (en|de) (.*)")
 @errors_handler
 async def endecrypt(query):
     """ For .base64 command, find the base64 encoding of the given string. """
