@@ -5,7 +5,7 @@ from asyncio import sleep
 from os import remove
 
 from pikabot import BOTLOG, BOTLOG_CHATID, CMD_HELP
-from pikabot.utils import ItzSjDude, errors_handler, register
+from pikabot.utils import ItzSjDude, errors_handler
 from telethon.errors import (
     BadRequestError,
     ChatAdminRequiredError,
