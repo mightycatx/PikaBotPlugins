@@ -198,7 +198,13 @@ def paginate_help(page_number, loaded_plugins, prefix):
     elif number_of_cols == 2:
         pairs = list(zip(modules[::number_of_cols], modules[1::number_of_cols]))
     else:
-        pairs = list(zip(modules[::number_of_cols],modules[1::number_of_cols],modules[2::number_of_cols],))
+        pairs = list(
+            zip(
+                modules[::number_of_cols],
+                modules[1::number_of_cols],
+                modules[2::number_of_cols],
+            )
+        )
     max_num_pages = math.ceil(len(pairs) / number_of_rows)
     modulo_page = page_number % max_num_pages
     if len(pairs) > number_of_rows:
