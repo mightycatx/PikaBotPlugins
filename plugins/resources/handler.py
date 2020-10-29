@@ -1,4 +1,5 @@
 import os
+from plugins.heroku import *
 try:
     from pikabot import bot, bot2, bot3, bot4
     i1 = bot.uid
