@@ -25,3 +25,6 @@ def pikaa(a, shortname):
             pass
     except BaseException:
         pass
+
+def pikarestart():
+    pika.restart()
