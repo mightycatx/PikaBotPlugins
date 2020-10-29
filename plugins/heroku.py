@@ -199,7 +199,10 @@ async def _(rstrt):
         await rstrt.edit(
             "**Heroku*** : Can't Restart App Name Not found Please set HEROKU_APP_NAME"
         )
-pika=app
+
+
+pika = app
+
 
 @ItzSjDude(pattern=r"logs")
 async def _(dyno):
