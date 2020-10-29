@@ -193,7 +193,6 @@ def paginate_help(page_number, loaded_plugins, prefix):
         for x in helpable_plugins
     ]
 
-    
     pairs = list(zip(modules[::number_of_cols], modules[1::number_of_cols]))
     if len(modules) % number_of_cols == 1:
         pairs.append((modules[-1],))
