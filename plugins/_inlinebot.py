@@ -3,7 +3,6 @@
 import asyncio
 import os
 import re
-from math import ceil
 
 from pikabot import ALIVE_NAME, CMD_LIST
 from telethon import custom, events
@@ -214,13 +213,7 @@ def paginate_help(page_number, loaded_plugins, prefix):
                 )
             ]
             + pairs[modulo_page * number_of_rows : number_of_rows * (modulo_page + 1)]
-            + [
-                (
-                    custom.Button.inline(
-                        "🤖Restart Me", data="Null"
-                    ),
-                )
-            ]
+            + [(custom.Button.inline("🤖Restart Me", data="Null"),)]
         )
 
     return pairs
