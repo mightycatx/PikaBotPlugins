@@ -3,7 +3,7 @@
 import asyncio
 import os
 import re
-
+import math 
 from pikabot import ALIVE_NAME, CMD_LIST
 from telethon import custom, events
 from var import Var
