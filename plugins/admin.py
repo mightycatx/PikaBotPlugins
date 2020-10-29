@@ -429,7 +429,7 @@ async def unmoot(unmot):
             )
 
 
-@register(incoming=True)
+@ItzSjDude(incoming=True)
 @errors_handler
 async def muter(moot):
     """ Used for deleting the messages of muted people """
