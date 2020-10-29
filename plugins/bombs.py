@@ -1,8 +1,8 @@
 """Bombs Animation Plugin For Pikabot
 {i}bombs"""
 
-from telethon import events
 import asyncio
+
 
 @ItzSjDude(pattern="bombs")
 async def _(event):
