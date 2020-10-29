@@ -12,6 +12,7 @@ import requests
 from pikabot.utils import *
 
 Heroku = heroku3.from_key(Var.HEROKU_API_KEY)
+app = Heroku.app(Var.HEROKU_APP_NAME)
 heroku_api = "https://api.heroku.com"
 
 
@@ -186,7 +187,6 @@ def prettyjson(obj, indent=2, maxlinelength=80):
 async def _(rstrt):
     if Var.HEROKU_APP_NAME is not None:
         try:
-            app = Heroku.app(Var.HEROKU_APP_NAME)
             await rstrt.edit(
                 "**Boss I am restarting!, Please wait for a min after that do {x}ping or {x}help**".format(
                     x=rx
@@ -199,7 +199,7 @@ async def _(rstrt):
         await rstrt.edit(
             "**Heroku*** : Can't Restart App Name Not found Please set HEROKU_APP_NAME"
         )
-
+pika=app
 
 @ItzSjDude(pattern=r"logs")
 async def _(dyno):
