@@ -36,13 +36,13 @@ if emoji is not None:
 else:
     xl = ""
 if incols:
-  pikcl=incols
+    pikcl = incols
 else:
-  pikacl=7
+    pikacl = 7
 if inrows:
-  pikarws=inrows
+    pikarws = inrows
 else:
-  pikarws=3
+    pikarws = 3
 if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
 
     @tgbot.on(events.InlineQuery)  # pylint:disable=E0602
