@@ -38,11 +38,11 @@ else:
 if incols:
     pikcl = incols
 else:
-    pikacl = 7
+    pikcl = 7
 if inrows:
-    pikarws = inrows
+    pikrws = inrows
 else:
-    pikarws = 3
+    pikrws = 3
 if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
 
     @tgbot.on(events.InlineQuery)  # pylint:disable=E0602
@@ -186,8 +186,8 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
 
 def paginate_help(page_number, loaded_plugins, prefix):
 
-    number_of_rows = pikarws
-    number_of_cols = pikacl
+    number_of_rows = pikrws
+    number_of_cols = pikcl
     helpable_plugins = []
     pfix = ["_", "herok", "tool"]
     for p in loaded_plugins:
