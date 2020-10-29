@@ -9,7 +9,7 @@ import requests
 from pikabot.utils import *
 
 
-@itzzSj(outgoing=True, pattern="^.ggl(.*)")
+@ItzSjDude(outgoing=True, pattern="ggl(.*)")
 async def _(event):
     if event.fwd_from:
         return
