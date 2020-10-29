@@ -29,8 +29,8 @@ else:
     b4 = b1
 
 emoji = os.environ.get("INLINE_EMOJI", "")
-incols = os.environ.get("INLINE_COLUMNS", "3")
-inrows = os.environ.get("INLINE_ROWS", "7")
+incols = int(os.environ.get("INLINE_COLUMNS", 3))
+inrows = int(os.environ.get("INLINE_ROWS", 7))
 if emoji is not None:
     xl = emoji
 else:
