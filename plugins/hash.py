@@ -9,8 +9,8 @@ from subprocess import PIPE
 from subprocess import run as runapp
 
 import pybase64
-from userbot import CMD_HELP
-from userbot.events import errors_handler, register
+from pikabot import CMD_HELP
+from pikabot.events import errors_handler
 
 
 @ItzSjDude(outgoing=True, pattern="hash (.*)")
