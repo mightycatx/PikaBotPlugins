@@ -182,7 +182,7 @@ def paginate_help(page_number, loaded_plugins, prefix):
     helpable_plugins = []
     pfix = ["_", "herok", "tool"]
     for p in loaded_plugins:
-        if not p.startswith(tuple(pfix):
+        if not p.startswith(tuple(pfix)):
             helpable_plugins.append(p)
 
     helpable_plugins = sorted(helpable_plugins)
