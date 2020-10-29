@@ -35,11 +35,12 @@ if emoji is not None:
     xl = emoji
 else:
     xl = ""
-if incols:
+if incols is not None:
     pikcl = incols
 else:
     pikcl = 7
-if inrows:
+
+if inrows is not None:
     pikrws = inrows
 else:
     pikrws = 3
