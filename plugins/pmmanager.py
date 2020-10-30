@@ -1,5 +1,5 @@
 """Pm Manager of Pikabot
-{i}approve 
+{i}approve
 {i}disapprove
 {i}block
 {i}listapproved"""
