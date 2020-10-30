@@ -1,3 +1,8 @@
+"""Pm Manager of Pikabot
+{i}approve 
+{i}disapprove
+{i}block
+{i}listapproved"""
 import asyncio
 import io
 import os
