@@ -6,7 +6,7 @@
 """Tag all
 {i}tagall"""
 
-from uniborg.util import admin_cmd
+
 @ItzSjDude(pattern="tagall")
 async def _(event):
     if event.fwd_from:
