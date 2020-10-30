@@ -3,6 +3,10 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 
+""Tag all
+{i}tagall"""
+
+from uniborg.util import admin_cmd
 @ItzSjDude(pattern="tagall")
 async def _(event):
     if event.fwd_from:
