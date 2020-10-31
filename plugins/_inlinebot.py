@@ -206,7 +206,7 @@ def paginate_help(page_number, loaded_plugins, prefix):
     number_of_rows = pikrws
     number_of_cols = pikcl
     helpable_plugins = []
-    pfix = ["_", "herok", "tool"]
+    pfix = ["_", "tool"]
     for p in loaded_plugins:
         if not p.startswith(tuple(pfix)):
             helpable_plugins.append(p)
@@ -248,6 +248,8 @@ def paginate_help(page_number, loaded_plugins, prefix):
             ]
             + pairs[modulo_page * number_of_rows : number_of_rows * (modulo_page + 1)]
             + [(custom.Button.inline("🤖Restart Me", data="restart"),)]
+             pairs[modulo_page * number_of_rows : number_of_rows * (modulo_page + 1)]
+            + [(custom.Button.inline("⚔️Tools", data="tools"),)]
         )
 
     return pairs
