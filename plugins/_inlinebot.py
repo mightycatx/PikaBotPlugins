@@ -248,7 +248,6 @@ def paginate_help(page_number, loaded_plugins, prefix):
             ]
             + pairs[modulo_page * number_of_rows : number_of_rows * (modulo_page + 1)]
             + [(custom.Button.inline("🤖Restart Me", data="restart"),)]
-             pairs[modulo_page * number_of_rows : number_of_rows * (modulo_page + 1)]
             + [(custom.Button.inline("⚔️Tools", data="tools"),)]
         )
 
