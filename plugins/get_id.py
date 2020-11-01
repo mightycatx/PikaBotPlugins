@@ -2,7 +2,7 @@
 {i}get_id"""
 from telethon import events
 from telethon.utils import pack_bot_file_id
-from userbot.utils import *
+from pikabot.utils import *
 
 
 @itzSjDude(outgoing=True, pattern="get_id(.*)")
