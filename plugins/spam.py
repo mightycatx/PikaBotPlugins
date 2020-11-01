@@ -14,7 +14,6 @@ from asyncio import wait
 
 @ItzSjDude(outgoing=True, pattern=r"spam")
 async def spammer(e):
-    if not e.text[0].isalpha() and e.text[0] not in ("/", "#", "@", "!"):
         message = e.text
         counter = int(message[6:8])
         spam_message = str(e.text[8:])
