@@ -1,13 +1,16 @@
-""" Songs Module 
-{i}getsong song name 
+""" Songs Module
+{i}getsong song name
 """
-#created by @mrconfused
+# created by @mrconfused
 
-import os, subprocess, glob
-from telethon import events
+import glob
+import os
+
 from selenium import webdriver
 from userbot import ALIVE_NAME
-DEFAULTUSER=ALIVE_NAME
+
+DEFAULTUSER = ALIVE_NAME
+
 
 @ItzSjDude(pattern="getsong( (.*)|$)")
 async def _(event):
@@ -45,27 +48,28 @@ async def _(event):
         caption=f"➥ __**Song :- {query}**__\n__**➥ Uploaded by :-**__ {DEFAULTUSER}",
         thumb=catthumb,
         supports_streaming=True,
-        reply_to=reply_to_id
+        reply_to=reply_to_id,
     )
     await a.delete()
     os.system("rm -rf ./temp/*.mp3")
     os.system("rm -rf ./temp/*.jpg")
     os.system("rm -rf ./temp/*.webp")
-    
-async def catmusic(cat , QUALITY,hello):
+
+
+async def catmusic(cat, QUALITY, hello):
     search = cat
     chrome_options = webdriver.ChromeOptions()
-    chrome_options.add_argument('--ignore-certificate-errors')
+    chrome_options.add_argument("--ignore-certificate-errors")
     chrome_options.add_argument("--test-type")
     chrome_options.add_argument("--headless")
-    chrome_options.add_argument('--no-sandbox')
-    chrome_options.add_argument('--disable-dev-shm-usage')
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-dev-shm-usage")
     chrome_options.binary_location = Var.CHROME_BIN
     driver = webdriver.Chrome(chrome_options=chrome_options)
-    driver.get('https://www.youtube.com/results?search_query='+search)
+    driver.get("https://www.youtube.com/results?search_query=" + search)
     user_data = driver.find_elements_by_xpath('//*[@id="video-title"]')
     for i in user_data:
-        video_link = i.get_attribute('href')
+        video_link = i.get_attribute("href")
         break
     if not os.path.isdir("./temp/"):
         os.makedirs("./temp/")
@@ -73,12 +77,20 @@ async def catmusic(cat , QUALITY,hello):
         await hello.reply(f"Sorry. I can't find that song `{search}`")
         return
     try:
-        command = ('youtube-dl -o "./temp/%(title)s.%(ext)s" --extract-audio --audio-format mp3 --audio-quality ' + QUALITY + ' ' + video_link)
+        command = (
+            'youtube-dl -o "./temp/%(title)s.%(ext)s" --extract-audio --audio-format mp3 --audio-quality '
+            + QUALITY
+            + " "
+            + video_link
+        )
         os.system(command)
     except Exception as e:
-        return await hello.reply(f"`Error:\n {e}`") 
+        return await hello.reply(f"`Error:\n {e}`")
     try:
-        thumb = ('youtube-dl -o "./temp/%(title)s.%(ext)s" --write-thumbnail --skip-download ' + video_link)
+        thumb = (
+            'youtube-dl -o "./temp/%(title)s.%(ext)s" --write-thumbnail --skip-download '
+            + video_link
+        )
         os.system(thumb)
     except Exception as e:
         return await hello.reply(f"`Error:\n {e}`")
