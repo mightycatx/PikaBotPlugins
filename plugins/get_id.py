@@ -5,7 +5,7 @@ from telethon.utils import pack_bot_file_id
 from pikabot.utils import *
 
 
-@itzSjDude(outgoing=True, pattern="get_id(.*)")
+@ItzSjDude(outgoing=True, pattern="get_id(.*)")
 async def _(event):
     if event.fwd_from:
         return
