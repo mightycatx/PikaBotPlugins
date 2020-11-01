@@ -9,7 +9,7 @@ from selenium import webdriver
 from userbot import ALIVE_NAME
 DEFAULTUSER=ALIVE_NAME
 
-@plus_ub(pattern="getsong( (.*)|$)")
+@ItzSjDude(pattern="getsong( (.*)|$)")
 async def _(event):
     reply_to_id = event.message.id
     if event.reply_to_msg_id:
