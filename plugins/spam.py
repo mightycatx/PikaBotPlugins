@@ -21,7 +21,7 @@ async def spammer(e):
     await wait([e.respond(spam_message) for i in range(counter)])
 
     await e.delete()
-    if LOGGER:
+    if Var.BOTLOG_CHATID:
         await e.client.send_message(
             Var.BOTLOG_CHATID, "#SPAM \n\n" "Spam was executed successfully"
         )
