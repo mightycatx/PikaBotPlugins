@@ -206,49 +206,27 @@ def paginate_help(page_number, loaded_plugins, prefix):
     number_of_rows = pikrws
     number_of_cols = pikcl
     helpable_plugins = []
-    # pfix = ["_", "tool"]
     for p in loaded_plugins:
         if not p.startswith("_"):
             helpable_plugins.append(p)
 
     helpable_plugins = sorted(helpable_plugins)
-    modules = [
-        custom.Button.inline(
-            "{} {} {}".format(xl, x, xl), data="us_plugin_{}".format(x)
-        )
+    modules = [custom.Button.inline("{} {} {}".format(xl, x, xl), data="us_plugin_{}".format(x))
         for x in helpable_plugins
     ]
-
     if number_of_cols == 1:
         pairs = list(zip(modules[::number_of_cols]))
     elif number_of_cols == 2:
         pairs = list(zip(modules[::number_of_cols], modules[1::number_of_cols]))
+    elif number_of_cols == 3:
+        pairs = list(zip(modules[::number_of_cols], modules[1::number_of_cols], modules[2::number_of_cols]))
+    elif number_of_cols == 4:
+        pairs = list(zip(modules[::number_of_cols], modules[1::number_of_cols], modules[2::number_of_cols], modules[3::number_of_cols]))
     else:
-        pairs = list(
-            zip(
-                modules[::number_of_cols],
-                modules[1::number_of_cols],
-                modules[2::number_of_cols],
-            )
-        )
+        pairs = list(zip(modules[::number_of_cols],modules[1::number_of_cols],modules[2::number_of_cols], modules[3::number_of_cols]))
     max_num_pages = math.ceil(len(pairs) / number_of_rows)
     modulo_page = page_number % max_num_pages
     if len(pairs) > number_of_rows:
-        pairs = (
-            [
-                (
-                    custom.Button.inline(
-                        "«]", data="{}_prev({})".format(prefix, modulo_page)
-                    ),
-                    custom.Button.inline("Close🙅‍♀️", data="close"),
-                    custom.Button.inline(
-                        "[»", data="{}_next({})".format(prefix, modulo_page)
-                    ),
-                )
-            ]
-            + pairs[modulo_page * number_of_rows : number_of_rows * (modulo_page + 1)]
-            + [(custom.Button.inline("🤖Restart Me", data="restart"),)]
-            + [(custom.Button.inline("⚔️Tools", data="tools"),)]
-        )
+        pairs = ([(custom.Button.inline("«]", data="{}_prev({})".format(prefix, modulo_page)),custom.Button.inline("Close🙅‍♀️", data="close"),custom.Button.inline("[»", data="{}_next({})".format(prefix, modulo_page)),)] + pairs[modulo_page * number_of_rows : number_of_rows * (modulo_page + 1)] + [(custom.Button.inline("🤖Restart Me", data="restart"),)] + [(custom.Button.inline("⚔️Tools", data="tools"),)])
 
     return pairs
