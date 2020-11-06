@@ -218,10 +218,6 @@ async def demote(dmod):
             f"CHAT: {dmod.chat.title}(`{dmod.chat_id}`)",
         )
 
-
-# @register(outgoing=True(.*)")
-
-
 @ItzSjDude(pattern=r"ban(?: |$)(.*)")
 @errors_handler
 async def ban(bon):
@@ -275,8 +271,6 @@ async def ban(bon):
             f"CHAT: {bon.chat.title}(`{bon.chat_id}`)",
         )
 
-
-# @register(outgoing=True, pattern="^.unban(?: |$)(.*)")
 @ItzSjDude(pattern=r"unban(?: |$)(.*)")
 @errors_handler
 async def nothanos(unbon):
@@ -315,8 +309,6 @@ async def nothanos(unbon):
     except UserIdInvalidError:
         await unbon.edit("`Uh oh my unban logic broke!`")
 
-
-# @register(outgoing=True, pattern="^.mute(?: |$)(.*)")
 @ItzSjDude(pattern=r"mute(?: |$)(.*)")
 @errors_handler
 async def spider(spdr):
@@ -377,8 +369,6 @@ async def spider(spdr):
         except UserIdInvalidError:
             return await spdr.edit("`Uh oh my mute logic broke!`")
 
-
-# @register(outgoing=True, pattern="^.unmute(?: |$)(.*)")
 @ItzSjDude(pattern=r"unmute(?: |$)(.*)")
 @errors_handler
 async def unmoot(unmot):
@@ -461,8 +451,6 @@ async def muter(moot):
         if i.sender == str(moot.sender_id):
             await moot.delete()
 
-
-# @register(outgoing=True, pattern="^.ungmute(?: |$)(.*)")
 @ItzSjDude(pattern=r"ungmute(?: |$)(.*)")
 @errors_handler
 async def ungmoot(un_gmute):
@@ -554,8 +542,6 @@ async def gspider(gspdr):
                 f"CHAT: {gspdr.chat.title}(`{gspdr.chat_id}`)",
             )
 
-
-# @register(outgoing=True, pattern="^.delusers(?: |$)(.*)")
 @ItzSjDude(pattern=r"delusers(?: |$)(.*)")
 @errors_handler
 async def rm_deletedacc(show):
@@ -628,8 +614,6 @@ async def rm_deletedacc(show):
             \nCHAT: {show.chat.title}(`{show.chat_id}`)",
         )
 
-
-# @register(outgoing=True, pattern="^.adminlist$")
 @ItzSjDude(pattern=r"adminlist")
 @errors_handler
 async def get_admin(show):
@@ -651,8 +635,6 @@ async def get_admin(show):
         mentions += " " + str(err) + "\n"
     await show.edit(mentions, parse_mode="html")
 
-
-# @register(outgoing=True, pattern="^.pin(?: |$)(.*)")
 @ItzSjDude(pattern=r"pin(?: |$)(.*)")
 @errors_handler
 async def pin(msg):
@@ -699,8 +681,6 @@ async def pin(msg):
             f"LOUD: {not is_silent}",
         )
 
-
-# @register(outgoing=True, pattern="^.kick(?: |$)(.*)")
 @ItzSjDude(pattern=r"kick(?: |$)(.*)")
 @errors_handler
 async def kick(usr):
@@ -743,7 +723,6 @@ async def kick(usr):
             f"USER: [{user.first_name}](tg://user?id={user.id})\n"
             f"CHAT: {usr.chat.title}(`{usr.chat_id}`)\n",
         )
-
 
 @ItzSjDude(outgoing=True, pattern=r"users ?(.*)")
 @errors_handler
@@ -788,6 +767,40 @@ async def get_users(show):
             reply_to=show.id,
         )
         remove("userslist.txt")
+
+@ItzSjDude(outgoing=True, pattern=r"unames$")
+@errors_handler
+async def get_users(show):
+    """ For .users command, list all of the users in a chat. """
+    info = await show.client.get_entity(show.chat_id)
+    title = info.title if info.title else "this chat"
+    mentions = "Users with Usernames in {}: \n".format(title)
+    try:
+        if not show.pattern_match.group(1):
+            async for user in show.client.iter_participants(show.chat_id):
+                if not user.deleted or user.username is not None:
+                    mentions += (
+                        f"\n[{user.first_name}](tg://user?id={user.id}) `{user.username}`"
+                    )
+                else:
+                    mentions += f"\nDeleted Account `{user.id}`"
+    except ChatAdminRequiredError as err:
+        mentions += " " + str(err) + "\n"
+    try:
+        await show.edit(mentions)
+    except MessageTooLongError:
+        await show.edit("Damn, this is a huge group. Uploading users lists as file.")
+        file = open("usernames.txt", "w+")
+        file.write(mentions)
+        file.close()
+        await show.client.send_file(
+            show.chat_id,
+            "userslist.txt",
+            caption="Users with Usernames in {}".format(title),
+            reply_to=show.id,
+        )
+        remove("usernames.txt")
+
 
 
 async def get_user_from_event(event):
