@@ -66,7 +66,7 @@ if LOGBOT is not None:
                     await PREV_REPLY_MESSAGE[chat.id].delete()
                     del PREV_REPLY_MESSAGE[chat.id]
                 pmpermit_sql.approve(chat.id, reason)
-                logpm = f"#Approved\n[chat.first_name]"
+                logpm = f"#Approved\n[{chat.first_name}]"
                 try:
                     await bot.send_message(LOGBOT, logpm)
                 except:
