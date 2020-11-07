@@ -50,7 +50,7 @@ USER_BOT_NO_WARN = (
 
 if LOGBOT is not None:
 
-    @bot.on(admin_cmd(pattern="approve ?(.*)"))
+    @bot.on(admin_cmd(pattern="a ?(.*)"))
     async def approve_p_m(event):
         if event.fwd_from:
             return
@@ -66,13 +66,18 @@ if LOGBOT is not None:
                     await PREV_REPLY_MESSAGE[chat.id].delete()
                     del PREV_REPLY_MESSAGE[chat.id]
                 pmpermit_sql.approve(chat.id, reason)
+                logpm = f"#Approved\n[chat.first_name]"
+                try:
+                    await bot.send_message(LOGBOT, logpm)
+                except:
+                    pass
                 await event.edit(
                     "Approved to pm [{}](tg://user?id={})".format(firstname, chat.id)
                 )
                 await asyncio.sleep(3)
                 await event.delete()
 
-    @bot.on(admin_cmd(pattern="block ?(.*)"))
+    @bot.on(admin_cmd(pattern="blk ?(.*)"))
     async def approve_p_m(event):
         if event.fwd_from:
             return
@@ -95,7 +100,7 @@ if LOGBOT is not None:
                     await asyncio.sleep(3)
                     await event.client(functions.contacts.BlockRequest(chat.id))
 
-    @bot.on(admin_cmd(pattern="disapprove ?(.*)"))
+    @bot.on(admin_cmd(pattern="da ?(.*)"))
     async def approve_p_m(event):
         if event.fwd_from:
             return
@@ -113,7 +118,7 @@ if LOGBOT is not None:
                         "Disapproved [{}](tg://user?id={})".format(firstname, chat.id)
                     )
 
-    @bot.on(admin_cmd(pattern="listapproved"))
+    @bot.on(admin_cmd(pattern="la"))
     async def approve_p_m(event):
         if event.fwd_from:
             return
