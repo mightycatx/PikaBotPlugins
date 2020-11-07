@@ -97,7 +97,7 @@ async def main(event):
         file = await event.client.upload_file("donottouch.jpg")
         await event.client(functions.photos.UploadProfilePhotoRequest(file))
         os.system("rm -rf donottouch.jpg")
-        await asyncio.sleep(600)
+        await asyncio.sleep(60)
 
 
 @ItzSjDude(outgoing=True, pattern="avengerspfp ?(.*)")
@@ -119,7 +119,7 @@ async def main(event):
         file = await event.client.upload_file("donottouch.jpg")
         await event.client(functions.photos.UploadProfilePhotoRequest(file))
         os.system("rm -rf donottouch.jpg")
-        await asyncio.sleep(600)
+        await asyncio.sleep(60)
 
 
 @ItzSjDude(outgoing=True, pattern="autoname")
