@@ -1,4 +1,4 @@
-"# For The-TG-Bot-3.0
+# For The-TG-Bot-3.0
 # By Priyam Kalra
 # Parts of the code below is taken from other sources, the links to the
 # sources is commented above the taken code
