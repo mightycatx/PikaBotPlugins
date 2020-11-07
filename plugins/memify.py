@@ -1,128 +1,146 @@
-"""Reply to an image/sticker with .mmf` 'text on top' ; 'text on bottom
-base by: @pureindialover
-created by: @pureindialover
-if you change these, you gay.
-"""
+"# For The-TG-Bot-3.0
+# By Priyam Kalra
+# Parts of the code below is taken from other sources, the links to the
+# sources is commented above the taken code
 
-import asyncio
 import os
+import textwrap
+from PIL import Image, ImageDraw, ImageFont
+"""Turn Images/Stickers Into Memes
+For Upper Text:
+{i}mmf <text> 
+For Lower Text:
+{i}mmf <text> ;"""
 
-from telethon.errors.rpcerrorlist import YouBlockedUserError
-from telethon.tl.types import MessageMediaPhoto
-from uniborg.util import ItzSjDude
-
-thumb_image_path = Config.TMP_DOWNLOAD_DIRECTORY + "/thumb_image.jpg"
-
-
-@ItzSjDude(outgoing=True, pattern="memify ?(.*)")
-async def _(event):
+@ItzSjDude(pattern="mmf ?(.*)")
+async def handler(event):
     if event.fwd_from:
         return
     if not event.reply_to_msg_id:
-        await event.edit(
-            "`Syntax: reply to an image with .mms` 'text on top' ; 'text on bottom' "
-        )
+        await event.reply("Usage:- memify upper text ; lower text")
         return
     reply_message = await event.get_reply_message()
     if not reply_message.media:
-        await event.edit("```reply to a image/sticker/gif```")
+        await eor(event, "Reply to a image/sticker.")
         return
-    chat = "@MemeAutobot"
-    reply_message.sender
-    await event.client.download_file(reply_message.media)
-    if reply_message.sender.bot:
-        await event.edit("```Reply to actual users message.```")
-        return
+    file = await borg.download_media(reply_message, Var.TEMP_DOWNLOAD_DIRECTORY)
+    a = await event.reply("Memifying this image! (」ﾟﾛﾟ)｣ ")
+    text = str(event.pattern_match.group(1)).strip()
+    if len(text) < 1:
+        return await a.edit("Usage:- memify upper text ; lower text")
+    meme = await drawText(file, text)
+    await event.client.send_file(event.chat_id, file=meme, force_document=False)
+    os.remove(meme)
+    await event.delete()
+    await a.delete()
+
+
+# Taken from https://github.com/UsergeTeam/Userge-Plugins/blob/master/plugins/memify.py#L64
+# Maybe edited to suit the needs of this module
+
+
+async def drawText(image_path, text):
+    img = Image.open(image_path)
+    os.remove(image_path)
+    i_width, i_height = img.size
+    if os.name == "nt":
+        fnt = "arial.ttf"
     else:
-        await event.edit(
-            "```Transfiguration Time! Mwahaha memifying this image! (」ﾟﾛﾟ)｣ ```"
-        )
-
-    async with event.client.conversation("@MemeAutobot") as bot_conv:
-        try:
-            memeVar = event.pattern_match.group(1)
-            await silently_send_message(bot_conv, "/start")
-            await asyncio.sleep(1)
-            await silently_send_message(bot_conv, memeVar)
-            await event.client.send_file(chat, reply_message.media)
-            response = await bot_conv.get_response()
-        except YouBlockedUserError:
-            await event.reply("```Please unblock @MemeAutobot and try again```")
-            return
-        if response.text.startswith("Forward"):
-            await event.edit(
-                "```can you kindly disable your forward privacy settings for good nibba?```"
+        fnt = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
+    m_font = ImageFont.truetype(fnt, int((70 / 640) * i_width))
+    if ";" in text:
+        upper_text, lower_text = text.split(";")
+    else:
+        upper_text = text
+        lower_text = ""
+    draw = ImageDraw.Draw(img)
+    current_h, pad = 10, 5
+    if upper_text:
+        for u_text in textwrap.wrap(upper_text, width=15):
+            u_width, u_height = draw.textsize(u_text, font=m_font)
+            draw.text(
+                xy=(((i_width - u_width) / 2) - 2, int((current_h / 640) * i_width)),
+                text=u_text,
+                font=m_font,
+                fill=(0, 0, 0),
             )
-        if "Okay..." in response.text:
-            await event.edit(
-                "```🤨 NANI?! This is not an image! This will take sum tym to convert to image owo 🧐```"
+            draw.text(
+                xy=(((i_width - u_width) / 2) + 2, int((current_h / 640) * i_width)),
+                text=u_text,
+                font=m_font,
+                fill=(0, 0, 0),
             )
-            thumb = None
-            if os.path.exists(thumb_image_path):
-                thumb = thumb_image_path
-            input_str = event.pattern_match.group(1)
-            if not os.path.isdir(Config.TMP_DOWNLOAD_DIRECTORY):
-                os.makedirs(Config.TMP_DOWNLOAD_DIRECTORY)
-            if event.reply_to_msg_id:
-                file_name = "meme.png"
-                reply_message = await event.get_reply_message()
-                to_download_directory = Config.TMP_DOWNLOAD_DIRECTORY
-                downloaded_file_name = os.path.join(to_download_directory, file_name)
-                downloaded_file_name = await event.client.download_media(
-                    reply_message,
-                    downloaded_file_name,
-                )
-                if os.path.exists(downloaded_file_name):
-                    await event.client.send_file(
-                        chat,
-                        downloaded_file_name,
-                        force_document=False,
-                        supports_streaming=False,
-                        allow_cache=False,
-                        thumb=thumb,
-                    )
-                    os.remove(downloaded_file_name)
-                else:
-                    await event.edit("File Not Found {}".format(input_str))
-            response = await bot_conv.get_response()
-            the_download_directory = Config.TMP_DOWNLOAD_DIRECTORY
-            files_name = "memes.webp"
-            download_file_name = os.path.join(the_download_directory, files_name)
-            await event.client.download_media(
-                response.media,
-                download_file_name,
+            draw.text(
+                xy=((i_width - u_width) / 2, int(((current_h / 640) * i_width)) - 2),
+                text=u_text,
+                font=m_font,
+                fill=(0, 0, 0),
             )
-            requires_file_name = Config.TMP_DOWNLOAD_DIRECTORY + "memes.webp"
-            await event.client.send_file(  # pylint:disable=E0602
-                event.chat_id,
-                requires_file_name,
-                supports_streaming=False,
-                caption="Pikabot: Powered by @ItzSjDude",
-                # Courtesy: @A_Dark_Princ3
+            draw.text(
+                xy=(((i_width - u_width) / 2), int(((current_h / 640) * i_width)) + 2),
+                text=u_text,
+                font=m_font,
+                fill=(0, 0, 0),
             )
-            await event.delete()
-        elif not is_message_image(reply_message):
-            await event.edit(
-                "Invalid message type. Plz choose right message type u NIBBA."
+
+            draw.text(
+                xy=((i_width - u_width) / 2, int((current_h / 640) * i_width)),
+                text=u_text,
+                font=m_font,
+                fill=(255, 255, 255),
             )
-            return
-        else:
-            await event.client.send_file(event.chat_id, response.media)
+            current_h += u_height + pad
+    if lower_text:
+        for l_text in textwrap.wrap(lower_text, width=15):
+            u_width, u_height = draw.textsize(l_text, font=m_font)
+            draw.text(
+                xy=(
+                    ((i_width - u_width) / 2) - 2,
+                    i_height - u_height - int((20 / 640) * i_width),
+                ),
+                text=l_text,
+                font=m_font,
+                fill=(0, 0, 0),
+            )
+            draw.text(
+                xy=(
+                    ((i_width - u_width) / 2) + 2,
+                    i_height - u_height - int((20 / 640) * i_width),
+                ),
+                text=l_text,
+                font=m_font,
+                fill=(0, 0, 0),
+            )
+            draw.text(
+                xy=(
+                    (i_width - u_width) / 2,
+                    (i_height - u_height - int((20 / 640) * i_width)) - 2,
+                ),
+                text=l_text,
+                font=m_font,
+                fill=(0, 0, 0),
+            )
+            draw.text(
+                xy=(
+                    (i_width - u_width) / 2,
+                    (i_height - u_height - int((20 / 640) * i_width)) + 2,
+                ),
+                text=l_text,
+                font=m_font,
+                fill=(0, 0, 0),
+            )
 
-
-def is_message_image(message):
-    if message.media:
-        if isinstance(message.media, MessageMediaPhoto):
-            return True
-        if message.media.document:
-            if message.media.document.mime_type.split("/")[0] == "image":
-                return True
-        return False
-    return False
-
-
-async def silently_send_message(conv, text):
-    await conv.send_message(text)
-    response = await conv.get_response()
-    await conv.mark_read(message=response)
-    return response
+            draw.text(
+                xy=(
+                    (i_width - u_width) / 2,
+                    i_height - u_height - int((20 / 640) * i_width),
+                ),
+                text=l_text,
+                font=m_font,
+                fill=(255, 255, 255),
+            )
+            current_h += u_height + pad
+    image_name = "memify.webp"
+    webp_file = os.path.join(Var.TEMP_DOWNLOAD_DIRECTORY, image_name)
+    img.save(webp_file, "webp")
+    return webp_file
