@@ -3,6 +3,22 @@
 # Licensed under the Raphielscape Public License, Version 1.b (the "License");
 # you may not use this file except in compliance with the License.
 #
+"""Spamming Modules 
+\n{i}tspam <text>
+Usage: Spam the text letter by letter.
+\n{i}spam <count> <text>
+Usage: Your regular spammer stuff :P\
+\n{i}bigspam <count> <text>\
+Usage: .spam on steroids !!\
+\n{i}picspam <count> <link>\
+Usage: As if text spam was not enough !!
+\n{i}dspam <delay> <count> <text>
+Usage: bigspam but slower.
+\n{i}gangsta
+Usage: Gives you Gendgster Feeling
+\n{i}nikal\
+\nUsage: Randi Rona 
+\nNOTE : I am not responsible if you get banned for spamming!"""           
 
 from asyncio import sleep
 BOTLOG=Var.BOTLOG_CHATID
@@ -134,19 +150,3 @@ async def spammer(e):
                 "#DelaySPAM \n\n"
                 "DelaySpam was executed successfully"
                 )
-"""Spamming Modules 
-\n{i}tspam <text>
-Usage: Spam the text letter by letter.
-\n{i}spam <count> <text>
-Usage: Your regular spammer stuff :P\
-\n{i}bigspam <count> <text>\
-Usage: .spam on steroids !!\
-\n{i}picspam <count> <link>\
-Usage: As if text spam was not enough !!
-\n{i}dspam <delay> <count> <text>
-Usage: bigspam but slower.
-\n{i}gangsta
-Usage: Gives you Gendgster Feeling
-\n{i}nikal\
-\nUsage: Randi Rona 
-\nNOTE : I am not responsible if you get banned for spamming!"""           
