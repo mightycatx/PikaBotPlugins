@@ -35,7 +35,7 @@ async def _(event):
             await event.client.send_file(
                 event.chat_id,
                 songh,
-                caption="🔆**Here's the requested song!**🔆\n`Check out` [Pikachu Userbot](t.me/ItzSjDudeProjects)",
+                caption="🔆**Here's the requested song!**🔆\n`Check out` [Pikachu Userbot](t.me/PikachuUserbot)",
             )
             await event.delete()
         except YouBlockedUserError:

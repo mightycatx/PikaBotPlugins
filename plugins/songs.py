@@ -25,7 +25,7 @@ async def _(event):
             await event.client.send_file(
                 event.chat_id,
                 ac,
-                caption=f"**{input_str}\nUploaded by [Pikabot](t.me/ItzSjDudeProjects)**",
+                caption=f"**{input_str}\nUploaded by [Pikabot](t.me/PikachuUserbot)**",
             )
             await chut.delete()
         else:

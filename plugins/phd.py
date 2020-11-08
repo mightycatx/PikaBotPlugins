@@ -102,7 +102,7 @@ async def _(event):
                 await event.client.send_file(
                     event.chat_id,
                     video_hehe,
-                    caption="`🤤 Video Uploaded by` [Pikachu Userbot](t.me/ItzSjDudeProjects)!🤤\n**Title:** `{}`".format(
+                    caption="`🤤 Video Uploaded by` [Pikachu Userbot](t.me/PikachuUserbot)!🤤\n**Title:** `{}`".format(
                         title
                     ),
                 )

@@ -39,7 +39,7 @@ CUSTOM_MIDDLE_PMP = (
 )
 USER_BOT_WARN_ZERO = "`You were spamming my peru master's inbox, henceforth your retarded lame ass has been blocked by my master's userbot.` "
 USER_BOT_NO_WARN = (
-    "`Hello ! This is` **[Pikachu Userbot](t.me/ItzSjDudeProjects)**\n"
+    "`Hello ! This is` **[Pikachu Userbot](t.me/PikachuUserbot)**\n"
     "`Private Messaging Security Protocol ⚠️`\n\n"
     "**You Have Trespassed To My Boss\n"
     f"{DEFAULTUSER}'s Inbox**\n\n"
