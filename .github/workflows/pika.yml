@@ -1,4 +1,4 @@
-name: Small Fix	
+name: Minor fixes 
 on: push	
 jobs:	
   build:	
@@ -8,12 +8,12 @@ jobs:
       - name: Find and Replace	
         uses: jacobtomlinson/gha-find-replace@master	
         with:	
-          find: "ItzSjDudeProjects"	
-          replace: "PikachuUserbot"	
+          find: "CMD_HELP"	
+          replace: "Pika_Cmd"	
       - name: Create Pull Request	
         uses: stefanzweifel/git-auto-commit-action@v4	
         with:	
-          commit_message: 'Hehe Lol😹'	
+          commit_message: 'PikaBot Fixes🚶'	
           commit_options: '--no-verify'	
           repository: .	
           commit_user_name: ItzSjDude	
