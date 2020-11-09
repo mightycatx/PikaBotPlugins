@@ -543,7 +543,7 @@ async def let_me_google_that_for_you(lmgtfy_q):
             )
 
 
-CMD_HELP.update(
+Pika_Cmd.update(
     {
         "memes": ".cowsay\
 \nUsage: cow which says things.\

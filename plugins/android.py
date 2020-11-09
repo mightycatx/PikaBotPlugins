@@ -19,7 +19,7 @@ Usage: Search for android device codename.
 import re
 
 from bs4 import BeautifulSoup
-from pikabot import CMD_HELP
+from pikabot import Pika_Cmd
 from pikabot.utils import ItzSjDude
 from requests import get
 
@@ -213,7 +213,7 @@ async def twrp(request):
     await request.edit(reply)
 
 
-CMD_HELP.update(
+Pika_Cmd.update(
     {
         "android": ".magisk\
 \nGet latest Magisk releases\

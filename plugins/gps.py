@@ -2,7 +2,7 @@
 from geopy.geocoders import Nominatim
 from pikabot.utils import ItzSjDude
 from telethon.tl import types
-from userbot import CMD_HELP
+from userbot import Pika_Cmd
 
 
 @ItzSjDude(outgoing=True, pattern="gps ?(.*)")
@@ -33,7 +33,7 @@ async def gps(event):
         await event.edit("i coudn't find it")
 
 
-CMD_HELP.update(
+Pika_Cmd.update(
     {
         "gps": "`.gps` <location name> :\
       \nUSAGE: Sends you the given location name\

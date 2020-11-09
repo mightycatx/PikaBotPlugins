@@ -14,7 +14,7 @@ from subprocess import PIPE, Popen
 import requests
 from bs4 import BeautifulSoup
 from humanize import naturalsize
-from pikabot import CMD_HELP
+from pikabot import Pika_Cmd
 from pikabot.utils import ItzSjDude
 
 
@@ -326,7 +326,7 @@ def useragent():
     return user_agent.text
 
 
-CMD_HELP.update(
+Pika_Cmd.update(
     {
         "direct": ".direct <url> <url>\n"
         "Usage: Generate direct download link from supported URL(s)\n"

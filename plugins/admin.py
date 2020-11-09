@@ -4,7 +4,7 @@
 from asyncio import sleep
 from os import remove
 
-from pikabot import BOTLOG, BOTLOG_CHATID, CMD_HELP
+from pikabot import BOTLOG, BOTLOG_CHATID, Pika_Cmd
 from pikabot.utils import ItzSjDude, errors_handler
 from telethon.errors import (
     BadRequestError,
@@ -852,7 +852,7 @@ async def get_user_from_id(user, event):
     return user_obj
 
 
-CMD_HELP.update(
+Pika_Cmd.update(
     {
         "admin": ".promote <username/reply> <custom rank (optional)>\
 \nUsage: Provides admin rights to the person in the chat.\

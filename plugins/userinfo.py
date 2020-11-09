@@ -22,7 +22,7 @@ from telethon.tl.types import (
     InputPeerChat,
     MessageEntityMentionName,
 )
-from userbot import CMD_HELP
+from userbot import Pika_Cmd
 
 
 def parse_arguments(message: str, valid: List[str]) -> (dict, str):
@@ -378,7 +378,7 @@ async def fetch_info(replied_user, **kwargs):
     )
 
 
-CMD_HELP.update(
+Pika_Cmd.update(
     {
         "android": "`.u(ser) [options] (username|id)`"
         "Or, in response to a message"

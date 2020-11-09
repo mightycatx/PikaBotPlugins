@@ -6,7 +6,7 @@ Syntax: .mashup <text>
 from telethon import events
 from telethon.errors.rpcerrorlist import YouBlockedUserError
 from uniborg.util import ItzSjDude
-from userbot import CMD_HELP
+from userbot import Pika_Cmd
 
 
 @ItzSjDude(outgoing=True, pattern="mashup ?(.*)")
@@ -67,7 +67,7 @@ async def _(event):
             )
 
 
-CMD_HELP.update(
+Pika_Cmd.update(
     {
         "mashup": "`.mashup` <text> :\
       \n**USAGE:** Send you the related video message of given text . "

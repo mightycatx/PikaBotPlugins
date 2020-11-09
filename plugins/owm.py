@@ -13,7 +13,7 @@ from pikabot.utils import ItzSjDude, errors_handler
 from pytz import country_names as c_n
 from pytz import country_timezones as c_tz
 from pytz import timezone as tz
-from userbot import CMD_HELP
+from userbot import Pika_Cmd
 from userbot import OPEN_WEATHER_MAP_APPID as OWM_API
 
 # ===== CONSTANT =====
@@ -193,7 +193,7 @@ async def set_default_city(city):
     await city.edit(f"`Set default city as {cityname}, {fullc_n}.`")
 
 
-CMD_HELP.update(
+Pika_Cmd.update(
     {
         "weather": ".weather <city> or .weather <city>, <country name/code>\
     \nUsage: Gets the weather of a city.\n\
