@@ -3,7 +3,7 @@
 from pikabot.utils import ItzSjDude
 from telethon import events
 from telethon.errors.rpcerrorlist import YouBlockedUserError
-from userbot import Pika_Cmd
+from userbot import CMD_HELP
 
 
 @ItzSjDude(outgoing=True, pattern="nhentai(?: |$)(.*)")
@@ -30,7 +30,7 @@ async def _(event):
             await event.client.forward_messages(event.chat_id, response.message)
 
 
-Pika_Cmd.update(
+CMD_HELP.update(
     {
         "nhentai": ".nhentai <link / code> \
 \nUsage: view nhentai in telegra.ph D\n"

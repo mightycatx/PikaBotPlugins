@@ -9,7 +9,7 @@ from datetime import datetime
 
 from gtts import gTTS
 from pikabot.utils import ItzSjDude
-from userbot import Pika_Cmd
+from userbot import CMD_HELP
 
 
 @ItzSjDude(outgoing=True, pattern="voice (.*)")
@@ -78,7 +78,7 @@ async def _(event):
         await event.edit(str(e))
 
 
-Pika_Cmd.update(
+CMD_HELP.update(
     {
         "voice": " Google Text to Speech\
 \nAvailable Commands:\

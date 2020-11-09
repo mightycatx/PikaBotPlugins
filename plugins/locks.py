@@ -1,7 +1,7 @@
 from pikabot.utils import ItzSjDude
 from telethon.tl.functions.messages import EditChatDefaultBannedRightsRequest
 from telethon.tl.types import ChatBannedRights
-from userbot import ALIVE_NAME, Pika_Cmd
+from userbot import ALIVE_NAME, CMD_HELP
 from userbot.events import errors_handler
 
 DEFAULTUSER = (
@@ -187,7 +187,7 @@ async def rem_locks(event):
         return
 
 
-Pika_Cmd.update(
+CMD_HELP.update(
     {
         "locks": ".lock <all (or) type(s)> or .unlock <all (or) type(s)>\
 \nUsage: Allows you to lock/unlock some common message types in the chat.\

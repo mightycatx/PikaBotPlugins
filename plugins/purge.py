@@ -9,7 +9,7 @@ from asyncio import sleep
 
 from pikabot.utils import ItzSjDude, errors_handler
 from telethon.errors import rpcbaseerrors
-from userbot import BOTLOG, BOTLOG_CHATID, Pika_Cmd
+from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP
 
 
 @ItzSjDude(outgoing=True, pattern=r"purge")
@@ -126,35 +126,35 @@ async def selfdestruct(destroy):
         await destroy.client.send_message(BOTLOG_CHATID, "sd query done successfully")
 
 
-Pika_Cmd.update(
+CMD_HELP.update(
     {
         "purge": ".purge\
         \nUsage: Purges all messages starting from the reply."
     }
 )
 
-Pika_Cmd.update(
+CMD_HELP.update(
     {
         "purgeme": ".purgeme <x>\
         \nUsage: Deletes x amount of your latest messages."
     }
 )
 
-Pika_Cmd.update(
+CMD_HELP.update(
     {
         "del": ".del\
 \nUsage: Deletes the message you replied to."
     }
 )
 
-Pika_Cmd.update(
+CMD_HELP.update(
     {
         "edit": ".edit <newmessage>\
 \nUsage: Replace your last message with <newmessage>."
     }
 )
 
-Pika_Cmd.update(
+CMD_HELP.update(
     {
         "sd": ".sd <x> <message>\
 \nUsage: Creates a message that selfdestructs in x seconds.\
