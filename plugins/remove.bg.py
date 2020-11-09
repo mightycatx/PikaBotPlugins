@@ -26,8 +26,7 @@ async def _(event):
         reply_message = await event.get_reply_message()
         # check if media message
         await event.edit(
-            "Connecting to official Friday server and analysing that img ..."
-        )
+            "Processing image for background Removal")
         try:
             downloaded_file_name = await event.client.download_media(
                 reply_message, Config.TMP_DOWNLOAD_DIRECTORY
@@ -60,7 +59,7 @@ async def _(event):
         end = datetime.now()
         ms = (end - start).seconds
         await event.edit(
-            "Removed dat annoying Backgroup in {} seconds, powered by @PikaBot".format(
+            "Removed dat annoying Backgroup in {} seconds, powered by Pikachu UserBot".format(
                 ms
             )
         )
