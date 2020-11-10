@@ -27,7 +27,7 @@ if bot4 is not None:
 else:
    pika_id4 = 1001
 
-async def pikaa(shortname):
+async def pikaa(event, shortname):
     pika_pi = await event.client.get_me()
     AS = os.environ.get(f"{shortname}", None).split('|')
     try:
