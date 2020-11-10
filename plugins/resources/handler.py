@@ -13,11 +13,11 @@ except BaseException:
 if bot is not None:
    pika_id1 = i1
 else:
-   pika_id1 = 0110
+   pika_id1 = 1111
 if bot2 is not None:
    pika_id2 = i2
 else:
-   pika_id2 = 0101
+   pika_id2 = 1011
 if bot3 is not None:
    pika_id3 = i3
 else:
