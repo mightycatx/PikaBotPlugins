@@ -27,22 +27,22 @@ if bot4 is not None:
 else:
    pika_id4 = 1001
 
-def pikaa(a, shortname):
+async def pikaa(shortname):
+    pika_pi = await event.client.get_me()
+    AS = os.environ.get(f"{shortname}", None).split('|')
     try:
-        AS = os.environ.get(f"{shortname}", None).split('|')
-        if a.sender_id == i1:
-            return AS[0]
-        if a.sender_id == i2:
-            return AS[1]
-        if a.sender_id == i3:
-            return AS[2]
-        if a.sender_id == i4:
-            return AS[3]
-        else:
-            pass
+       if pika_id1 == pika_pi.id:
+           return AS[0]
+       if pika_id2 == pika_pi.id:
+           return AS[1]
+       if pika_id3 == pika_pi.id:
+           return AS[2]
+       if pika_id4 == pika_pi.id:
+           return AS[3]
+       else:
+          pass
     except BaseException:
         pass
-
 
 def pikarestart():
     pika.restart()
