@@ -12,7 +12,7 @@ from pikabot.utils import ItzSjDude
 async def _(event):
     if event.fwd_from:
         return
-    az = await pikaa("ALIVE_NAME")
+    az = await pikaa(event, "ALIVE_NAME")
     start = datetime.now()
     await event.edit(f"{rx}pikaa")
     end = datetime.now()
