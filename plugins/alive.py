@@ -14,12 +14,12 @@ from pikabot.utils import get_readable_time as grt
 @ItzSjDude(outgoing=True, pattern=r"alive$")
 async def _(event):
     pupt = grt((time.time() - UpTime))
-    pix = pikaa(event, "ALIVE_PIC")
+    pix = await pikaa("ALIVE_PIC")
     if pix is not None:
         pic = pix
     else:
         pic = apic
-    az = pikaa(event, "ALIVE_NAME")
+    az = await pikaa("ALIVE_NAME")
     await event.delete()
     a = await event.client.send_file(
         event.chat_id, pic, caption=alivestr.format(pupt, az)
