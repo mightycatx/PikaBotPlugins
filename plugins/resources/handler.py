@@ -31,57 +31,44 @@ async def pikaa(event, shortname):
     pika_pi = await event.client.get_me()
     AS = os.environ.get(f"{shortname}", None).split('|')
     er = "[Error?](https://t.me/c/1464516488/2)"
-    try:
-       if pika_id1 == pika_pi.id:
-           a=AS[0]
-           if a is not None and shortname.startswith("ALIVE"): 
-               return a
-           if a is None and shortname.startswith("ALIVE"):
-               try:
-                  a
-               except:
-                   return er
-           if not shortname.startswith("ALIVE"):
-               return a
-       if pika_id2 == pika_pi.id:
-           a=AS[1]
-           if a is not None and shortname.startswith("ALIVE"): 
-               return a
-           if a is None and shortname.startswith("ALIVE"):
-               try:
-                  a
-               except:
-                   return er
-           if not shortname.startswith("ALIVE"):
-               return a
-   
-       if pika_id3 == pika_pi.id:
-           a=AS[2]
-           if a is not None and shortname.startswith("ALIVE"): 
-               return a
-           if a is None and shortname.startswith("ALIVE"):
-               try:
-                  a
-               except:
-                   return er
-           if not shortname.startswith("ALIVE"):
-               return a
+    try: 
+       c1d = AS[0]
+    except:
+       if shortname.startswith("ALIVE"):
+          c1d = er
+       else:
+          c1d = 'Not Found'
 
-       if pika_id4 == pika_pi.id:
-           a=AS[3]
-           if a is not None and shortname.startswith("ALIVE"): 
-               try:
-                  a
-               except:
-                   return er
-           if a is None and shortname.startswith("ALIVE"):
-               return er
-           if not shortname.startswith("ALIVE"):
-               return a
-       else:  
-          pass
-    except BaseException:
-        pass
+    try: 
+       c2d = AS[1]
+    except:
+       if shortname.startswith("ALIVE"):
+          c2d = er
+       else:
+          c2d = 'Not Found'
+    try: 
+       c3d = AS[2]
+    except:
+       if shortname.startswith("ALIVE"):
+          c3d = er
+       else:
+          c3d = 'Not Found'
+    try: 
+       c4d = AS[2]
+    except:
+       if shortname.startswith("ALIVE"):
+          c4d = er
+       else:
+          c4d = 'Not Found'
+
+    if pika_id1 == pika_pi.id:
+        return c1d
+    if pika_id2 == pika_pi.id:
+        return c2d
+    if pika_id3 == pika_pi.id:
+        return c3d
+    if pika_id4 == pika_pi.id:
+        return c4d
 
 def pikarestart():
     pika.restart()
