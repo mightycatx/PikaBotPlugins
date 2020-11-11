@@ -30,16 +30,43 @@ else:
 async def pikaa(event, shortname):
     pika_pi = await event.client.get_me()
     AS = os.environ.get(f"{shortname}", None).split('|')
+    erx = "[Error?](https://t.me/c/1464516488/2)"
     try:
        if pika_id1 == pika_pi.id:
-           return AS[0]
+           a=AS[0]
+           if a is not None and shortname.startswith("ALIVE"): 
+               return a
+           if a is None and shortname.startswith("ALIVE"):
+               return er
+           if not shortname.startswith("ALIVE"):
+               return a
        if pika_id2 == pika_pi.id:
-           return AS[1]
+           a=AS[1]
+           if a is not None and shortname.startswith("ALIVE"): 
+               return a
+           if a is None and shortname.startswith("ALIVE"):
+               return er
+           if not shortname.startswith("ALIVE"):
+               return a
+   
        if pika_id3 == pika_pi.id:
-           return AS[2]
+           a=AS[2]
+           if a is not None and shortname.startswith("ALIVE"): 
+               return a
+           if a is None and shortname.startswith("ALIVE"):
+               return er
+           if not shortname.startswith("ALIVE"):
+               return a
+
        if pika_id4 == pika_pi.id:
-           return AS[3]
-       else:
+           a=AS[3]
+           if a is not None and shortname.startswith("ALIVE"): 
+               return a
+           if a is None and shortname.startswith("ALIVE"):
+               return er
+           if not shortname.startswith("ALIVE"):
+               return a
+       else:  
           pass
     except BaseException:
         pass
