@@ -30,7 +30,7 @@ else:
 async def pikaa(event, shortname):
     pika_pi = await event.client.get_me()
     AS = os.environ.get(f"{shortname}", None).split('|')
-    erx = "[Error?](https://t.me/c/1464516488/2)"
+    er = "[Error?](https://t.me/c/1464516488/2)"
     try:
        if pika_id1 == pika_pi.id:
            a=AS[0]
