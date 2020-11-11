@@ -37,7 +37,10 @@ async def pikaa(event, shortname):
            if a is not None and shortname.startswith("ALIVE"): 
                return a
            if a is None and shortname.startswith("ALIVE"):
-               return er
+               try:
+                  a
+               except:
+                   return er
            if not shortname.startswith("ALIVE"):
                return a
        if pika_id2 == pika_pi.id:
@@ -45,7 +48,10 @@ async def pikaa(event, shortname):
            if a is not None and shortname.startswith("ALIVE"): 
                return a
            if a is None and shortname.startswith("ALIVE"):
-               return er
+               try:
+                  a
+               except:
+                   return er
            if not shortname.startswith("ALIVE"):
                return a
    
@@ -54,14 +60,20 @@ async def pikaa(event, shortname):
            if a is not None and shortname.startswith("ALIVE"): 
                return a
            if a is None and shortname.startswith("ALIVE"):
-               return er
+               try:
+                  a
+               except:
+                   return er
            if not shortname.startswith("ALIVE"):
                return a
 
        if pika_id4 == pika_pi.id:
            a=AS[3]
            if a is not None and shortname.startswith("ALIVE"): 
-               return a
+               try:
+                  a
+               except:
+                   return er
            if a is None and shortname.startswith("ALIVE"):
                return er
            if not shortname.startswith("ALIVE"):
