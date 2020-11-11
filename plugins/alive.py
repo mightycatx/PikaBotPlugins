@@ -14,10 +14,9 @@ from pikabot.utils import get_readable_time as grt
 @ItzSjDude(outgoing=True, pattern=r"alive$")
 async def _(event):
     pupt = grt((time.time() - UpTime))
-    pix = await pikaa(event, "ALIVE_PIC")
-    if pix is not None:
-        pic = pix
-    else:
+    try:
+        pic = await pikaa(event, "ALIVE_PIC")
+    except:
         pic = apic
     az = await pikaa("ALIVE_NAME")
     await event.delete()
