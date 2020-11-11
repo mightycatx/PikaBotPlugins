@@ -30,7 +30,7 @@ else:
 async def pikaa(event, shortname):
     pika_pi = await event.client.get_me()
     AS = os.environ.get(f"{shortname}", None).split('|')
-    er = "[Error?](https://t.me/c/1464516488/2)"
+    er = "[Error?](https://t.me/PikaBotErrors/2)"
     try: 
        c1d = AS[0]
     except:
