@@ -54,7 +54,7 @@ async def pikaa(event, shortname):
        else:
           c3d = 'Not Found'
     try: 
-       c4d = AS[2]
+       c4d = AS[3]
     except:
        if shortname.startswith("ALIVE"):
           c4d = er
