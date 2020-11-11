@@ -18,7 +18,7 @@ async def _(event):
         pic = await pikaa(event, "ALIVE_PIC")
     except:
         pic = apic
-    az = await pikaa("ALIVE_NAME")
+    az = await pikaa(event, "ALIVE_NAME")
     await event.delete()
     a = await event.client.send_file(
         event.chat_id, pic, caption=alivestr.format(pupt, az)
