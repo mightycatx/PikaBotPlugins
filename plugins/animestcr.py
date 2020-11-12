@@ -3,6 +3,7 @@
 """
 from . import waifu
 
+
 @ItzSjDude(pattern="waifu(?: |$)(.*)")
 async def _(animu):
     await waifu(animu)
