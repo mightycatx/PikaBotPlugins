@@ -2,6 +2,7 @@
 
 from . import (
     _mute,
+    _ungmute,
     ban,
     demote,
     get_admin,
@@ -12,7 +13,6 @@ from . import (
     rm_dacc,
     setgpic,
     unban,
-    _ungmute,
     unmute,
 )
 
