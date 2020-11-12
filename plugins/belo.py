@@ -5,4 +5,4 @@ Say something interesting...
 
 @ItzSjDude(outgoing=True, pattern=r"belo")
 async def _(event):
-  await belo(event):
+  await belo(event)
