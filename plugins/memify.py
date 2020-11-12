@@ -5,12 +5,15 @@
 
 import os
 import textwrap
+
 from PIL import Image, ImageDraw, ImageFont
+
 """Turn Images/Stickers Into Memes
 For Upper Text:
-{i}mmf <text> 
+{i}mmf <text>
 For Lower Text:
 {i}mmf <text> ;"""
+
 
 @ItzSjDude(pattern="mmf ?(.*)")
 async def handler(event):
