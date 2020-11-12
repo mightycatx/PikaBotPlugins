@@ -5,17 +5,17 @@
 {i}direct <url> <url>
 
 __Supported Websites__
-MEGA.nz 
+MEGA.nz
 MediaFire
-Google Drive 
-Cloud Mail 
-Yandex.Disk 
+Google Drive
+Cloud Mail
+Yandex.Disk
 AFH-ZippyShare
-SourceForge 
+SourceForge
 OSDN-GitHub
 """
+
 
 @ItzSjDude(outgoing=True, pattern=r"direct(?: |$)([\s\S]*)")
 async def _(request):
     await dlg(request)
-
