@@ -1,31 +1,25 @@
 import asyncio
 import io
+import json
 import logging
 import os
 import random
 import re
 import subprocess
+import sys
 import time
+import traceback
+import urllib.parse
 from asyncio import sleep
 from os import remove
-from random import randint, uniform
+from random import choice, randint, uniform
+from subprocess import PIPE, Popen
 from time import sleep
 from urllib.parse import quote_plus
-import json
-import re
-import urllib.parse
-from random import choice
-from subprocess import PIPE, Popen
 
 import requests
 from bs4 import BeautifulSoup
-import io
-import sys
-import traceback
 from humanize import naturalsize
-from pikabot import CMD_HELP
-from pikabot.utils import ItzSjDude
-from bs4 import BeautifulSoup
 from pikabot import *
 from pikabot import (
     ALIVE_NAME,
@@ -39,6 +33,7 @@ from pikabot import (
 from pikabot.main_plugs.pfpdata import *
 from pikabot.main_plugs.plug import *
 from pikabot.utils import *
+from pikabot.utils import ItzSjDude
 from pikabot.utils import get_readable_time as grt
 from PIL import Image, ImageColor, ImageEnhance, ImageOps
 from requests import get
@@ -168,6 +163,7 @@ def deEmojify(inputString: str) -> str:
     """Remove emojis and other non-safe characters from string"""
     return re.sub(EMOJI_PATTERN, "", inputString)
 
+
 def subprocess_run(cmd):
     reply = ""
     subproc = Popen(
@@ -189,6 +185,7 @@ def subprocess_run(cmd):
         )
         return reply
     return talk
+
 
 def gdrive(url: str) -> str:
     """ GDrive direct links generator """
@@ -433,8 +430,6 @@ def useragent():
     ).findAll("td", {"class": "useragent"})
     user_agent = choice(useragents)
     return user_agent.text
-
-
 
 
 async def pbio(event):
@@ -3041,6 +3036,7 @@ async def dlg(request):
             reply += re.findall(r"\bhttps?://(.*?[^/]+)", link)[0] + "is not supported"
     await request.edit(reply)
 
+
 async def _dns(event):
     if event.fwd_from:
         return
@@ -3052,6 +3048,7 @@ async def _dns(event):
     else:
         await event.edit("i can't seem to find {} on the internet".format(input_str))
 
+
 async def urlx(event):
     if event.fwd_from:
         return
@@ -3062,6 +3059,7 @@ async def urlx(event):
         await event.edit("Generated {} for {}.".format(response_api, input_str))
     else:
         await event.edit("something is wrong. please try again later.")
+
 
 async def unshort(event):
     if event.fwd_from:
@@ -3079,6 +3077,7 @@ async def unshort(event):
             "Input URL {} returned status_code {}".format(input_str, r.status_code)
         )
 
+
 async def ducgo(event):
     if event.fwd_from:
         return
@@ -3091,6 +3090,7 @@ async def ducgo(event):
         )
     else:
         await event.edit("something is wrong. please try again later.")
+
 
 async def dump(message):
     try:
@@ -3128,6 +3128,7 @@ async def dump(message):
                 await message.edit(something_else)
             except errors.MessageIdInvalidError:
                 return
+
 
 async def _eval(event):
     if event.fwd_from:
@@ -3185,5 +3186,3 @@ async def _eval(event):
 async def aexec(code, event):
     exec(f"async def __aexec(event): " + "".join(f"\n {l}" for l in code.split("\n")))
     return await locals()["__aexec"](event)
-
-

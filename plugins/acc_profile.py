@@ -9,7 +9,8 @@
 {i}pname <Name>
 {i}ppic <Reply to pic>
 """
-from . import pbio,pname,anpfp,avpfp,gmpfp,atnm,atb
+from . import anpfp, atb, atnm, avpfp, gmpfp, pbio, pname
+
 
 @ItzSjDude(outgoing=True, pattern="pbio (.*)")
 async def _(event):
