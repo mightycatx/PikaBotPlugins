@@ -862,15 +862,15 @@ async def unmute(unmot):
 
 
 @ItzSjDude(incoming=True)
-async def muter(moot):
+async def muter(event):
     """ Used for deleting the messages of muted people """
     try:
         from pikabot.sql_helper.gmute_sql import is_gmuted
         from pikabot.sql_helper.mute_sql import is_muted
     except AttributeError:
         return
-    muted = is_muted(moot.chat_id)
-    gmuted = is_gmuted(moot.sender_id)
+    muted = is_muted(event.chat_id)
+    gmuted = is_gmuted(event.sender_id)
     rights = ChatBannedRights(
         until_date=None,
         send_messages=True,
@@ -883,14 +883,14 @@ async def muter(moot):
     )
     if muted:
         for i in muted:
-            if str(i.sender) == str(moot.sender_id):
-                await moot.delete()
-                await moot.client(
-                    EditBannedRequest(moot.chat_id, moot.sender_id, rights)
+            if str(i.sender) == str(event.sender_id):
+                await event.delete()
+                await event.client(
+                    EditBannedRequest(event.chat_id, event.sender_id, rights)
                 )
     for i in gmuted:
-        if i.sender == str(moot.sender_id):
-            await moot.delete()
+        if i.sender == str(event.sender_id):
+            await event.delete()
 
 
 async def _ungmute(un_gmute):
@@ -1609,7 +1609,7 @@ async def belo(event):
     if x == 13:
 
         await event.edit(
-            '`"If everything goes smoothly, you probably won\'t remember today."`'
+            '`"If everything goes seventhly, you probably won\'t remember today."`'
         )
 
     if x == 14:

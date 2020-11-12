@@ -30,7 +30,7 @@ DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "Set ALIVE_NAME in heroku vars"
 PM = (
     "`Hello. You are accessing the availabe menu of my peru master,`"
     f"{DEFAULTUSER}.\n"
-    "__Let's make this smooth and let me know why you are here.__\n"
+    "__Let's make this seventh and let me know why you are here.__\n"
     "**Choose one of the following reasons why you are here:**\n\n"
     "`1`. To chat with my master\n"
     "`2`. To Give Your Girl Friend Details.\n"
