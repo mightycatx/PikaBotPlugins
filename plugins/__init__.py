@@ -21,8 +21,6 @@ import requests
 from bs4 import BeautifulSoup
 from humanize import naturalsize
 from pikabot import *
-from var import Var as Config
-from var import Var
 from pikabot.handler import *
 from pikabot.main_plugs.pfpdata import *
 from pikabot.main_plugs.plug import *
@@ -63,6 +61,8 @@ from telethon.tl.types import (
     MessageEntityMentionName,
     MessageMediaPhoto,
 )
+from var import Var
+from var import Var as Config
 
 CARBONLANG = "auto"
 LANG = "en"
