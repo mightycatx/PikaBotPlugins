@@ -3,7 +3,7 @@
 
 
 @ItzSjDude(outgoing=True, pattern=r"setgpic")
-async def _(gpic)
+async def _(gpic):
   await setgpic(gpic)
 
 @ItzSjDude(outgoing=True, pattern=r"promote(?: |$)(.*)")
@@ -29,7 +29,7 @@ async def _(spdr):
 
 @ItzSjDude(pattern=r"unmute(?: |$)(.*)")
 async def _(unmot):
-  await unmute(unmot):
+  await unmute(unmot)
 
 
 @ItzSjDude(pattern=r"ungmute(?: |$)(.*)")
