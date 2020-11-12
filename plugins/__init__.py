@@ -11,7 +11,20 @@ from os import remove
 from random import randint, uniform
 from time import sleep
 from urllib.parse import quote_plus
+import json
+import re
+import urllib.parse
+from random import choice
+from subprocess import PIPE, Popen
 
+import requests
+from bs4 import BeautifulSoup
+import io
+import sys
+import traceback
+from humanize import naturalsize
+from pikabot import CMD_HELP
+from pikabot.utils import ItzSjDude
 from bs4 import BeautifulSoup
 from pikabot import *
 from pikabot import (
@@ -26,7 +39,6 @@ from pikabot import (
 from pikabot.main_plugs.pfpdata import *
 from pikabot.main_plugs.plug import *
 from pikabot.utils import *
-from pikabot.utils import ItzSjDude, errors_handler
 from pikabot.utils import get_readable_time as grt
 from PIL import Image, ImageColor, ImageEnhance, ImageOps
 from requests import get
@@ -155,6 +167,274 @@ DBIO = str(AUTO_BIO) if AUTO_BIO else "Pika is Love 🔥"
 def deEmojify(inputString: str) -> str:
     """Remove emojis and other non-safe characters from string"""
     return re.sub(EMOJI_PATTERN, "", inputString)
+
+def subprocess_run(cmd):
+    reply = ""
+    subproc = Popen(
+        cmd,
+        stdout=PIPE,
+        stderr=PIPE,
+        shell=True,
+        universal_newlines=True,
+        executable="bash",
+    )
+    talk = subproc.communicate()
+    exitCode = subproc.returncode
+    if exitCode != 0:
+        reply += (
+            "```An error was detected while running the subprocess:\n"
+            f"exit code: {exitCode}\n"
+            f"stdout: {talk[0]}\n"
+            f"stderr: {talk[1]}```"
+        )
+        return reply
+    return talk
+
+def gdrive(url: str) -> str:
+    """ GDrive direct links generator """
+    drive = "https://drive.google.com"
+    try:
+        link = re.findall(r"\bhttps?://drive\.google\.com\S+", url)[0]
+    except IndexError:
+        reply = "`No Google drive links found`\n"
+        return reply
+    file_id = ""
+    reply = ""
+    if link.find("view") != -1:
+        file_id = link.split("/")[-2]
+    elif link.find("open?id=") != -1:
+        file_id = link.split("open?id=")[1].strip()
+    elif link.find("uc?id=") != -1:
+        file_id = link.split("uc?id=")[1].strip()
+    url = f"{drive}/uc?export=download&id={file_id}"
+    download = requests.get(url, stream=True, allow_redirects=False)
+    cookies = download.cookies
+    try:
+        # In case of small file size, Google downloads directly
+        dl_url = download.headers["location"]
+        if "accounts.google.com" in dl_url:  # non-public file
+            reply += "`Link is not public!`\n"
+            return reply
+        name = "Direct Download Link"
+    except KeyError:
+        # In case of download warning page
+        page = BeautifulSoup(download.content, "lxml")
+        export = drive + page.find("a", {"id": "uc-download-link"}).get("href")
+        name = page.find("span", {"class": "uc-name-size"}).text
+        response = requests.get(
+            export, stream=True, allow_redirects=False, cookies=cookies
+        )
+        dl_url = response.headers["location"]
+        if "accounts.google.com" in dl_url:
+            reply += "Link is not public!"
+            return reply
+    reply += f"[{name}]({dl_url})\n"
+    return reply
+
+
+def zippy_share(url: str) -> str:
+    """ZippyShare direct links generator
+    Based on https://github.com/LameLemon/ziggy"""
+    reply = ""
+    dl_url = ""
+    try:
+        link = re.findall(r"\bhttps?://.*zippyshare\.com\S+", url)[0]
+    except IndexError:
+        reply = "`No ZippyShare links found`\n"
+        return reply
+    session = requests.Session()
+    base_url = re.search("http.+.com", link).group()
+    response = session.get(link)
+    page_soup = BeautifulSoup(response.content, "lxml")
+    scripts = page_soup.find_all("script", {"type": "text/javascript"})
+    for script in scripts:
+        if "getElementById('dlbutton')" in script.text:
+            url_raw = re.search(
+                r"= (?P<url>\".+\" \+ (?P<math>\(.+\)) .+);", script.text
+            ).group("url")
+            math = re.search(
+                r"= (?P<url>\".+\" \+ (?P<math>\(.+\)) .+);", script.text
+            ).group("math")
+            dl_url = url_raw.replace(math, '"' + str(eval(math)) + '"')
+            break
+    dl_url = base_url + eval(dl_url)
+    name = urllib.parse.unquote(dl_url.split("/")[-1])
+    reply += f"[{name}]({dl_url})\n"
+    return reply
+
+
+def yandex_disk(url: str) -> str:
+    """Yandex.Disk direct links generator
+    Based on https://github.com/wldhx/yadisk-direct"""
+    reply = ""
+    try:
+        link = re.findall(r"\bhttps?://.*yadi\.sk\S+", url)[0]
+    except IndexError:
+        reply = "`No Yandex.Disk links found`\n"
+        return reply
+    api = "https://cloud-api.yandex.net/v1/disk/public/resources/download?public_key={}"
+    try:
+        dl_url = requests.get(api.format(link)).json()["href"]
+        name = dl_url.split("filename=")[1].split("&disposition")[0]
+        reply += f"[{name}]({dl_url})\n"
+    except KeyError:
+        reply += "`Error: File not found / Download limit reached`\n"
+        return reply
+    return reply
+
+
+def cm_ru(url: str) -> str:
+    """cloud.mail.ru direct links generator
+    Using https://github.com/JrMasterModelBuilder/cmrudl.py"""
+    reply = ""
+    try:
+        link = re.findall(r"\bhttps?://.*cloud\.mail\.ru\S+", url)[0]
+    except IndexError:
+        reply = "`No cloud.mail.ru links found`\n"
+        return reply
+    cmd = f"bin/cmrudl -s {link}"
+    result = subprocess_run(cmd)
+    try:
+        result = result[0].splitlines()[-1]
+        data = json.loads(result)
+    except json.decoder.JSONDecodeError:
+        reply += "`Error: Can't extract the link`\n"
+        return reply
+    except IndexError:
+        return reply
+    dl_url = data["download"]
+    name = data["file_name"]
+    size = naturalsize(int(data["file_size"]))
+    reply += f"[{name} ({size})]({dl_url})\n"
+    return reply
+
+
+def mediafire(url: str) -> str:
+    """ MediaFire direct links generator """
+    try:
+        link = re.findall(r"\bhttps?://.*mediafire\.com\S+", url)[0]
+    except IndexError:
+        reply = "`No MediaFire links found`\n"
+        return reply
+    reply = ""
+    page = BeautifulSoup(requests.get(link).content, "lxml")
+    info = page.find("a", {"aria-label": "Download file"})
+    dl_url = info.get("href")
+    size = re.findall(r"\(.*\)", info.text)[0]
+    name = page.find("div", {"class": "filename"}).text
+    reply += f"[{name} {size}]({dl_url})\n"
+    return reply
+
+
+def sourceforge(url: str) -> str:
+    """ SourceForge direct links generator """
+    try:
+        link = re.findall(r"\bhttps?://.*sourceforge\.net\S+", url)[0]
+    except IndexError:
+        reply = "`No SourceForge links found`\n"
+        return reply
+    file_path = re.findall(r"files(.*)/download", link)[0]
+    reply = f"Mirrors for __{file_path.split('/')[-1]}__\n"
+    project = re.findall(r"projects?/(.*?)/files", link)[0]
+    mirrors = (
+        f"https://sourceforge.net/settings/mirror_choices?"
+        f"projectname={project}&filename={file_path}"
+    )
+    page = BeautifulSoup(requests.get(mirrors).content, "html.parser")
+    info = page.find("ul", {"id": "mirrorList"}).findAll("li")
+    for mirror in info[1:]:
+        name = re.findall(r"\((.*)\)", mirror.text.strip())[0]
+        dl_url = (
+            f'https://{mirror["id"]}.dl.sourceforge.net/project/{project}/{file_path}'
+        )
+        reply += f"[{name}]({dl_url}) "
+    return reply
+
+
+def osdn(url: str) -> str:
+    """ OSDN direct links generator """
+    osdn_link = "https://osdn.net"
+    try:
+        link = re.findall(r"\bhttps?://.*osdn\.net\S+", url)[0]
+    except IndexError:
+        reply = "`No OSDN links found`\n"
+        return reply
+    page = BeautifulSoup(requests.get(link, allow_redirects=True).content, "lxml")
+    info = page.find("a", {"class": "mirror_link"})
+    link = urllib.parse.unquote(osdn_link + info["href"])
+    reply = f"Mirrors for __{link.split('/')[-1]}__\n"
+    mirrors = page.find("form", {"id": "mirror-select-form"}).findAll("tr")
+    for data in mirrors[1:]:
+        mirror = data.find("input")["value"]
+        name = re.findall(r"\((.*)\)", data.findAll("td")[-1].text.strip())[0]
+        dl_url = re.sub(r"m=(.*)&f", f"m={mirror}&f", link)
+        reply += f"[{name}]({dl_url}) "
+    return reply
+
+
+def androidfilehost(url: str) -> str:
+    """ AFH direct links generator """
+    try:
+        link = re.findall(r"\bhttps?://.*androidfilehost.*fid.*\S+", url)[0]
+    except IndexError:
+        reply = "`No AFH links found`\n"
+        return reply
+    fid = re.findall(r"\?fid=(.*)", link)[0]
+    session = requests.Session()
+    user_agent = useragent()
+    headers = {"user-agent": user_agent}
+    res = session.get(link, headers=headers, allow_redirects=True)
+    headers = {
+        "origin": "https://androidfilehost.com",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "en-US,en;q=0.9",
+        "user-agent": user_agent,
+        "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+        "x-mod-sbb-ctype": "xhr",
+        "accept": "*/*",
+        "referer": f"https://androidfilehost.com/?fid={fid}",
+        "authority": "androidfilehost.com",
+        "x-requested-with": "XMLHttpRequest",
+    }
+    data = {"submit": "submit", "action": "getdownloadmirrors", "fid": f"{fid}"}
+    mirrors = None
+    reply = ""
+    error = "`Error: Can't find Mirrors for the link`\n"
+    try:
+        req = session.post(
+            "https://androidfilehost.com/libs/otf/mirrors.otf.php",
+            headers=headers,
+            data=data,
+            cookies=res.cookies,
+        )
+        mirrors = req.json()["MIRRORS"]
+    except (json.decoder.JSONDecodeError, TypeError):
+        reply += error
+    if not mirrors:
+        reply += error
+        return reply
+    for item in mirrors:
+        name = item["name"]
+        dl_url = item["url"]
+        reply += f"[{name}]({dl_url}) "
+    return reply
+
+
+def useragent():
+    """
+    useragent random setter
+    """
+    useragents = BeautifulSoup(
+        requests.get(
+            "https://developers.whatismybrowser.com/"
+            "useragents/explore/operating_system_name/android/"
+        ).content,
+        "lxml",
+    ).findAll("td", {"class": "useragent"})
+    user_agent = choice(useragents)
+    return user_agent.text
+
+
 
 
 async def pbio(event):
@@ -2721,3 +3001,189 @@ async def ding(event):
         await asyncio.sleep(animation_interval)
 
         await event.edit(animation_chars[i % 10])
+
+
+async def dlg(request):
+    """ direct links generator """
+    await request.edit("`Processing...`")
+    textx = await request.get_reply_message()
+    message = request.pattern_match.group(1)
+    if message:
+        pass
+    elif textx:
+        message = textx.text
+    else:
+        await request.edit("`Usage: .direct <url>`")
+        return
+    reply = ""
+    links = re.findall(r"\bhttps?://.*\.\S+", message)
+    if not links:
+        reply = "`No links found!`"
+        await request.edit(reply)
+    for link in links:
+        if "drive.google.com" in link:
+            reply += gdrive(link)
+        elif "zippyshare.com" in link:
+            reply += zippy_share(link)
+        elif "yadi.sk" in link:
+            reply += yandex_disk(link)
+        elif "cloud.mail.ru" in link:
+            reply += cm_ru(link)
+        elif "mediafire.com" in link:
+            reply += mediafire(link)
+        elif "sourceforge.net" in link:
+            reply += sourceforge(link)
+        elif "osdn.net" in link:
+            reply += osdn(link)
+        elif "androidfilehost.com" in link:
+            reply += androidfilehost(link)
+        else:
+            reply += re.findall(r"\bhttps?://(.*?[^/]+)", link)[0] + "is not supported"
+    await request.edit(reply)
+
+async def dns(event):
+    if event.fwd_from:
+        return
+    input_str = event.pattern_match.group(1)
+    sample_url = "https://da.gd/dns/{}".format(input_str)
+    response_api = requests.get(sample_url).text
+    if response_api:
+        await event.edit("DNS records of {} are \n{}".format(input_str, response_api))
+    else:
+        await event.edit("i can't seem to find {} on the internet".format(input_str))
+
+async def urlx(event):
+    if event.fwd_from:
+        return
+    input_str = event.pattern_match.group(1)
+    sample_url = "https://da.gd/s?url={}".format(input_str)
+    response_api = requests.get(sample_url).text
+    if response_api:
+        await event.edit("Generated {} for {}.".format(response_api, input_str))
+    else:
+        await event.edit("something is wrong. please try again later.")
+
+async def unshort(event):
+    if event.fwd_from:
+        return
+    input_str = event.pattern_match.group(1)
+    if not input_str.startswith("http"):
+        input_str = "http://" + input_str
+    r = requests.get(input_str, allow_redirects=False)
+    if str(r.status_code).startswith("3"):
+        await event.edit(
+            "Input URL: {}\nReDirected URL: {}".format(input_str, r.headers["Location"])
+        )
+    else:
+        await event.edit(
+            "Input URL {} returned status_code {}".format(input_str, r.status_code)
+        )
+
+async def ducgo(event):
+    if event.fwd_from:
+        return
+    input_str = event.pattern_match.group(1)
+    sample_url = "https://duckduckgo.com/?q={}".format(input_str.replace(" ", "+"))
+    if sample_url:
+        link = sample_url.rstrip()
+        await event.edit(
+            "Let me 🦆 DuckDuckGo that for you:\n🔎 [{}]({})".format(input_str, link)
+        )
+    else:
+        await event.edit("something is wrong. please try again later.")
+
+async def dump(message):
+    try:
+        obj = message.pattern_match.group(1)
+        if len(obj) != 3:
+            raise IndexError
+        inp = " ".join(obj)
+    except IndexError:
+        inp = "🥞 🎂 🍫"
+    u, t, g, o, s, n = inp.split(), "🗑", "<(^_^ <)", "(> ^_^)>", "⠀ ", "\n"
+    h = [(u[0], u[1], u[2]), (u[0], u[1], ""), (u[0], "", "")]
+    for something in reversed(
+        [
+            y
+            for y in (
+                [
+                    "".join(x)
+                    for x in (
+                        f + (s, g, s + s * f.count(""), t),
+                        f + (g, s * 2 + s * f.count(""), t),
+                        f[:i] + (o, f[i], s * 2 + s * f.count(""), t),
+                        f[:i] + (s + s * f.count(""), o, f[i], s, t),
+                        f[:i] + (s * 2 + s * f.count(""), o, f[i], t),
+                        f[:i] + (s * 3 + s * f.count(""), o, t),
+                        f[:i] + (s * 3 + s * f.count(""), g, t),
+                    )
+                ]
+                for i, f in enumerate(reversed(h))
+            )
+        ]
+    ):
+        for something_else in something:
+            await asyncio.sleep(0.3)
+            try:
+                await message.edit(something_else)
+            except errors.MessageIdInvalidError:
+                return
+
+async def eval(event):
+    if event.fwd_from:
+        return
+    await event.edit("Processing ...")
+    cmd = event.text.split(" ", maxsplit=1)[1]
+    reply_to_id = event.message.id
+    if event.reply_to_msg_id:
+        reply_to_id = event.reply_to_msg_id
+
+    old_stderr = sys.stderr
+    old_stdout = sys.stdout
+    redirected_output = sys.stdout = io.StringIO()
+    redirected_error = sys.stderr = io.StringIO()
+    stdout, stderr, exc = None, None, None
+
+    try:
+        await aexec(cmd, event)
+    except Exception:
+        exc = traceback.format_exc()
+
+    stdout = redirected_output.getvalue()
+    stderr = redirected_error.getvalue()
+    sys.stdout = old_stdout
+    sys.stderr = old_stderr
+
+    evaluation = ""
+    if exc:
+        evaluation = exc
+    elif stderr:
+        evaluation = stderr
+    elif stdout:
+        evaluation = stdout
+    else:
+        evaluation = "Success"
+
+    final_output = "**EVAL**: `{}` \n\n **OUTPUT**: \n`{}` \n".format(cmd, evaluation)
+
+    if len(final_output) > Config.MAX_MESSAGE_SIZE_LIMIT:
+        with io.BytesIO(str.encode(final_output)) as out_file:
+            out_file.name = "eval.text"
+            await event.client.send_file(
+                event.chat_id,
+                out_file,
+                force_document=True,
+                allow_cache=False,
+                caption=cmd,
+                reply_to=reply_to_id,
+            )
+            await event.delete()
+    else:
+        await event.edit(final_output)
+
+
+async def aexec(code, event):
+    exec(f"async def __aexec(event): " + "".join(f"\n {l}" for l in code.split("\n")))
+    return await locals()["__aexec"](event)
+
+
