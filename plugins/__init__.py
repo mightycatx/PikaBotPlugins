@@ -39,7 +39,7 @@ from telethon.tl.types import InputPhoto
 from random import randint, uniform
 from PIL import Image, ImageEnhance, ImageOps
 from telethon.tl.types import DocumentAttributeFilename
- telethon.tl.functions.messages import SaveDraftRequest
+from telethon.tl.functions.messages import SaveDraftRequest
 from telethon.tl.types import ChannelParticipantsAdmins
 from pikabot.utils import get_readable_time as grt
 from pikabot import BOTLOG, BOTLOG_CHATID, CMD_HELP
