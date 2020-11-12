@@ -759,7 +759,7 @@ async def unban(unbon):
         await unbon.edit("`Uh oh my unban logic broke!`")
 
 
-async def mute(spdr):
+async def _mute(spdr):
     """
     This function is basically muting peeps
     """
@@ -898,7 +898,7 @@ async def muter(moot):
             await moot.delete()
 
 
-async def ungmute(un_gmute):
+async def _ungmute(un_gmute):
     """ For .ungmute command, ungmutes the target in the pikabot """
     # Admin or creator check
     chat = await un_gmute.get_chat()
@@ -1256,7 +1256,7 @@ async def get_user_from_id(user, event):
     return user_obj
 
 
-async def alive(event):
+async def _alive(event):
     pupt = grt((time.time() - UpTime))
     try:
         pic = await pikaa(event, "ALIVE_PIC")
@@ -1472,7 +1472,7 @@ async def waifu(animu):
     await animu.delete()
 
 
-async def bash(event):
+async def _bash(event):
     if event.fwd_from:
         return
     PROCESS_RUN_TIME = 100
@@ -2229,7 +2229,7 @@ async def carbon(e):
         await e.delete()  # Deleting msg
 
 
-async def chain(event):
+async def _chain(event):
     await event.edit("Counting...")
     count = -1
     message = event.message
@@ -2303,7 +2303,7 @@ async def getmedia(event):
     await event.edit("Downloaded " + output + " files.")
 
 
-async def ctg(event):
+async def _ctg(event):
     if event.fwd_from:
         return
     if not event.reply_to_msg_id:
@@ -2392,7 +2392,7 @@ async def findcolour(event):
         await event.edit("Syntax: `.color <color_code>`")
 
 
-async def congo(event):
+async def _congo(event):
     if event.fwd_from:
         return
     bro = random.randint(0, len(CongoStr) - 1)
@@ -2400,7 +2400,7 @@ async def congo(event):
     await event.edit(reply_text)
 
 
-async def convoqt(event):
+async def _convoqt(event):
     if event.fwd_from:
         return
     await event.edit("selecting question...")
@@ -2718,7 +2718,7 @@ async def decide(event):
     await event.delete()
 
 
-async def lcry(event):
+async def _cry(event):
     if event.fwd_from:
         return
     animation_interval = 1
@@ -2977,7 +2977,7 @@ async def dict(event):
     await event.edit(caption_str)
 
 
-async def ding(event):
+async def _ding(event):
     if event.fwd_from:
         return
     animation_interval = 0.5
@@ -3041,7 +3041,7 @@ async def dlg(request):
             reply += re.findall(r"\bhttps?://(.*?[^/]+)", link)[0] + "is not supported"
     await request.edit(reply)
 
-async def dns(event):
+async def _dns(event):
     if event.fwd_from:
         return
     input_str = event.pattern_match.group(1)
@@ -3129,7 +3129,7 @@ async def dump(message):
             except errors.MessageIdInvalidError:
                 return
 
-async def eval(event):
+async def _eval(event):
     if event.fwd_from:
         return
     await event.edit("Processing ...")
