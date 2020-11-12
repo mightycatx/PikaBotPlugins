@@ -860,6 +860,7 @@ async def unmute(unmot):
                 f"CHAT: {unmot.chat.title}(`{unmot.chat_id}`)",
             )
 
+
 async def _ungmute(un_gmute):
     """ For .ungmute command, ungmutes the target in the pikabot """
     # Admin or creator check
