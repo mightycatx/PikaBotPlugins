@@ -21,6 +21,8 @@ import requests
 from bs4 import BeautifulSoup
 from humanize import naturalsize
 from pikabot import *
+from var import Var as Config
+from var import Var
 from pikabot.handler import *
 from pikabot.main_plugs.pfpdata import *
 from pikabot.main_plugs.plug import *
