@@ -75,7 +75,7 @@ async def pikaa(event, shortname):
         return c4d
 
 
-async def _pika(_sudo, text):
+async def _pika(text, _sudo):
     pika = await _sudo.client.get_me()
     if _sudo.sender_id in Var.SUDO_USERS and pika_id1 == pika.id:
         reply_to = await _sudo.get_reply_message()
