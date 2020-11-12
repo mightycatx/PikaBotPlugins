@@ -10,30 +10,37 @@
 {i}ppic <Reply to pic>
 """
 
+
 @ItzSjDude(outgoing=True, pattern="pbio (.*)")
 async def _(event):
-  await pbio(event)
+    await pbio(event)
+
 
 @ItzSjDude(outgoing=True, pattern="pname ((.|\n)*)")
 async def _(event):
-  await pname(event)
+    await pname(event)
+
 
 @ItzSjDude(outgoing=True, pattern="animepfp ?(.*)")
 async def _(event):
-  await anpfp(event)
+    await anpfp(event)
+
 
 @ItzSjDude(outgoing=True, pattern="avengerspfp ?(.*)")
 async def _(event):
-  await avpfp(event)
+    await avpfp(event)
+
 
 @ItzSjDude(outgoing=True, pattern="gamerpfp ?(.*)")
 async def _(event):
-  await gmpfp(event)
+    await gmpfp(event)
+
 
 @ItzSjDude(outgoing=True, pattern="autoname")
 async def _(event):
-  await atnm(event)
+    await atnm(event)
+
 
 @ItzSjDude(outgoing=True, pattern="autobio")
 async def _(event):
-  await atb(event)
+    await atb(event)

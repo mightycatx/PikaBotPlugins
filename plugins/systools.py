@@ -16,7 +16,7 @@ app = Heroku.app(Var.HEROKU_APP_NAME)
 heroku_api = "https://api.heroku.com"
 
 
-@ItzSjDude(outgoing=True,pattern=r"(set|get|del) var(?: |$)(.*)(?: |$)([\s\S]*)")
+@ItzSjDude(outgoing=True, pattern=r"(set|get|del) var(?: |$)(.*)(?: |$)([\s\S]*)")
 async def variable(var):
     """
     Manage most of ConfigVars setting, set new var, get current var,

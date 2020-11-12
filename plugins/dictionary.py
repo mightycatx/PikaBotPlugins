@@ -1,8 +1,9 @@
 """Dictionary Plugin
 {i}mean <word>"""
 
-#Credits @UniBorg
+# Credits @UniBorg
+
 
 @ItzSjDude(outgoing=True, pattern="mean (.*)")
 async def _(event):
-  await dict(event)
+    await dict(event)

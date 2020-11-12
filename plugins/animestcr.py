@@ -2,6 +2,7 @@
 {i}waifu <yourText>
 """
 
+
 @ItzSjDude(pattern="waifu(?: |$)(.*)")
 async def _(animu):
-  await waifu(animu)
+    await waifu(animu)

@@ -1,76 +1,68 @@
-
 import asyncio
+import io
 import logging
 import os
+import random
+import re
+import subprocess
 import time
-from pikabot import ALIVE_NAME, AUTO_BIO
-from pikabot.main_plugs.pfpdata import *
-from pikabot.utils import *
-from pikabot.utils import ItzSjDude
-from pikabot.utils import ItzSjDude
-from telethon import events
-from telethon.errors.rpcerrorlist import YouBlockedUserError
-from telethon.errors import FloodWaitError
-from telethon.tl import functions
 from asyncio import sleep
 from os import remove
-import asyncio
-import re,random
-import asyncio
-import subprocess
-import io
-import time
-from pikabot.utils import ItzSjDude
+from random import randint, uniform
+from time import sleep
+from urllib.parse import quote_plus
+
 from bs4 import BeautifulSoup
-from pikabot import CMD_HELP
-from pikabot.utils import ItzSjDude
-from requests import get
 from pikabot import *
-from pikabot.utils import ItzSjDude
-from PIL import Image, ImageColor
+from pikabot import (
+    ALIVE_NAME,
+    AUTO_BIO,
+    BOTLOG,
+    BOTLOG_CHATID,
+    CHROME_DRIVER,
+    CMD_HELP,
+    GOOGLE_CHROME_BIN,
+)
+from pikabot.main_plugs.pfpdata import *
 from pikabot.main_plugs.plug import *
 from pikabot.utils import *
-from pikabot.utils import *
-import io
-from pikabot.utils import ItzSjDude
-from telethon.tl.types import ChannelParticipantsAdmins
-from telethon.tl.functions.photos import DeletePhotosRequest, GetUserPhotosRequest
-from telethon.tl.types import InputPhoto
-from random import randint, uniform
-from PIL import Image, ImageEnhance, ImageOps
-from telethon.tl.types import DocumentAttributeFilename
-from telethon.tl.functions.messages import SaveDraftRequest
-from telethon.tl.types import ChannelParticipantsAdmins
-from pikabot.utils import get_readable_time as grt
-from pikabot import BOTLOG, BOTLOG_CHATID, CMD_HELP
 from pikabot.utils import ItzSjDude, errors_handler
+from pikabot.utils import get_readable_time as grt
+from PIL import Image, ImageColor, ImageEnhance, ImageOps
+from requests import get
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from telethon import events
 from telethon.errors import (
     BadRequestError,
     ChatAdminRequiredError,
+    FloodWaitError,
     ImageProcessFailedError,
     PhotoCropSizeSmallError,
     UserAdminInvalidError,
 )
-from telethon.errors.rpcerrorlist import MessageTooLongError, UserIdInvalidError
+from telethon.errors.rpcerrorlist import (
+    MessageTooLongError,
+    UserIdInvalidError,
+    YouBlockedUserError,
+)
+from telethon.tl import functions
 from telethon.tl.functions.channels import (
     EditAdminRequest,
     EditBannedRequest,
     EditPhotoRequest,
 )
-from telethon.tl.functions.messages import UpdatePinnedMessageRequest
+from telethon.tl.functions.messages import SaveDraftRequest, UpdatePinnedMessageRequest
+from telethon.tl.functions.photos import DeletePhotosRequest, GetUserPhotosRequest
 from telethon.tl.types import (
     ChannelParticipantsAdmins,
     ChatAdminRights,
     ChatBannedRights,
+    DocumentAttributeFilename,
+    InputPhoto,
     MessageEntityMentionName,
     MessageMediaPhoto,
 )
-from time import sleep
-from urllib.parse import quote_plus
-
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from pikabot import CHROME_DRIVER, GOOGLE_CHROME_BIN
 
 CARBONLANG = "auto"
 LANG = "en"
@@ -159,6 +151,7 @@ DEL_TIME_OUT = 60
 DUSER = str(ALIVE_NAME) if ALIVE_NAME else "PikaBot"
 DBIO = str(AUTO_BIO) if AUTO_BIO else "Pika is Love 🔥"
 
+
 def deEmojify(inputString: str) -> str:
     """Remove emojis and other non-safe characters from string"""
     return re.sub(EMOJI_PATTERN, "", inputString)
@@ -173,6 +166,7 @@ async def pbio(event):
         await event.edit("Succesfully changed my profile bio")
     except Exception as e:
         await event.edit(str(e))
+
 
 async def pname(event):
     if event.fwd_from:
@@ -192,6 +186,7 @@ async def pname(event):
     except Exception as e:
         await event.edit(str(e))
 
+
 async def anpfp(event):
     await event.edit(f"{r}")
     while True:
@@ -200,6 +195,7 @@ async def anpfp(event):
         await event.client(functions.photos.UploadProfilePhotoRequest(file))
         os.system("rm -rf donottouch.jpg")
         await asyncio.sleep(60)
+
 
 async def avpfp(event):
     await event.edit(f"{s}")
@@ -210,6 +206,7 @@ async def avpfp(event):
         os.system("rm -rf donottouch.jpg")
         await asyncio.sleep(600)
 
+
 async def gmpfp(event):
     await event.edit(f"{t}")
     while True:
@@ -218,6 +215,7 @@ async def gmpfp(event):
         await event.client(functions.photos.UploadProfilePhotoRequest(file))
         os.system("rm -rf donottouch.jpg")
         await asyncio.sleep(60)
+
 
 async def atnm(event):
     if event.fwd_from:
@@ -236,6 +234,7 @@ async def atnm(event):
         await asyncio.sleep(DEL_TIME_OUT)
     await event.edit(f"Auto Name has been started Master")
 
+
 async def atb(event):
     if event.fwd_from:
         return
@@ -250,6 +249,7 @@ async def atb(event):
             logger.warning(str(e))
             await asyncio.sleep(ex.seconds)
         await asyncio.sleep(DEL_TIME_OUT)
+
 
 async def setgpic(gpic):
     """ For .setgpic command, changes the picture of a group """
@@ -285,6 +285,7 @@ async def setgpic(gpic):
             await gpic.edit(PP_TOO_SMOL)
         except ImageProcessFailedError:
             await gpic.edit(PP_ERROR)
+
 
 async def promote(promt):
     """ For .promote command, promotes the replied/tagged person """
@@ -337,6 +338,7 @@ async def promote(promt):
             f"CHAT: {promt.chat.title}(`{promt.chat_id}`)",
         )
 
+
 async def demote(dmod):
     """ For .demote command, demotes the replied/tagged person """
     # Admin right check
@@ -386,6 +388,7 @@ async def demote(dmod):
             f"USER: [{user.first_name}](tg://user?id={user.id})\n"
             f"CHAT: {dmod.chat.title}(`{dmod.chat_id}`)",
         )
+
 
 async def ban(bon):
     """ For .ban command, bans the replied/tagged person """
@@ -438,6 +441,7 @@ async def ban(bon):
             f"CHAT: {bon.chat.title}(`{bon.chat_id}`)",
         )
 
+
 async def unban(unbon):
     """ For .unban command, unbans the replied/tagged person """
     # Here laying the sanity check
@@ -473,6 +477,7 @@ async def unban(unbon):
             )
     except UserIdInvalidError:
         await unbon.edit("`Uh oh my unban logic broke!`")
+
 
 async def mute(spdr):
     """
@@ -532,6 +537,7 @@ async def mute(spdr):
         except UserIdInvalidError:
             return await spdr.edit("`Uh oh my mute logic broke!`")
 
+
 async def unmute(unmot):
     """ For .unmute command, unmute the replied/tagged person """
     # Admin or creator check
@@ -578,6 +584,8 @@ async def unmute(unmot):
                 f"USER: [{user.first_name}](tg://user?id={user.id})\n"
                 f"CHAT: {unmot.chat.title}(`{unmot.chat_id}`)",
             )
+
+
 @ItzSjDude(incoming=True)
 async def muter(moot):
     """ Used for deleting the messages of muted people """
@@ -608,6 +616,7 @@ async def muter(moot):
     for i in gmuted:
         if i.sender == str(moot.sender_id):
             await moot.delete()
+
 
 async def ungmute(un_gmute):
     """ For .ungmute command, ungmutes the target in the pikabot """
@@ -652,6 +661,7 @@ async def ungmute(un_gmute):
                 f"CHAT: {un_gmute.chat.title}(`{un_gmute.chat_id}`)",
             )
 
+
 async def gmte(gspdr):
     """ For .gmute command, globally mutes the replied/tagged person """
     # Admin or creator check
@@ -694,6 +704,7 @@ async def gmte(gspdr):
                 f"USER: [{user.first_name}](tg://user?id={user.id})\n"
                 f"CHAT: {gspdr.chat.title}(`{gspdr.chat_id}`)",
             )
+
 
 async def rm_dacc(show):
     """ For .delusers command, list all the ghost/deleted accounts in a chat. """
@@ -765,6 +776,7 @@ async def rm_dacc(show):
             \nCHAT: {show.chat.title}(`{show.chat_id}`)",
         )
 
+
 async def get_admin(show):
     """ For .admins command, list all of the admins of the chat. """
     info = await show.client.get_entity(show.chat_id)
@@ -783,6 +795,7 @@ async def get_admin(show):
     except ChatAdminRequiredError as err:
         mentions += " " + str(err) + "\n"
     await show.edit(mentions, parse_mode="html")
+
 
 async def pin(msg):
     """ For .pin command, pins the replied/tagged message on the top the chat. """
@@ -828,6 +841,7 @@ async def pin(msg):
             f"LOUD: {not is_silent}",
         )
 
+
 async def kick(usr):
     """ For .kick command, kicks the replied/tagged person from the group. """
     # Admin or creator check
@@ -868,6 +882,7 @@ async def kick(usr):
             f"USER: [{user.first_name}](tg://user?id={user.id})\n"
             f"CHAT: {usr.chat.title}(`{usr.chat_id}`)\n",
         )
+
 
 async def get_users(show):
     """ For .users command, list all of the users in a chat. """
@@ -910,6 +925,7 @@ async def get_users(show):
             reply_to=show.id,
         )
         remove("userslist.txt")
+
 
 async def get_user_from_event(event):
     """ Get the user from argument or replied message. """
@@ -959,11 +975,12 @@ async def get_user_from_id(user, event):
 
     return user_obj
 
+
 async def alive(event):
     pupt = grt((time.time() - UpTime))
     try:
         pic = await pikaa(event, "ALIVE_PIC")
-    except:
+    except BaseException:
         pic = apic
     az = await pikaa(event, "ALIVE_NAME")
     await event.delete()
@@ -972,6 +989,7 @@ async def alive(event):
     )
     await asyncio.sleep(15)
     await a.delete()
+
 
 async def magisk(request):
     """ magisk latest releases """
@@ -990,6 +1008,7 @@ async def magisk(request):
             f'[Uninstaller]({data["uninstaller"]["link"]})\n'
         )
     await request.edit(releases)
+
 
 async def device_info(request):
     """ get android device basic info from its codename """
@@ -1022,6 +1041,7 @@ async def device_info(request):
     else:
         reply = f"`Couldn't find info about {device}!`\n"
     await request.edit(reply)
+
 
 async def codename_info(request):
     """ search for android codename """
@@ -1058,6 +1078,7 @@ async def codename_info(request):
     else:
         reply = f"`Couldn't find {device} codename!`\n"
     await request.edit(reply)
+
 
 async def dspecs(request):
     """ Mobile devices specifications """
@@ -1117,6 +1138,7 @@ async def dspecs(request):
             reply += f"**{title}**: {data}\n"
     await request.edit(reply)
 
+
 async def twrp(request):
     """ get android device twrp """
     textx = await request.get_reply_message()
@@ -1146,6 +1168,7 @@ async def twrp(request):
     )
     await request.edit(reply)
 
+
 async def waifu(animu):
     # """Creates random anime sticker!"""
 
@@ -1167,6 +1190,7 @@ async def waifu(animu):
         hide_via=True,
     )
     await animu.delete()
+
 
 async def bash(event):
     if event.fwd_from:
@@ -1205,6 +1229,7 @@ async def bash(event):
             await event.delete()
     await event.edit(OUTPUT)
 
+
 async def batch_upload(event):
     if event.fwd_from:
         return
@@ -1222,6 +1247,7 @@ async def batch_upload(event):
         await event.edit("Directory Not Found.")
         return
     await event.edit("Successfull.")
+
 
 async def belo(event):
 
@@ -1789,6 +1815,7 @@ async def belo(event):
             '`"If we put solar panels above parking lots, then our cars wouldn\'t get hot and we would have a lot of clean energy."`'
         )
 
+
 async def bombs(event):
     if event.fwd_from:
         return
@@ -1812,6 +1839,7 @@ async def bombs(event):
     await asyncio.sleep(0.5)
     await event.edit("`RIP PLOXXX......`")
     await asyncio.sleep(2)
+
 
 async def call(event):
     if event.fwd_from:
@@ -1846,6 +1874,7 @@ async def call(event):
         await asyncio.sleep(animation_interval)
         await event.edit(animation_chars[i % 18])
 
+
 async def spm_notify(event):
     if event.fwd_from:
         return
@@ -1862,6 +1891,7 @@ async def spm_notify(event):
     else:
         await event.reply(mentions)
     await event.delete()
+
 
 async def carbon(e):
     if not e.text[0].isalpha() and e.text[0] not in ("/", "#", "@"):
@@ -1918,6 +1948,7 @@ async def carbon(e):
         driver.quit()
         await e.delete()  # Deleting msg
 
+
 async def chain(event):
     await event.edit("Counting...")
     count = -1
@@ -1933,6 +1964,7 @@ async def chain(event):
         message = reply
         count += 1
     await event.edit(f"Chain length: {count}")
+
 
 async def get_media(event):
     if event.fwd_from:
@@ -1962,6 +1994,7 @@ async def get_media(event):
     output = output.replace("\n'", "")
     await event.edit("Downloaded " + output + " files.")
 
+
 async def getmedia(event):
     if event.fwd_from:
         return
@@ -1988,6 +2021,7 @@ async def getmedia(event):
     output = output.replace("b'", "")
     output = output.replace("\n'", "")
     await event.edit("Downloaded " + output + " files.")
+
 
 async def ctg(event):
     if event.fwd_from:
@@ -2018,6 +2052,7 @@ async def ctg(event):
             await event.delete()
             await event.client.send_message(event.chat_id, response.message)
 
+
 async def cflip(event):
     if event.fwd_from:
         return
@@ -2045,6 +2080,7 @@ async def cflip(event):
             await event.edit("The coin landed on: **Tails**.")
     else:
         await event.edit(r"¯\_(ツ)_/¯")
+
 
 async def findcolour(event):
     if event.fwd_from:
@@ -2075,12 +2111,14 @@ async def findcolour(event):
     else:
         await event.edit("Syntax: `.color <color_code>`")
 
+
 async def congo(event):
     if event.fwd_from:
         return
     bro = random.randint(0, len(CongoStr) - 1)
     reply_text = CongoStr[bro]
     await event.edit(reply_text)
+
 
 async def convoqt(event):
     if event.fwd_from:
@@ -2386,6 +2424,7 @@ async def convoqt(event):
             '`"What’s something you misunderstood as a child and only realized much later was wrong?"`'
         )
 
+
 async def decide(event):
     if event.fwd_from:
         return
@@ -2397,6 +2436,7 @@ async def decide(event):
         event.chat_id, r["answer"], reply_to=message_id, file=r["image"]
     )
     await event.delete()
+
 
 async def lcry(event):
     if event.fwd_from:
@@ -2447,6 +2487,7 @@ async def lcry(event):
 
         await asyncio.sleep(animation_interval)
         await event.edit(animation_chars[i % 35])
+
 
 async def deepfryer(event):
     try:
@@ -2554,6 +2595,7 @@ async def check_media(reply_message):
     else:
         return data
 
+
 async def remppic(delpfp):
     """ For .delpfp command, delete your current profile picture in Telegram. """
     group = delpfp.text[8:]
@@ -2579,6 +2621,7 @@ async def remppic(delpfp):
     await delpfp.client(DeletePhotosRequest(id=input_photos))
     await delpfp.edit(f"`Successfully deleted {len(input_photos)} profile picture(s).`")
 
+
 async def jon(event):
     if event.fwd_from:
         return
@@ -2596,6 +2639,7 @@ async def jon(event):
         await event.reply(mentions)
     await event.delete()
 
+
 async def pay(event):
     if event.fwd_from:
         return
@@ -2612,6 +2656,7 @@ async def pay(event):
     else:
         await event.reply(mentions)
     await event.delete()
+
 
 async def dict(event):
     if event.fwd_from:
@@ -2651,6 +2696,7 @@ async def dict(event):
         pass
     await event.edit(caption_str)
 
+
 async def ding(event):
     if event.fwd_from:
         return
@@ -2675,4 +2721,3 @@ async def ding(event):
         await asyncio.sleep(animation_interval)
 
         await event.edit(animation_chars[i % 10])
-

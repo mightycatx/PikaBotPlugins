@@ -25,8 +25,7 @@ async def _(event):
         message_id = event.reply_to_msg_id
         reply_message = await event.get_reply_message()
         # check if media message
-        await event.edit(
-            "Processing image for background Removal")
+        await event.edit("Processing image for background Removal")
         try:
             downloaded_file_name = await event.client.download_media(
                 reply_message, Config.TMP_DOWNLOAD_DIRECTORY

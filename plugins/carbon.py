@@ -3,7 +3,7 @@
 """Carbon Module for PikaBot
 {i}carbon <reply to message>"""
 
+
 @ItzSjDude(outgoing=True, pattern="carbon")
 async def carbon(e):
-  await carbon(e)
-
+    await carbon(e)
