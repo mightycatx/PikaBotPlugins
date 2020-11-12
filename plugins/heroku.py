@@ -16,7 +16,7 @@ app = Heroku.app(Var.HEROKU_APP_NAME)
 heroku_api = "https://api.heroku.com"
 
 
-@ItzSjDude(pattern=r"(set|get|del) var(?: |$)(.*)(?: |$)([\s\S]*)")
+@ItzSjDude(outgoing=True,pattern=r"(set|get|del) var(?: |$)(.*)(?: |$)([\s\S]*)")
 async def variable(var):
     """
     Manage most of ConfigVars setting, set new var, get current var,
@@ -99,7 +99,7 @@ async def variable(var):
             return await var.edit(f"**{variable}**  `is not exists`")
 
 
-@ItzSjDude(pattern=r"usage(?: |$)")
+@ItzSjDude(outgoing=True, pattern=r"usage(?: |$)")
 async def dyno_usage(dyno):
     """
     Get your account Dyno Usage
@@ -160,7 +160,7 @@ async def dyno_usage(dyno):
     )
 
 
-@ItzSjDude(pattern="info heroku")
+@ItzSjDude(outgoing=True, pattern="info heroku")
 async def info(event):
     await event.client.send_message(
         event.chat_id,
@@ -204,7 +204,7 @@ async def _(rstrt):
 pika = app
 
 
-@ItzSjDude(pattern=r"logs")
+@ItzSjDude(outgoing=True, pattern=r"logs")
 async def _(dyno):
     try:
         Heroku = heroku3.from_key(Var.HEROKU_API_KEY)
