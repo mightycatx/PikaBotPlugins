@@ -9,7 +9,7 @@
 {i}pname <Name>
 {i}ppic <Reply to pic>
 """
-
+from .plugins import pbio,pname,anpfp,avpfp,gmpfp,atnm,atb
 
 @ItzSjDude(outgoing=True, pattern="pbio (.*)")
 async def _(event):
