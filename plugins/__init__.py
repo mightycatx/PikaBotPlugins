@@ -860,39 +860,6 @@ async def unmute(unmot):
                 f"CHAT: {unmot.chat.title}(`{unmot.chat_id}`)",
             )
 
-
-@ItzSjDude(incoming=True)
-async def muter(event):
-    """ Used for deleting the messages of muted people """
-    try:
-        from pikabot.sql_helper.gmute_sql import is_gmuted
-        from pikabot.sql_helper.mute_sql import is_muted
-    except AttributeError:
-        return
-    muted = is_muted(event.chat_id)
-    gmuted = is_gmuted(event.sender_id)
-    rights = ChatBannedRights(
-        until_date=None,
-        send_messages=True,
-        send_media=True,
-        send_stickers=True,
-        send_gifs=True,
-        send_games=True,
-        send_inline=True,
-        embed_links=True,
-    )
-    if muted:
-        for i in muted:
-            if str(i.sender) == str(event.sender_id):
-                await event.delete()
-                await event.client(
-                    EditBannedRequest(event.chat_id, event.sender_id, rights)
-                )
-    for i in gmuted:
-        if i.sender == str(event.sender_id):
-            await event.delete()
-
-
 async def _ungmute(un_gmute):
     """ For .ungmute command, ungmutes the target in the pikabot """
     # Admin or creator check
