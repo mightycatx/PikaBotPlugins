@@ -9,22 +9,6 @@
 {i}pname <Name>
 {i}ppic <Reply to pic>
 """
-import asyncio
-import logging
-import os
-import time
-
-from pikabot import ALIVE_NAME, AUTO_BIO
-from pikabot.main_plugs.pfpdata import *
-from pikabot.utils import *
-from pikabot.utils import ItzSjDude
-from telethon.errors import FloodWaitError
-from telethon.tl import functions
-
-DEL_TIME_OUT = 60
-DUSER = str(ALIVE_NAME) if ALIVE_NAME else "PikaBot"
-DBIO = str(AUTO_BIO) if AUTO_BIO else "Pika is Love 🔥"
-
 
 @ItzSjDude(outgoing=True, pattern="pbio (.*)")
 async def _(event):
