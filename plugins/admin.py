@@ -1,6 +1,6 @@
 # Officially made for Pikabot by ItzSjDude from Paperplane extended snippets
 
-from .plugins import setgpic,promote,demote,ban,unban,mute,unmute,gmte,ungmute,rm_dacc,get_users,pin,get_admin
+from . import setgpic,promote,demote,ban,unban,_mute,unmute,gmte,ungmute,rm_dacc,get_users,pin,get_admin
 @ItzSjDude(outgoing=True, pattern=r"setgpic")
 async def _(gpic):
     await setgpic(gpic)
@@ -28,7 +28,7 @@ async def _(unbon):
 
 @ItzSjDude(pattern=r"mute(?: |$)(.*)")
 async def _(spdr):
-    await mute(spdr)
+    await _mute(spdr)
 
 
 @ItzSjDude(pattern=r"unmute(?: |$)(.*)")
