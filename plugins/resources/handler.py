@@ -74,6 +74,16 @@ async def pikaa(event, shortname):
     if pika_id4 == pika_pi.id:
         return c4d
 
+async def _sudo(pi, text):
+    pika=await event.client.get_me()
+    if pi.sender_id in Config.SUDO_USERS and pika_id1==pika.id:   
+        reply_to = await pi.get_reply_message()
+        if reply_to:
+            return await reply_to.reply(text)
+        return await pi.reply(text)
+    return await pi.edit(text)
+
+
 
 def pikarestart():
     pika.restart()
