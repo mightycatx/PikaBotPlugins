@@ -3,7 +3,6 @@ import heroku3
 from var import Var 
 Heroku = heroku3.from_key(Var.HEROKU_API_KEY)
 pika = Heroku.app(Var.HEROKU_APP_NAME)
-from plugins.heroku import *
 try:
     from pikabot import bot, bot2, bot3, bot4
     i1 = bot.uid
