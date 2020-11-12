@@ -201,9 +201,6 @@ async def _(rstrt):
         )
 
 
-pika = app
-
-
 @ItzSjDude(outgoing=True, pattern=r"logs")
 async def _(dyno):
     try:
