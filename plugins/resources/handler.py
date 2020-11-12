@@ -1,5 +1,6 @@
 import os
 import heroku3
+from var import Var 
 Heroku = heroku3.from_key(Var.HEROKU_API_KEY)
 pika = Heroku.app(Var.HEROKU_APP_NAME)
 from plugins.heroku import *
