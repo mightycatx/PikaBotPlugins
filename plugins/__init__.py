@@ -21,19 +21,10 @@ import requests
 from bs4 import BeautifulSoup
 from humanize import naturalsize
 from pikabot import *
-from pikabot import (
-    ALIVE_NAME,
-    AUTO_BIO,
-    BOTLOG,
-    BOTLOG_CHATID,
-    CHROME_DRIVER,
-    CMD_HELP,
-    GOOGLE_CHROME_BIN,
-)
+from pikabot.handler import *
 from pikabot.main_plugs.pfpdata import *
 from pikabot.main_plugs.plug import *
 from pikabot.utils import *
-from pikabot.utils import ItzSjDude
 from pikabot.utils import get_readable_time as grt
 from PIL import Image, ImageColor, ImageEnhance, ImageOps
 from requests import get
