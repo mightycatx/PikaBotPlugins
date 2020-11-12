@@ -16,10 +16,12 @@ from random import choice, randint, uniform
 from subprocess import PIPE, Popen
 from time import sleep
 from urllib.parse import quote_plus
-
 import requests
 from bs4 import BeautifulSoup
 from humanize import naturalsize
+from pikabot import CMD_LIST
+from pikabot.main_plugs.plug import *
+from SysRuntime import *
 from pikabot import *
 from pikabot.handler import *
 from pikabot.main_plugs.pfpdata import *
@@ -3147,3 +3149,20 @@ async def _eval(event):
 async def aexec(code, event):
     exec(f"async def __aexec(event): " + "".join(f"\n {l}" for l in code.split("\n")))
     return await locals()["__aexec"](event)
+
+async def helper(event):
+    if not event.text[0].isalpha() and event.text[0] not in ("/", "#", "@"):
+        tgbotusername = Var.TG_BOT_USER_NAME_BF_HER
+        input_str = event.pattern_match.group(1)
+        if tgbotusername:
+            help_string = f"""Pïkå¢hµ Úsêrßð† {helpstr}"""
+            results = await event.client.inline_query(  # pylint:disable=E0602
+                tgbotusername, help_string
+            )
+            await results[0].click(
+                event.chat_id, reply_to=event.reply_to_msg_id, hide_via=True
+            )
+            await event.delete()
+        else:
+            await event.edit("**ERROR:** Set Var TG_BOT_USER_NAME_BF_HER")
+
