@@ -12,7 +12,7 @@ from . import (
     rm_dacc,
     setgpic,
     unban,
-    ungmute,
+    _ungmute,
     unmute,
 )
 
@@ -54,7 +54,7 @@ async def _(unmot):
 
 @ItzSjDude(pattern=r"ungmute(?: |$)(.*)")
 async def _(un_gmute):
-    await ungmute(un_gmute)
+    await _ungmute(un_gmute)
 
 
 @ItzSjDude(pattern=r"gmute(?: |$)(.*)")
