@@ -3622,7 +3622,7 @@ async def _fuck(event):
         for i in animation_ttl:
             await asyncio.sleep(animation_interval)
             await event.edit(animation_chars[i % 4])
- 
+
 
 async def _fwd(event):
     if event.fwd_from:
