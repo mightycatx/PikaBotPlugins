@@ -1,3 +1,3 @@
+from pikabot import bot
 
-from pikabot import bot 
 tgbot = bot.tgbot
