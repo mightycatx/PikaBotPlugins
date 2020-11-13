@@ -3631,19 +3631,6 @@ async def _fwd(event):
         await fwd_message.delete()
         await event.delete()
 
-async def download_file_from_google_drive(id):
-    URL = "https://docs.google.com/uc?export=download"
-    session = requests.Session()
-    response = session.get(URL, params={"id": id}, stream=True)
-    token = await get_confirm_token(response)
-    params = {"id": id, "confirm": token}
-    response = session.get(URL, params=params, stream=True)
-    headers = response.headers
-    content = headers["Content-Disposition"]
-    destination = await get_file_name(content)
-    file_name = await save_response_content(response, destination)
-
-    return file_name
 
 async def get_confirm_token(response):
     for key, value in response.cookies.items():
