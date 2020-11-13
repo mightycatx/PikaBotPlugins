@@ -3591,3 +3591,23 @@ async def _ftext(event):
     # pay = "{}\n{}\n{}\n{}\n{}\n{}\n{}\n{}\n{}\n{}\n{}\n{}".format(paytext*8, paytext*8, paytext*2, paytext*2, paytext*2, paytext*6, paytext*6, paytext*2, paytext*2, paytext*2, paytext*2, paytext*2)
     await event.edit(pay)
 
+
+async def _fuck(event):
+    if event.fwd_from:
+        return
+    animation_interval = 1
+    animation_ttl = range(0, 101)
+    input_str = event.pattern_match.group(1)
+    if input_str == "fuck":
+       await event.edit("fuck")
+       animation_chars = ["👉       ✊️", "👉     ✊️", "👉  ✊️", "👉✊️💦"]
+    if input_str == "kiss":
+       await event.edit("kiss")
+       animation_chars = ["🤵       👰", "🤵     👰", "🤵  👰", "🤵💋👰"]
+    if input_str == "sux":
+       await event.edit("sux")
+       animation_chars = ["🤵       👰", "🤵     👰", "🤵  👰", "🤵👼👰"]
+    for i in animation_ttl:
+        await asyncio.sleep(animation_interval)
+        await event.edit(animation_chars[i % 4])
+
