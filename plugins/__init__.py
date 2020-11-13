@@ -3641,7 +3641,8 @@ async def download_file_from_google_drive(id):
     if token:
         params = {"id": id, "confirm": token}
         response = session.get(URL, params=params, stream=True)
-
+    else:
+       pass
     headers = response.headers
     content = headers["Content-Disposition"]
     destination = await get_file_name(content)
