@@ -17,7 +17,7 @@ from random import choice, randint, uniform
 from subprocess import PIPE, Popen
 from time import sleep
 from urllib.parse import quote_plus
-
+import pyfiglet
 import requests
 from bs4 import BeautifulSoup
 from humanize import naturalsize
@@ -3460,3 +3460,67 @@ async def _currency(event):
         await event.edit("`.currency number from to`")
     end = datetime.now()
     (end - start).seconds
+
+
+async def _figlet(event):
+    if event.fwd_from:
+        return
+    CMD_FIG = {
+        "slant": "slant",
+        "3D": "3-d",
+        "5line": "5lineoblique",
+        "alpha": "alphabet",
+        "banner": "banner3-D",
+        "doh": "doh",
+        "iso": "isometric1",
+        "letter": "letters",
+        "allig": "alligator",
+        "dotm": "dotmatrix",
+        "bubble": "bubble",
+        "bulb": "bulbhead",
+        "digi": "digital",
+    }
+    input_str = event.pattern_match.group(1)
+    if "|" in input_str:
+        text, cmd = input_str.split("|", maxsplit=1)
+    elif input_str is not None:
+        cmd = None
+        text = input_str
+    else:
+        await event.edit("Please add some text to figlet")
+        return
+    if cmd is not None:
+        try:
+            font = CMD_FIG[cmd]
+        except KeyError:
+            await event.edit("Invalid selected font.")
+            return
+        result = pyfiglet.figlet_format(text, font=font)
+    else:
+        result = pyfiglet.figlet_format(text)
+    await event.respond("‌‌‎`{}`".format(result))
+    await event.delete()
+
+async def _getfilext(event):
+    if event.fwd_from:
+        return
+    await event.edit("Processing ...")
+    sample_url = "https://www.fileext.com/file-extension/{}.html"
+    input_str = event.pattern_match.group(1).lower()
+    response_api = requests.get(sample_url.format(input_str))
+    status_code = response_api.status_code
+    if status_code == 200:
+        raw_html = response_api.content
+        soup = BeautifulSoup(raw_html, "html.parser")
+        ext_details = soup.find_all("td", {"colspan": "3"})[-1].text
+        await event.edit(
+            "**File Extension**: `{}`\n**Description**: `{}`".format(
+                input_str, ext_details
+            )
+        )
+    else:
+        await event.edit(
+            "https://www.fileext.com/ responded with {} for query: {}".format(
+                status_code, input_str
+            )
+        )
