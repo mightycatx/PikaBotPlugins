@@ -26,6 +26,7 @@ from pikabot import *
 from pikabot.handler import *
 from pikabot.main_plugs.pfpdata import *
 from pikabot.main_plugs.plug import *
+from pikabot.main_plugs.SysRuntime import *
 from pikabot.utils import *
 from pikabot.utils import get_readable_time as grt
 from PIL import Image, ImageColor, ImageEnhance, ImageOps
@@ -75,7 +76,7 @@ try:
     from pikabot import bot, bot2, bot3, bot4
 except BaseException:
     pass
-
+tgbot=bot.tgbot
 b1 = bot.me
 if bot2:
     b2 = bot2.me
