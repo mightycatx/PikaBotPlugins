@@ -3631,62 +3631,6 @@ async def _fwd(event):
         await fwd_message.delete()
         await event.delete()
 
-
-async def get_confirm_token(response):
-    for key, value in response.cookies.items():
-        if key.startswith("download_warning"):
-            return value
-
-    return None
-
-
-
-async def gdrive_file_id(link):  # Extract File Id from G-Drive Link
-    file_id = ""
-    c_append = False
-    if link[1:33] == "https://drive.google.com/file/d/":
-        link = link[33:]
-        fid = ""
-        for c in link:
-            if c == "/":
-                break
-            fid = fid + c
-        return fid
-    for c in link:
-        if c == "=":
-            c_append = True
-        if c == "&":
-            break
-        if c_append:
-            file_id = file_id + c
-    file_id = file_id[1:]
-    return file_id
-
-
-async def get_file_name(content):
-    file_name = ""
-    c_append = False
-    for c in str(content):
-        if c == '"':
-            c_append = True
-        if c == ";":
-            c_append = False
-        if c_append:
-            file_name = file_name + c
-    file_name = file_name.replace('"', "")
-    print("File Name: " + str(file_name))
-    return file_name
-
-async def _gdl(event):
-    if event.fwd_from:
-        return
-    drive_link = event.text[4:]
-    print("Drive Link: " + drive_link)
-    file_id = await gdrive_file_id(drive_link)
-    await event.edit("Downloading Requested File from G-Drive...")
-    file_name = await download_file_from_google_drive(gdrive_file_id)
-    await event.edit("File Downloaded.\nName: `" + str(get_file_name) + "`")
-
 async def _gbot(event):
     if event.fwd_from:
         return
