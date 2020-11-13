@@ -22,7 +22,6 @@ from bs4 import BeautifulSoup
 from humanize import naturalsize
 from pikabot import *
 from pikabot.handler import *
-from . _importer import *
 from pikabot.main_plugs.pfpdata import *
 from pikabot.main_plugs.plug import *
 from pikabot.utils import *
@@ -64,6 +63,8 @@ from telethon.tl.types import (
 )
 from var import Var
 from var import Var as Config
+
+from ._importer import *
 
 CARBONLANG = "auto"
 LANG = "en"
