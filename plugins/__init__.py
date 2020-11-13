@@ -17,6 +17,7 @@ from random import choice, randint, uniform
 from subprocess import PIPE, Popen
 from time import sleep
 from urllib.parse import quote_plus
+
 import pyfiglet
 import requests
 from bs4 import BeautifulSoup
@@ -3500,6 +3501,7 @@ async def _figlet(event):
         result = pyfiglet.figlet_format(text)
     await event.respond("‌‌‎`{}`".format(result))
     await event.delete()
+
 
 async def _getfilext(event):
     if event.fwd_from:
