@@ -3642,9 +3642,8 @@ async def download_file_from_google_drive(id):
     content = headers["Content-Disposition"]
     destination = await get_file_name(content)
     file_name = await save_response_content(response, destination)
-   
-    return file_name
 
+    return file_name
 
 async def get_confirm_token(response):
     for key, value in response.cookies.items():
