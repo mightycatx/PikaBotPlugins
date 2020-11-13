@@ -1,4 +1,4 @@
-"Prints F with given word
+"""Prints F with given word
 {i}text"""
 
 from . import _ftext
