@@ -25,6 +25,7 @@ from humanize import naturalsize
 from pikabot import *
 from pikabot.handler import *
 from pikabot.main_plugs.pfpdata import *
+from telethon.utils import pack_bot_file_id
 from pikabot.main_plugs.plug import *
 from pikabot.main_plugs.SysRuntime import *
 from pikabot.utils import *
@@ -3798,4 +3799,27 @@ async def _gadmins(event):
         await event.delete()
     else:
         await event.edit(mentions)
+
+async def _getid(event):
+    if event.fwd_from:
+        return
+    if event.reply_to_msg_id:
+        await event.get_input_chat()
+        r_msg = await event.get_reply_message()
+        if r_msg.media:
+            bot_api_file_id = pack_bot_file_id(r_msg.media)
+            await event.edit(
+                "Current Chat ID: `{}`\nFrom User ID: `{}`\nBot API File ID: `{}`".format(
+                    str(event.chat_id), str(r_msg.from_id), bot_api_file_id
+                )
+            )
+        else:
+            await event.edit(
+                "Current Chat ID: `{}`\nFrom User ID: `{}`".format(
+                    str(event.chat_id), str(r_msg.from_id)
+                )
+            )
+    else:
+        await event.edit("Current Chat ID: `{}`".format(str(event.chat_id)))
+
 
