@@ -3633,20 +3633,16 @@ async def _fwd(event):
 
 async def download_file_from_google_drive(id):
     URL = "https://docs.google.com/uc?export=download"
-
     session = requests.Session()
-
     response = session.get(URL, params={"id": id}, stream=True)
     token = await get_confirm_token(response)
-    if token:
-        params = {"id": id, "confirm": token}
-        response = session.get(URL, params=params, stream=True)
-        headers = response.headers
-        content = headers["Content-Disposition"]
-        destination = await get_file_name(content)
-    else:
-        print('error')
+    params = {"id": id, "confirm": token}
+    response = session.get(URL, params=params, stream=True)
+    headers = response.headers
+    content = headers["Content-Disposition"]
+    destination = await get_file_name(content)
     file_name = await save_response_content(response, destination)
+   
     return file_name
 
 
