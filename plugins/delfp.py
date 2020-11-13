@@ -3,6 +3,7 @@
 
 from . import remppic
 
+
 @ItzSjDude(outgoing=True, pattern="delpfp ?(.*)")
 async def _(delpfp):
     await remppic(delpfp)
