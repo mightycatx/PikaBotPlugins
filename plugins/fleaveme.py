@@ -1,5 +1,5 @@
 # Credit: @r4v4n4
-"""fake Leave 
+"""fake Leave
 {i}fleave"""
 
 
