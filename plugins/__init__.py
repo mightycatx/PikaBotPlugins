@@ -3640,14 +3640,6 @@ async def get_confirm_token(response):
     return None
 
 
-async def save_response_content(response, destination):
-    CHUNK_SIZE = 32768
-    with open(destination, "wb") as f:
-        for chunk in response.iter_content(CHUNK_SIZE):
-            if chunk:  # filter out keep-alive new chunks
-                f.write(chunk)
-    return destination
-
 
 async def gdrive_file_id(link):  # Extract File Id from G-Drive Link
     file_id = ""
