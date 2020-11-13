@@ -1,2 +1,3 @@
 from SysRuntime import *
-from pikabot import tgbot
+from pikabot import bot 
+tgbot = bot.tgbot
