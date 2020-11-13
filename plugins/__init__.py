@@ -3605,16 +3605,22 @@ async def _fuck(event):
     if input_str == "fuck":
         await event.edit("fuck")
         animation_chars = ["👉       ✊️", "👉     ✊️", "👉  ✊️", "👉✊️💦"]
+        for i in animation_ttl:
+            await asyncio.sleep(animation_interval)
+            await event.edit(animation_chars[i % 4])
     if input_str == "kiss":
         await event.edit("kiss")
         animation_chars = ["🤵       👰", "🤵     👰", "🤵  👰", "🤵💋👰"]
+        for i in animation_ttl:
+            await asyncio.sleep(animation_interval)
+            await event.edit(animation_chars[i % 4])
     if input_str == "sux":
         await event.edit("sux")
         animation_chars = ["🤵       👰", "🤵     👰", "🤵  👰", "🤵👼👰"]
-    for i in animation_ttl:
-        await asyncio.sleep(animation_interval)
-        await event.edit(animation_chars[i % 4])
-
+        for i in animation_ttl:
+            await asyncio.sleep(animation_interval)
+            await event.edit(animation_chars[i % 4]
+ 
 
 async def _fwd(event):
     if event.fwd_from:
