@@ -3611,3 +3611,16 @@ async def _fuck(event):
         await asyncio.sleep(animation_interval)
         await event.edit(animation_chars[i % 4])
 
+async def _fwd(event):
+    if event.fwd_from:
+        return
+    if Config.BOTLOG_CHATID is None:
+        await event.edit(
+            "Please set the required environment variable `BOTLOG_CHATID` for this plugin to work"
+    else:
+        re_message = await event.get_reply_message()
+        # https://t.me/telethonofftopic/78166
+        fwd_message = await event.client.forward_messages(e, re_message, silent=True)
+        await event.client.forward_messages(event.chat_id, fwd_message)
+        await fwd_message.delete()
+        await event.delete()
