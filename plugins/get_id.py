@@ -3,7 +3,7 @@
 
 from . import _getid
 
+
 @ItzSjDude(outgoing=True, pattern="get_id(.*)")
 async def _(event):
     await _getid(event)
-

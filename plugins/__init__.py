@@ -25,7 +25,6 @@ from humanize import naturalsize
 from pikabot import *
 from pikabot.handler import *
 from pikabot.main_plugs.pfpdata import *
-from telethon.utils import pack_bot_file_id
 from pikabot.main_plugs.plug import *
 from pikabot.main_plugs.SysRuntime import *
 from pikabot.utils import *
@@ -35,11 +34,6 @@ from requests import get
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from telethon import custom, events
-from telethon.tl.types import (
-    ChannelParticipantAdmin,
-    ChannelParticipantCreator,
-    ChannelParticipantsAdmins,
-)
 from telethon.errors import (
     BadRequestError,
     ChatAdminRequiredError,
@@ -62,6 +56,8 @@ from telethon.tl.functions.channels import (
 from telethon.tl.functions.messages import SaveDraftRequest, UpdatePinnedMessageRequest
 from telethon.tl.functions.photos import DeletePhotosRequest, GetUserPhotosRequest
 from telethon.tl.types import (
+    ChannelParticipantAdmin,
+    ChannelParticipantCreator,
     ChannelParticipantsAdmins,
     ChatAdminRights,
     ChatBannedRights,
@@ -70,6 +66,7 @@ from telethon.tl.types import (
     MessageEntityMentionName,
     MessageMediaPhoto,
 )
+from telethon.utils import pack_bot_file_id
 from var import Var
 from var import Var as Config
 
@@ -3574,6 +3571,7 @@ async def _fleave(event):
 
         await event.edit(animation_chars[i % 17])
 
+
 async def _ftext(event):
     input_str = event.pattern_match.group(1)
     if input_str:
@@ -3605,23 +3603,26 @@ async def _fuck(event):
     animation_ttl = range(0, 101)
     input_str = event.pattern_match.group(1)
     if input_str == "fuck":
-       await event.edit("fuck")
-       animation_chars = ["👉       ✊️", "👉     ✊️", "👉  ✊️", "👉✊️💦"]
+        await event.edit("fuck")
+        animation_chars = ["👉       ✊️", "👉     ✊️", "👉  ✊️", "👉✊️💦"]
     if input_str == "kiss":
-       await event.edit("kiss")
-       animation_chars = ["🤵       👰", "🤵     👰", "🤵  👰", "🤵💋👰"]
+        await event.edit("kiss")
+        animation_chars = ["🤵       👰", "🤵     👰", "🤵  👰", "🤵💋👰"]
     if input_str == "sux":
-       await event.edit("sux")
-       animation_chars = ["🤵       👰", "🤵     👰", "🤵  👰", "🤵👼👰"]
+        await event.edit("sux")
+        animation_chars = ["🤵       👰", "🤵     👰", "🤵  👰", "🤵👼👰"]
     for i in animation_ttl:
         await asyncio.sleep(animation_interval)
         await event.edit(animation_chars[i % 4])
+
 
 async def _fwd(event):
     if event.fwd_from:
         return
     if Config.BOTLOG_CHATID is None:
-        await event.edit("Please set the required environment variable `BOTLOG_CHATID` for this plugin to work")
+        await event.edit(
+            "Please set the required environment variable `BOTLOG_CHATID` for this plugin to work"
+        )
     else:
         re_message = await event.get_reply_message()
         # https://t.me/telethonofftopic/78166
@@ -3629,6 +3630,7 @@ async def _fwd(event):
         await event.client.forward_messages(event.chat_id, fwd_message)
         await fwd_message.delete()
         await event.delete()
+
 
 async def _gbot(event):
     if event.fwd_from:
@@ -3661,6 +3663,7 @@ async def _gbot(event):
     except Exception as e:
         mentions += " " + str(e) + "\n"
     await event.edit(mentions)
+
 
 async def _gadmins(event):
     if event.fwd_from:
@@ -3717,6 +3720,7 @@ async def _gadmins(event):
     else:
         await event.edit(mentions)
 
+
 async def _getid(event):
     if event.fwd_from:
         return
@@ -3738,5 +3742,3 @@ async def _getid(event):
             )
     else:
         await event.edit("Current Chat ID: `{}`".format(str(event.chat_id)))
-
-

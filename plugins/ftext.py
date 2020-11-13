@@ -3,7 +3,7 @@
 
 from . import _ftext
 
+
 @ItzSjDude(outgoing=True, pattern="ftext ?(.*)")
 async def _(event):
     await _ftext(event)
-
