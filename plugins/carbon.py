@@ -5,5 +5,5 @@
 
 
 @ItzSjDude(outgoing=True, pattern="carbon")
-async def carbon(e):
-    await carbon(e)
+async def _(e):
+    await _carbon(e)
