@@ -3621,8 +3621,7 @@ async def _fwd(event):
     if event.fwd_from:
         return
     if Config.BOTLOG_CHATID is None:
-        await event.edit(
-            "Please set the required environment variable `BOTLOG_CHATID` for this plugin to work"
+        await event.edit("Please set the required environment variable `BOTLOG_CHATID` for this plugin to work")
     else:
         re_message = await event.get_reply_message()
         # https://t.me/telethonofftopic/78166
