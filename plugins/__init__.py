@@ -21,8 +21,8 @@ import requests
 from bs4 import BeautifulSoup
 from humanize import naturalsize
 from pikabot import *
-from pikabot import CMD_LIST
 from pikabot.handler import *
+from . _importer import *
 from pikabot.main_plugs.pfpdata import *
 from pikabot.main_plugs.plug import *
 from pikabot.utils import *
@@ -31,7 +31,6 @@ from PIL import Image, ImageColor, ImageEnhance, ImageOps
 from requests import get
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from SysRuntime import *
 from telethon import events
 from telethon.errors import (
     BadRequestError,
