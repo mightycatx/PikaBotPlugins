@@ -306,7 +306,7 @@ async def do_pm_permit_action(chat_id, event):
             return
         except BaseException:
             return
-    r = await event.client.send_file(chat_id, dpmpic, caption=pmtxt)
+    r = await event.client.send_file(chat_id, dpic, caption=pmtxt)
     PM_WARNS[chat_id] += 1
     if chat_id in PREV_REPLY_MESSAGE:
         await PREV_REPLY_MESSAGE[chat_id].delete()
