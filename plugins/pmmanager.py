@@ -14,7 +14,6 @@ import pikabot.sql_helper.pmpermit_sql as pmpermit_sql
 from pikabot import *
 from pikabot.handler import *
 from telethon import events, functions
-from telethon.tl.functions.users import GetFullUserRequest
 from var import Var
 
 duser = {}
