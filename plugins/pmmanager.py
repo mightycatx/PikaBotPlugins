@@ -130,7 +130,7 @@ if LOGBOT is not None:
         if event.fwd_from:
             return
         replied_user = await event.client.get_entity(event.chat_id)
-        firstname=replied_user.first_name
+        replied_user.first_name
         event.pattern_match.group(1)
         chat = await event.get_chat()
         if event.is_private:
