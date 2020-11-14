@@ -272,10 +272,9 @@ async def huh(event):
 
 
 async def do_pm_permit_action(chat_id, event):
-    pmp = await pikaa(event, "PMPERMIT_PIC")
-    if pmp is not None:
-        dpic = pmp
-    else:
+    try: 
+        dpic=pmp=await pikaa(event, "PMPERMIT_PIC")
+    except:
         dpic = dpmpic
     az = await pikaa(event, "ALIVE_NAME")
     pmtxt = USER_BOT_NO_WARN.format(az)
