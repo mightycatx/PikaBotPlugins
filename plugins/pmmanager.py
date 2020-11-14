@@ -272,9 +272,9 @@ async def huh(event):
 
 
 async def do_pm_permit_action(chat_id, event):
-    try: 
-        dpic=pmp=await pikaa(event, "PMPERMIT_PIC")
-    except:
+    try:
+        dpic = pmp = await pikaa(event, "PMPERMIT_PIC")
+    except BaseException:
         dpic = dpmpic
     az = await pikaa(event, "ALIVE_NAME")
     pmtxt = USER_BOT_NO_WARN.format(az)
