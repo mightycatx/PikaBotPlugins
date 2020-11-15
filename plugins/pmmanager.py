@@ -51,7 +51,7 @@ if LOGBOT is not None:
 
     @ItzSjDude(pattern="a ?(.*)")
     async def approve_p_m(event):
-        if event.fwd_from:
+        if event.fwd_from and not event.is_private:
             return
         pika = await event.client.get_me()
         replied_user = await event.client.get_entity(event.chat_id)
@@ -127,8 +127,8 @@ if LOGBOT is not None:
 
     @ItzSjDude(pattern="blk ?(.*)")
     async def approve_p_m(event):
-        if event.fwd_from:
-            return
+        if event.fwd_from and not event.is_private:
+            return 
         replied_user = await event.client.get_entity(event.chat_id)
         replied_user.first_name
         event.pattern_match.group(1)
@@ -150,7 +150,7 @@ if LOGBOT is not None:
 
     @ItzSjDude(pattern="da ?(.*)")
     async def approve_p_m(event):
-        if event.fwd_from:
+        if event.fwd_from and not event.is_private:
             return
         pika = await event.client.get_me()
         replied_user = await event.client.get_entity(event.chat_id)
