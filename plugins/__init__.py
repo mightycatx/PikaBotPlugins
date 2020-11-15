@@ -97,7 +97,7 @@ else:
 emoji = os.environ.get("INLINE_EMOJI", "")
 incols = int(os.environ.get("INLINE_COLUMNS", 3))
 inrows = int(os.environ.get("INLINE_ROWS", 7))
-rx=Var.CUSTOM_CMD
+rx = Var.CUSTOM_CMD
 if emoji is not None:
     xl = emoji
 else:
