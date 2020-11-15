@@ -3,7 +3,7 @@
 """Carbon Module for PikaBot
 {i}carbon <reply to message>"""
 
-
+from . import _carbon 
 @ItzSjDude(outgoing=True, pattern="carbon")
 async def _(e):
     await _carbon(e)
