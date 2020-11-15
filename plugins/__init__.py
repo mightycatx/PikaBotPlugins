@@ -2174,7 +2174,7 @@ async def spm_notify(event):
     await event.delete()
 
 
-async def carbon(e):
+async def _carbon(e):
     if not e.text[0].isalpha() and e.text[0] not in ("/", "#", "@"):
         """ A Wrapper for carbon.now.sh """
         await e.edit("`Processing..`")
