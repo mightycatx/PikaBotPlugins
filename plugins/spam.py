@@ -21,23 +21,16 @@ Usage: Gives you Gendgster Feeling
 \nNOTE : I am not responsible if you get banned for spamming!"""
 
 BOTLOG = Var.BOTLOG_CHATID
-
-
-@ItzSjDude(outgoing=True, pattern="spam")
+ 
+@ItzSjDude(outgoing=True, pattern="spam (.*)")
 async def spammer(e):
-    if not e.text[0].isalpha() and e.text[0] not in ("/", "#", "@"):
-        message = e.text
-        counter = int(message[6:8])
-        spam_message = str(e.text[8:])
-
-        await asyncio.wait([e.respond(spam_message) for i in range(counter)])
-
-        await e.delete()
-        if BOTLOG:
-            await e.client.send_message(
-                BOTLOG, "#SPAM \n\n" "Spam was executed successfully"
-            )
-
+    counter = int(e.pattern_match.group(1).split(' ', 1)[0])
+    spam_message = str(e.pattern_match.group(1).split(' ', 1)[1])
+    await e.delete()
+    await asyncio.wait([e.respond(spam_message) for i in range(counter)])
+    if BOTLOG:
+        await e.client.send_message(BOTLOG_CHATID, "#SPAM\n"
+                                    "Spam was executed successfully")
 
 @ItzSjDude(outgoing=True, pattern="bigspam")
 async def bigspam(e):
