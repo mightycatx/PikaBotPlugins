@@ -128,7 +128,7 @@ if LOGBOT is not None:
     @ItzSjDude(pattern="blk ?(.*)")
     async def approve_p_m(event):
         if event.fwd_from and not event.is_private:
-            return 
+            return
         replied_user = await event.client.get_entity(event.chat_id)
         replied_user.first_name
         event.pattern_match.group(1)
