@@ -30,7 +30,7 @@ async def spammer(e):
         counter = int(message[6:8])
         spam_message = str(e.text[8:])
 
-        await wait([e.respond(spam_message) for i in range(counter)])
+        await asyncio.wait([e.respond(spam_message) for i in range(counter)])
 
         await e.delete()
         if BOTLOG:
@@ -39,7 +39,7 @@ async def spammer(e):
             )
 
 
-@ItzSjDude(outgoing=True, pattern="bspam")
+@ItzSjDude(outgoing=True, pattern="bigspam")
 async def bigspam(e):
     if not e.text[0].isalpha() and e.text[0] not in ("/", "#", "@"):
         message = e.text
