@@ -1111,7 +1111,7 @@ async def pin(msg):
 
     await msg.edit("`Pinned Successfully!`")
 
-    user = await get_user_from_id(msg.from_id, msg)
+    user = await get_user_sender_id(msg.sender_id, msg)
 
     if BOTLOG:
         await msg.client.send_message(
@@ -1214,7 +1214,7 @@ async def get_user_from_event(event):
     extra = None
     if event.reply_to_msg_id:
         previous_message = await event.get_reply_message()
-        user_obj = await event.client.get_entity(previous_message.from_id)
+        user_obj = await event.client.get_entity(previous_message.sender_id)
         extra = event.pattern_match.group(1)
     elif args:
         user = args[0]
@@ -1244,7 +1244,7 @@ async def get_user_from_event(event):
     return user_obj, extra
 
 
-async def get_user_from_id(user, event):
+async def get_user_sender_id(user, event):
     if isinstance(user, str):
         user = int(user)
 
@@ -2888,7 +2888,7 @@ async def remppic(delpfp):
         lim = 1
 
     pfplist = await delpfp.client(
-        GetUserPhotosRequest(user_id=delpfp.from_id, offset=0, max_id=0, limit=lim)
+        GetUserPhotosRequest(user_id=delpfp.sender_id, offset=0, max_id=0, limit=lim)
     )
     input_photos = []
     for sep in pfplist.photos:
@@ -3740,13 +3740,13 @@ async def _getid(event):
             bot_api_file_id = pack_bot_file_id(r_msg.media)
             await event.edit(
                 "Current Chat ID: `{}`\nFrom User ID: `{}`\nBot API File ID: `{}`".format(
-                    str(event.chat_id), str(r_msg.from_id), bot_api_file_id
+                    str(event.chat_id), str(r_msg.sender_id), bot_api_file_id
                 )
             )
         else:
             await event.edit(
                 "Current Chat ID: `{}`\nFrom User ID: `{}`".format(
-                    str(event.chat_id), str(r_msg.from_id)
+                    str(event.chat_id), str(r_msg.sender_id)
                 )
             )
     else:
