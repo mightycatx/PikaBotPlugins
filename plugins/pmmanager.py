@@ -55,12 +55,12 @@ if LOGBOT is not None:
         if event.fwd_from and not event.is_private:
             return
         try:
-           pika = await event.client.get_me()
-           replied_user = await event.client(GetFullUserRequest(event.chat_id))
-           firstname = replied_user.user.first_name
-           reason = event.pattern_match.group(1)
-           chat = await event.get_chat()
-        except:
+            pika = await event.client.get_me()
+            replied_user = await event.client(GetFullUserRequest(event.chat_id))
+            firstname = replied_user.user.first_name
+            reason = event.pattern_match.group(1)
+            chat = await event.get_chat()
+        except BaseException:
             pass
         if event.is_private:
             if pika.id == pika_id1:
@@ -134,11 +134,11 @@ if LOGBOT is not None:
         if event.fwd_from and not event.is_private:
             return
         try:
-           replied_user = await event.client(GetFullUserRequest(event.chat_id))
-           replied_user.user.first_name
-           event.pattern_match.group(1)
-           chat = await event.get_chat()
-        except:
+            replied_user = await event.client(GetFullUserRequest(event.chat_id))
+            replied_user.user.first_name
+            event.pattern_match.group(1)
+            chat = await event.get_chat()
+        except BaseException:
             pass
         if event.is_private:
             if chat.id == 779890498:
@@ -160,12 +160,12 @@ if LOGBOT is not None:
         if event.fwd_from and not event.is_private:
             return
         try:
-           pika = await event.client.get_me()
-           replied_user = await event.client(GetFullUserRequest(event.chat_id))
-           firstname = replied_user.user.first_name
-           event.pattern_match.group(1)
-           chat = await event.get_chat()
-        except:
+            pika = await event.client.get_me()
+            replied_user = await event.client(GetFullUserRequest(event.chat_id))
+            firstname = replied_user.user.first_name
+            event.pattern_match.group(1)
+            chat = await event.get_chat()
+        except BaseException:
             pass
         if event.is_private:
             if pika.id == pika_id1:
