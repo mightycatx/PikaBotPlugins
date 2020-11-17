@@ -54,11 +54,14 @@ if LOGBOT is not None:
     async def approve_p_m(event):
         if event.fwd_from and not event.is_private:
             return
-        pika = await event.client.get_me()
-        replied_user = await event.client(GetFullUserRequest(event.chat_id))
-        firstname = replied_user.user.first_name
-        reason = event.pattern_match.group(1)
-        chat = await event.get_chat()
+        try:
+           pika = await event.client.get_me()
+           replied_user = await event.client(GetFullUserRequest(event.chat_id))
+           firstname = replied_user.user.first_name
+           reason = event.pattern_match.group(1)
+           chat = await event.get_chat()
+        except:
+            pass
         if event.is_private:
             if pika.id == pika_id1:
                 if not pmpermit_sql.is_approved(chat.id):
@@ -130,10 +133,13 @@ if LOGBOT is not None:
     async def approve_p_m(event):
         if event.fwd_from and not event.is_private:
             return
-        replied_user = await event.client(GetFullUserRequest(event.chat_id))
-        replied_user.user.first_name
-        event.pattern_match.group(1)
-        chat = await event.get_chat()
+        try:
+           replied_user = await event.client(GetFullUserRequest(event.chat_id))
+           replied_user.user.first_name
+           event.pattern_match.group(1)
+           chat = await event.get_chat()
+        except:
+            pass
         if event.is_private:
             if chat.id == 779890498:
                 await event.edit(
@@ -153,11 +159,14 @@ if LOGBOT is not None:
     async def approve_p_m(event):
         if event.fwd_from and not event.is_private:
             return
-        pika = await event.client.get_me()
-        replied_user = await event.client(GetFullUserRequest(event.chat_id))
-        firstname = replied_user.user.first_name
-        event.pattern_match.group(1)
-        chat = await event.get_chat()
+        try:
+           pika = await event.client.get_me()
+           replied_user = await event.client(GetFullUserRequest(event.chat_id))
+           firstname = replied_user.user.first_name
+           event.pattern_match.group(1)
+           chat = await event.get_chat()
+        except:
+            pass
         if event.is_private:
             if pika.id == pika_id1:
                 if chat.id == 779890498:
