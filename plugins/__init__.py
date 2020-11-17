@@ -3363,14 +3363,9 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
 
         else:
             ax = os.environ.get("ALIVE_NAME")
-            if ((event.peer_id).user_id) == bot.uid:
-                iname = ax[0]
-            if bot2 is not None and ((event.peer_id).user_id) == bot2.uid:
-                iname = ax[1]
-            if bot3 is not None and ((event.peer_id).user_id) == bot3.uid:
-                iname = ax[2]
-            if bot4 is not None and ((event.peer_id).user_id) == bot4.uid:
-                iname = ax[3]
+            iq= await event.client.get_me()
+            if iq.id == pika_id1:
+               iname=ax[0]
             reply_pop_up_alert = "Hi {}'s bot here ,\n\nWhy r u clicking this this.Please get your own PikaBot, and don't use mine!".format(
                 iname
             )
