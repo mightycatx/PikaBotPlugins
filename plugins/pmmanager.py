@@ -56,7 +56,7 @@ if LOGBOT is not None:
             return
         pika = await event.client.get_me()
         replied_user = await event.client(GetFullUserRequest(event.chat_id))
-        firstname = replied_user.first_name
+        firstname = replied_user.user.first_name
         reason = event.pattern_match.group(1)
         chat = await event.get_chat()
         if event.is_private:
@@ -131,7 +131,7 @@ if LOGBOT is not None:
         if event.fwd_from and not event.is_private:
             return
         replied_user = await event.client(GetFullUserRequest(event.chat_id))
-        replied_user.first_name
+        firstname = replied_user.user.first_name
         event.pattern_match.group(1)
         chat = await event.get_chat()
         if event.is_private:
@@ -155,7 +155,7 @@ if LOGBOT is not None:
             return
         pika = await event.client.get_me()
         replied_user = await event.client(GetFullUserRequest(event.chat_id))
-        firstname = replied_user.first_name
+        firstname = replied_user.user.first_name
         event.pattern_match.group(1)
         chat = await event.get_chat()
         if event.is_private:
