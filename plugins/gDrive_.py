@@ -9,6 +9,7 @@ import os
 import time
 from datetime import datetime
 from mimetypes import guess_type
+from var import Var
 
 import httplib2
 from apiclient.http import MediaFileUpload
