@@ -35,7 +35,7 @@ parent_id = Var.GDRIVE_FOLDER_ID
 G_DRIVE_DIR_MIME_TYPE = "application/vnd.google-apps.folder"
 
 
-@ItzSjDude(pattern="ugdrive ?(.*)"))
+@ItzSjDude(pattern="ugdrive ?(.*)")
 async def _(event):
     if event.fwd_from:
         return
