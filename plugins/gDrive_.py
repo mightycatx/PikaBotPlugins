@@ -9,7 +9,6 @@ import os
 import time
 from datetime import datetime
 from mimetypes import guess_type
-from var import Var
 
 import httplib2
 from apiclient.http import MediaFileUpload
@@ -19,6 +18,7 @@ from googleapiclient.discovery import build
 from oauth2client.client import OAuth2WebServerFlow
 from oauth2client.file import Storage
 from telethon import events
+from var import Var
 
 # Path to token json file, it should be in same directory as script
 G_DRIVE_TOKEN_FILE = Var.TEMP_DOWNLOAD_DIRECTORY + "/auth_token.txt"
