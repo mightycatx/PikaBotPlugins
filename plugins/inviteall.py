@@ -2,7 +2,6 @@
 # from javes UserBot, Copyright @Rekcah
 
 
-
 from telethon.errors import (
     ChannelInvalidError,
     ChannelPrivateError,
