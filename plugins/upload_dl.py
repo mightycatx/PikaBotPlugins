@@ -24,7 +24,7 @@ from telethon.tl.types import DocumentAttributeVideo
 @ItzSjDude(pattern=r"dl(?: |$)(.*)")
 async def download(target_file):
     """ For .dl command, download files to the userbot's server. """
-    a = await target_file.reply("Processing using userbot server ( ◜‿◝ )♡")
+    pik = await target_file.reply("Processing using userbot server ( ◜‿◝ )♡")
     input_str = target_file.pattern_match.group(1)
     if not os.path.isdir(TEMP_DOWNLOAD_DIRECTORY):
         os.makedirs(TEMP_DOWNLOAD_DIRECTORY)
@@ -66,16 +66,16 @@ async def download(target_file):
                 \nETA: {estimated_total_time}"
 
                 if round(diff % 10.00) == 0 and current_message != display_message:
-                    await a.edit(current_message)
+                    await pik.edit(current_message)
                     display_message = current_message
             except Exception as e:
                 LOGS.info(str(e))
         if downloader.isSuccessful():
-            await a.edit(
+            await pik.edit(
                 "Downloaded to `{}` successfully !!".format(downloaded_file_name)
             )
         else:
-            await a.edit("Incorrect URL\n{}".format(url))
+            await pik.edit("Incorrect URL\n{}".format(url))
     elif target_file.reply_to_msg_id:
         try:
             c_time = time.time()
@@ -87,13 +87,13 @@ async def download(target_file):
                 ),
             )
         except Exception as e:  # pylint:disable=C0103,W0703
-            await a.edit(str(e))
+            await pik.edit(str(e))
         else:
-            await a.edit(
+            await pik.edit(
                 "Downloaded to `{}` successfully !!".format(downloaded_file_name)
             )
     else:
-        await a.edit("Reply to a message to download to my local server.")
+        await pik.edit("Reply to a message to download to my local server.")
 
 
 @ItzSjDude(pattern=r"uploadir (.*)")
