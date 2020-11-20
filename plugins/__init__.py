@@ -120,9 +120,11 @@ NO_PERM = "`I don't have sufficient permissions!`"
 NO_SQL = "`Running on Non-SQL mode!`"
 
 CHAT_PP_CHANGED = "`Chat Picture Changed`"
-CHAT_PP_ERROR = "`Some issue with updating the pic,`" \
-                "`maybe coz I'm not an admin,`" \
-                "`or don't have enough rights.`"
+CHAT_PP_ERROR = (
+    "`Some issue with updating the pic,`"
+    "`maybe coz I'm not an admin,`"
+    "`or don't have enough rights.`"
+)
 INVALID_MEDIA = "`Invalid Extension`"
 
 BANNED_RIGHTS = ChatBannedRights(
@@ -578,7 +580,7 @@ async def _setgpic(gpic):
     if replymsg and replymsg.media:
         if isinstance(replymsg.media, MessageMediaPhoto):
             photo = await gpic.client.download_media(message=replymsg.photo)
-        elif "image" in replymsg.media.document.mime_type.split('/'):
+        elif "image" in replymsg.media.document.mime_type.split("/"):
             photo = await gpic.client.download_file(replymsg.media.document)
         else:
             await gpic.edit(INVALID_MEDIA)
@@ -586,14 +588,15 @@ async def _setgpic(gpic):
     if photo:
         try:
             await gpic.client(
-                EditPhotoRequest(gpic.chat_id, await
-                                 gpic.client.upload_file(photo)))
+                EditPhotoRequest(gpic.chat_id, await gpic.client.upload_file(photo))
+            )
             await gpic.edit(CHAT_PP_CHANGED)
 
         except PhotoCropSizeSmallError:
             await gpic.edit(PP_TOO_SMOL)
         except ImageProcessFailedError:
             await gpic.edit(PP_ERROR)
+
 
 async def _promote(promt):
     """ For .promote command, promotes the replied/tagged person """
@@ -608,12 +611,14 @@ async def _promote(promt):
         await promt.edit(NO_ADMIN)
         return
 
-    new_rights = ChatAdminRights(add_admins=False,
-                                 invite_users=True,
-                                 change_info=False,
-                                 ban_users=True,
-                                 delete_messages=True,
-                                 pin_messages=True)
+    new_rights = ChatAdminRights(
+        add_admins=False,
+        invite_users=True,
+        change_info=False,
+        ban_users=True,
+        delete_messages=True,
+        pin_messages=True,
+    )
 
     await promt.edit("`Promoting...`")
     user, rank = await get_user_from_event(promt)
@@ -627,8 +632,7 @@ async def _promote(promt):
 
     # Try to promote if current user is admin or creator
     try:
-        await promt.client(
-            EditAdminRequest(promt.chat_id, user.id, new_rights, rank))
+        await promt.client(EditAdminRequest(promt.chat_id, user.id, new_rights, rank))
         await promt.edit("`Promoted Successfully!`")
 
     # If Telethon spit BadRequestError, assume
@@ -640,9 +644,12 @@ async def _promote(promt):
     # Announce to the logging group if we have promoted successfully
     if BOTLOG:
         await promt.client.send_message(
-            BOTLOG_CHATID, "#PROMOTE\n"
+            BOTLOG_CHATID,
+            "#PROMOTE\n"
             f"USER: [{user.first_name}](tg://user?id={user.id})\n"
-            f"CHAT: {promt.chat.title}(`{promt.chat_id}`)")
+            f"CHAT: {promt.chat.title}(`{promt.chat_id}`)",
+        )
+
 
 async def _demote(dmod):
     """ For .demote command, demotes the replied/tagged person """
@@ -666,16 +673,17 @@ async def _demote(dmod):
         return
 
     # New rights after demotion
-    newrights = ChatAdminRights(add_admins=None,
-                                invite_users=None,
-                                change_info=None,
-                                ban_users=None,
-                                delete_messages=None,
-                                pin_messages=None)
+    newrights = ChatAdminRights(
+        add_admins=None,
+        invite_users=None,
+        change_info=None,
+        ban_users=None,
+        delete_messages=None,
+        pin_messages=None,
+    )
     # Edit Admin Permission
     try:
-        await dmod.client(
-            EditAdminRequest(dmod.chat_id, user.id, newrights, rank))
+        await dmod.client(EditAdminRequest(dmod.chat_id, user.id, newrights, rank))
 
     # If we catch BadRequestError from Telethon
     # Assume we don't have permission to demote
@@ -687,9 +695,12 @@ async def _demote(dmod):
     # Announce to the logging group if we have demoted successfully
     if BOTLOG:
         await dmod.client.send_message(
-            BOTLOG_CHATID, "#DEMOTE\n"
+            BOTLOG_CHATID,
+            "#DEMOTE\n"
             f"USER: [{user.first_name}](tg://user?id={user.id})\n"
-            f"CHAT: {dmod.chat.title}(`{dmod.chat_id}`)")
+            f"CHAT: {dmod.chat.title}(`{dmod.chat_id}`)",
+        )
+
 
 async def _ban(bon):
     """ For .ban command, bans the replied/tagged person """
@@ -713,8 +724,7 @@ async def _ban(bon):
     await bon.edit("`Whacking the pest!`")
 
     try:
-        await bon.client(EditBannedRequest(bon.chat_id, user.id,
-                                           BANNED_RIGHTS))
+        await bon.client(EditBannedRequest(bon.chat_id, user.id, BANNED_RIGHTS))
     except BadRequestError:
         await bon.edit(NO_PERM)
         return
@@ -724,26 +734,31 @@ async def _ban(bon):
         if reply:
             await reply.delete()
     except BadRequestError:
-        await bon.edit(
-            "`I dont have message nuking rights! But still he was banned!`")
+        await bon.edit("`I dont have message nuking rights! But still he was banned!`")
         return
     # Delete message and then tell that the command
     # is done gracefully
     # Shout out the ID, so that fedadmins can fban later
     if reason:
-        await bon.edit(f"{user.first_name} was banned !!\
+        await bon.edit(
+            f"{user.first_name} was banned !!\
         \nID: `{str(user.id)}`\
-        \nReason: {reason}")
+        \nReason: {reason}"
+        )
     else:
-        await bon.edit(f"{user.first_name} was banned !!\
-        \nID: `{str(user.id)}`")
+        await bon.edit(
+            f"{user.first_name} was banned !!\
+        \nID: `{str(user.id)}`"
+        )
     # Announce to the logging group if we have banned the person
     # successfully!
     if BOTLOG:
         await bon.client.send_message(
-            BOTLOG_CHATID, "#BAN\n"
+            BOTLOG_CHATID,
+            "#BAN\n"
             f"USER: [{user.first_name}](tg://user?id={user.id})\n"
-            f"CHAT: {bon.chat.title}(`{bon.chat_id}`)")
+            f"CHAT: {bon.chat.title}(`{bon.chat_id}`)",
+        )
 
 
 async def _unban(unbon):
@@ -769,17 +784,19 @@ async def _unban(unbon):
         return
 
     try:
-        await unbon.client(
-            EditBannedRequest(unbon.chat_id, user.id, UNBAN_RIGHTS))
+        await unbon.client(EditBannedRequest(unbon.chat_id, user.id, UNBAN_RIGHTS))
         await unbon.edit("```Unbanned Successfully```")
 
         if BOTLOG:
             await unbon.client.send_message(
-                BOTLOG_CHATID, "#UNBAN\n"
+                BOTLOG_CHATID,
+                "#UNBAN\n"
                 f"USER: [{user.first_name}](tg://user?id={user.id})\n"
-                f"CHAT: {unbon.chat.title}(`{unbon.chat_id}`)")
+                f"CHAT: {unbon.chat.title}(`{unbon.chat_id}`)",
+            )
     except UserIdInvalidError:
         await unbon.edit("`Uh oh my unban logic broke!`")
+
 
 async def _mute(spdr):
     """
@@ -788,7 +805,7 @@ async def _mute(spdr):
     # Check if the function running under SQL mo
     pika = await spdr.client.get_me()
     try:
-        from pikabot.sql_helper.spam_mute_sql import mute,mute2
+        from pikabot.sql_helper.spam_mute_sql import mute, mute2
     except AttributeError:
         await spdr.edit(NO_SQL)
         return
@@ -812,22 +829,20 @@ async def _mute(spdr):
     self_user = await spdr.client.get_me()
 
     if user.id == self_user.id:
-        await spdr.edit(
-            "`Hands too short, can't duct tape myself...\n(ヘ･_･)ヘ┳━┳`")
+        await spdr.edit("`Hands too short, can't duct tape myself...\n(ヘ･_･)ヘ┳━┳`")
         return
 
     # If everything goes well, do announcing and mute
     await spdr.edit("`Gets a tape!`")
-    if pika.id==pika_id1:
+    if pika.id == pika_id1:
         pikamute = mute(spdr.chat_id, user.id)
-    if pika.id==pika_id2:
+    if pika.id == pika_id2:
         pikamute = mute2(spdr.chat_id, user.id)
     if pikamute is False:
-        return await spdr.edit('`Error! User probably already muted.`')
+        return await spdr.edit("`Error! User probably already muted.`")
     else:
         try:
-            await spdr.client(
-                EditBannedRequest(spdr.chat_id, user.id, MUTE_RIGHTS))
+            await spdr.client(EditBannedRequest(spdr.chat_id, user.id, MUTE_RIGHTS))
 
             # Announce that the function is done
             if reason:
@@ -838,16 +853,19 @@ async def _mute(spdr):
             # Announce to logging group
             if BOTLOG:
                 await spdr.client.send_message(
-                    BOTLOG_CHATID, "#MUTE\n"
+                    BOTLOG_CHATID,
+                    "#MUTE\n"
                     f"USER: [{user.first_name}](tg://user?id={user.id})\n"
-                    f"CHAT: {spdr.chat.title}(`{spdr.chat_id}`)")
+                    f"CHAT: {spdr.chat.title}(`{spdr.chat_id}`)",
+                )
         except UserIdInvalidError:
             return await spdr.edit("`Uh oh my mute logic broke!`")
+
 
 async def _unmute(unmot):
     """ For .unmute command, unmute the replied/tagged person """
     # Admin or creator check
-    pika=await unmot.client.get_me()
+    pika = await unmot.client.get_me()
     chat = await unmot.get_chat()
     admin = chat.admin_rights
     creator = chat.creator
@@ -859,30 +877,29 @@ async def _unmute(unmot):
 
     # Check if the function running under SQL mode
     try:
-        from pikabot.sql_helper.mute_sql import unmute,unmute2
+        from pikabot.sql_helper.mute_sql import unmute, unmute2
     except AttributeError:
         await unmot.edit(NO_SQL)
         return
 
     # If admin or creator, inform the user and start unmuting
-    await unmot.edit('```Unmuting...```')
+    await unmot.edit("```Unmuting...```")
     user = await get_user_from_event(unmot)
     user = user[0]
     if user:
         pass
     else:
         return
-    if pika.id==pika_id1:
+    if pika.id == pika_id1:
         pikaumute = unmute(unmot.chat_id, user.id)
-    if pika.id==pika_id2:
+    if pika.id == pika_id2:
         pikaumute = unmute2(unmot.chat_id, user.id)
     if pikaumute is False:
         return await unmot.edit("`Error! User probably already unmuted.`")
     else:
 
         try:
-            await unmot.client(
-                EditBannedRequest(unmot.chat_id, user.id, UNBAN_RIGHTS))
+            await unmot.client(EditBannedRequest(unmot.chat_id, user.id, UNBAN_RIGHTS))
             await unmot.edit("```Unmuted Successfully```")
         except UserIdInvalidError:
             await unmot.edit("`Uh oh my unmute logic broke!`")
@@ -890,9 +907,11 @@ async def _unmute(unmot):
 
         if BOTLOG:
             await unmot.client.send_message(
-                BOTLOG_CHATID, "#UNMUTE\n"
+                BOTLOG_CHATID,
+                "#UNMUTE\n"
                 f"USER: [{user.first_name}](tg://user?id={user.id})\n"
-                f"CHAT: {unmot.chat.title}(`{unmot.chat_id}`)")
+                f"CHAT: {unmot.chat.title}(`{unmot.chat_id}`)",
+            )
 
 
 async def _ungmute(un_gmute):
@@ -910,7 +929,7 @@ async def _ungmute(un_gmute):
 
     # Check if the function running under SQL mode
     try:
-        from pikabot.sql_helper.gmute_sql import ungmute,ungmute2
+        from pikabot.sql_helper.gmute_sql import ungmute, ungmute2
     except AttributeError:
         await un_gmute.edit(NO_SQL)
         return
@@ -923,11 +942,11 @@ async def _ungmute(un_gmute):
         return
 
     # If pass, inform and start ungmuting
-    await un_gmute.edit('```Ungmuting...```')
+    await un_gmute.edit("```Ungmuting...```")
 
-    if pika.id==pika_id1:
+    if pika.id == pika_id1:
         pikaugmute = ungmute(unmot.chat_id, user.id)
-    if pika.id==pika_id2:
+    if pika.id == pika_id2:
         pikaugmute = ungmute2(unmot.chat_id, user.id)
     if pikaugmute is False:
         await un_gmute.edit("`Error! User probably not gmuted.`")
@@ -937,15 +956,17 @@ async def _ungmute(un_gmute):
 
         if BOTLOG:
             await un_gmute.client.send_message(
-                BOTLOG_CHATID, "#UNGMUTE\n"
+                BOTLOG_CHATID,
+                "#UNGMUTE\n"
                 f"USER: [{user.first_name}](tg://user?id={user.id})\n"
-                f"CHAT: {un_gmute.chat.title}(`{un_gmute.chat_id}`)")
+                f"CHAT: {un_gmute.chat.title}(`{un_gmute.chat_id}`)",
+            )
 
 
 async def _gmte(gspdr):
     """ For .gmute command, globally mutes the replied/tagged person """
     # Admin or creator check
-    pika=await gspdr.client.get_me()
+    pika = await gspdr.client.get_me()
     chat = await gspdr.get_chat()
     admin = chat.admin_rights
     creator = chat.creator
@@ -957,7 +978,7 @@ async def _gmte(gspdr):
 
     # Check if the function running under SQL mode
     try:
-        from pikabot.sql_helper.gmute_sql import gmute,gmute2
+        from pikabot.sql_helper.gmute_sql import gmute, gmute2
     except AttributeError:
         await gspdr.edit(NO_SQL)
         return
@@ -970,14 +991,13 @@ async def _gmte(gspdr):
 
     # If pass, inform and start gmuting
     await gspdr.edit("`Grabs a huge, sticky duct tape!`")
-    
-    if pika.id==pika_id1:
+
+    if pika.id == pika_id1:
         pikagmute = gmute(unmot.chat_id, user.id)
-    if pika.id==pika_id2:
+    if pika.id == pika_id2:
         pikagmute = gmute2(unmot.chat_id, user.id)
     if pikagmute is False:
-        await gspdr.edit(
-            '`Error! User probably already gmuted.\nRe-rolls the tape.`')
+        await gspdr.edit("`Error! User probably already gmuted.\nRe-rolls the tape.`")
     else:
         if reason:
             await gspdr.edit(f"`Globally taped!`Reason: {reason}")
@@ -986,10 +1006,11 @@ async def _gmte(gspdr):
 
         if BOTLOG:
             await gspdr.client.send_message(
-                BOTLOG_CHATID, "#GMUTE\n"
+                BOTLOG_CHATID,
+                "#GMUTE\n"
                 f"USER: [{user.first_name}](tg://user?id={user.id})\n"
-                f"CHAT: {gspdr.chat.title}(`{gspdr.chat_id}`)")
-
+                f"CHAT: {gspdr.chat.title}(`{gspdr.chat_id}`)",
+            )
 
 
 async def _rmdacc(show):
