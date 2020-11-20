@@ -805,7 +805,7 @@ async def _mute(spdr):
     # Check if the function running under SQL mo
     pika = await spdr.client.get_me()
     try:
-        from pikabot.sql_helper.spam_mute_sql import mute, mute2
+        from pikabot.sql_helper.mute_sql import mute, mute2
     except AttributeError:
         await spdr.edit(NO_SQL)
         return
