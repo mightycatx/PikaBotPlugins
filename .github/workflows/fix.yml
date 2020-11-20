@@ -9,8 +9,8 @@ jobs:
       - name: Find and Replace
         uses: jacobtomlinson/gha-find-replace@master
         with:
-          find: "from_id"
-          replace: "sender_id"
+          find: "spam_mute_sql"
+          replace: "mute_sql"
       - name: Create Pull Request
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
