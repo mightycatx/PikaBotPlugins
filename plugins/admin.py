@@ -1,87 +1,88 @@
 # Officially made for Pikabot by ItzSjDude from Paperplane extended snippets
 
 from . import (
+    _setgpic,
+    _promote,
+    _demote,
+    _ban,
+    _unban,
     _mute,
+    _unmute,
     _ungmute,
-    ban,
-    demote,
-    get_admin,
-    get_users,
-    gmte,
-    pin,
-    promote,
-    rm_dacc,
-    setgpic,
-    unban,
-    unmute,
+    _gmte,
+    _rmdacc,
+    _gadmin,
+    _pin,
+    _kick,
+    _gusers,
 )
 
 
-@ItzSjDude(outgoing=True, pattern=r"setgpic")
+@ItzSjDude(groups_only=True,pattern=r"setgpic$")
 async def _(gpic):
-    await setgpic(gpic)
+    await _setgpic(gpic)
 
 
-@ItzSjDude(outgoing=True, pattern=r"promote(?: |$)(.*)")
+@ItzSjDude(groups_only=True,pattern=r"promote(?: |$)(.*)")
 async def _(promt):
-    await promote(promt)
+    await _promote(promt)
 
 
-@ItzSjDude(outgoing=True, pattern=r"demote(?: |$)(.*)")
+@ItzSjDude(groups_only=True,pattern=r"demote(?: |$)(.*)")
 async def _(dmod):
-    await demote(dmod)
+    await _demote(dmod)
 
 
-@ItzSjDude(pattern=r"ban(?: |$)(.*)")
+@ItzSjDude(groups_only=True,pattern=r"ban(?: |$)(.*)")
 async def _(bon):
-    await ban(bon)
+    await _ban(bon)
 
 
-@ItzSjDude(pattern=r"unban(?: |$)(.*)")
+@ItzSjDude(groups_only=True,pattern=r"unban(?: |$)(.*)")
 async def _(unbon):
-    await unban(unbon)
+    await _unban(unbon)
 
 
-@ItzSjDude(pattern=r"mute(?: |$)(.*)")
+@ItzSjDude(groups_only=True,pattern=r"mute(?: |$)(.*)")
 async def _(spdr):
     await _mute(spdr)
 
 
-@ItzSjDude(pattern=r"unmute(?: |$)(.*)")
+@ItzSjDude(groups_only=True,pattern=r"unmute(?: |$)(.*)")
 async def _(unmot):
-    await unmute(unmot)
+    await _unmute(unmot)
 
 
-@ItzSjDude(pattern=r"ungmute(?: |$)(.*)")
+@ItzSjDude(groups_only=True,pattern=r"ungmute(?: |$)(.*)")
 async def _(un_gmute):
     await _ungmute(un_gmute)
 
 
-@ItzSjDude(pattern=r"gmute(?: |$)(.*)")
+@ItzSjDude(groups_only=True,pattern=r"gmute(?: |$)(.*)")
 async def _(gspdr):
-    await gmte(gspdr)
+    await _gmte(gspdr)
 
 
-@ItzSjDude(pattern=r"delusers(?: |$)(.*)")
+@ItzSjDude(groups_only=True,pattern=r"delusers(?: |$)(.*)")
 async def _(show):
-    await rm_dacc(show)
+    await _rmdacc(show)
 
 
-@ItzSjDude(pattern=r"adminlist")
+@ItzSjDude(groups_only=True,pattern=r"adminlist$")
 async def _(show):
-    await get_admin(show)
+    await _gadmin(show)
 
 
-@ItzSjDude(pattern=r"pin(?: |$)(.*)")
+@ItzSjDude(groups_only=True,pattern=r"pin(?: |$)(.*)")
 async def _(msg):
-    await pin(msg)
+    await _pin(msg)
 
 
-@ItzSjDude(pattern=r"kick(?: |$)(.*)")
+@ItzSjDude(groups_only=True,pattern=r"kick(?: |$)(.*)")
 async def _(usr):
-    await kick(usr)
+    await _kick(usr)
 
 
-@ItzSjDude(outgoing=True, pattern=r"users ?(.*)")
+@ItzSjDude(groups_only=True,pattern=r"users ?(.*)")
 async def _(show):
-    await get_users(show)
+    await _gusers(show)
