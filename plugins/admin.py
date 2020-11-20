@@ -8,6 +8,7 @@ from . import (
     _gusers,
     _kick,
     _mute,
+    _muter,
     _pin,
     _promote,
     _rmdacc,
@@ -15,7 +16,6 @@ from . import (
     _unban,
     _ungmute,
     _unmute,
-    _muter,
 )
 
 
@@ -87,6 +87,7 @@ async def _(usr):
 @ItzSjDude(groups_only=True, pattern=r"users ?(.*)")
 async def _(show):
     await _gusers(show)
+
 
 @ItzSjDude(incoming=True, disable_errors=True)
 async def _(moot):
