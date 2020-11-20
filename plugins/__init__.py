@@ -835,9 +835,9 @@ async def _mute(spdr):
     # If everything goes well, do announcing and mute
     await spdr.edit("`Gets a tape!`")
     if pika.id == pika_id1:
-        pikamute = mute(spdr.chat_id, user.id)
+        pikamute = mute(user.id, spdr.chat_id)
     if pika.id == pika_id2:
-        pikamute = mute2(spdr.chat_id, user.id)
+        pikamute = mute2(user.id, spdr.chat_id)
     if pikamute is False:
         return await spdr.edit("`Error! User probably already muted.`")
     else:
@@ -891,9 +891,9 @@ async def _unmute(unmot):
     else:
         return
     if pika.id == pika_id1:
-        pikaumute = unmute(unmot.chat_id, user.id)
+        pikaumute = unmute(user.id, unmot.chat_id)
     if pika.id == pika_id2:
-        pikaumute = unmute2(unmot.chat_id, user.id)
+        pikaumute = unmute2(user.id, unmot.chat_id)
     if pikaumute is False:
         return await unmot.edit("`Error! User probably already unmuted.`")
     else:
