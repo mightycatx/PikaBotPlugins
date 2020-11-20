@@ -945,9 +945,9 @@ async def _ungmute(un_gmute):
     await un_gmute.edit("```Ungmuting...```")
 
     if pika.id == pika_id1:
-        pikaugmute = ungmute(unmot.chat_id, user.id)
+        pikaugmute = ungmute(user.id)
     if pika.id == pika_id2:
-        pikaugmute = ungmute2(unmot.chat_id, user.id)
+        pikaugmute = ungmute2(user.id)
     if pikaugmute is False:
         await un_gmute.edit("`Error! User probably not gmuted.`")
     else:
@@ -993,9 +993,9 @@ async def _gmte(gspdr):
     await gspdr.edit("`Grabs a huge, sticky duct tape!`")
 
     if pika.id == pika_id1:
-        pikagmute = gmute(gspdr.chat_id, user.id)
+        pikagmute = gmute(user.id)
     if pika.id == pika_id2:
-        pikagmute = gmute2(gspdr.chat_id, user.id)
+        pikagmute = gmute2(user.id)
     if pikagmute is False:
         await gspdr.edit("`Error! User probably already gmuted.\nRe-rolls the tape.`")
     else:
