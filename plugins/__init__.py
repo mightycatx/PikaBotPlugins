@@ -1243,17 +1243,11 @@ async def _muter(moot):
     except AttributeError:
         return
     if pika.id == pika_id1:
-        try:
-            muted = is_muted(moot.chat_id)
-            gmuted = is_gmuted(moot.sender_id)
-        except BaseException:
-            pass
+        muted = is_muted(moot.chat_id)
+        gmuted = is_gmuted(moot.sender_id)
     if pika.id == pika_id2:
-        try:
-            muted = is_muted2(moot.chat_id)
-            gmuted = is_gmuted2(moot.sender_id)
-        except BaseException:
-            pass
+        muted = is_muted2(moot.chat_id)
+        gmuted = is_gmuted2(moot.sender_id)
     rights = ChatBannedRights(
         until_date=None,
         send_messages=True,
