@@ -993,9 +993,9 @@ async def _gmte(gspdr):
     await gspdr.edit("`Grabs a huge, sticky duct tape!`")
 
     if pika.id == pika_id1:
-        pikagmute = gmute(unmot.chat_id, user.id)
+        pikagmute = gmute(gspdr.chat_id, user.id)
     if pika.id == pika_id2:
-        pikagmute = gmute2(unmot.chat_id, user.id)
+        pikagmute = gmute2(gspdr.chat_id, user.id)
     if pikagmute is False:
         await gspdr.edit("`Error! User probably already gmuted.\nRe-rolls the tape.`")
     else:
