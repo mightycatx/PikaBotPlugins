@@ -1233,6 +1233,50 @@ async def _gusers(show):
         )
         remove("userslist.txt")
 
+async def _muter(moot):
+    """ Used for deleting the messages of muted people """
+    pika=await moot.client.get_me()
+    try:
+        from pikabot.sql_helper._mute_sql import is_muted,is_muted2
+        from pikabot.sql_helper.gmute_sql import is_gmuted,is_gmuted2
+    except AttributeError:
+        return
+    if pika.id == pika_id1:
+        muted = is_muted(moot.chat_id)
+        gmuted = is_gmuted(moot.sender_id)
+    if pika.id==pika_id2:
+        muted = is_muted2(moot.chat_id)
+        gmuted = is_gmuted2(moot.sender_id)
+    rights = ChatBannedRights(
+        until_date=None,
+        send_messages=True,
+        send_media=True,
+        send_stickers=True,
+        send_gifs=True,
+        send_games=True,
+        send_inline=True,
+        embed_links=True,
+    )
+    if muted:
+        for i in muted:
+            if str(i.sender) == str(moot.sender_id):
+                try:
+                    await moot.delete()
+                    await moot.client(
+                        EditBannedRequest(moot.chat_id, moot.sender_id,
+                                          rights))
+                except (BadRequestError, UserAdminInvalidError,
+                        ChatAdminRequiredError, UserIdInvalidError):
+                    await moot.client.send_read_acknowledge(
+                        moot.chat_id, moot.id)
+    if gmuted:
+        for i in gmuted:
+            if i.sender == str(moot.sender_id):
+                try:
+                    await moot.delete()
+                except BadRequestError:
+                    await moot.client.send_read_acknowledge(
+                        moot.chat_id, moot.id)
 
 async def get_user_from_event(event):
     """ Get the user from argument or replied message. """
