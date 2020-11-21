@@ -1243,8 +1243,8 @@ async def _muter(moot):
     except AttributeError:
         return
     if pika.id == pika_id1:
-        muted = is_muted(moot.chat_id)
-        gmuted = is_gmuted(moot.sender_id)
+        imuted = is_muted(moot.chat_id)
+        igmuted = is_gmuted(moot.sender_id)
     if pika.id == pika_id2:
         muted = is_muted2(moot.chat_id)
         gmuted = is_gmuted2(moot.sender_id)
@@ -1273,8 +1273,32 @@ async def _muter(moot):
                     UserIdInvalidError,
                 ):
                     await moot.client.send_read_acknowledge(moot.chat_id, moot.id)
+    if imuted:
+        for i in imuted:
+            if str(i.sender) == str(moot.sender_id):
+                try:
+                    await moot.delete()
+                    await moot.client(
+                        EditBannedRequest(moot.chat_id, moot.sender_id, rights)
+                    )
+                except (
+                    BadRequestError,
+                    UserAdminInvalidError,
+                    ChatAdminRequiredError,
+                    UserIdInvalidError,
+                ):
+                    await moot.client.send_read_acknowledge(moot.chat_id, moot.id)
+
+
     if gmuted:
         for i in gmuted:
+            if i.sender == str(moot.sender_id):
+                try:
+                    await moot.delete()
+                except BadRequestError:
+                    await moot.client.send_read_acknowledge(moot.chat_id, moot.id)
+    if igmuted:
+        for i in igmuted:
             if i.sender == str(moot.sender_id):
                 try:
                     await moot.delete()
