@@ -18,7 +18,7 @@ from . import (
     _ungmute,
     _unmute,
 )
-
+from pikabot.utils import admin_cmd
 
 @ItzSjDude(groups_only=True, pattern=r"setgpic$")
 async def _(gpic):
