@@ -1242,7 +1242,7 @@ async def _muter(moot):
         from pikabot.sql_helper.mute_sql import is_muted, is_muted2
     except AttributeError:
         return
-    if pika.id == pika_id1:
+    if moot.client==bot:
         imuted = is_muted(moot.chat_id)
         if imuted:
             for i in imuted:
@@ -1269,7 +1269,7 @@ async def _muter(moot):
                     except BadRequestError:
                         await moot.client.send_read_acknowledge(moot.chat_id, moot.id)
 
-    if pika.id == pika_id2:
+    if bot2 is not None and moot.client == bot2:
         muted = is_muted2(moot.chat_id)
         if muted:
             for i in muted:
