@@ -1252,7 +1252,7 @@ async def _muter(moot):
     )
     for i in gmuted:
         if i.sender == str(moot.sender_id):
-            await moot.reply("Globally Muted User Detected : **MUTED SUCCESSFULLY**)
+            await moot.reply("Globally Muted User Detected : **MUTED SUCCESSFULLY**")
             await moot.client(EditBannedRequest(moot.chat_id, moot.sender_id,
                                           rights))
             
@@ -1274,7 +1274,7 @@ async def _muter2(moot):
     )
     for i in gmuted:
         if i.sender == str(moot.sender_id):
-            await moot.reply("Globally Muted User Detected : **MUTED SUCCESSFULLY**)
+            await moot.reply("Globally Muted User Detected : **MUTED SUCCESSFULLY**")
             await moot.client(EditBannedRequest(moot.chat_id, moot.sender_id,
                                           rights))
        
