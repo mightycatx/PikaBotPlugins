@@ -1294,7 +1294,8 @@ async def _muter(moot):
                     try:
                         await moot.delete()
                     except BadRequestError:
-                        await moot.client.send_read_acknowledge(moot.chat_id, moot.id) 
+                        await moot.client.send_read_acknowledge(moot.chat_id, moot.id)
+
 
 async def get_user_from_event(event):
     """ Get the user from argument or replied message. """
