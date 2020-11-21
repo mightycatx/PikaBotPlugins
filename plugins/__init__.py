@@ -1236,65 +1236,43 @@ async def _gusers(show):
 
 async def _muter(moot):
     """ Used for deleting the messages of muted people """
-    await moot.client.get_me()
     try:
-        from pikabot.sql_helper.gmute_sql import is_gmuted, is_gmuted2
-        from pikabot.sql_helper.mute_sql import is_muted, is_muted2
+        from pikabot.sql_helper.mute_sql import is_muted
+        from pikabot.sql_helper.gmute_sql import is_gmuted
     except AttributeError:
         return
-    if moot.client == bot:
-        imuted = is_muted(moot.chat_id)
-        if imuted:
-            for i in imuted:
-                if str(i.sender) == str(moot.sender_id):
-                    try:
-                        await moot.delete()
-                        await moot.client(
-                            EditBannedRequest(moot.chat_id, moot.sender_id, rights)
-                        )
-                    except (
-                        BadRequestError,
-                        UserAdminInvalidError,
-                        ChatAdminRequiredError,
-                        UserIdInvalidError,
-                    ):
-                        await moot.client.send_read_acknowledge(moot.chat_id, moot.id)
-
-        igmuted = is_gmuted(moot.sender_id)
-        if igmuted:
-            for i in igmuted:
-                if i.sender == str(moot.sender_id):
-                    try:
-                        await moot.delete()
-                    except BadRequestError:
-                        await moot.client.send_read_acknowledge(moot.chat_id, moot.id)
-
-    if bot2 is not None and moot.client == bot2:
-        muted = is_muted2(moot.chat_id)
-        if muted:
-            for i in muted:
-                if str(i.sender) == str(moot.sender_id):
-                    try:
-                        await moot.delete()
-                        await moot.client(
-                            EditBannedRequest(moot.chat_id, moot.sender_id, MUTE_RIGHTS)
-                        )
-                    except (
-                        BadRequestError,
-                        UserAdminInvalidError,
-                        ChatAdminRequiredError,
-                        UserIdInvalidError,
-                    ):
-                        await moot.client.send_read_acknowledge(moot.chat_id, moot.id)
-
-        gmuted = is_gmuted2(moot.sender_id)
-        if gmuted:
-            for i in gmuted:
-                if i.sender == str(moot.sender_id):
-                    try:
-                        await moot.delete()
-                    except BadRequestError:
-                        await moot.client.send_read_acknowledge(moot.chat_id, moot.id)
+    muted = is_muted(moot.chat_id)
+    gmuted = is_gmuted(moot.sender_id)
+    rights = ChatBannedRights(
+        until_date=None,
+        send_messages=True,
+        send_media=True,
+        send_stickers=True,
+        send_gifs=True,
+        send_games=True,
+        send_inline=True,
+        embed_links=True,
+    )
+    if muted:
+        for i in muted:
+            if str(i.sender) == str(moot.sender_id):
+                try:
+                    await moot.delete()
+                    await moot.client(
+                        EditBannedRequest(moot.chat_id, moot.sender_id,
+                                          rights))
+                except (BadRequestError, UserAdminInvalidError,
+                        ChatAdminRequiredError, UserIdInvalidError):
+                    await moot.client.send_read_acknowledge(
+                        moot.chat_id, moot.id)
+    if gmuted:
+        for i in gmuted:
+            if i.sender == str(moot.sender_id):
+                try:
+                    await moot.delete()
+                except BadRequestError:
+                    await moot.client.send_read_acknowledge(
+                        moot.chat_id, moot.id)
 
 
 async def get_user_from_event(event):
