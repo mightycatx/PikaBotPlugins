@@ -1289,7 +1289,6 @@ async def _muter(moot):
                 ):
                     await moot.client.send_read_acknowledge(moot.chat_id, moot.id)
 
-
     if gmuted:
         for i in gmuted:
             if i.sender == str(moot.sender_id):
