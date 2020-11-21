@@ -1236,13 +1236,13 @@ async def _gusers(show):
 
 async def _muter(moot):
     """ Used for deleting the messages of muted people """
-    pika = await moot.client.get_me()
+    await moot.client.get_me()
     try:
         from pikabot.sql_helper.gmute_sql import is_gmuted, is_gmuted2
         from pikabot.sql_helper.mute_sql import is_muted, is_muted2
     except AttributeError:
         return
-    if moot.client==bot:
+    if moot.client == bot:
         imuted = is_muted(moot.chat_id)
         if imuted:
             for i in imuted:
