@@ -1245,56 +1245,56 @@ async def _muter(moot):
     if pika.id == pika_id1:
         imuted = is_muted(moot.chat_id)
         if imuted:
-        for i in imuted:
-            if str(i.sender) == str(moot.sender_id):
-                try:
-                    await moot.delete()
-                    await moot.client(
-                        EditBannedRequest(moot.chat_id, moot.sender_id, rights)
-                    )
-                except (
-                    BadRequestError,
-                    UserAdminInvalidError,
-                    ChatAdminRequiredError,
-                    UserIdInvalidError,
-                ):
-                    await moot.client.send_read_acknowledge(moot.chat_id, moot.id)
+            for i in imuted:
+                if str(i.sender) == str(moot.sender_id):
+                    try:
+                        await moot.delete()
+                        await moot.client(
+                            EditBannedRequest(moot.chat_id, moot.sender_id, rights)
+                        )
+                    except (
+                        BadRequestError,
+                        UserAdminInvalidError,
+                        ChatAdminRequiredError,
+                        UserIdInvalidError,
+                    ):
+                        await moot.client.send_read_acknowledge(moot.chat_id, moot.id)
 
         igmuted = is_gmuted(moot.sender_id)
         if igmuted:
-        for i in igmuted:
-            if i.sender == str(moot.sender_id):
-                try:
-                    await moot.delete()
-                except BadRequestError:
-                    await moot.client.send_read_acknowledge(moot.chat_id, moot.id)
+            for i in igmuted:
+                if i.sender == str(moot.sender_id):
+                    try:
+                        await moot.delete()
+                    except BadRequestError:
+                        await moot.client.send_read_acknowledge(moot.chat_id, moot.id)
 
     if pika.id == pika_id2:
         muted = is_muted2(moot.chat_id)
         if muted:
-        for i in muted:
-            if str(i.sender) == str(moot.sender_id):
-                try:
-                    await moot.delete()
-                    await moot.client(
-                        EditBannedRequest(moot.chat_id, moot.sender_id, MUTE_RIGHTS)
-                    )
-                except (
-                    BadRequestError,
-                    UserAdminInvalidError,
-                    ChatAdminRequiredError,
-                    UserIdInvalidError,
-                ):
-                    await moot.client.send_read_acknowledge(moot.chat_id, moot.id)
+            for i in muted:
+                if str(i.sender) == str(moot.sender_id):
+                    try:
+                        await moot.delete()
+                        await moot.client(
+                            EditBannedRequest(moot.chat_id, moot.sender_id, MUTE_RIGHTS)
+                        )
+                    except (
+                        BadRequestError,
+                        UserAdminInvalidError,
+                        ChatAdminRequiredError,
+                        UserIdInvalidError,
+                    ):
+                        await moot.client.send_read_acknowledge(moot.chat_id, moot.id)
 
         gmuted = is_gmuted2(moot.sender_id)
         if gmuted:
-        for i in gmuted:
-            if i.sender == str(moot.sender_id):
-                try:
-                    await moot.delete()
-                except BadRequestError:
-                    await moot.client.send_read_acknowledge(moot.chat_id, moot.id) 
+            for i in gmuted:
+                if i.sender == str(moot.sender_id):
+                    try:
+                        await moot.delete()
+                    except BadRequestError:
+                        await moot.client.send_read_acknowledge(moot.chat_id, moot.id) 
 
 async def get_user_from_event(event):
     """ Get the user from argument or replied message. """
