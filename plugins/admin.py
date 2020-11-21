@@ -1,5 +1,7 @@
 # Officially made for Pikabot by ItzSjDude from Paperplane extended snippets
 
+from pikabot.utils import admin_cmd
+
 from . import (
     _ban,
     _demote,
@@ -18,11 +20,12 @@ from . import (
     _ungmute,
     _unmute,
 )
-from pikabot.utils import admin_cmd
+
 try:
-   from pikabot import bot,bot2
-except:
+    from pikabot import bot, bot2
+except BaseException:
     pass
+
 
 @ItzSjDude(groups_only=True, pattern=r"setgpic$")
 async def _(gpic):
@@ -98,7 +101,9 @@ async def _(show):
 async def _(moot):
     await _muter(moot)
 
+
 if bot2:
+
     @bot2.on(admin_cmd(incoming=True))
     async def _(moot):
-        await _muter2(moot)   
+        await _muter2(moot)

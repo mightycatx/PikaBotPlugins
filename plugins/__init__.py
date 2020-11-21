@@ -1253,9 +1253,9 @@ async def _muter(moot):
     for i in gmuted:
         if i.sender == str(moot.sender_id):
             await moot.reply("Globally Muted User Detected : **MUTED SUCCESSFULLY**")
-            await moot.client(EditBannedRequest(moot.chat_id, moot.sender_id,
-                                          rights))
-            
+            await moot.client(EditBannedRequest(moot.chat_id, moot.sender_id, rights))
+
+
 async def _muter2(moot):
     try:
         from pikabot.sql_helper.gmute_sql import is_gmuted2
@@ -1275,9 +1275,8 @@ async def _muter2(moot):
     for i in gmuted:
         if i.sender == str(moot.sender_id):
             await moot.reply("Globally Muted User Detected : **MUTED SUCCESSFULLY**")
-            await moot.client(EditBannedRequest(moot.chat_id, moot.sender_id,
-                                          rights))
-       
+            await moot.client(EditBannedRequest(moot.chat_id, moot.sender_id, rights))
+
 
 async def get_user_from_event(event):
     """ Get the user from argument or replied message. """
