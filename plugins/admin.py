@@ -19,6 +19,10 @@ from . import (
     _unmute,
 )
 from pikabot.utils import admin_cmd
+try:
+   from pikabot import bot,bot2
+except:
+    pass
 
 @ItzSjDude(groups_only=True, pattern=r"setgpic$")
 async def _(gpic):
