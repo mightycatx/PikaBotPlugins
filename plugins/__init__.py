@@ -1237,8 +1237,8 @@ async def _gusers(show):
 async def _muter(moot):
     """ Used for deleting the messages of muted people """
     try:
-        from pikabot.sql_helper.mute_sql import is_muted
         from pikabot.sql_helper.gmute_sql import is_gmuted
+        from pikabot.sql_helper.mute_sql import is_muted
     except AttributeError:
         return
     muted = is_muted(moot.chat_id)
@@ -1259,20 +1259,22 @@ async def _muter(moot):
                 try:
                     await moot.delete()
                     await moot.client(
-                        EditBannedRequest(moot.chat_id, moot.sender_id,
-                                          rights))
-                except (BadRequestError, UserAdminInvalidError,
-                        ChatAdminRequiredError, UserIdInvalidError):
-                    await moot.client.send_read_acknowledge(
-                        moot.chat_id, moot.id)
+                        EditBannedRequest(moot.chat_id, moot.sender_id, rights)
+                    )
+                except (
+                    BadRequestError,
+                    UserAdminInvalidError,
+                    ChatAdminRequiredError,
+                    UserIdInvalidError,
+                ):
+                    await moot.client.send_read_acknowledge(moot.chat_id, moot.id)
     if gmuted:
         for i in gmuted:
             if i.sender == str(moot.sender_id):
                 try:
                     await moot.delete()
                 except BadRequestError:
-                    await moot.client.send_read_acknowledge(
-                        moot.chat_id, moot.id)
+                    await moot.client.send_read_acknowledge(moot.chat_id, moot.id)
 
 
 async def get_user_from_event(event):
