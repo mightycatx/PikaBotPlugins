@@ -9,6 +9,7 @@ from . import (
     _kick,
     _mute,
     _muter,
+    _muter2,
     _pin,
     _promote,
     _rmdacc,
@@ -89,6 +90,11 @@ async def _(show):
     await _gusers(show)
 
 
-@ItzSjDude(incoming=True, disable_errors=True)
+@bot.on(admin_cmd(incoming=True))
 async def _(moot):
     await _muter(moot)
+
+if bot2:
+    @bot2.on(admin_cmd(incoming=True))
+    async def _(moot):
+        await _muter2(moot)   
