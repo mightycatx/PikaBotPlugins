@@ -90,7 +90,6 @@ async def whoizme(e):
         await e.edit("NikAl lAwDe PehLi FuRsaT Me NikAL <--")
 
 
-
 @ItzSjDude(outgoing=True, pattern="rspam (.*)")
 async def repeats(e):
     message = e.text[8:]
