@@ -894,7 +894,7 @@ async def _unmute(unmot):
         pikaumute = unmute(unmot.chat_id, user.id)
     if pika.id == pika_id2:
         pikaumute = unmute2(unmot.chat_id, user.id)
-    if pikaumute:
+    if pikaumute is False:
         return await unmot.edit("`Error! User probably already unmuted.`")
     else:
 
