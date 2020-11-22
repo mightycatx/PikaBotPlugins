@@ -3427,8 +3427,8 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
             data=re.compile(b"us_plugin_(.*)")
         )
     )
-    async def on_plug_in_callback_query_handler(event):
-        usr = event.query
+    async def on_plug_in_callback_query_handler(pika_):
+        usr = pika_.query
         if (
             usr.user_id == b1.id
             or usr.user_id == b2.id
@@ -3436,48 +3436,41 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
             or usr.user_id == b4.id
             and query.startswith("Pïkå¢hµ")
         ):
-            plugin_name = event.data_match.group(1).decode("UTF-8")
-            help_string = CMD_LIST[plugin_name].__doc__.format(i=rx)
-
-            reply_pop_up_alert = (
-                help_string
-                if help_string is not None
-                else "No DOCSTRING has been setup for {} plugin".format(plugin_name)
-            )
-            reply_pop_up_alert += "\n\n©PikaBot"
-            if len(help_string) >= 140:
-                pop_up = "Command list too long check Saved Messages"
-                help_string += "\n\n **Self distructing in 15secs**"
-                await event.answer(pop_up, cache_time=0, alert=True)
-                if bot is not None and event.query.user_id == bot.uid:
-                    a = await bot.send_message("me", help_string)
-                    await asyncio.sleep(15)
-                    await a.delete()
-                if bot2 is not None and event.query.user_id == bot2.uid:
-                    a = await bot2.send_message("me", help_string)
-                    await asyncio.sleep(15)
-                    await a.delete()
-                if bot3 is not None and event.query.user_id == bot3.uid:
-                    a = await bot3.send_message("me", help_string)
-                    await asyncio.sleep(15)
-                    await a.delete()
-                if bot4 is not None and event.query.user_id == bot4.uid:
-                    a = await bot4.send_message("me", help_string)
-                    await asyncio.sleep(15)
-                    await a.delete()
-
-            else:
-                await event.answer(reply_pop_up_alert, cache_time=0, alert=True)
+            _pika_ = pika_.data_match.group(1).decode("UTF-8")
+            _pika = CMD_LIST[_pika_].__doc__.format(i=rx)
+            _pikaB =[(custom.Button.inline("⫷BacK", data="pikab")]
+            await pika_.edit(_pika, buttons=_pikaB)
 
         else:
             ax = os.environ.get("ALIVE_NAME")
-            iq = await event.client.get_me()
+            iq = await pika_.client.get_me()
             if iq.id == pika_id1:
                 inm = ax[0]
                 reply_pop_up_alert = "Hi {}'s bot here ,\n\nWhy r u clicking this this.Please get your own PikaBot, and don't use mine!".format(
                     inm
                 )
-                await event.answer(reply_pop_up_alert, cache_time=0, alert=True)
+                await pika_.answer(reply_pop_up_alert, cache_time=0, alert=True)
+     
+    
+    @tgbot.on(
+        events.callbackquery.CallbackQuery(  # pylint:disable=E0602
+            data=re.compile(b"pikab(.*)")
+        )
+    )
+    async def on_plug_in_callback_query_handler(event):
+        usr = event.query
+        if (
+            usr.user_id == b1.id
+            or usr.user_id == b2.id
+            or usr.user_id == b3.id
+            or usr.user_id == b4.id
+        ):
+            current_page_number = int(event.data_match.group(1).decode("UTF-8"))
+            buttons = paginate_help(current_page_number, CMD_LIST, "helpme")
+            await event.edit(buttons=buttons)
+        else:
+            reply_pop_up_alert = "Please get your own PikaBot, and don't use mine!"
+            await event.answer(reply_pop_up_alert, cache_time=0, alert=True)
 
 
 def paginate_help(page_number, loaded_plugins, prefix):
