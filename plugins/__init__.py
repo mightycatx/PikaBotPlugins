@@ -1249,7 +1249,7 @@ async def _muter(moot):
     admin = chat.admin_rights
     creator = chat.creator
     if not admin and not creator:
-        return 
+        return
     try:
         from pikabot.sql_helper.gmute_sql import is_gmuted
     except AttributeError:
