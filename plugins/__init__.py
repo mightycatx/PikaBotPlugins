@@ -3464,8 +3464,7 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
             or usr.user_id == b3.id
             or usr.user_id == b4.id
         ):
-            current_page_number = int(event.data_match.group(1).decode("UTF-8"))
-            buttons = paginate_help(current_page_number, CMD_LIST, "helpme")
+            buttons = paginate_help(0, CMD_LIST, "helpme")
             await event.edit(buttons=buttons)
         else:
             reply_pop_up_alert = "Please get your own PikaBot, and don't use mine!"
