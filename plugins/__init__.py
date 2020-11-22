@@ -956,7 +956,7 @@ async def _ungmute(un_gmute):
             if ugmte.is_group:
                 ugchat = ugmte.id
                 try:
-                    await event.client(EditBannedRequest(ugchat, user.id, UNBAN_RIGHTS))
+                    await un_gmute.client(EditBannedRequest(ugchat, user.id, UNBAN_RIGHTS))
                     pika1 += 1
                 except BaseException:
                     pika2 += 1
