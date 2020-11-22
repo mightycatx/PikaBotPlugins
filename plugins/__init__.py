@@ -959,8 +959,8 @@ async def _ungmute(un_gmute):
                    await event.client(EditBannedRequest(ugchat, user.id, UNBAN_RIGHTS))
                    pika1 += 1
                 except:
-                    pika2 += 1
-                    pass
+                   pika2 += 1
+                   pass
                 await event.edit(f"**GMUTING**:\nSucessfull: {pika1}\nErrors: {pika2}")
 
         if BOTLOG:
