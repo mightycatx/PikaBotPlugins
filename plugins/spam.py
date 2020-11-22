@@ -21,7 +21,7 @@ Usage: Gives you Gendgster Feeling
 \nNOTE : I am not responsible if you get banned for spamming!"""
 
 BOTLOG = Var.BOTLOG_CHATID
-
+import asyncio
 
 @ItzSjDude(outgoing=True, pattern="spam (.*)")
 async def spammer(e):
