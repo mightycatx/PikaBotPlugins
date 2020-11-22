@@ -20,8 +20,10 @@ Usage: Gives you Gendgster Feeling
 \nUsage: Randi Rona
 \nNOTE : I am not responsible if you get banned for spamming!"""
 
-BOTLOG = Var.BOTLOG_CHATID
 import asyncio
+
+BOTLOG = Var.BOTLOG_CHATID
+
 
 @ItzSjDude(outgoing=True, pattern="spam (.*)")
 async def spammer(e):
