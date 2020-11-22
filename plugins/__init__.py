@@ -952,7 +952,7 @@ async def _ungmute(un_gmute):
         await un_gmute.edit("`Error! User probably not gmuted.`")
     else:
         async for ugmte in un_gmute.client.iter_dialogs():
-            pika1=0,pika2=0
+            pika1 = pika2 = 0
             if ugmte.is_group:
                 ugchat = ugmte.id
                 try:
