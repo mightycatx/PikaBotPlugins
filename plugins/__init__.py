@@ -957,7 +957,7 @@ async def _ungmute(un_gmute):
                 ugchat = ugmte.id
                 try:
                     await un_gmute.client(
-                        EditBannedRequest(ugchat, user.id, UNBAN_RIGHTS)
+                        EditBannedRequest(ugchat, user.id, UNMUTE_RIGHTS)
                     )
                     pika1 += 1
                 except BaseException:
@@ -1267,7 +1267,7 @@ async def _muter(moot):
 
                 try:
                     await moot.client(
-                        EditBannedRequest(moot.chat_id, moot.sender_id, rights)
+                        EditBannedRequest(moot.chat_id, moot.sender_id, MUTE_RIGHTS)
                     )
                 except BadRequestError:
                     return
@@ -1302,7 +1302,7 @@ async def _muter2(moot):
             if i.sender == str(moot.sender_id):
                 try:
                     await moot.client(
-                        EditBannedRequest(moot.chat_id, moot.sender_id, rights)
+                        EditBannedRequest(moot.chat_id, moot.sender_id, MUTE_RIGHTS)
                     )
                 except BadRequestError:
                     return
