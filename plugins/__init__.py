@@ -963,7 +963,7 @@ async def _ungmute(un_gmute):
                 except BaseException:
                     pika2 += 1
 
-        await un_gmute.edit("**USER GLOBALLY MUTED**)
+        await un_gmute.edit("**USER GLOBALLY MUTED**")
         if BOTLOG:
             await un_gmute.client.send_message(
                 BOTLOG_CHATID,
