@@ -894,7 +894,7 @@ async def _unmute(unmot):
         pikaumute = unmute(unmot.chat_id, user.id)
     if pika.id == pika_id2:
         pikaumute = unmute2(unmot.chat_id, user.id)
-    if pikaumute is False:
+    if pikaumute:
         return await unmot.edit("`Error! User probably already unmuted.`")
     else:
 
@@ -948,11 +948,20 @@ async def _ungmute(un_gmute):
         pikaugmute = ungmute(user.id)
     if pika.id == pika_id2:
         pikaugmute = ungmute2(user.id)
-    if pikaugmute is False:
+    if not pikaugmute:
         await un_gmute.edit("`Error! User probably not gmuted.`")
     else:
-        # Inform about success
-        await un_gmute.edit("```Ungmuted Successfully```")
+        async for ugmte in un_gmute.client.iter_dialogs():
+        pika1=0,pika2=0
+            if ugmte.is_group:
+                ugchat = ugmte.id
+                try:
+                   await event.client(EditBannedRequest(ugchat, user.id, UNBAN_RIGHTS))
+                   pika1 += 1
+                except:
+                   pika2 += 1
+                    pass
+                await event.edit(f"**GMUTING**:\nSucessfull: {pika1}\nErrors: {pika2}")
 
         if BOTLOG:
             await un_gmute.client.send_message(
@@ -1250,11 +1259,17 @@ async def _muter(moot):
         send_inline=True,
         embed_links=True,
     )
-    for i in gmuted:
-        if i.sender == str(moot.sender_id):
-            await moot.reply("Globally Muted User Detected : **MUTED SUCCESSFULLY**")
-            await moot.client(EditBannedRequest(moot.chat_id, moot.sender_id, rights))
 
+    if not moot.is_private:
+        for i in gmuted:
+            if i.sender == str(moot.sender_id):
+                await moot.reply("Globally Muted User Detected : **MUTED SUCCESSFULLY**")
+                await moot.client(EditBannedRequest(moot.chat_id, moot.sender_id, rights))
+
+    if moot.is_private:
+        for i in gmuted:
+            if i.sender == str(moot.sender_id):
+                await moot.delete()
 
 async def _muter2(moot):
     try:
@@ -1272,11 +1287,16 @@ async def _muter2(moot):
         send_inline=True,
         embed_links=True,
     )
-    for i in gmuted:
-        if i.sender == str(moot.sender_id):
-            await moot.reply("Globally Muted User Detected : **MUTED SUCCESSFULLY**")
-            await moot.client(EditBannedRequest(moot.chat_id, moot.sender_id, rights))
+    if not moot.is_private:
+        for i in gmuted:
+            if i.sender == str(moot.sender_id):
+                await moot.reply("Globally Muted User Detected : **MUTED SUCCESSFULLY**")
+                await moot.client(EditBannedRequest(moot.chat_id, moot.sender_id, rights))
 
+    if moot.is_private:
+        for i in gmuted:
+            if i.sender == str(moot.sender_id):
+                await moot.delete()
 
 async def get_user_from_event(event):
     """ Get the user from argument or replied message. """
