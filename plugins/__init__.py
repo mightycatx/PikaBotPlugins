@@ -962,10 +962,8 @@ async def _ungmute(un_gmute):
                     pika1 += 1
                 except BaseException:
                     pika2 += 1
-                await un_gmute.edit(
-                    f"**GMUTING**:\nSucessfull: {pika1}\nErrors: {pika2}"
-                )
 
+        await un_gmute.edit("**USER GLOBALLY MUTED**)
         if BOTLOG:
             await un_gmute.client.send_message(
                 BOTLOG_CHATID,
