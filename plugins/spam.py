@@ -35,7 +35,7 @@ async def spammer(e):
         )
 
 
-@ItzSjDude(outgoing=True, pattern="bigspam")
+@ItzSjDude(outgoing=True, pattern="bigspam (.*)")
 async def bigspam(e):
     if not e.text[0].isalpha() and e.text[0] not in ("/", "#", "@"):
         message = e.text
@@ -90,25 +90,17 @@ async def whoizme(e):
         await e.edit("NikAl lAwDe PehLi FuRsaT Me NikAL <--")
 
 
-@ItzSjDude(outgoing=True, pattern="repeat")
-async def repeat(e):
-    message = e.text[10:]
-    count = int(e.text[8:10])
-    repmessage = message * count
-    await e.respond(repmessage)
-    await e.delete()
 
-
-@ItzSjDude(outgoing=True, pattern="repeats")
+@ItzSjDude(outgoing=True, pattern="rspam (.*)")
 async def repeats(e):
-    message = e.text[10:]
-    count = int(e.text[8:10])
+    message = e.text[8:]
+    count = int(e.text[6:8])
     repmessage = message * count
     await wait([e.respond(repmessage) for i in range(count)])
     await e.delete()
 
 
-@ItzSjDude(outgoing=True, pattern="picspam")
+@ItzSjDude(outgoing=True, pattern="picspam (.*)")
 async def tiny_pic_spam(e):
     if not e.text[0].isalpha() and e.text[0] not in ("/", "#", "@"):
         message = e.text
@@ -124,7 +116,7 @@ async def tiny_pic_spam(e):
             )
 
 
-@ItzSjDude(outgoing=True, pattern="dspam")
+@ItzSjDude(outgoing=True, pattern="delayspam (.*)")
 async def spammer(e):
     if not e.text[0].isalpha() and e.text[0] not in ("/", "#", "@"):
         message = e.text
