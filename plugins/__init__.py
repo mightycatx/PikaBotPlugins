@@ -3464,8 +3464,10 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
             or usr.user_id == b3.id
             or usr.user_id == b4.id
         ):
+            _pika = f"""Pïkå¢hµ Úsêrßð† {helpstr}"""
+            _pika +="{}\nCurrently Loaded Plugins: {}".format(query, len(CMD_LIST)),
             buttons = paginate_help(0, CMD_LIST, "helpme")
-            await event.edit(buttons=buttons)
+            await event.edit(_pika, buttons=buttons)
         else:
             reply_pop_up_alert = "Please get your own PikaBot, and don't use mine!"
             await event.answer(reply_pop_up_alert, cache_time=0, alert=True)
