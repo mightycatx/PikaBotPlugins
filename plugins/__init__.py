@@ -956,11 +956,10 @@ async def _ungmute(un_gmute):
             if ugmte.is_group:
                 ugchat = ugmte.id
                 try:
-                   await event.client(EditBannedRequest(ugchat, user.id, UNBAN_RIGHTS))
-                   pika1 += 1
-                except:
-                   pika2 += 1
-                   pass
+                    await event.client(EditBannedRequest(ugchat, user.id, UNBAN_RIGHTS))
+                    pika1 += 1
+                except BaseException:
+                    pika2 += 1
                 await event.edit(f"**GMUTING**:\nSucessfull: {pika1}\nErrors: {pika2}")
 
         if BOTLOG:
@@ -1263,13 +1262,18 @@ async def _muter(moot):
     if not moot.is_private:
         for i in gmuted:
             if i.sender == str(moot.sender_id):
-                await moot.reply("Globally Muted User Detected : **MUTED SUCCESSFULLY**")
-                await moot.client(EditBannedRequest(moot.chat_id, moot.sender_id, rights))
+                await moot.reply(
+                    "Globally Muted User Detected : **MUTED SUCCESSFULLY**"
+                )
+                await moot.client(
+                    EditBannedRequest(moot.chat_id, moot.sender_id, rights)
+                )
 
     if moot.is_private:
         for i in gmuted:
             if i.sender == str(moot.sender_id):
                 await moot.delete()
+
 
 async def _muter2(moot):
     try:
@@ -1290,13 +1294,18 @@ async def _muter2(moot):
     if not moot.is_private:
         for i in gmuted:
             if i.sender == str(moot.sender_id):
-                await moot.reply("Globally Muted User Detected : **MUTED SUCCESSFULLY**")
-                await moot.client(EditBannedRequest(moot.chat_id, moot.sender_id, rights))
+                await moot.reply(
+                    "Globally Muted User Detected : **MUTED SUCCESSFULLY**"
+                )
+                await moot.client(
+                    EditBannedRequest(moot.chat_id, moot.sender_id, rights)
+                )
 
     if moot.is_private:
         for i in gmuted:
             if i.sender == str(moot.sender_id):
                 await moot.delete()
+
 
 async def get_user_from_event(event):
     """ Get the user from argument or replied message. """
