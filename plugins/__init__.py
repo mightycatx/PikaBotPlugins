@@ -3438,7 +3438,7 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
         ):
             _pika_ = pika_.data_match.group(1).decode("UTF-8")
             _pika = CMD_LIST[_pika_].__doc__.format(i=rx)
-            _pikaB =[(custom.Button.inline("⫷BacK", data="pikab")]
+            _pikaB =[(custom.Button.inline("⫷BacK", data="pikab"))]
             await pika_.edit(_pika, buttons=_pikaB)
 
         else:
