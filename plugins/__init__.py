@@ -963,7 +963,7 @@ async def _ungmute(un_gmute):
                 except BaseException:
                     pika2 += 1
 
-        await un_gmute.edit("**USER GLOBALLY MUTED**")
+        await un_gmute.edit("**USER GLOBALLY I'MMUTED**")
         if BOTLOG:
             await un_gmute.client.send_message(
                 BOTLOG_CHATID,
@@ -1245,11 +1245,6 @@ async def _gusers(show):
 
 
 async def _muter(moot):
-    chat = await moot.get_chat()
-    admin = chat.admin_rights
-    creator = chat.creator
-    if not admin and not creator:
-        return
     try:
         from pikabot.sql_helper.gmute_sql import is_gmuted
     except AttributeError:
