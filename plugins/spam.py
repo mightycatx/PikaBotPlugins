@@ -41,8 +41,8 @@ async def spammer(e):
 async def bigspam(e):
     if not e.text[0].isalpha() and e.text[0] not in ("/", "#", "@"):
         message = e.text
-        counter = int(message[9:13])
-        spam_message = str(e.text[13:])
+        counter = int(message[8:12])
+        spam_message = str(e.text[12:])
         for i in range(1, counter):
             await e.respond(spam_message)
         await e.delete()
