@@ -1,5 +1,5 @@
 # Officially made for Pikabot by ItzSjDude from Paperplane extended snippets
-"""Administration Commands
+"""**Administration Commands**\n\n
 {i}setgpic <reply to image>
 **Usage**: Set replied Image as Group Profile pic\n
 {i}promote reply to UserMsg or @username <CustomAdmintag>
@@ -15,7 +15,7 @@
 {i}mute <reply to UserMsg> or @username
 **Usage**: Unmutes User from Chat\n
 {i}gmute <reply to UserMsg> <reason> or @username <reason>
-**Usage**: Globally Mutes user nd Add to gban watcher
+**Usage**: Globally Mutes user nd Add to gban watcher\n
 {i}ungmute <reply to UserMsg> or @username
 **Usage**: Globally Unmutes Mutes user nd Remove from gmute watcher\n
 {i}delusers
@@ -27,7 +27,9 @@
 {i}kick reply to UserMsg or @username
 **Usage**: kick User from group\n
 {i}pin <reply to msg>
-**Usage**: Pins replied msg
+**Usage**: Pins replied msg\n
+{i}invite <Username>
+**Usage**: Invites User to Current Chat
 """
 
 from pikabot.utils import admin_cmd
@@ -49,6 +51,7 @@ from . import (
     _unban,
     _ungmute,
     _unmute,
+    _invite 
 )
 
 try:
@@ -121,7 +124,9 @@ async def _(msg):
 async def _(usr):
     await _kick(usr)
 
-
+@ItzSjDude(groups_only,pattern="invite ?(.*)")
+async def _(event):
+    await _invite(event)
 @ItzSjDude(groups_only=True, pattern=r"users ?(.*)")
 async def _(show):
     await _gusers(show)
