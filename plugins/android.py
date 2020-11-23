@@ -1,14 +1,14 @@
-""" Userbot module containing commands related to android
+"""Android Related Commands
 {i}magisk
-\nGet latest Magisk releases\
+**Usage**:Get latest Magisk releases\n
 {i}device <codename>
-Usage: Get info about android device codename or model.
+**Usage**: Get info about android device codename or model.\n
 {i}codename <brand> <device>
-Usage: Search for android device codename.
-\n\n{i}specs <brand> <device>
-\nUsage: Get device specifications info.
+**Usage**: Search for android device codename.\n
+{i}specs <brand> <device>
+**Usage**: Get device specifications info.\n
 {i}twrp <codename>
-\nUsage: Get latest twrp download for android device."
+**Usage**: Get latest twrp download for android device.\n
 """
 
 
