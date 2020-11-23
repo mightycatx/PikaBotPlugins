@@ -113,7 +113,7 @@ if inrows is not None:
 else:
     pikrws = 7
 
-_rx_= ("✧" + " {rx}")
+_rx_ = "✧" + " {rx}"
 
 # ===================== Constants ===========================
 PP_TOO_SMOL = "`The image is too small`"
