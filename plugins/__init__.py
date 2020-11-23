@@ -113,6 +113,8 @@ if inrows is not None:
 else:
     pikrws = 7
 
+_rx_= ("✧" + " {rx}")
+
 # ===================== Constants ===========================
 PP_TOO_SMOL = "`The image is too small`"
 PP_ERROR = "`Failure while processing the image`"
@@ -3425,7 +3427,7 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
             or _pikaa_ == pika_id4
         ):
             _pika_ = pika_.data_match.group(1).decode("UTF-8")
-            _pika = CMD_LIST[_pika_].__doc__.format(i=rx)
+            _pika = CMD_LIST[_pika_].__doc__.format(i=_rx_)
             _pikaB = [(custom.Button.inline("⫷BacK", data="pikab"))]
             await pika_.edit(_pika, buttons=_pikaB)
 
