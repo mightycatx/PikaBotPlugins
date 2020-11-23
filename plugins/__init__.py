@@ -32,6 +32,7 @@ from pikabot.utils import get_readable_time as grt
 from PIL import Image, ImageColor, ImageEnhance, ImageOps
 from requests import get
 from selenium import webdriver
+from telethon.events.callbackquery import CallbackQuery as Pika_CallBack
 from selenium.webdriver.chrome.options import Options
 from telethon import custom, events
 from telethon.errors import (
@@ -3322,15 +3323,16 @@ async def helper(event):
 if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
 
     @tgbot.on(events.InlineQuery)  # pylint:disable=E0602
-    async def inline_handler(event):
-        builder = event.builder
+    async def inline_handler(pika_):
+        builder = pika_.builder
         result = None
-        query = event.text
+        query = pika_.text
+        _pikaa_=(pika_.query).user_id
         if (
-            event.query.user_id == b1.id
-            or event.query.user_id == b2.id
-            or event.query.user_id == b3.id
-            or event.query.user_id == b4.id
+            _pikaa_ == pika_id1
+            or _pikaa_ == pika_id2
+            or _pikaa_ == pika_id3
+            or _pikaa_ == pika_id4            
             and query.startswith("Pïkå¢hµ")
         ):
             rev_text = query[::-1]
@@ -3341,100 +3343,88 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
                 buttons=buttons,
                 link_preview=False,
             )
-        await event.answer([result] if result else None)
+        await pika_.answer([result] if result else None)
 
-    @tgbot.on(
-        events.callbackquery.CallbackQuery(  # pylint:disable=E0602
-            data=re.compile(rb"helpme_next\((.+?)\)")
-        )
-    )
-    async def on_plug_in_callback_query_handler(event):
+    @tgbot.on(Pika_CallBack(data=re.compile(rb"helpme_next\((.+?)\)")))
+    async def _pikacallback(pika_):
+        _pikaa_=(pika_.query).user_id
         if (
-            event.query.user_id == b1.id
-            or event.query.user_id == b2.id
-            or event.query.user_id == b3.id
-            or event.query.user_id == b4.id
-            and query.startswith("Pïkå¢hµ")
+            _pikaa_ == pika_id1
+            or _pikaa_ == pika_id2
+            or _pikaa_ == pika_id3
+            or _pikaa_ == pika_id4
         ):
-            current_page_number = int(event.data_match.group(1).decode("UTF-8"))
-            buttons = paginate_help(current_page_number + 1, CMD_LIST, "helpme")
+            c_p_n = int(pika_.data_match.group(1).decode("UTF-8"))
+            buttons = paginate_help(c_p_n + 1, CMD_LIST, "helpme")
             # https://t.me/TelethonChat/115200
-            await event.edit(buttons=buttons)
+            await pika_.edit(buttons=buttons)
 
         else:
-            reply_pop_up_alert = "Please get your own PikaBot, and don't use mine!"
-            await event.answer(reply_pop_up_alert, cache_time=0, alert=True)
+            _alert_ = "Please get your own PikaBot, and don't use mine!"
+            await pika_.answer(_alert_, cache_time=0, alert=True)
 
-    @tgbot.on(
-        events.callbackquery.CallbackQuery(  # pylint:disable=E0602
-            data=re.compile(rb"helpme_prev\((.+?)\)")
-        )
-    )
-    async def on_plug_in_callback_query_handler(event):
+    @tgbot.on(Pika_CallBack(data=re.compile(rb"helpme_prev\((.+?)\)")))
+    async def _pikacallback(pika_):
+        _pikaa_=(pika_.query).user_id
         if (
-            event.query.user_id == b1.id
-            or event.query.user_id == b2.id
-            or event.query.user_id == b3.id
-            or event.query.user_id == b4.id
-            and query.startswith("Pïkå¢hµ")
+            _pikaa_ == pika_id1
+            or _pikaa_ == pika_id2
+            or _pikaa_ == pika_id3
+            or _pikaa_ == pika_id4
         ):
-            current_page_number = int(event.data_match.group(1).decode("UTF-8"))
+            c_p_n = int(pika_.data_match.group(1).decode("UTF-8"))
             buttons = paginate_help(
-                current_page_number - 1, CMD_LIST, "helpme"  # pylint:disable=E0602
+                c_p_n - 1, CMD_LIST, "helpme"  # pylint:disable=E0602
             )
-            # https://t.me/TelethonChat/115200
-            await event.edit(buttons=buttons)
+            await pika_.edit(buttons=buttons)
 
         else:
-            reply_pop_up_alert = "Please get your own PikaBot, and don't use mine!"
-            await event.answer(reply_pop_up_alert, cache_time=0, alert=True)
+            _alert_ = "Please get your own PikaBot, and don't use mine!"
+            await pika_.answer(_alert_, cache_time=0, alert=True)
 
-    @tgbot.on(events.callbackquery.CallbackQuery(data=re.compile(b"restart")))
-    async def on_plug_in_callback_query_handler(event):
-        usr = event.query
+    @tgbot.on(Pika_CallBack(data=re.compile(b"restart")))
+    async def _pikacallback(pika_):
+        _pikaa_=(pika_.query).user_id
         if (
-            usr.user_id == b1.id
-            or usr.user_id == b2.id
-            or usr.user_id == b3.id
-            or usr.user_id == b4.id
+            _pikaa_ == pika_id1
+            or _pikaa_ == pika_id2
+            or _pikaa_ == pika_id3
+            or _pikaa_ == pika_id4
         ):
-            await event.edit("Pika Pi! Restarting wait for 1 Min!")
+            _a_= await pika_.edit("Pika Pi! Restarting wait for 1 Min!")
+            await asyncio.sleep(4)
+            await _a_.delete()
             pika_start()
-            await event.delete()
         else:
-            reply_pop_up_alert = "You can't Restart me, Get your own Pikachu Userbot"
-            await event.answer(reply_pop_up_alert, cache_time=0, alert=True)
+            _alert_ = "You can't Restart me, Get your own Pikachu Userbot"
+            await pika_.answer(_alert_, cache_time=0, alert=True)
 
-    @tgbot.on(events.callbackquery.CallbackQuery(data=re.compile(b"close")))
-    async def on_plug_in_callback_query_handler(event):
-        usr = event.query
+    @tgbot.on(Pika_CallBack(data=re.compile(b"close")))
+    async def _pikacallback(pika_):
+        _pikaa_=(pika_.query).user_id
         if (
-            usr.user_id == b1.id
-            or usr.user_id == b2.id
-            or usr.user_id == b3.id
-            or usr.user_id == b4.id
+            _pikaa_ == pika_id1
+            or _pikaa_ == pika_id2
+            or _pikaa_ == pika_id3
+            or _pikaa_ == pika_id4
         ):
-            await event.edit("Pika Pi! Menu Closed!")
-
+            _a_= await pika_.edit("Pika Pi! Menu Closed!")
+            await asyncio.sleep(3)
+            await _a_.delete()
         else:
-            reply_pop_up_alert = (
+            _alert_ = (
                 "You can't close this menu ploxx, Get your own Pikachu Userbot"
             )
-            await event.answer(reply_pop_up_alert, cache_time=0, alert=True)
+            await pika_.answer(_alert_, cache_time=0, alert=True)
 
-    @tgbot.on(
-        events.callbackquery.CallbackQuery(  # pylint:disable=E0602
-            data=re.compile(b"us_plugin_(.*)")
-        )
-    )
-    async def on_plug_in_callback_query_handler(pika_):
-        usr = pika_.query
+    @tgbot.on(Pika_CallBack(data=re.compile(b"us_plugin_(.*)")))
+    async def _pikacallback(pika_):
+        _pikaa_ =(pika_.query).user_id
         if (
-            usr.user_id == b1.id
-            or usr.user_id == b2.id
-            or usr.user_id == b3.id
-            or usr.user_id == b4.id
-            and query.startswith("Pïkå¢hµ")
+            _pikaa_ == pika_id1
+            or _pikaa_ == pika_id2
+            or _pikaa_ == pika_id3
+            or _pikaa_ == pika_id4
         ):
             _pika_ = pika_.data_match.group(1).decode("UTF-8")
             _pika = CMD_LIST[_pika_].__doc__.format(i=rx)
@@ -3446,31 +3436,25 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
             iq = await pika_.client.get_me()
             if iq.id == pika_id1:
                 inm = ax[0]
-                reply_pop_up_alert = "Hi {}'s bot here ,\n\nWhy r u clicking this this.Please get your own PikaBot, and don't use mine!".format(
-                    inm
-                )
-                await pika_.answer(reply_pop_up_alert, cache_time=0, alert=True)
+                _alert_ = "Hi My Peru Master's bot here ,\n\nWhy r u clicking this this.Please get your own PikaBot, and don't use mine!"
+                await pika_.answer(_alert_, cache_time=0, alert=True)
 
-    @tgbot.on(
-        events.callbackquery.CallbackQuery(  # pylint:disable=E0602
-            data=re.compile(b"pikab(.*)")
-        )
-    )
-    async def on_plug_in_callback_query_handler(event):
-        usr = event.query
+    @tgbot.on(Pika_CallBack(data=re.compile(b"pikab(.*)")))
+    async def _pikacallback(pika_):
+        _pikaa_ =(pika_.query).user_id
         if (
-            usr.user_id == b1.id
-            or usr.user_id == b2.id
-            or usr.user_id == b3.id
-            or usr.user_id == b4.id
+            _pikaa_ == pika_id1
+            or _pikaa_ == pika_id2
+            or _pikaa_ == pika_id3
+            or _pikaa_ == pika_id4
         ):
             _pika = f"""Pïkå¢hµ Úsêrßð† {helpstr}"""
             _pika += "\n**Currently Loaded Plugins**: {}".format(len(CMD_LIST))
-            buttons = paginate_help(0, CMD_LIST, "helpme")
-            await event.edit(_pika, buttons=buttons, link_preview=False)
+            _pika_ = paginate_help(0, CMD_LIST, "helpme")
+            await pika_.edit(_pika, buttons=_pika_, link_preview=False)
         else:
-            reply_pop_up_alert = "Please get your own PikaBot, and don't use mine!"
-            await event.answer(reply_pop_up_alert, cache_time=0, alert=True)
+            _alert_ = "Please get your own PikaBot, and don't use mine!"
+            await pika_.answer(_alert_, cache_time=0, alert=True)
 
 
 def paginate_help(page_number, loaded_plugins, prefix):
