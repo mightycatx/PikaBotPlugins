@@ -32,7 +32,6 @@ from pikabot.utils import get_readable_time as grt
 from PIL import Image, ImageColor, ImageEnhance, ImageOps
 from requests import get
 from selenium import webdriver
-from telethon.events.callbackquery import CallbackQuery as Pika_CallBack
 from selenium.webdriver.chrome.options import Options
 from telethon import custom, events
 from telethon.errors import (
@@ -48,6 +47,7 @@ from telethon.errors.rpcerrorlist import (
     UserIdInvalidError,
     YouBlockedUserError,
 )
+from telethon.events.callbackquery import CallbackQuery as Pika_CallBack
 from telethon.tl import functions
 from telethon.tl.functions.channels import (
     EditAdminRequest,
@@ -3327,12 +3327,12 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
         builder = pika_.builder
         result = None
         query = pika_.text
-        _pikaa_=(pika_.query).user_id
+        _pikaa_ = (pika_.query).user_id
         if (
             _pikaa_ == pika_id1
             or _pikaa_ == pika_id2
             or _pikaa_ == pika_id3
-            or _pikaa_ == pika_id4            
+            or _pikaa_ == pika_id4
             and query.startswith("Pïkå¢hµ")
         ):
             rev_text = query[::-1]
@@ -3347,7 +3347,7 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
 
     @tgbot.on(Pika_CallBack(data=re.compile(rb"helpme_next\((.+?)\)")))
     async def _pikacallback(pika_):
-        _pikaa_=(pika_.query).user_id
+        _pikaa_ = (pika_.query).user_id
         if (
             _pikaa_ == pika_id1
             or _pikaa_ == pika_id2
@@ -3365,7 +3365,7 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
 
     @tgbot.on(Pika_CallBack(data=re.compile(rb"helpme_prev\((.+?)\)")))
     async def _pikacallback(pika_):
-        _pikaa_=(pika_.query).user_id
+        _pikaa_ = (pika_.query).user_id
         if (
             _pikaa_ == pika_id1
             or _pikaa_ == pika_id2
@@ -3384,14 +3384,14 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
 
     @tgbot.on(Pika_CallBack(data=re.compile(b"restart")))
     async def _pikacallback(pika_):
-        _pikaa_=(pika_.query).user_id
+        _pikaa_ = (pika_.query).user_id
         if (
             _pikaa_ == pika_id1
             or _pikaa_ == pika_id2
             or _pikaa_ == pika_id3
             or _pikaa_ == pika_id4
         ):
-            _a_= await pika_.edit("Pika Pi! Restarting wait for 1 Min!")
+            _a_ = await pika_.edit("Pika Pi! Restarting wait for 1 Min!")
             await asyncio.sleep(4)
             await _a_.delete()
             pika_start()
@@ -3401,25 +3401,23 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
 
     @tgbot.on(Pika_CallBack(data=re.compile(b"close")))
     async def _pikacallback(pika_):
-        _pikaa_=(pika_.query).user_id
+        _pikaa_ = (pika_.query).user_id
         if (
             _pikaa_ == pika_id1
             or _pikaa_ == pika_id2
             or _pikaa_ == pika_id3
             or _pikaa_ == pika_id4
         ):
-            _a_= await pika_.edit("Pika Pi! Menu Closed!")
+            _a_ = await pika_.edit("Pika Pi! Menu Closed!")
             await asyncio.sleep(3)
             await _a_.delete()
         else:
-            _alert_ = (
-                "You can't close this menu ploxx, Get your own Pikachu Userbot"
-            )
+            _alert_ = "You can't close this menu ploxx, Get your own Pikachu Userbot"
             await pika_.answer(_alert_, cache_time=0, alert=True)
 
     @tgbot.on(Pika_CallBack(data=re.compile(b"us_plugin_(.*)")))
     async def _pikacallback(pika_):
-        _pikaa_ =(pika_.query).user_id
+        _pikaa_ = (pika_.query).user_id
         if (
             _pikaa_ == pika_id1
             or _pikaa_ == pika_id2
@@ -3435,13 +3433,13 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
             ax = os.environ.get("ALIVE_NAME")
             iq = await pika_.client.get_me()
             if iq.id == pika_id1:
-                inm = ax[0]
+                ax[0]
                 _alert_ = "Hi My Peru Master's bot here ,\n\nWhy r u clicking this this.Please get your own PikaBot, and don't use mine!"
                 await pika_.answer(_alert_, cache_time=0, alert=True)
 
     @tgbot.on(Pika_CallBack(data=re.compile(b"pikab(.*)")))
     async def _pikacallback(pika_):
-        _pikaa_ =(pika_.query).user_id
+        _pikaa_ = (pika_.query).user_id
         if (
             _pikaa_ == pika_id1
             or _pikaa_ == pika_id2
