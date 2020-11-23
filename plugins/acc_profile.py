@@ -12,9 +12,9 @@
 {i}gamerpfp
 **Usage**: Activates Gamer pics\n
 {i}pbio <Bio>
-**Usage**: sets Bio 
+**Usage**: sets Bio
 {i}pname <Name>
-**Usage**: sets Name 
+**Usage**: sets Name
 {i}ppic <Reply to pic>
 **Usage**: sets Profile pic
 """
