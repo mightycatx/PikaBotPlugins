@@ -1,4 +1,34 @@
-# Officially made for Pikabot by ItzSjDude from Paperplane extended snippets
+#Officially made for Pikabot by ItzSjDude from Paperplane extended snippets
+"""Administration Commands
+{i}setgpic <reply to image>
+**Usage**: Set replied Image as Group Profile pic\n
+{i}promote reply to UserMsg or @username <CustomAdmintag>
+**Usage**: Promote user with custom admin tag if given\n
+{i}demote <reply to UserMsg> or @username
+**Usage**: Demotes user from admin\n
+{i}ban <reply to UserMsg> or @username
+**Usage**: Ban user\n
+{i}unban <reply to UserMsg> or @username
+**Usage**: Unban user\n
+{i}mute <reply to UserMsg> or @username
+**Usage**: Mutes user from chat\n
+{i}mute <reply to UserMsg> or @username
+**Usage**: Unmutes User from Chat\n
+{i}gmute <reply to UserMsg> <reason> or @username <reason>
+**Usage**: Globally Mutes user nd Add to gban watcher
+{i}ungmute <reply to UserMsg> or @username
+**Usage**: Globally Unmutes Mutes user nd Remove from gmute watcher\n
+{i}delusers 
+**Usage**: Removes Deleted/inactive Users from groups/channels\n
+{i}adminlist 
+**Usage**: get admins in group\n
+{i}users 
+**Usage**: Get all users From group\n
+{i}kick reply to UserMsg or @username
+**Usage**: kick User from group\n
+{i}pin <reply to msg> 
+**Usage**: Pins replied msg
+"""
 
 from pikabot.utils import admin_cmd
 
