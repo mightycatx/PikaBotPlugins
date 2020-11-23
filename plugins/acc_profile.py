@@ -1,13 +1,22 @@
 """Profile Related Commands
 {i}autobio
+**Usage**: Activates Autobio\n
 {i}autoname
+**Usage**: Activates Autoname\n
 {i}autopfp
+**Usage**: Activates Autopic\n
 {i}avengerspfp
+**Usage**: Activates auto Avengers pics\n
 {i}animepfp
+**Usage**: Activates Anime pics\n
 {i}gamerpfp
+**Usage**: Activates Gamer pics\n
 {i}pbio <Bio>
+**Usage**: sets Bio 
 {i}pname <Name>
+**Usage**: sets Name 
 {i}ppic <Reply to pic>
+**Usage**: sets Profile pic
 """
 from . import anpfp, atb, atnm, avpfp, gmpfp, pbio, pname
 
