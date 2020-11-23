@@ -125,7 +125,7 @@ async def _(usr):
     await _kick(usr)
 
 
-@ItzSjDude(groups_only, pattern="invite ?(.*)")
+@ItzSjDude(groups_only=True, pattern="invite ?(.*)")
 async def _(event):
     await _invite(event)
 
