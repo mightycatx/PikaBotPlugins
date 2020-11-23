@@ -1,4 +1,4 @@
-#Officially made for Pikabot by ItzSjDude from Paperplane extended snippets
+# Officially made for Pikabot by ItzSjDude from Paperplane extended snippets
 """Administration Commands
 {i}setgpic <reply to image>
 **Usage**: Set replied Image as Group Profile pic\n
@@ -18,15 +18,15 @@
 **Usage**: Globally Mutes user nd Add to gban watcher
 {i}ungmute <reply to UserMsg> or @username
 **Usage**: Globally Unmutes Mutes user nd Remove from gmute watcher\n
-{i}delusers 
+{i}delusers
 **Usage**: Removes Deleted/inactive Users from groups/channels\n
-{i}adminlist 
+{i}adminlist
 **Usage**: get admins in group\n
-{i}users 
+{i}users
 **Usage**: Get all users From group\n
 {i}kick reply to UserMsg or @username
 **Usage**: kick User from group\n
-{i}pin <reply to msg> 
+{i}pin <reply to msg>
 **Usage**: Pins replied msg
 """
 
