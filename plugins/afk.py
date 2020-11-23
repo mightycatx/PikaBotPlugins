@@ -1,7 +1,7 @@
 """**Afk Plugin for PikaBot**\n
 {i}afk [Optional Reason]
 **Usage**: Sets you as afk.
-Replies to anyone who tags/PM's 
+Replies to anyone who tags/PM's
 you telling them that you are AFK(reason)\n
 **Switches off AFK when you type back anything, anywhere**
 """
