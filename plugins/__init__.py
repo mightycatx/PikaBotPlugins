@@ -3426,9 +3426,9 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
             or _pikaa_ == pika_id3
             or _pikaa_ == pika_id4
         ):
-            
-            a= randint(0, 9)
-            _rx_ = (f"{_emo_[a]}" + f" {rx}")
+
+            a = randint(0, 9)
+            _rx_ = f"{_emo_[a]}" + f" {rx}"
             _pika_ = pika_.data_match.group(1).decode("UTF-8")
             _pika = CMD_LIST[_pika_].__doc__.format(i=_rx_)
             _pikaB = [(custom.Button.inline("⫷BacK", data="pikab"))]
