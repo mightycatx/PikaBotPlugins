@@ -113,7 +113,10 @@ if inrows is not None:
 else:
     pikrws = 7
 
-_rx_ = "✧" + " {rx}"
+_emo_ = ["☉", "★", "✗", "✘", "☛", "☞", "✦", "✧", "✪", "✫"]
+from random import randint
+_p_= randint(0, 9)
+_rx_ = (f"{_emo_[_p_]}" + f" {rx}")
 
 # ===================== Constants ===========================
 PP_TOO_SMOL = "`The image is too small`"
