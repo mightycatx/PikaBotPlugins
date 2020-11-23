@@ -3391,9 +3391,9 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
             or _pikaa_ == pika_id3
             or _pikaa_ == pika_id4
         ):
-            _a_ = await pika_.edit("Pika Pi! Restarting wait for 1 Min!")
+            await pika_.edit("Pika Pi! Restarting wait for 1 Min!")
             await asyncio.sleep(4)
-            await _a_.delete()
+            await pika_.delete()
             pika_start()
         else:
             _alert_ = "You can't Restart me, Get your own Pikachu Userbot"
