@@ -40,6 +40,7 @@ from . import (
     _gadmin,
     _gmte,
     _gusers,
+    _invite,
     _kick,
     _mute,
     _muter,
@@ -51,7 +52,6 @@ from . import (
     _unban,
     _ungmute,
     _unmute,
-    _invite 
 )
 
 try:
@@ -124,9 +124,12 @@ async def _(msg):
 async def _(usr):
     await _kick(usr)
 
-@ItzSjDude(groups_only,pattern="invite ?(.*)")
+
+@ItzSjDude(groups_only, pattern="invite ?(.*)")
 async def _(event):
     await _invite(event)
+
+
 @ItzSjDude(groups_only=True, pattern=r"users ?(.*)")
 async def _(show):
     await _gusers(show)
