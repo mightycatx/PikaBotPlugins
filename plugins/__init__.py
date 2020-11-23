@@ -3844,6 +3844,7 @@ async def _getid(event):
     else:
         await event.edit("Current Chat ID: `{}`".format(str(event.chat_id)))
 
+
 async def _invite(event):
     if event.fwd_from:
         return
@@ -3876,4 +3877,3 @@ async def _invite(event):
                 except Exception as e:
                     await event.reply(str(e))
             await event.edit("Invited Successfully")
-
