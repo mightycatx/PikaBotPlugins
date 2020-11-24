@@ -78,7 +78,10 @@ try:
     from pikabot import bot, bot2, bot3, bot4
 except BaseException:
     pass
-tgbot = bot.tgbot
+try:
+   tgbot = bot.tgbot
+except: 
+    pass
 b1 = bot.me
 if bot2:
     b2 = bot2.me
