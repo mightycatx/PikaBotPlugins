@@ -3442,7 +3442,6 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
                 ax[0]
                 _alert_ = "Hi My Peru Master's bot here ,\n\nWhy r u clicking this this.Please get your own PikaBot, and don't use mine!"
                 await pika_.answer(_alert_, cache_time=0, alert=True)
-
     @tgbot.on(Pika_CallBack(data=re.compile(b"pikab(.*)")))
     async def _pikacallback(pika_):
         _pikaa_ = (pika_.query).user_id
@@ -3459,6 +3458,23 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
         else:
             _alert_ = "Please get your own PikaBot, and don't use mine!"
             await pika_.answer(_alert_, cache_time=0, alert=True)
+
+    @tgbot.on(Pika_CallBack(data=re.compile(b"tools(.*)")))
+    async def _pikacallback(pika_):
+        _pikaa_ = (pika_.query).user_id
+        if (
+            _pikaa_ == pika_id1
+            or _pikaa_ == pika_id2
+            or _pikaa_ == pika_id3
+            or _pikaa_ == pika_id4
+        ):
+
+            a = randint(0, 9)
+            _rx_ = f"{_emo_[a]}" + f" {rx}"
+            _pika_ = pika_.data_match.group(1).decode("UTF-8")
+            _pika = CMD_LIST["systools"].__doc__.format(i=_rx_)
+            _pikaB = [(custom.Button.inline("⫷BacK", data="pikab"))]
+            await pika_.edit(_pika, buttons=_pikaB)
 
 
 def paginate_help(page_number, loaded_plugins, prefix):
