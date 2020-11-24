@@ -71,7 +71,6 @@ from telethon.utils import pack_bot_file_id
 from var import Var
 from var import Var as Config
 
-
 CARBONLANG = "auto"
 LANG = "en"
 
