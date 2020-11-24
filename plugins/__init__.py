@@ -79,8 +79,8 @@ try:
 except BaseException:
     pass
 try:
-   tgbot = bot.tgbot
-except: 
+    tgbot = bot.tgbot
+except BaseException:
     pass
 b1 = bot.me
 if bot2:
