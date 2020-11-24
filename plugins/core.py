@@ -1,9 +1,15 @@
-from pikabot import bot ; client = itzSjDude = bot ; from telethon import events ; from telethon.tl.types import InputMessagesFilterDocument ; from pikabot.utils import ItzSjDude, remove_plugin, load_module, LOAD_PLUG ; from var import Var ; from pathlib import Path ; import sys, asyncio, traceback, importlib, os ; from datetime import datetime 
-import glob
+import asyncio
+import os
+from datetime import datetime
+from pathlib import Path
+
+from pikabot import bot
+from pikabot.utils import ItzSjDude, load_module, remove_plugin
+
+client = itzSjDude = bot
 
 DELETE_TIMEOUT = 5
 
-import os
 
 @ItzSjDude(pattern="install", outgoing=True)
 async def install(event):
@@ -11,15 +17,21 @@ async def install(event):
         return
     if event.reply_to_msg_id:
         try:
-            downloaded_file_name = await event.client.download_media(  # pylint:disable=E0602
-                await event.get_reply_message(),
-                "./plugins/"  # pylint:disable=E0602
+            downloaded_file_name = (
+                await event.client.download_media(  # pylint:disable=E0602
+                    await event.get_reply_message(),
+                    "./plugins/",  # pylint:disable=E0602
+                )
             )
             if "(" not in downloaded_file_name:
                 path1 = Path(downloaded_file_name)
                 shortname = path1.stem
                 load_module(shortname.replace(".py", ""))
-                await event.edit("**Successfully imported** `{}`.".format(os.path.basename(downloaded_file_name)))
+                await event.edit(
+                    "**Successfully imported** `{}`.".format(
+                        os.path.basename(downloaded_file_name)
+                    )
+                )
             else:
                 os.remove(downloaded_file_name)
                 await event.edit("**Plugin already imported.**")
@@ -30,7 +42,7 @@ async def install(event):
     await event.delete()
 
 
-@ItzSjDude(pattern="send (?P<shortname>\w+)$", outgoing=True)
+@ItzSjDude(pattern=r"send (?P<shortname>\w+)$", outgoing=True)
 async def send(event):
     if event.fwd_from:
         return
@@ -43,7 +55,7 @@ async def send(event):
         the_plugin_file,
         force_document=True,
         allow_cache=False,
-        reply_to=message_id
+        reply_to=message_id,
     )
     end = datetime.now()
     time_taken_in_ms = (end - start).seconds
@@ -51,7 +63,8 @@ async def send(event):
     await asyncio.sleep(DELETE_TIMEOUT)
     await event.delete()
 
-@ItzSjDude(pattern="unload (?P<shortname>\w+)$", outgoing=True)
+
+@ItzSjDude(pattern=r"unload (?P<shortname>\w+)$", outgoing=True)
 async def unload(event):
     if event.fwd_from:
         return
@@ -62,7 +75,8 @@ async def unload(event):
     except Exception as e:
         await event.edit("Successfully unload {}\n{}".format(shortname, str(e)))
 
-@ItzSjDude(pattern="load (?P<shortname>\w+)$", outgoing=True)
+
+@ItzSjDude(pattern=r"load (?P<shortname>\w+)$", outgoing=True)
 async def load(event):
     if event.fwd_from:
         return
@@ -70,10 +84,11 @@ async def load(event):
     try:
         try:
             remove_plugin(shortname)
-        except:
+        except BaseException:
             pass
         load_module(shortname)
         await event.edit(f"Successfully loaded {shortname}")
     except Exception as e:
-        await event.edit(f"Could not load {shortname} because of the following error.\n{str(e)}")
- 
+        await event.edit(
+            f"Could not load {shortname} because of the following error.\n{str(e)}"
+        )
