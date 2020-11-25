@@ -144,6 +144,6 @@ async def deploy_start(bot, message, refspec, remote):
             x=rx
         )
     )
-    await remote.push(refspec="HEAD:refs/heads/master", force=True)
+    remote.push(refspec="HEAD:refs/heads/master", force=True)
     await bot.disconnect()
     os.execl(sys.executable, sys.executable, *sys.argv)
