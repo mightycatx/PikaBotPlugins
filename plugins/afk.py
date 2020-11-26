@@ -27,8 +27,8 @@ async def set_not_afk(event):
     current_message = event.message.message
     if f"{rx}afk" not in current_message and "yes" in USER_AFK:  # pylint:disable=E0602
         try:
-            await event.client.send_message(BOTLOG_CHATID,"**AFK**: Activated")
-        except:
+            await event.client.send_message(BOTLOG_CHATID, "**AFK**: Activated")
+        except BaseException:
             pass
 
         USER_AFK = {}  # pylint:disable=E0602
