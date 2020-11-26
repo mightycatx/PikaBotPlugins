@@ -25,20 +25,12 @@ async def set_not_afk(event):
     global afk_time  # pylint:disable=E0602
     global last_afk_message  # pylint:disable=E0602
     current_message = event.message.message
-    if ".afk" not in current_message and "yes" in USER_AFK:  # pylint:disable=E0602
+    if f"{rx}afk" not in current_message and "yes" in USER_AFK:  # pylint:disable=E0602
         try:
-            await event.client.send_message(  # pylint:disable=E0602
-                Var.BOTLOG_CHATID,  # pylint:disable=E0602
-                "Mine Owner has gone for some Important work he is very busy😅",
-            )
-        except Exception as e:  # pylint:disable=C0103,W0703
-            await event.client.send_message(  # pylint:disable=E0602
-                event.chat_id,
-                "Please set `BOTLOG_CHATID` "
-                + "for the proper functioning of afk functionality ",
-                reply_to=event.message.id,
-                silent=True,
-            )
+            await event.client.send_message(BOTLOG_CHATID,"**AFK**: Activated")
+        except:
+            pass
+
         USER_AFK = {}  # pylint:disable=E0602
         afk_time = None  # pylint:disable=E0602
 
@@ -63,9 +55,9 @@ async def _(event):
             afk_time = datetime.datetime.now()  # pylint:disable=E0602
         USER_AFK = f"yes: {reason}"  # pylint:disable=E0602
         if reason:
-            await event.edit(f"My Boss is going!, and Reason is {reason}")
+            await event.edit(f"**I'm AFK**\n👉Reason:{reason}")
         else:
-            await event.edit(f"My Boss is Going")
+            await event.edit(f"**I am AFK**\n👉Reason:`Not Given`")
         await asyncio.sleep(5)
         await event.delete()
         try:
