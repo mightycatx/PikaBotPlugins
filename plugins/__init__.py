@@ -1380,7 +1380,7 @@ async def _alive(event):
     a = await event.client.send_file(
         event.chat_id, pic, caption=alivestr.format(pupt, az)
     )
-    await asyncio.sleep(15)
+    await asyncio.sleep(30)
     await a.delete()
 
 
