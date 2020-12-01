@@ -12,11 +12,11 @@
 {i}gamerpfp
 **Usage**: Activates Gamer pics\n
 {i}pbio <Bio>
-**Usage**: sets Bio
+**Usage**: sets Bio\n
 {i}pname <Name>
-**Usage**: sets Name
+**Usage**: sets Name\n
 {i}ppic <Reply to pic>
-**Usage**: sets Profile pic
+**Usage**: sets Profile pic\n
 """
 from . import anpfp, atb, atnm, avpfp, gmpfp, pbio, pname
 
