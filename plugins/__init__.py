@@ -625,8 +625,12 @@ async def _promote(promt):
         delete_messages=True,
         pin_messages=True,
     )
-
-    await promt.edit("`Promoting...`")
+    _tg = await event.client.get_me()
+    if _tg.id == tgbot.uid:
+        ax=True
+    else:
+        ax=None 
+    a=await pika_msg(promt, "`Promoting...`", ax)
     user, rank = await get_user_from_event(promt)
     if not rank:
         # Just in case.
@@ -639,12 +643,12 @@ async def _promote(promt):
     # Try to promote if current user is admin or creator
     try:
         await promt.client(EditAdminRequest(promt.chat_id, user.id, new_rights, rank))
-        await promt.edit("`Promoted Successfully!`")
+        await pika_msg(a, "`Promoted Successfully!`")
 
     # If Telethon spit BadRequestError, assume
     # we don't have Promote permission
     except BadRequestError:
-        await promt.edit(NO_PERM)
+        await pika_msg(a, NO_PERM)
         return
 
     # Announce to the logging group if we have promoted successfully
