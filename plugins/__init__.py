@@ -3256,11 +3256,11 @@ async def dump(message):
 
 
 async def _eval(event):
-    _tg= await event.client.get_me()
+    _tg = await event.client.get_me()
     if _tg.id == tgbot.uid:
-       ax=True
-    else: 
-       ax=None 
+        ax = True
+    else:
+        ax = None
     if event.fwd_from:
         return
     await pika_msg(event, "Processing ...", ax)
