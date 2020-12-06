@@ -1053,7 +1053,7 @@ async def _rmdacc(show):
             del_status = f"Found **{del_u}** deleted account(s) in this group,\
             \nclean them by using .delusers clean"
 
-        await await pika_msg(a, del_status)
+        await pika_msg(a, del_status)
         return
 
     # Here laying the sanity check
