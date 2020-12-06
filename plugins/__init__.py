@@ -627,10 +627,10 @@ async def _promote(promt):
     )
     _tg = await event.client.get_me()
     if _tg.id == tgbot.uid:
-        ax=True
+        ax = True
     else:
-        ax=None 
-    a=await pika_msg(promt, "`Promoting...`", ax)
+        ax = None
+    a = await pika_msg(promt, "`Promoting...`", ax)
     user, rank = await get_user_from_event(promt)
     if not rank:
         # Just in case.
