@@ -15,7 +15,7 @@ import time
 
 from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
-from pikabot import CMD_HELP, pikalog, TEMP_DOWNLOAD_DIRECTORY
+from pikabot import CMD_HELP, TEMP_DOWNLOAD_DIRECTORY, pikalog
 from pikabot.utils import humanbytes, progress
 from pySmartDL import SmartDL
 from telethon.tl.types import DocumentAttributeVideo

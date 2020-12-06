@@ -1032,11 +1032,11 @@ async def _gmte(gspdr):
 async def _rmdacc(show):
     """ For .delusers command, list all the ghost/deleted accounts in a chat. """
     _tg = await tgbot.get_me()
-    if _tg.id==tgbot.uid:
-        ax=True
+    if _tg.id == tgbot.uid:
+        ax = True
     else:
-        ax=None
-    if not show.is_group:        
+        ax = None
+    if not show.is_group:
         await pika_msg(show, "`I don't think this is a group.`", ax)
         return
     con = show.pattern_match.group(1)
