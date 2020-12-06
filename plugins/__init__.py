@@ -3263,7 +3263,7 @@ async def _eval(event):
         ax = None
     if event.fwd_from:
         return
-    await pika_msg(event, "Processing ...", ax)
+    ax_=await pika_msg(event, "Processing ...", ax)
     cmd = event.text.split(" ", maxsplit=1)[1]
     reply_to_id = event.message.id
     if event.reply_to_msg_id:
@@ -3310,7 +3310,7 @@ async def _eval(event):
             )
             await event.delete()
     else:
-        await pika_msg(a, final_output)
+        await pika_msg(ax_, final_output)
 
 
 async def aexec(code, event):
