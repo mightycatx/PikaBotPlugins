@@ -8,7 +8,7 @@ from pikabot.utils import ItzSjDude
 from telethon.tl.types import InputMediaDice
 
 # EMOJI CONSTANTS
-from . import _ding
+from . import _ding,bombs,call,cflip
 
 DART_E_MOJI = "🎯"
 DICE_E_MOJI = "🎲"
