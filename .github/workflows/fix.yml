@@ -1,5 +1,5 @@
 
-name: From id fix 
+name: Pikabot Autofixes 🚶🔥
 on: push
 jobs:
   build:
@@ -9,8 +9,8 @@ jobs:
       - name: Find and Replace
         uses: jacobtomlinson/gha-find-replace@master
         with:
-          find: "spam_mute_sql"
-          replace: "mute_sql"
+          find: "LOGS"
+          replace: "pikalog"
       - name: Create Pull Request
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
