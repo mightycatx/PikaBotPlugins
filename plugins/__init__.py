@@ -625,7 +625,7 @@ async def _promote(promt):
         delete_messages=True,
         pin_messages=True,
     )
-    _tg = await event.client.get_me()
+    _tg = await promt.client.get_me()
     if _tg.id == tgbot.uid:
         ax = True
     else:
