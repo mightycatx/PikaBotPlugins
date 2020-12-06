@@ -15,7 +15,7 @@ import time
 
 from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
-from pikabot import CMD_HELP, LOGS, TEMP_DOWNLOAD_DIRECTORY
+from pikabot import CMD_HELP, pikalog, TEMP_DOWNLOAD_DIRECTORY
 from pikabot.utils import humanbytes, progress
 from pySmartDL import SmartDL
 from telethon.tl.types import DocumentAttributeVideo
@@ -69,7 +69,7 @@ async def download(target_file):
                     await pik.edit(current_message)
                     display_message = current_message
             except Exception as e:
-                LOGS.info(str(e))
+                pikalog.info(str(e))
         if downloader.isSuccessful():
             await pik.edit(
                 "Downloaded to `{}` successfully !!".format(downloaded_file_name)
@@ -108,7 +108,7 @@ async def uploadir(udir_event):
                 lst_of_files.append(os.path.join(r, file))
             for file in d:
                 lst_of_files.append(os.path.join(r, file))
-        LOGS.info(lst_of_files)
+        pikalog.info(lst_of_files)
         uploaded = 0
         await a.edit(
             "Found {} files. Uploading will start soon. Please wait!".format(
@@ -247,7 +247,7 @@ def extract_w_h(file):
     try:
         t_response = subprocess.check_output(command_to_run, stderr=subprocess.STDOUT)
     except subprocess.CalledProcessError as exc:
-        LOGS.warning(exc)
+        pikalog.warning(exc)
     else:
         x_reponse = t_response.decode("UTF-8")
         response_json = json.loads(x_reponse)
