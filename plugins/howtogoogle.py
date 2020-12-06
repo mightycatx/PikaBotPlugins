@@ -5,7 +5,8 @@ Animate How To Google\n\n
 
 """
 from . import _ggl
-#By @ loxxi
+
+# By @ loxxi
 
 
 @ItzSjDude(outgoing=True, pattern="ggl(.*)")
