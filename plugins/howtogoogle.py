@@ -4,9 +4,11 @@ Animate How To Google\n\n
 {i}ggl <query>
 
 """
-By @loxxi
-from . import _ggl 
+from . import _ggl
+
+By @ loxxi
+
 
 @ItzSjDude(outgoing=True, pattern="ggl(.*)")
 async def _(event):
-    await _ggl(event) 
+    await _ggl(event)

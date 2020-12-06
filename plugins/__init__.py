@@ -3891,6 +3891,7 @@ async def _gps(event):
     else:
         await event.edit("i coudn't find it")
 
+
 async def _ggl(event):
     if event.fwd_from:
         return
