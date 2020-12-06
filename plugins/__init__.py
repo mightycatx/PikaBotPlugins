@@ -18,12 +18,10 @@ from subprocess import PIPE, Popen
 from time import sleep
 from urllib.parse import quote_plus
 
-from geopy.geocoders import Nominatim
-from pikabot.utils import ItzSjDude
-from telethon.tl import types
 import pyfiglet
 import requests
 from bs4 import BeautifulSoup
+from geopy.geocoders import Nominatim
 from humanize import naturalsize
 from pikabot import *
 from pikabot.handler import *
@@ -31,6 +29,7 @@ from pikabot.main_plugs.pfpdata import *
 from pikabot.main_plugs.plug import *
 from pikabot.main_plugs.SysRuntime import *
 from pikabot.utils import *
+from pikabot.utils import ItzSjDude
 from pikabot.utils import get_readable_time as grt
 from PIL import Image, ImageColor, ImageEnhance, ImageOps
 from requests import get
@@ -51,7 +50,7 @@ from telethon.errors.rpcerrorlist import (
     YouBlockedUserError,
 )
 from telethon.events.callbackquery import CallbackQuery as Pika_CallBack
-from telethon.tl import functions
+from telethon.tl import functions, types
 from telethon.tl.functions.channels import (
     EditAdminRequest,
     EditBannedRequest,
@@ -3864,6 +3863,7 @@ async def _getid(event):
             )
     else:
         await event.edit("Current Chat ID: `{}`".format(str(event.chat_id)))
+
 
 async def _gps(event):
     if event.fwd_from:
