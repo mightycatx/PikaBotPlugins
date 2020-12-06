@@ -1033,9 +1033,9 @@ async def _rmdacc(show):
     """ For .delusers command, list all the ghost/deleted accounts in a chat. """
     _tg = await tgbot.get_me()
     if _tg.id==tgbot.uid:
-            ax=True
-        else:
-            ax=None
+        ax=True
+    else:
+        ax=None
     if not show.is_group:        
         await pika_msg(show, "`I don't think this is a group.`", ax)
         return
