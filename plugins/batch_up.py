@@ -6,5 +6,5 @@ Files Batch Uploader Plugin for userbot.
 
 
 @ItzSjDude(outgoing=True, pattern=r"upb")
-async def batch_upload(event):
+async def _(event):
     await batch_upload(event)
