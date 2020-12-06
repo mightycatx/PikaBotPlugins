@@ -1031,15 +1031,20 @@ async def _gmte(gspdr):
 
 async def _rmdacc(show):
     """ For .delusers command, list all the ghost/deleted accounts in a chat. """
-    if not show.is_group:
-        await show.edit("`I don't think this is a group.`")
+    _tg = await tgbot.get_me()
+    if _tg.id==tgbot.uid:
+            ax=True
+        else:
+            ax=None
+    if not show.is_group:        
+        await pika_msg(show, "`I don't think this is a group.`", ax)
         return
     con = show.pattern_match.group(1)
     del_u = 0
     del_status = "`No deleted accounts found, Group is cleaned as Hell`"
 
     if con != "clean":
-        await show.edit("`Searching for zombie accounts...`")
+        a = await pika_msg(show, "`Searching for zombie accounts...`", ax)
         async for user in show.client.iter_participants(show.chat_id, aggressive=True):
             if user.deleted:
                 del_u += 1
@@ -1048,7 +1053,7 @@ async def _rmdacc(show):
             del_status = f"Found **{del_u}** deleted account(s) in this group,\
             \nclean them by using .delusers clean"
 
-        await show.edit(del_status)
+        await await pika_msg(a, del_status)
         return
 
     # Here laying the sanity check
@@ -1058,10 +1063,10 @@ async def _rmdacc(show):
 
     # Well
     if not admin and not creator:
-        await show.edit("`I am not an admin here!`")
+        await pika_msg(a, "`I am not an admin here!`")
         return
 
-    await show.edit("`Deleting deleted accounts...\nOh I can do that?!?!`")
+    await pika_msg(a, "`Deleting deleted accounts...\nOh I can do that?!?!`")
     del_u = 0
     del_a = 0
 
@@ -1072,7 +1077,7 @@ async def _rmdacc(show):
                     EditBannedRequest(show.chat_id, user.id, BANNED_RIGHTS)
                 )
             except ChatAdminRequiredError:
-                await show.edit("`I don't have ban rights in this group`")
+                await pika_msg(a, "`I don't have ban rights in this group`")
                 return
             except UserAdminInvalidError:
                 del_u -= 1
@@ -1087,7 +1092,7 @@ async def _rmdacc(show):
         del_status = f"Cleaned **{del_u}** deleted account(s) \
         \n**{del_a}** deleted admin accounts are not removed"
 
-    await show.edit(del_status)
+    await pika_msg(a, del_status)
     await sleep(2)
     await show.delete()
 
