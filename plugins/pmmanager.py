@@ -70,7 +70,7 @@ if LOGBOT is not None:
                 if chat.id in PREV_REPLY_MESSAGE:
                     await PREV_REPLY_MESSAGE[chat.id].delete()
                     del PREV_REPLY_MESSAGE[chat.id]
-                pmpermit_sql.approve(chat.id, reason)
+                pmpermit_sql.approve(chat.id, reason, pika_id)
                 logpm = f"#Approved\n[{chat.first_name}]"
                 try:
                     await event.client.send_message(LOGBOT, logpm)
