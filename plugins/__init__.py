@@ -816,7 +816,7 @@ async def _mute(spdr):
     pika = await spdr.client.get_me()
     _pika_id = await get_pika_id(spdr)
     try:
-        from pikabot.sql_helper.mute_sql import mute,
+        from pikabot.sql_helper.mute_sql import mute
     except AttributeError:
         await spdr.edit(NO_SQL)
         return
@@ -962,7 +962,7 @@ async def _ungmute(un_gmute):
                     await un_gmute.client(
                         EditBannedRequest(ugchat, user.id, UNMUTE_RIGHTS)
                     )
-                except: 
+                except BaseException:
                     pass
         await un_gmute.edit("**USER GLOBALLY UNMUTED**")
         if BOTLOG:
@@ -1283,6 +1283,7 @@ async def _muter(moot):
         for i in gmuted:
             if i.sender == str(moot.sender_id) and i.pika_id == _pika_id:
                 await moot.delete()
+
 
 async def get_user_from_event(event):
     """ Get the user from argument or replied message. """
