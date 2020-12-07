@@ -122,13 +122,13 @@ if LOGBOT is not None:
         except BaseException:
             pass
         if event.is_private:
-            pika_id = await get_pika_id(event)
+            _pika_id = await get_pika_id(event)
 
             if chat.id == 779890498:
                 await event.edit("Sorry, I Can't Disapprove My Master")
             else:
-                if pmpermit_sql.is_approved(chat.id, pika_id):
-                    pmpermit_sql.disapprove(chat.id, pika_id)
+                if pmpermit_sql.is_approved(chat.id, _pika_id):
+                    pmpermit_sql.disapprove(chat.id, _pika_id)
                     await event.edit(
                         "Disapproved [{}](tg://user?id={})".format(firstname, chat.id)
                     )
