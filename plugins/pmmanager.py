@@ -75,10 +75,11 @@ if LOGBOT is not None:
                     await event.client.send_message(LOGBOT, logpm)
                 except BaseException:
                     pass
-                await event.edit("Approved to pm [{}](tg://user?id={})".format(firstname, chat.id))
-                    await asyncio.sleep(3)
-                    await event.delete()
-            
+                await event.edit(
+                    "Approved to pm [{}](tg://user?id={})".format(firstname, chat.id)
+                )
+                await asyncio.sleep(3)
+                await event.delete()
 
     @ItzSjDude(pattern="blk ?(.*)")
     async def approve_p_m(event):
@@ -112,7 +113,7 @@ if LOGBOT is not None:
         if event.fwd_from and not event.is_private:
             return
         try:
-            pika = await event.client.get_me()
+            await event.client.get_me()
             replied_user = await event.client(GetFullUserRequest(event.chat_id))
             firstname = replied_user.user.first_name
             event.pattern_match.group(1)
@@ -121,14 +122,15 @@ if LOGBOT is not None:
             pass
         if event.is_private:
             pika_id = await get_pika_id(event)
-            
+
             if chat.id == 779890498:
                 await event.edit("Sorry, I Can't Disapprove My Master")
             else:
                 if pmpermit_sql.is_approved(chat.id, pika_id):
                     pmpermit_sql.disapprove(chat.id, pika_id)
-                    await event.edit("Disapproved [{}](tg://user?id={})".format(firstname, chat.id))
-            
+                    await event.edit(
+                        "Disapproved [{}](tg://user?id={})".format(firstname, chat.id)
+                    )
 
     @ItzSjDude(pattern="la")
     async def approve_p_m(event):
@@ -172,7 +174,8 @@ async def huh(event):
         if not pmpermit_sql.is_approved(chat.id, pika_id):
             pmpermit_sql.approve(chat.id, "**My Boss Is Best🔥**", pika_id)
             await event.client.send_message(chat, "**Boss Meet My Creator**")
-        
+
+
 async def do_pm_permit_action(chat_id, event):
     try:
         dpic = pmp = await pikaa(event, "PMPERMIT_PIC")
@@ -240,7 +243,7 @@ async def on_pika_pm(event):
 
     if not pmpermit_sql.is_approved(chat_id, pika_id):
         await do_pm_permit_action(chat_id, event)
-    
+
 
 @bot.on(events.NewMessage(incoming=True))
 async def _(event):
