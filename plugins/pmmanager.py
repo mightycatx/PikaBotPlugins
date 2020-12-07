@@ -220,7 +220,7 @@ async def do_pm_permit_action(chat_id, event):
 
 async def on_pika_pm(event):
     _pika_id = await get_pika_id(event)
-    pika=await event.client_get_me() 
+    pika = await event.client_get_me()
     if event.sender_id == pika.id:
         return
     if Var.BOTLOG_CHATID is None:
