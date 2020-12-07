@@ -928,6 +928,7 @@ async def _ungmute(un_gmute):
     """ For .ungmute command, ungmutes the target in the userbot """
     # Admin or creator check
     pika = await un_gmute.client.get_me()
+    _pika_id = await get_pika_id(un_gmute)
     chat = await un_gmute.get_chat()
     admin = chat.admin_rights
     creator = chat.creator
@@ -954,26 +955,19 @@ async def _ungmute(un_gmute):
     # If pass, inform and start ungmuting
     await un_gmute.edit("```Ungmuting...```")
 
-    if pika.id == pika_id1:
-        pikaugmute = ungmute(user.id)
-    if pika.id == pika_id2:
-        pikaugmute = ungmute2(user.id)
+    pikaugmute = ungmute(user.id, _pika_id)
     if pikaugmute is False:
         await un_gmute.edit("`Error! User probably not gmuted.`")
     else:
         async for ugmte in un_gmute.client.iter_dialogs():
-            pika1 = pika2 = 0
             if ugmte.is_group:
                 ugchat = ugmte.id
                 try:
                     await un_gmute.client(
                         EditBannedRequest(ugchat, user.id, UNMUTE_RIGHTS)
                     )
-                    pika1 += 1
-                except BaseException:
-                    pika2 += 1
-
-        await un_gmute.edit("**USER GLOBALLY I'MMUTED**")
+  
+        await un_gmute.edit("**USER GLOBALLY UNMUTED**")
         if BOTLOG:
             await un_gmute.client.send_message(
                 BOTLOG_CHATID,
@@ -987,6 +981,7 @@ async def _gmte(gspdr):
     """ For .gmute command, globally mutes the replied/tagged person """
     # Admin or creator check
     pika = await gspdr.client.get_me()
+    _pika_id = await get_pika_id(gspdr)
     chat = await gspdr.get_chat()
     admin = chat.admin_rights
     creator = chat.creator
@@ -998,7 +993,7 @@ async def _gmte(gspdr):
 
     # Check if the function running under SQL mode
     try:
-        from pikabot.sql_helper.gmute_sql import gmute, gmute2
+        from pikabot.sql_helper.gmute_sql import gmute
     except AttributeError:
         await gspdr.edit(NO_SQL)
         return
@@ -1012,10 +1007,7 @@ async def _gmte(gspdr):
     # If pass, inform and start gmuting
     await gspdr.edit("`Grabs a huge, sticky duct tape!`")
 
-    if pika.id == pika_id1:
-        pikagmute = gmute(user.id)
-    if pika.id == pika_id2:
-        pikagmute = gmute2(user.id)
+    pikagmute = gmute(user.id, _pika_id)
     if pikagmute is False:
         await gspdr.edit("`Error! User probably already gmuted.\nRe-rolls the tape.`")
     else:
