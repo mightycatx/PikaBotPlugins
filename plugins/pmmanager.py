@@ -70,9 +70,9 @@ if LOGBOT is not None:
                 if chat.id in PREV_REPLY_MESSAGE:
                     await PREV_REPLY_MESSAGE[chat.id].delete()
                     del PREV_REPLY_MESSAGE[chat.id]
-                
+
                 if reason is None:
-                    reason = "None" 
+                    reason = "None"
                 pmpermit_sql.approve(chat.id, reason, _pika_id)
                 logpm = f"#Approved\n[{chat.first_name}]"
                 try:
