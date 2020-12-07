@@ -138,7 +138,7 @@ if LOGBOT is not None:
         if event.fwd_from:
             return
         pika_id = await get_pika_id(event)
-        approved_users = get_all_approved(pika_id)
+        approved_users = pmpermit_sql.get_all_approved(pika_id)
         APPROVED_PMs = "Current Approved PMs\n"
         if len(approved_users) > 0:
             for a_user in approved_users:
