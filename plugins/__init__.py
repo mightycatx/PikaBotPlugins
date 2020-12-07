@@ -813,8 +813,8 @@ async def _mute(spdr):
     This function is basically muting peeps
     """
     # Check if the function running under SQL mo
-    pika = await spdr.client.get_me()
-    _pika_id = await get_pika_id(spdr)
+    await spdr.client.get_me()
+    await get_pika_id(spdr)
     try:
         from pikabot.sql_helper.mute_sql import mute
     except AttributeError:
@@ -873,7 +873,7 @@ async def _mute(spdr):
 async def _unmute(unmot):
     """ For .unmute command, unmute the replied/tagged person """
     # Admin or creator check
-    pika = await unmot.client.get_me()
+    await unmot.client.get_me()
     chat = await unmot.get_chat()
     admin = chat.admin_rights
     creator = chat.creator
@@ -923,7 +923,7 @@ async def _unmute(unmot):
 async def _ungmute(un_gmute):
     """ For .ungmute command, ungmutes the target in the userbot """
     # Admin or creator check
-    pika = await un_gmute.client.get_me()
+    await un_gmute.client.get_me()
     _pika_id = await get_pika_id(un_gmute)
     chat = await un_gmute.get_chat()
     admin = chat.admin_rights
@@ -977,7 +977,7 @@ async def _ungmute(un_gmute):
 async def _gmte(gspdr):
     """ For .gmute command, globally mutes the replied/tagged person """
     # Admin or creator check
-    pika = await gspdr.client.get_me()
+    await gspdr.client.get_me()
     _pika_id = await get_pika_id(gspdr)
     chat = await gspdr.get_chat()
     admin = chat.admin_rights

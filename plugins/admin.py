@@ -140,17 +140,21 @@ async def _(moot):
 
 
 if bot2:
+
     @bot2.on(admin_cmd(incoming=True))
     async def _(moot):
         await _muter(moot)
 
+
 if bot3:
+
     @bot3.on(admin_cmd(incoming=True))
     async def _(moot):
         await _muter(moot)
 
-if bot4: 
+
+if bot4:
+
     @bot4.on(admin_cmd(incoming=True))
     async def _(moot):
         await _muter(moot)
-
