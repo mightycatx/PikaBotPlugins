@@ -814,6 +814,7 @@ async def _mute(spdr):
     """
     # Check if the function running under SQL mo
     pika = await spdr.client.get_me()
+    _pika_id = await get_pika_id(spdr)
     try:
         from pikabot.sql_helper.mute_sql import mute, mute2
     except AttributeError:
@@ -844,10 +845,7 @@ async def _mute(spdr):
 
     # If everything goes well, do announcing and mute
     await spdr.edit("`Gets a tape!`")
-    if pika.id == pika_id1:
-        pikamute = mute(spdr.chat_id, user.id)
-    if pika.id == pika_id2:
-        pikamute = mute2(spdr.chat_id, user.id)
+    pikamute = mute(spdr.chat_id, user.id, pika_id)
     if pikamute is False:
         return await spdr.edit("`Error! User probably already muted.`")
     else:
@@ -887,7 +885,7 @@ async def _unmute(unmot):
 
     # Check if the function running under SQL mode
     try:
-        from pikabot.sql_helper.mute_sql import unmute, unmute2
+        from pikabot.sql_helper.mute_sql import unmute
     except AttributeError:
         await unmot.edit(NO_SQL)
         return
@@ -900,10 +898,8 @@ async def _unmute(unmot):
         pass
     else:
         return
-    if pika.id == pika_id1:
-        pikaumute = unmute(unmot.chat_id, user.id)
-    if pika.id == pika_id2:
-        pikaumute = unmute2(unmot.chat_id, user.id)
+
+    pikaumute = unmute(unmot.chat_id, user.id, pika_id)
     if pikaumute is False:
         return await unmot.edit("`Error! User probably already unmuted.`")
     else:
@@ -940,7 +936,7 @@ async def _ungmute(un_gmute):
 
     # Check if the function running under SQL mode
     try:
-        from pikabot.sql_helper.gmute_sql import ungmute, ungmute2
+        from pikabot.sql_helper.gmute_sql import ungmute
     except AttributeError:
         await un_gmute.edit(NO_SQL)
         return
@@ -1256,7 +1252,7 @@ async def _muter(moot):
         from pikabot.sql_helper.gmute_sql import is_gmuted
     except AttributeError:
         return
-    gmuted = is_gmuted(moot.sender_id)
+    gmuted = is_gmuted(moot.sender_id, pika_id)
     rights = ChatBannedRights(
         until_date=None,
         send_messages=True,
@@ -1270,7 +1266,7 @@ async def _muter(moot):
 
     if not moot.is_private:
         for i in gmuted:
-            if i.sender == str(moot.sender_id):
+            if i.sender == str(moot.sender_id) and i.pika_id = _pika_id:
 
                 try:
                     await moot.client(
@@ -1284,7 +1280,7 @@ async def _muter(moot):
 
     if moot.is_private:
         for i in gmuted:
-            if i.sender == str(moot.sender_id):
+            if i.sender == str(moot.sender_id) and i.pika_id = _pika_id:
                 await moot.delete()
 
 
