@@ -1254,7 +1254,7 @@ async def _muter(moot):
     except AttributeError:
         return
     _pika_id = await get_pika_id(moot)
-    gmuted = is_gmuted(moot.sender_id, _pika_id)
+    gmuted = is_gmuted(moot.sender_id)
     rights = ChatBannedRights(
         until_date=None,
         send_messages=True,
