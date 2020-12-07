@@ -55,7 +55,6 @@ if LOGBOT is not None:
         if event.fwd_from and not event.is_private:
             return
         try:
-            pika = await event.client.get_me()
             replied_user = await event.client(GetFullUserRequest(event.chat_id))
             firstname = replied_user.user.first_name
             reason = event.pattern_match.group(1)
@@ -63,71 +62,23 @@ if LOGBOT is not None:
         except BaseException:
             pass
         if event.is_private:
-            if pika.id == pika_id1:
-                if not pmpermit_sql.is_approved(chat.id):
-                    if chat.id in PM_WARNS:
-                        del PM_WARNS[chat.id]
-                    if chat.id in PREV_REPLY_MESSAGE:
-                        await PREV_REPLY_MESSAGE[chat.id].delete()
-                        del PREV_REPLY_MESSAGE[chat.id]
-                    pmpermit_sql.approve(chat.id, reason)
-                    logpm = f"#Approved\n[{chat.first_name}]"
-                    try:
-                        await bot.send_message(LOGBOT, logpm)
-                    except BaseException:
-                        pass
-                    await event.edit(
-                        "Approved to pm [{}](tg://user?id={})".format(
-                            firstname, chat.id
-                        )
-                    )
+            pika_id = await get_pika_id(event)
+            if not pmpermit_sql.is_approved(chat.id, pika_id):
+                if chat.id in PM_WARNS:
+                    del PM_WARNS[chat.id]
+                if chat.id in PREV_REPLY_MESSAGE:
+                    await PREV_REPLY_MESSAGE[chat.id].delete()
+                    del PREV_REPLY_MESSAGE[chat.id]
+                pmpermit_sql.approve(chat.id, reason)
+                logpm = f"#Approved\n[{chat.first_name}]"
+                try:
+                    await event.client.send_message(LOGBOT, logpm)
+                except BaseException:
+                    pass
+                await event.edit("Approved to pm [{}](tg://user?id={})".format(firstname, chat.id))
                     await asyncio.sleep(3)
                     await event.delete()
-            if pika.id == pika_id2:
-                if not pmpermit_sql.is_client_approved(chat.id):
-                    if chat.id in PM_WARNS:
-                        del PM_WARNS[chat.id]
-                    if chat.id in PREV_REPLY_MESSAGE:
-                        await PREV_REPLY_MESSAGE[chat.id].delete()
-                        del PREV_REPLY_MESSAGE[chat.id]
-                    pmpermit_sql.clientapprove(chat.id, reason)
-                    await event.edit(
-                        "Approved to pm [{}](tg://user?id={})".format(
-                            firstname, chat.id
-                        )
-                    )
-                    await asyncio.sleep(3)
-                    await event.delete()
-            if pika.id == pika_id3:
-                if not pmpermit_sql.is_client3_approved(chat.id):
-                    if chat.id in PM_WARNS:
-                        del PM_WARNS[chat.id]
-                    if chat.id in PREV_REPLY_MESSAGE:
-                        await PREV_REPLY_MESSAGE[chat.id].delete()
-                        del PREV_REPLY_MESSAGE[chat.id]
-                    pmpermit_sql.client3approve(chat.id, reason)
-                    await event.edit(
-                        "Approved to pm [{}](tg://user?id={})".format(
-                            firstname, chat.id
-                        )
-                    )
-                    await asyncio.sleep(3)
-                    await event.delete()
-            if pika.id == pika_id4:
-                if not pmpermit_sql.is_client4_approved(chat.id):
-                    if chat.id in PM_WARNS:
-                        del PM_WARNS[chat.id]
-                    if chat.id in PREV_REPLY_MESSAGE:
-                        await PREV_REPLY_MESSAGE[chat.id].delete()
-                        del PREV_REPLY_MESSAGE[chat.id]
-                    pmpermit_sql.client4approve(chat.id, reason)
-                    await event.edit(
-                        "Approved to pm [{}](tg://user?id={})".format(
-                            firstname, chat.id
-                        )
-                    )
-                    await asyncio.sleep(3)
-                    await event.delete()
+            
 
     @ItzSjDude(pattern="blk ?(.*)")
     async def approve_p_m(event):
@@ -141,14 +92,15 @@ if LOGBOT is not None:
         except BaseException:
             pass
         if event.is_private:
+            pika_id = await get_pika_id(event)
             if chat.id == 779890498:
                 await event.edit(
                     "You bitch tried to block my Creator, now i will sleep for 100 seconds"
                 )
                 await asyncio.sleep(100)
             else:
-                if pmpermit_sql.is_approved(chat.id):
-                    pmpermit_sql.disapprove(chat.id)
+                if pmpermit_sql.is_approved(chat.id, pika_id):
+                    pmpermit_sql.disapprove(chat.id, pika_id)
                     await event.edit(
                         "**You Have been Blocked By my master \n           ┏━┓ ┏━┓ \n           ┏┯┯┯┯┯┓  \n           ┠┼┼┼┼┼┨ \n           ┗┷┷┷┷┷┛ \n        Hahahahahah🥺😂**"
                     )
@@ -168,68 +120,22 @@ if LOGBOT is not None:
         except BaseException:
             pass
         if event.is_private:
-            if pika.id == pika_id1:
-                if chat.id == 779890498:
-                    await event.edit("Sorry, I Can't Disapprove My Master")
-                else:
-                    if pmpermit_sql.is_approved(chat.id):
-                        pmpermit_sql.disapprove(chat.id)
-                        await event.edit(
-                            "Disapproved [{}](tg://user?id={})".format(
-                                firstname, chat.id
-                            )
-                        )
-
-            if pika.id == pika_id2:
-                if chat.id == 779890498:
-                    await event.edit("Sorry, I Can't Disapprove My Master")
-                else:
-                    if pmpermit_sql.is_client_approved(chat.id):
-                        pmpermit_sql.clientdisapprove(chat.id)
-                        await event.edit(
-                            "Disapproved [{}](tg://user?id={})".format(
-                                firstname, chat.id
-                            )
-                        )
-
-            if pika.id == pika_id3:
-                if chat.id == 779890498:
-                    await event.edit("Sorry, I Can't Disapprove My Master")
-                else:
-                    if pmpermit_sql.is_client3_approved(chat.id):
-                        pmpermit_sql.client3disapprove(chat.id)
-                        await event.edit(
-                            "Disapproved [{}](tg://user?id={})".format(
-                                firstname, chat.id
-                            )
-                        )
-
-            if pika.id == pika_id4:
-                if chat.id == 779890498:
-                    await event.edit("Sorry, I Can't Disapprove My Master")
-                else:
-                    if pmpermit_sql.is_client4_approved(chat.id):
-                        pmpermit_sql.client4disapprove(chat.id)
-                        await event.edit(
-                            "Disapproved [{}](tg://user?id={})".format(
-                                firstname, chat.id
-                            )
-                        )
+            pika_id = await get_pika_id(event)
+            
+            if chat.id == 779890498:
+                await event.edit("Sorry, I Can't Disapprove My Master")
+            else:
+                if pmpermit_sql.is_approved(chat.id, pika_id):
+                    pmpermit_sql.disapprove(chat.id, pika_id)
+                    await event.edit("Disapproved [{}](tg://user?id={})".format(firstname, chat.id))
+            
 
     @ItzSjDude(pattern="la")
     async def approve_p_m(event):
         if event.fwd_from:
             return
-        pika = await event.client.get_me()
-        if pika.id == pika_id1:
-            approved_users = pmpermit_sql.get_all_approved()
-        if pika.id == pika_id2:
-            approved_users = pmpermit_sql.get_approved_clients()
-        if pika.id == pika_id3:
-            approved_users = pmpermit_sql.get_approved_client3()
-        if pika.id == pika_id4:
-            approved_users = pmpermit_sql.get_approved_client4()
-
+        pika_id = await get_pika_id(event)
+        approved_users = get_all_approved(pika_id)
         APPROVED_PMs = "Current Approved PMs\n"
         if len(approved_users) > 0:
             for a_user in approved_users:
@@ -260,27 +166,13 @@ if LOGBOT is not None:
 async def huh(event):
     if event.fwd_from:
         return
-    pika = await event.client.get_me()
+    pika_id = await get_pika_id(event)
     chat = await event.get_chat()
     if event.is_private:
-        if pika.id == pika_id1:
-            if not pmpermit_sql.is_approved(chat.id):
-                pmpermit_sql.approve(chat.id, "**My Boss Is Best🔥**")
-                await event.client.send_message(chat, "**Boss Meet My Creator**")
-        if pika.id == pika_id2:
-            if not pmpermit_sql.is_client_approved(chat.id):
-                pmpermit_sql.clientapprove(chat.id, "**My Boss Is Best🔥**")
-                await event.client.send_message(chat, "**Boss Meet My Creator**")
-        if pika.id == pika_id3:
-            if not pmpermit_sql.is_client3_approved(chat.id):
-                pmpermit_sql.client3approve(chat.id, "**My Boss Is Best🔥**")
-                await event.client.send_message(chat, "**Boss Meet My Creator**")
-        if pika.id == pika_id4:
-            if not pmpermit_sql.is_client4_approved(chat.id):
-                pmpermit_sql.client4approve(chat.id, "**My Boss Is Best🔥**")
-                await event.client.send_message(chat, "**Boss Meet My Creator**")
-
-
+        if not pmpermit_sql.is_approved(chat.id, pika_id):
+            pmpermit_sql.approve(chat.id, "**My Boss Is Best🔥**", pika_id)
+            await event.client.send_message(chat, "**Boss Meet My Creator**")
+        
 async def do_pm_permit_action(chat_id, event):
     try:
         dpic = pmp = await pikaa(event, "PMPERMIT_PIC")
@@ -346,20 +238,9 @@ async def on_pika_pm(event):
     if any([x in event.raw_text for x in ("/start", "1", "2", "3", "4", "5")]):
         return
 
-    if pika.id == pika_id1:
-        if not pmpermit_sql.is_approved(chat_id):
-            # pm permit
-            await do_pm_permit_action(chat_id, event)
-    if pika.id == pika_id2:
-        if not pmpermit_sql.is_client_approved(chat_id):
-            await do_pm_permit_action(chat_id, event)
-    if pika.id == pika_id3:
-        if not pmpermit_sql.is_client3_approved(chat_id):
-            await do_pm_permit_action(chat_id, event)
-    if pika.id == pika_id4:
-        if not pmpermit_sql.is_client4_approved(chat_id):
-            await do_pm_permit_action(chat_id, event)
-
+    if not pmpermit_sql.is_approved(chat_id, pika_id):
+        await do_pm_permit_action(chat_id, event)
+    
 
 @bot.on(events.NewMessage(incoming=True))
 async def _(event):
