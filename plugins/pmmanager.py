@@ -58,10 +58,12 @@ if LOGBOT is not None:
         try:
             replied_user = await event.client(GetFullUserRequest(event.chat_id))
             firstname = replied_user.user.first_name
-            reason = event.pattern_match.group(1)
+            res = event.pattern_match.group(1)
             chat = await event.get_chat()
         except BaseException:
             pass
+        if res is None:
+            res = "None"
         if event.is_private:
             _pika_id = await get_pika_id(event)
             if not pmpermit_sql.is_approved(chat.id, pika_id):
@@ -71,9 +73,8 @@ if LOGBOT is not None:
                     await PREV_REPLY_MESSAGE[chat.id].delete()
                     del PREV_REPLY_MESSAGE[chat.id]
 
-                if reason is None:
-                    reason = "None"
-                pmpermit_sql.approve(chat.id, reason, _pika_id)
+                
+                pmpermit_sql.approve(chat.id, reason=res, _pika_id)
                 logpm = f"#Approved\n[{chat.first_name}]"
                 try:
                     await event.client.send_message(LOGBOT, logpm)
