@@ -962,8 +962,9 @@ async def _ungmute(un_gmute):
                     await un_gmute.client(
                         EditBannedRequest(ugchat, user.id, UNMUTE_RIGHTS)
                     )
-  
-                    await un_gmute.edit("**USER GLOBALLY UNMUTED**")
+                except: 
+                    pass
+        await un_gmute.edit("**USER GLOBALLY UNMUTED**")
         if BOTLOG:
             await un_gmute.client.send_message(
                 BOTLOG_CHATID,
