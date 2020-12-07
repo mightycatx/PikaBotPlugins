@@ -74,7 +74,7 @@ if LOGBOT is not None:
                     del PREV_REPLY_MESSAGE[chat.id]
 
                 
-                pmpermit_sql.approve(chat.id, reason=res, _pika_id)
+                pmpermit_sql.approve(chat.id, _pika_id, reason=res)
                 logpm = f"#Approved\n[{chat.first_name}]"
                 try:
                     await event.client.send_message(LOGBOT, logpm)
@@ -177,7 +177,7 @@ async def huh(event):
     chat = await event.get_chat()
     if event.is_private:
         if not pmpermit_sql.is_approved(chat.id, _pika_id):
-            pmpermit_sql.approve(chat.id, "**My Boss Is Best🔥**", _pika_id)
+            pmpermit_sql.approve(chat.id, _pika_id, "**My Boss Is Best🔥**")
             await event.client.send_message(chat, "**Boss Meet My Creator**")
 
 
