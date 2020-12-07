@@ -1268,7 +1268,7 @@ async def _muter(moot):
 
     if not moot.is_private:
         for i in gmuted:
-            if i.sender == str(moot.sender_id) and i.pika_id = _pika_id:
+            if i.sender == str(moot.sender_id) and i.pika_id == _pika_id:
                 try:
                     await moot.client(
                         EditBannedRequest(moot.chat_id, moot.sender_id, MUTE_RIGHTS)
@@ -1281,7 +1281,7 @@ async def _muter(moot):
 
     if moot.is_private:
         for i in gmuted:
-            if i.sender == str(moot.sender_id) and i.pika_id = _pika_id:
+            if i.sender == str(moot.sender_id) and i.pika_id == _pika_id:
                 await moot.delete()
 
 async def get_user_from_event(event):
