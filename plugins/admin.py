@@ -54,7 +54,7 @@ from . import (
 )
 
 try:
-    from pikabot import bot, bot2
+    from pikabot import bot, bot2, bot3, bot4
 except BaseException:
     pass
 
