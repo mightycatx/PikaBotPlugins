@@ -70,6 +70,9 @@ if LOGBOT is not None:
                 if chat.id in PREV_REPLY_MESSAGE:
                     await PREV_REPLY_MESSAGE[chat.id].delete()
                     del PREV_REPLY_MESSAGE[chat.id]
+                
+                if reason is None:
+                    reason = "None" 
                 pmpermit_sql.approve(chat.id, reason, _pika_id)
                 logpm = f"#Approved\n[{chat.first_name}]"
                 try:
@@ -220,7 +223,7 @@ async def do_pm_permit_action(chat_id, event):
 
 async def on_pika_pm(event):
     _pika_id = await get_pika_id(event)
-    pika = await event.client_get_me()
+    pika = await event.client.get_me()
     if event.sender_id == pika.id:
         return
     if Var.BOTLOG_CHATID is None:
