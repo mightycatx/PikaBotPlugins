@@ -169,7 +169,7 @@ if LOGBOT is not None:
 async def huh(event):
     if event.fwd_from:
         return
-    pika_id = await get_pika_id(event)
+    _pika_id = await get_pika_id(event)
     chat = await event.get_chat()
     if event.is_private:
         if not pmpermit_sql.is_approved(chat.id, _pika_id):
@@ -221,7 +221,7 @@ async def do_pm_permit_action(chat_id, event):
 async def on_pika_pm(event):
     _pika_id = await get_pika_id(event)
     pika=await event.client_get_me() 
-    if event.sender_id == pika.id
+    if event.sender_id == pika.id:
         return
     if Var.BOTLOG_CHATID is None:
         return
