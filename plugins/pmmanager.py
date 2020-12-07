@@ -73,7 +73,6 @@ if LOGBOT is not None:
                     await PREV_REPLY_MESSAGE[chat.id].delete()
                     del PREV_REPLY_MESSAGE[chat.id]
 
-                
                 pmpermit_sql.approve(chat.id, _pika_id, reason=res)
                 logpm = f"#Approved\n[{chat.first_name}]"
                 try:
