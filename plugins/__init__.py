@@ -1382,6 +1382,7 @@ async def _add_notes(event):
     else:
         return await pika_msg(event, success.format("added", keyword), ax)
 
+
 async def note_incm(getnt):
     try:
         _pika_id = await get_pika_id(getnt)
