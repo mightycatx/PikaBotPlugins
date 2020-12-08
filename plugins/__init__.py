@@ -28,6 +28,7 @@ from pikabot.handler import *
 from pikabot.main_plugs.pfpdata import *
 from pikabot.main_plugs.plug import *
 from pikabot.main_plugs.SysRuntime import *
+from pikabot.sql_helper.notes_sql import *
 from pikabot.utils import *
 from pikabot.utils import ItzSjDude
 from pikabot.utils import get_readable_time as grt
@@ -1385,7 +1386,6 @@ async def note_incm(getnt):
     try:
         _pika_id = await get_pika_id(getnt)
         if not (await getnt.get_sender()).bot:
-                from userbot.modules.sql_helper.notes_sql import get_note
             notename = getnt.text[1:]
             note = get_note(getnt.chat_id, notename, _pika_id)
             message_id_to_reply = getnt.message.reply_to_msg_id
