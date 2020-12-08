@@ -26,7 +26,7 @@ async def reset_db(db):
     except Exception as e:
         await db.edit(f"**Error**: {e}")
     await db.edit("**Sucessfully reseted PikaBot DB**\n Restarting Now... \n Eta: 1min")
-    pikarestart()
+    pika_start()
 
 
 # ©t.me/ItzSjDude
