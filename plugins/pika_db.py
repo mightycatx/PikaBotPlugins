@@ -15,7 +15,7 @@
 from pikabot.Event_Handlers.pika_db import pika_db_reset
 
 
-@ItzSjDude(pattern="dbrset$", outgoing=True)
+@ItzSjDude(pattern="resetdb$", outgoing=True)
 async def reset_db(db):
     try:
         pika_db_reset()
