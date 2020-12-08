@@ -131,7 +131,8 @@ if Var.STR2 is not None:
     async def _(event):
         chat_id = event.sender_id
         event.sender_id
-        if not pmpermit_sql.is_client_approved(chat_id):
+        _pika_id = await get_pika_id(event)
+        if not pmpermit_sql.is_client_approved(chat_id, _pika_id):
             chat = await event.get_chat()
             if event.fwd_from:
                 return
