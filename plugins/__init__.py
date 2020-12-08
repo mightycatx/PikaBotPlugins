@@ -1380,7 +1380,7 @@ async def _add_notes(event):
     if add_note(str(event.chat_id), keyword, string, msg_id, client_id) is False:
         return await pika_msg(event, success.format("updated", keyword), _ax)
     else:
-        return await pika_msg(event, success.format("added", keyword), ax)
+        return await pika_msg(event, success.format("added", keyword), _ax)
 
 
 async def note_incm(getnt):
