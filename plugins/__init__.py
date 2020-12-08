@@ -1381,6 +1381,33 @@ async def _add_notes(event):
     else:
         return await pika_msg(event, success.format("added", keyword), ax)
 
+async def note_incm(getnt):
+    try:
+        _pika_id = await get_pika_id(getnt)
+        if not (await getnt.get_sender()).bot:
+                from userbot.modules.sql_helper.notes_sql import get_note
+            notename = getnt.text[1:]
+            note = get_note(getnt.chat_id, notename, _pika_id)
+            message_id_to_reply = getnt.message.reply_to_msg_id
+            if not message_id_to_reply:
+                message_id_to_reply = None
+            if note and note.f_mesg_id:
+                msg_o = await getnt.client.get_messages(
+                    entity=BOTLOG_CHATID, ids=int(note.f_mesg_id)
+                )
+                await getnt.client.send_message(
+                    getnt.chat_id,
+                    msg_o.mesage,
+                    reply_to=message_id_to_reply,
+                    file=msg_o.media,
+                )
+            elif note and note.reply:
+                await getnt.client.send_message(
+                    getnt.chat_id, note.reply, reply_to=message_id_to_reply
+                )
+    except AttributeError:
+        pass
+
 
 async def get_user_from_event(event):
     """ Get the user from argument or replied message. """
