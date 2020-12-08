@@ -729,14 +729,18 @@ async def _ban(bon):
         pass
     else:
         return
-
+    is_client_Tgbot = await is_pikatg(bon)
+    if is_client_Tgbot:
+        _px= True
+    else:
+        _px = None
     # Announce that we're going to whack the pest
-    await bon.edit("`Whacking the pest!`")
+    a = await pika_msg(bon, "`Whacking the pest!`", _px)
 
     try:
         await bon.client(EditBannedRequest(bon.chat_id, user.id, BANNED_RIGHTS))
     except BadRequestError:
-        await bon.edit(NO_PERM)
+        await pika_msg(a, NO_PERM)
         return
     # Helps ban group join spammers more easily
     try:
@@ -744,19 +748,19 @@ async def _ban(bon):
         if reply:
             await reply.delete()
     except BadRequestError:
-        await bon.edit("`I dont have message nuking rights! But still he was banned!`")
+        await pika_msg(a, "`I dont have message nuking rights! But still he was banned!`")
         return
     # Delete message and then tell that the command
     # is done gracefully
     # Shout out the ID, so that fedadmins can fban later
     if reason:
-        await bon.edit(
+        await pika_msg(a,
             f"{user.first_name} was banned !!\
         \nID: `{str(user.id)}`\
         \nReason: {reason}"
         )
     else:
-        await bon.edit(
+        await pika_msg(a,
             f"{user.first_name} was banned !!\
         \nID: `{str(user.id)}`"
         )
@@ -782,9 +786,14 @@ async def _unban(unbon):
     if not admin and not creator:
         await unbon.edit(NO_ADMIN)
         return
+    is_client_Tgbot = await is_pikatg(bon)
+    if is_client_Tgbot:
+        _px= True
+    else:
+        _px = None
 
     # If everything goes well...
-    await unbon.edit("`Unbanning...`")
+    a = await pika_msg(bon, "`Unbanning...`", _px)
 
     user = await get_user_from_event(unbon)
     user = user[0]
@@ -795,7 +804,7 @@ async def _unban(unbon):
 
     try:
         await unbon.client(EditBannedRequest(unbon.chat_id, user.id, UNBAN_RIGHTS))
-        await unbon.edit("```Unbanned Successfully```")
+        await pika_msg(a, "```Unbanned Successfully```")
 
         if BOTLOG:
             await unbon.client.send_message(
@@ -805,7 +814,7 @@ async def _unban(unbon):
                 f"CHAT: {unbon.chat.title}(`{unbon.chat_id}`)",
             )
     except UserIdInvalidError:
-        await unbon.edit("`Uh oh my unban logic broke!`")
+        await pika_msg(a, "`Uh oh my unban logic broke!`")
 
 
 async def _mute(spdr):
