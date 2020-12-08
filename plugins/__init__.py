@@ -731,7 +731,7 @@ async def _ban(bon):
         return
     is_client_Tgbot = await is_pikatg(bon)
     if is_client_Tgbot:
-        _px= True
+        _px = True
     else:
         _px = None
     # Announce that we're going to whack the pest
@@ -748,21 +748,25 @@ async def _ban(bon):
         if reply:
             await reply.delete()
     except BadRequestError:
-        await pika_msg(a, "`I dont have message nuking rights! But still he was banned!`")
+        await pika_msg(
+            a, "`I dont have message nuking rights! But still he was banned!`"
+        )
         return
     # Delete message and then tell that the command
     # is done gracefully
     # Shout out the ID, so that fedadmins can fban later
     if reason:
-        await pika_msg(a,
+        await pika_msg(
+            a,
             f"{user.first_name} was banned !!\
         \nID: `{str(user.id)}`\
-        \nReason: {reason}"
+        \nReason: {reason}",
         )
     else:
-        await pika_msg(a,
+        await pika_msg(
+            a,
             f"{user.first_name} was banned !!\
-        \nID: `{str(user.id)}`"
+        \nID: `{str(user.id)}`",
         )
     # Announce to the logging group if we have banned the person
     # successfully!
@@ -788,7 +792,7 @@ async def _unban(unbon):
         return
     is_client_Tgbot = await is_pikatg(bon)
     if is_client_Tgbot:
-        _px= True
+        _px = True
     else:
         _px = None
 
