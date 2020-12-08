@@ -13,7 +13,7 @@
 {i}resetdb
 **Usage**: Resets pmpermit, filter, notes, snips and Other Db Plugins """
 from pikabot.Event_Handlers.pika_db import pika_db_reset
-
+import asyncio
 
 @ItzSjDude(pattern="resetdb$", outgoing=True)
 async def reset_db(db):
