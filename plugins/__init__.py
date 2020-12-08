@@ -1297,6 +1297,82 @@ async def _muter(moot):
             if i.sender == str(moot.sender_id) and i.pika_id == _pika_id:
                 await moot.delete()
 
+async def _allnotes(event):
+    if event.fwd_from:
+        return
+    _tgbot= await is_pikatg(event)
+    if _tgbot:
+      _ax = True
+    else: 
+      _ax = None 
+      
+    _pika_id = await get_pika_id(event) 
+    message = "`There are no saved notes in this chat`"
+    notes = get_notes(event.chat_id, _pika_id)
+    for note in notes:
+        if message == "`There are no saved notes in this chat`":
+            message = "Notes saved in this chat:\n"
+            message += "`#{}`\n".format(note.keyword)
+        else:
+            message += "`#{}`\n".format(note.keyword)
+    await pika_msg(event, message, _ax)
+
+
+async def _remove_notes(event):
+    if event.fwd_from:
+        return 
+    _tgbot=await is_pikatg(event)
+    if _tgbot:
+      _ax = True
+    else: 
+      _ax = None 
+    _pika_id = await get_pika_id(event)
+    notename = event.pattern_match.group(1)
+    if rm_note(event.chat_id, notename, _pika_id) is False:
+        return await pika_msg(event, "`Couldn't find note:` **{}**".format(notename), _ax)
+    else:
+        return await pika_msg(event, "`Successfully deleted note:` **{}**".format(notename), _ax)
+
+async def _add_notes(event):
+    if event.fwd_from:
+        return
+    _tgbot = await is_pikatg(event)
+    if _tgbot:
+      _ax = True
+    else: 
+      _ax = None 
+    client_id = await get_pika_id(event)
+    keyword = event.pattern_match.group(1)
+    string = event.text.partition(keyword)[2]
+    msg = await event.get_reply_message()
+    msg_id = None
+    if msg and msg.media and not string:
+        if BOTLOG_CHATID:
+            await event.client.send_message(
+                BOTLOG_CHATID,
+                f"#NOTE\
+            \nCHAT ID: {event.chat_id}\
+            \nKEYWORD: {keyword}\
+            \n\nThe following message is saved as the note's reply data for the chat, please do NOT delete it !!",
+            )
+            msg_o = await event.client.forward_messages(
+               entity=BOTLOG_CHATID, messages=msg, from_peer=event.chat_id, silent=True
+            )
+            msg_id = msg_o.id
+        else:
+            await pika_msg(event,
+                "Saving media as data for the note requires the BOTLOG_CHATID to be set."
+            , _ax)
+            return
+    elif event.reply_to_msg_id and not string:
+        rep_msg = await event.get_reply_message()
+        string = rep_msg.text
+    success = "Note {} successfully. Use #{} to get it"
+    if add_note(str(event.chat_id), keyword, string, msg_id, client_id) is False:
+        return await pika_msg(event, success.format("updated", keyword), _ax)
+    else:
+        return await pika_msg(event, success.format("added", keyword), ax)
+
 
 async def get_user_from_event(event):
     """ Get the user from argument or replied message. """
