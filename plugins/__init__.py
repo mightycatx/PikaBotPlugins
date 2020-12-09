@@ -2288,7 +2288,7 @@ async def bombs(event):
     if event.fwd_from:
         return
     _tg= await get_pika_tg(event)
-    a = await await pika_msg(event, "▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n", _tg)
+    a = await pika_msg(event, "▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n", _tg)
     await asyncio.sleep(0.5)
     await await pika_msg(a, "💣💣💣💣 \n▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n")
     await asyncio.sleep(0.5)
