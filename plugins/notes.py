@@ -18,27 +18,27 @@ async def _(event):
     await _remove_notes(event)
 
 
-@bot.on(admin_cmd(pattern=r"#\w*", incoming=True))
+@bot.on(admin_cmd(pattern=r"\#\w*", incoming=True))
 async def _(getnt):
     await note_incm(getnt)
 
 
 if bot2:
 
-    @bot2.on(admin_cmd(pattern=r"#\w*", incoming=True))
+    @bot2.on(admin_cmd(pattern=r"\#\w*", outgoing=True))
     async def _(getnt):
         await note_incm(getnt)
 
 
 if bot3:
 
-    @bot3.on(admin_cmd(pattern=r"#\w*", incoming=True))
+    @bot3.on(admin_cmd(pattern=r"\#\w*", Outgoing=True))
     async def _(getnt):
         await note_incm(getnt)
 
 
 if bot4:
 
-    @bot4.on(admin_cmd(pattern=r"#\w*", incoming=True))
+    @bot4.on(admin_cmd(pattern=r"\#\w*", outgoing=True))
     async def _(getnt):
         await note_incm(getnt)
