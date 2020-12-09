@@ -895,7 +895,7 @@ async def _unmute(unmot):
     # If admin or creator, inform the user and start unmuting
     pika_id = await get_pika_id(unmot)
     _tg= await get_pika_tg(unmot)
-    a = await pika_msg(unmot, "```Unmuting...```" _tg)
+    a = await pika_msg(unmot, "```Unmuting...```", _tg)
     user = await get_user_from_event(unmot)
     user = user[0]
     if user:
