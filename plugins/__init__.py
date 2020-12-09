@@ -1389,7 +1389,7 @@ async def note_incm(getnt):
         if not (await getnt.get_sender()).bot:
             notename = getnt.text[1:]
             note = get_note(getnt.chat_id, notename, _pika_id)
-            message_id_to_reply = getnt.message.reply_to_msg_id
+            message_id_to_reply = getnt.message.id
             if not message_id_to_reply:
                 message_id_to_reply = None
             if note and note.f_mesg_id:
