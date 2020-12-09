@@ -32,7 +32,7 @@ if bot2:
 
 if bot3:
 
-    @bot3.on(admin_cmd(pattern=r"\#\w*", Outgoing=True))
+    @bot3.on(admin_cmd(pattern=r"\#\w*", outgoing=True))
     async def _(getnt):
         await note_incm(getnt)
 
