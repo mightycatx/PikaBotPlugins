@@ -2317,7 +2317,7 @@ async def call(event):
     an = await pikaa(event, "ALIVE_NAME")
     animation_interval = 3
     animation_ttl = range(0, 18)
-    await pika_msg(event, "Calling" _tg)
+    await pika_msg(event, "Calling", _tg)
     animation_chars = [
         "`Connecting To Telegram Headquarters...`",
         "`Call Connected.`",
