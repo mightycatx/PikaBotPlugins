@@ -626,12 +626,8 @@ async def _promote(promt):
         delete_messages=True,
         pin_messages=True,
     )
-    _tg = await promt.client.get_me()
-    if _tg.id == tgbot.uid:
-        ax = True
-    else:
-        ax = None
-    a = await pika_msg(promt, "`Promoting...`", ax)
+    _tg = await get_pika_tg(promt) 
+    a = await pika_msg(promt, "`Promoting...`", _tg)
     user, rank = await get_user_from_event(promt)
     if not rank:
         # Just in case.
@@ -672,9 +668,10 @@ async def _demote(dmod):
     if not admin and not creator:
         await dmod.edit(NO_ADMIN)
         return
-
+    
     # If passing, declare that we're going to demote
-    await dmod.edit("`Demoting...`")
+    _tg = await get_pika_tg(dmod)
+    a=await pika_msg(dmod, "`Demoting...`", _tg)
     rank = "admeme"  # dummy rank, lol.
     user = await get_user_from_event(dmod)
     user = user[0]
@@ -699,9 +696,9 @@ async def _demote(dmod):
     # If we catch BadRequestError from Telethon
     # Assume we don't have permission to demote
     except BadRequestError:
-        await dmod.edit(NO_PERM)
+        await pika_msg(a, NO_PERM)
         return
-    await dmod.edit("`Demoted Successfully!`")
+    await pika_msg(a, "`Demoted Successfully!`")
 
     # Announce to the logging group if we have demoted successfully
     if BOTLOG:
@@ -730,13 +727,9 @@ async def _ban(bon):
         pass
     else:
         return
-    is_client_Tgbot = await is_pikatg(bon)
-    if is_client_Tgbot:
-        _px = True
-    else:
-        _px = None
+    _tg = await get_pika_tg(bon)
     # Announce that we're going to whack the pest
-    a = await pika_msg(bon, "`Whacking the pest!`", _px)
+    a = await pika_msg(bon, "`Whacking the pest!`", _tg)
 
     try:
         await bon.client(EditBannedRequest(bon.chat_id, user.id, BANNED_RIGHTS))
@@ -791,14 +784,10 @@ async def _unban(unbon):
     if not admin and not creator:
         await unbon.edit(NO_ADMIN)
         return
-    is_client_Tgbot = await is_pikatg(bon)
-    if is_client_Tgbot:
-        _px = True
-    else:
-        _px = None
-
+    
     # If everything goes well...
-    a = await pika_msg(bon, "`Unbanning...`", _px)
+    _tg= await get_pika_tg(unbon)
+    a = await pika_msg(unbon, "`Unbanning...`", _tg)
 
     user = await get_user_from_event(unbon)
     user = user[0]
@@ -827,8 +816,6 @@ async def _mute(spdr):
     This function is basically muting peeps
     """
     # Check if the function running under SQL mo
-    await spdr.client.get_me()
-    await get_pika_id(spdr)
     try:
         from pikabot.sql_helper.mute_sql import mute
     except AttributeError:
@@ -851,15 +838,16 @@ async def _mute(spdr):
     else:
         return
 
-    self_user = await spdr.client.get_me()
-
-    if user.id == self_user.id:
-        await spdr.edit("`Hands too short, can't duct tape myself...\n(ヘ･_･)ヘ┳━┳`")
+    _tg= await get_pika_tg(unbon)
+    self_user = await get_pika_id(spdr)
+     
+    if user.id == self_user:
+        await pika_msg(spdr, "`Hands too short, can't duct tape myself...\n(ヘ･_･)ヘ┳━┳`", _tg)
         return
 
     # If everything goes well, do announcing and mute
-    await spdr.edit("`Gets a tape!`")
-    pikamute = mute(spdr.chat_id, user.id, pika_id)
+    a = await pika_msg(spdr, "`Muting...`", _tg)
+    pikamute = mute(spdr.chat_id, user.id, self_user)
     if pikamute is False:
         return await spdr.edit("`Error! User probably already muted.`")
     else:
@@ -868,9 +856,9 @@ async def _mute(spdr):
 
             # Announce that the function is done
             if reason:
-                await spdr.edit(f"`Safely taped !!`\nReason: {reason}")
+                await pika_msg(a, f"`Safely taped !!`\nReason: {reason}")
             else:
-                await spdr.edit("`Safely taped !!`")
+                await pika_msg(a, "`Safely taped !!`")
 
             # Announce to logging group
             if BOTLOG:
@@ -881,7 +869,7 @@ async def _mute(spdr):
                     f"CHAT: {spdr.chat.title}(`{spdr.chat_id}`)",
                 )
         except UserIdInvalidError:
-            return await spdr.edit("`Uh oh my mute logic broke!`")
+            return await pika_msg(a, "`Uh oh my mute logic broke!`")
 
 
 async def _unmute(unmot):
@@ -905,7 +893,9 @@ async def _unmute(unmot):
         return
 
     # If admin or creator, inform the user and start unmuting
-    await unmot.edit("```Unmuting...```")
+    pika_id = await get_pika_id(unmot)
+    _tg= await get_pika_tg(unmot)
+    a = await pika_msg(unmot, "```Unmuting...```" _tg)
     user = await get_user_from_event(unmot)
     user = user[0]
     if user:
@@ -915,14 +905,14 @@ async def _unmute(unmot):
 
     pikaumute = unmute(unmot.chat_id, user.id, pika_id)
     if pikaumute is False:
-        return await unmot.edit("`Error! User probably already unmuted.`")
+        return await pika_msg(a, "`Error! User probably already unmuted.`")
     else:
 
         try:
             await unmot.client(EditBannedRequest(unmot.chat_id, user.id, UNBAN_RIGHTS))
-            await unmot.edit("```Unmuted Successfully```")
+            await pika_msg(a, "```Unmuted Successfully```")
         except UserIdInvalidError:
-            await unmot.edit("`Uh oh my unmute logic broke!`")
+            await pika_msg(a, "`Uh oh my unmute logic broke!`")
             return
 
         if BOTLOG:
@@ -938,6 +928,7 @@ async def _ungmute(un_gmute):
     """ For .ungmute command, ungmutes the target in the userbot """
     # Admin or creator check
     await un_gmute.client.get_me()
+    _tg = await get_pika_tg(un_gmute)
     _pika_id = await get_pika_id(un_gmute)
     chat = await un_gmute.get_chat()
     admin = chat.admin_rights
@@ -963,11 +954,11 @@ async def _ungmute(un_gmute):
         return
 
     # If pass, inform and start ungmuting
-    await un_gmute.edit("```Ungmuting...```")
+    a=await pika_msg(un_gmute, "```Ungmuting...```", _tg)
 
     pikaugmute = ungmute(user.id, _pika_id)
     if pikaugmute is False:
-        await un_gmute.edit("`Error! User probably not gmuted.`")
+        await pika_msg(a, "`Error! User probably not gmuted.`")
     else:
         async for ugmte in un_gmute.client.iter_dialogs():
             if ugmte.is_group:
@@ -978,7 +969,7 @@ async def _ungmute(un_gmute):
                     )
                 except BaseException:
                     pass
-        await un_gmute.edit("**USER GLOBALLY UNMUTED**")
+        await pika_msg(a, "**USER GLOBALLY UNMUTED**")
         if BOTLOG:
             await un_gmute.client.send_message(
                 BOTLOG_CHATID,
@@ -993,6 +984,7 @@ async def _gmte(gspdr):
     # Admin or creator check
     await gspdr.client.get_me()
     _pika_id = await get_pika_id(gspdr)
+    _tg= await get_pika_tg(gspdr)
     chat = await gspdr.get_chat()
     admin = chat.admin_rights
     creator = chat.creator
@@ -1016,16 +1008,16 @@ async def _gmte(gspdr):
         return
 
     # If pass, inform and start gmuting
-    await gspdr.edit("`Grabs a huge, sticky duct tape!`")
+    a = await pika_msg(gspdr, "`Grabs a huge, sticky duct tape!`", _tg)
 
     pikagmute = gmute(user.id, _pika_id)
     if pikagmute is False:
-        await gspdr.edit("`Error! User probably already gmuted.\nRe-rolls the tape.`")
+        await pika_msg(a, "`Error! User probably already gmuted.\nRe-rolls the tape.`")
     else:
         if reason:
-            await gspdr.edit(f"`Globally taped!`Reason: {reason}")
+            await pika_msg(a, f"`Globally taped!`Reason: {reason}")
         else:
-            await gspdr.edit("`Globally taped!`")
+            await pika_msg(a, "`Globally taped!`")
 
         if BOTLOG:
             await gspdr.client.send_message(
@@ -1116,6 +1108,7 @@ async def _gadmin(show):
     """ For .admins command, list all of the admins of the chat. """
     info = await show.client.get_entity(show.chat_id)
     title = info.title if info.title else "this chat"
+    _tg = await get_pika_tg(show)
     mentions = f"<b>Admins in {title}:</b> \n"
     try:
         async for user in show.client.iter_participants(
@@ -1129,7 +1122,7 @@ async def _gadmin(show):
                 mentions += f"\nDeleted Account <code>{user.id}</code>"
     except ChatAdminRequiredError as err:
         mentions += " " + str(err) + "\n"
-    await show.edit(mentions, parse_mode="html")
+    await pika_msg(show, mentions, parse_mode="html", _tg)
 
 
 async def _pin(msg):
@@ -1143,11 +1136,11 @@ async def _pin(msg):
     if not admin and not creator:
         await msg.edit(NO_ADMIN)
         return
-
+    _tg= await get_pika_tg(msg)
     to_pin = msg.reply_to_msg_id
 
     if not to_pin:
-        await msg.edit("`Reply to a message to pin it.`")
+        await pika_msg(msg, "`Reply to a message to pin it.`", _tg)
         return
 
     options = msg.pattern_match.group(1)
@@ -1160,10 +1153,10 @@ async def _pin(msg):
     try:
         await msg.client(UpdatePinnedMessageRequest(msg.to_id, to_pin, is_silent))
     except BadRequestError:
-        await msg.edit(NO_PERM)
+        await pika_msg(msg, NO_PERM, _tg)
         return
 
-    await msg.edit("`Pinned Successfully!`")
+    await pika_msg(msg, "`Pinned Successfully!`", _tg)
 
     user = await get_user_sender_id(msg.sender_id, msg)
 
@@ -1180,6 +1173,7 @@ async def _pin(msg):
 async def _kick(usr):
     """ For .kick command, kicks the replied/tagged person from the group. """
     # Admin or creator check
+    _tg= await get_pika_tg(usr)
     chat = await usr.get_chat()
     admin = chat.admin_rights
     creator = chat.creator
@@ -1191,24 +1185,24 @@ async def _kick(usr):
 
     user, reason = await get_user_from_event(usr)
     if not user:
-        await usr.edit("`Couldn't fetch user.`")
+        await pika_msg(usr, "`Couldn't fetch user.`", _tg)
         return
 
-    await usr.edit("`Kicking...`")
+    a = await pika_msg(usr, "`Kicking...`", _tg)
 
     try:
         await usr.client.kick_participant(usr.chat_id, user.id)
         await sleep(0.5)
     except Exception as e:
-        await usr.edit(NO_PERM + f"\n{str(e)}")
+        await pika_msg(a, NO_PERM + f"\n{str(e)}")
         return
 
     if reason:
-        await usr.edit(
+        await pika_msg(a, 
             f"`Kicked` [{user.first_name}](tg://user?id={user.id})`!`\nReason: {reason}"
         )
     else:
-        await usr.edit(f"`Kicked` [{user.first_name}](tg://user?id={user.id})`!`")
+        await pika_msg(a, f"`Kicked` [{user.first_name}](tg://user?id={user.id})`!`")
 
     if BOTLOG:
         await usr.client.send_message(
@@ -1302,12 +1296,7 @@ async def _muter(moot):
 async def _allnotes(event):
     if event.fwd_from:
         return
-    _tgbot = await is_pikatg(event)
-    if _tgbot:
-        _ax = True
-    else:
-        _ax = None
-
+    _tg= await get_pika_tg(event)
     _pika_id = await get_pika_id(event)
     message = "`There are no saved notes in this chat`"
     notes = get_notes(event.chat_id, _pika_id)
@@ -1317,37 +1306,29 @@ async def _allnotes(event):
             message += "`#{}`\n".format(note.keyword)
         else:
             message += "`#{}`\n".format(note.keyword)
-    await pika_msg(event, message, _ax)
+    await pika_msg(event, message, _tg)
 
 
 async def _remove_notes(event):
     if event.fwd_from:
         return
-    _tgbot = await is_pikatg(event)
-    if _tgbot:
-        _ax = True
-    else:
-        _ax = None
+    _tg= await get_pika_tg(event)
     _pika_id = await get_pika_id(event)
     notename = event.pattern_match.group(1)
     if rm_note(event.chat_id, notename, _pika_id) is False:
         return await pika_msg(
-            event, "`Couldn't find note:` **{}**".format(notename), _ax
+            event, "`Couldn't find note:` **{}**".format(notename), _tg
         )
     else:
         return await pika_msg(
-            event, "`Successfully deleted note:` **{}**".format(notename), _ax
+            event, "`Successfully deleted note:` **{}**".format(notename), _tg
         )
 
 
 async def _add_notes(event):
     if event.fwd_from:
         return
-    _tgbot = await is_pikatg(event)
-    if _tgbot:
-        _ax = True
-    else:
-        _ax = None
+    _tg= await get_pika_tg(event)
     client_id = await get_pika_id(event)
     keyword = event.pattern_match.group(1)
     string = event.text.partition(keyword)[2]
@@ -1370,7 +1351,7 @@ async def _add_notes(event):
             await pika_msg(
                 event,
                 "Saving media as data for the note requires the BOTLOG_CHATID to be set.",
-                _ax,
+                _tg,
             )
             return
     elif event.reply_to_msg_id and not string:
@@ -1378,9 +1359,9 @@ async def _add_notes(event):
         string = rep_msg.text
     success = "Note {} successfully. Use #{} to get it"
     if add_note(str(event.chat_id), keyword, string, msg_id, client_id) is False:
-        return await pika_msg(event, success.format("updated", keyword), _ax)
+        return await pika_msg(event, success.format("updated", keyword), _tg)
     else:
-        return await pika_msg(event, success.format("added", keyword), _ax)
+        return await pika_msg(event, success.format("added", keyword), _tg)
 
 
 async def note_incm(getnt):
@@ -1681,6 +1662,7 @@ async def waifu(animu):
 async def _bash(event):
     if event.fwd_from:
         return
+    _tg= await get_pika_tg(event) 
     PROCESS_RUN_TIME = 100
     cmd = event.pattern_match.group(1)
     reply_to_id = event.message.id
@@ -1713,7 +1695,7 @@ async def _bash(event):
                 reply_to=reply_to_id,
             )
             await event.delete()
-    await event.edit(OUTPUT)
+    await pika_msg(event, OUTPUT, _tg)
 
 
 async def batch_upload(event):
@@ -1740,8 +1722,8 @@ async def belo(event):
     if event.fwd_from:
 
         return
-
-    await event.edit("Typing...")
+    _tg= await get_pika_tg(event)
+    a = await pika_msg(event, "Typing...", _tg)
 
     await asyncio.sleep(2)
 
@@ -1749,555 +1731,555 @@ async def belo(event):
 
     if x == 1:
 
-        await event.edit(
+        await pika_msg(a,
             '`"Underwater bubbles and raindrops are total opposites of each other."`'
         )
 
     if x == 2:
 
-        await event.edit(
+        await pika_msg(a, 
             '`"If you buy an eraser you are literally paying for your mistakes."`'
         )
 
     if x == 3:
 
-        await event.edit(
+        await pika_msg(a,
             '`"The Person you care for most has the potential to destroy you the most."`'
         )
 
     if x == 4:
 
-        await event.edit(
+        await pika_msg(a,
             '`"If humans colonize the moon, it will probably attract retirement homes as the weaker gravity will allow the elderly to feel stronger."`'
         )
 
     if x == 5:
 
-        await event.edit(
+        await pika_msg(a,
             '`"Any video with “wait for it” in the title is simply too long."`'
         )
 
     if x == 6:
 
-        await event.edit(
+        await pika_msg(a,
             '`"Your age in years is how many times you’ve circled the Sun, but your age in months is how many times the Moon has circled you."`'
         )
 
     if x == 7:
 
-        await event.edit(
+        await pika_msg(a,
             '`"Biting your tongue while eating is a perfect example of how you can still screw up, even with decades of experience."`'
         )
 
     if x == 8:
 
-        await event.edit(
+        await pika_msg(a,
             '`"Saying that your home is powered by a wireless Nuclear fusion reactor that is 93 Million miles away sounds way cooler than just saying you have solar panels on your roof."`'
         )
 
     if x == 9:
 
-        await event.edit(
+        await pika_msg(a,
             '`"The most crushing feeling is when someone smiles at you on the street and you don’t react fast enough to smile back."`'
         )
 
     if x == 10:
 
-        await event.edit(
+        await pika_msg(a,
             '`"Teeth constantly require maintenance to prevent their decay when alive, and yet they manage to survive for thousands of years buried as fossils."`'
         )
 
     if x == 11:
 
-        await event.edit('`"A folder is for things that you don\'t want to fold."`')
+        await pika_msg(a, '`"A folder is for things that you don\'t want to fold."`')
 
     if x == 12:
 
-        await event.edit(
+        await pika_msg(a,
             '`"Waking up in the morning sometimes feels like resuming a shitty movie you decided to quit watching."`'
         )
 
     if x == 13:
 
-        await event.edit(
+        await pika_msg(a,
             '`"If everything goes seventhly, you probably won\'t remember today."`'
         )
 
     if x == 14:
 
-        await event.edit(
+        await pika_msg(a,
             '`"When you meet new people in real life, you unlock more characters for your dream world."`'
         )
 
     if x == 15:
 
-        await event.edit(
+        await pika_msg(a,
             '`"Maybe if they renamed sunscreen to “anti-cancer cream” more people would wear it."`'
         )
 
     if x == 16:
 
-        await event.edit(
+        await pika_msg(a,
             '`"200 years ago, people would never have guessed that humans in the future would communicate by silently tapping on glass."`'
         )
 
     if x == 17:
 
-        await event.edit(
+        await pika_msg(a,
             '`"Parents worry about what their sons download and worry about what their daughters upload."`'
         )
 
     if x == 18:
 
-        await event.edit(
+        await pika_msg(a,
             '`"It\'s crazy how you can be the same age as someone, but at a completely different stage in your life."`'
         )
 
     if x == 19:
 
-        await event.edit(
+        await pika_msg(a,
             "`\"When you think you wanna die, you really don't wanna die, you just don't wanna live like this.\"`"
         )
 
     if x == 20:
 
-        await event.edit('`"Technically, no one has ever been in an empty room."`')
+        await pika_msg(a, '`"Technically, no one has ever been in an empty room."`')
 
     if x == 21:
 
-        await event.edit(
+        await pika_msg(a,
             '`"An onion is the bass player of food. You would probably not enjoy it solo, but you’d miss it if it wasn’t there."`'
         )
 
     if x == 22:
 
-        await event.edit(
+        await pika_msg(a,
             "`\"We run everywhere in videogames because we're too lazy to walk, but In real life we walk everywhere because we're too lazy to run.\"`"
         )
 
     if x == 23:
 
-        await event.edit(
+        await pika_msg(a,
             '`"Every single decision you ever made has brought you to read this sentence."`'
         )
 
     if x == 24:
 
-        await event.edit("`\"The word 'quiet' is often said very loud.\"`")
+        await pika_msg(a, "`\"The word 'quiet' is often said very loud.\"`")
 
     if x == 25:
 
-        await event.edit(
+        await pika_msg(a,
             '`"Everybody wants you to work hard, but nobody wants to hear about how hard you work."`'
         )
 
     if x == 26:
 
-        await event.edit(
+        await pika_msg(a,
             '`"We brush our teeth with hair on a stick and brush our hair with teeth on a stick."`'
         )
 
     if x == 27:
 
-        await event.edit(
+        await pika_msg(a,
             '`"No one remembers your awkward moments but they’re too busy remembering their own."`'
         )
 
     if x == 28:
 
-        await event.edit(
+        await pika_msg(a,
             '`"Dumb people try to say simple ideas as complex as possible while smart people try to say complex ideas as simple as possible."`'
         )
 
     if x == 29:
 
-        await event.edit(
+        await pika_msg(a,
             "`\"Some people think they're better than you because they grew up richer. Some people think they're better than you because they grew up poorer.\"`"
         )
 
     if x == 30:
 
-        await event.edit(
+        await pika_msg(a,
             '`"The biggest irony is that computers & mobiles were invented to save out time!"`'
         )
 
     if x == 31:
 
-        await event.edit(
+        await pika_msg(a,
             '`"After honey was first discovered, there was likely a period where people were taste testing any available slime from insects."`'
         )
 
     if x == 32:
 
-        await event.edit(
+        await pika_msg(a,
             '`"You know you’re getting old when your parents start disappointing you, instead of you disappointing them."`'
         )
 
     if x == 33:
 
-        await event.edit(
+        await pika_msg(a,
             '`"Humans are designed to learn through experience yet the education system has made it so we get no experience."`'
         )
 
     if x == 34:
 
-        await event.edit(
+        await pika_msg(a,
             '`"By focusing on blinking, you blink slower... Same for breathing."`'
         )
 
     if x == 35:
 
-        await event.edit(
+        await pika_msg(a,
             '`"Drivers in a hurry to beat traffic usually cause the accidents which create the traffic they were trying to avoid."`'
         )
 
     if x == 36:
 
-        await event.edit(
+        await pika_msg(a,
             '`"Characters that get married in fiction were literally made for each other."`'
         )
 
     if x == 37:
 
-        await event.edit(
+        await pika_msg(a,
             '`"Babies are a clean hard drive that can be programmed with any language."`'
         )
 
     if x == 38:
 
-        await event.edit(
+        await pika_msg(a,
             "`\"There could be a miracle drug that cures every disease to man, that we'll never know about because it doesn't work on rats.\"`"
         )
 
     if x == 39:
 
-        await event.edit(
+        await pika_msg(a,
             "`\"Rhinos evolved to grow a horn for protection, but it's what's making them go extinct.\"`"
         )
 
     if x == 40:
 
-        await event.edit(
+        await pika_msg(a,
             '`"Maybe we don\'t find time travelers because we all die in 25-50 years."`'
         )
 
     if x == 41:
 
-        await event.edit(
+        await pika_msg(a,
             '`"Sleep is the trial version of death, It even comes with ads based on your activity."`'
         )
 
     if x == 42:
 
-        await event.edit(
+        await pika_msg(a,
             '`"The most unrealistic thing about Spy movies is how clean the air ventilation system is!"`'
         )
 
     if x == 43:
 
-        await event.edit(
+        await pika_msg(a,
             '`"In games we play through easy modes to unlock hard modes. In life we play through hard modes to unlock easy modes."`'
         )
 
     if x == 44:
 
-        await event.edit(
+        await pika_msg(a,
             '`"Silent people seem smarter than loud people, because they keep their stupid thoughts to themselves."`'
         )
 
     if x == 45:
 
-        await event.edit('`"If Greenland actually turns green, we\'re all screwed."`')
+        await pika_msg(a, '`"If Greenland actually turns green, we\'re all screwed."`')
 
     if x == 46:
 
-        await event.edit(
+        await pika_msg(a,
             '`"If someone says clever things in your dream, it actually shows your own cleverness."`'
         )
 
     if x == 47:
 
-        await event.edit(
+        await pika_msg(a,
             '`"Famous movie quotes are credited to the actor and not the actual writer who wrote them."`'
         )
 
     if x == 48:
 
-        await event.edit(
+        await pika_msg(a,
             '`"No one actually teaches you how to ride a bicycle. They just hype you up until you work it out."`'
         )
 
     if x == 49:
 
-        await event.edit('`"Ask yourself why the the brain ignores the second the."`')
+        await pika_msg(a, '`"Ask yourself why the the brain ignores the second the."`')
 
     if x == 50:
 
-        await event.edit(
+        await pika_msg(a,
             '`"You’ve probably forgot about 80% of your entire life and most of the memories you do remember are not very accurate to what actually happened."`'
         )
 
     if x == 51:
 
-        await event.edit(
+        await pika_msg(a,
             '`"It will be a lot harder for kids to win against their parents in video games in the future."`'
         )
 
     if x == 52:
 
-        await event.edit(
+        await pika_msg(a,
             '`"Everyone has flaws, if you don\'t recognize yours, you have a new one."`'
         )
 
     if x == 53:
 
-        await event.edit('`"Raising a child is training your replacement."`')
+        await pika_msg(a, '`"Raising a child is training your replacement."`')
 
     if x == 54:
 
-        await event.edit(
+        await pika_msg(a, 
             "`\"'O'pen starts with a Closed circle, and 'C'lose starts with an open circle.\"`"
         )
 
     if x == 55:
 
-        await event.edit(
+        await pika_msg(a,
             '`"There\'s always someone who hated you for no reason, and still does."`'
         )
 
     if x == 56:
 
-        await event.edit(
+        await pika_msg(a,
             '`"After popcorn was discovered, there must have been a lot of random seeds that were roasted to see if it would have the same effect."`'
         )
 
     if x == 57:
 
-        await event.edit(
+        await pika_msg(a,
             '`"The more important a good night\'s sleep is, the harder it is to fall asleep."`'
         )
 
     if x == 58:
 
-        await event.edit(
+        await pika_msg(a,
             '`"Blessed are those that can properly describe the type of haircut they want to a new stylist."`'
         )
 
     if x == 59:
 
-        await event.edit(
+        await pika_msg(a,
             "`\"Too many people spend money they haven't earned, to buy things they don't want, to impress people they don't like!\"`"
         )
 
     if x == 60:
 
-        await event.edit(
+        await pika_msg(a,
             '`"Theme park employees must be good at telling the difference between screams of horror and excitement."`'
         )
 
     if x == 61:
 
-        await event.edit('`"6 to 6:30 feels more half-an-hour than 5:50 to 6:20"`')
+        await pika_msg(a, '`"6 to 6:30 feels more half-an-hour than 5:50 to 6:20"`')
 
     if x == 62:
 
-        await event.edit(
+        await pika_msg(a,
             '`"Getting your password right on the last login attempt before lockout is the closest thing to disarming a bomb at the last minute that most of us will experience."`'
         )
 
     if x == 63:
 
-        await event.edit(
+        await pika_msg(a,
             '`"Listening to podcasts before bed is the adult version of story-time."`'
         )
 
     if x == 64:
 
-        await event.edit(
+        await pika_msg(a,
             '`"If all criminals stopped robbing then the security industry would fall in which they could then easily go back to robbing."`'
         )
 
     if x == 65:
 
-        await event.edit('`"A ton of whales is really only like half a whale."`')
+        await pika_msg(a, '`"A ton of whales is really only like half a whale."`')
 
     if x == 66:
 
-        await event.edit(
+        await pika_msg(a,
             '`"When you get old, the old you is technically the new you, and your young self is the old you."`'
         )
 
     if x == 67:
 
-        await event.edit(
+        await pika_msg(a,
             '`"You probably won\'t find many negative reviews of parachutes on the Internet."`'
         )
 
     if x == 68:
 
-        await event.edit(
+        await pika_msg(a,
             '`"We show the most love and admiration for people when they\'re no longer around to appreciate it."`'
         )
 
     if x == 69:
 
-        await event.edit(
+        await pika_msg(a,
             "`\"We've practiced sleeping thousands of times, yet can't do it very well or be consistent.\"`"
         )
 
     if x == 70:
 
-        await event.edit(
+        await pika_msg(a,
             '`"Humans are more enthusiastic about moving to another planet with hostile environment than preserving earth - the planet they are perfectly shaped for."`'
         )
 
     if x == 71:
 
-        await event.edit(
+        await pika_msg(a,
             "`\"The happiest stage of most people's lives is when their brains aren't fully developed yet.\"`"
         )
 
     if x == 72:
 
-        await event.edit('`"The most effective alarm clock is a full bladder."`')
+        await pika_msg(a, '`"The most effective alarm clock is a full bladder."`')
 
     if x == 73:
 
-        await event.edit(
+        await pika_msg(a,
             '`"You probably just synchronized blinks with millions of people."`'
         )
 
     if x == 74:
 
-        await event.edit(
+        await pika_msg(a,
             '`"Since we test drugs on animals first, rat medicine must be years ahead of human medicine."`'
         )
 
     if x == 75:
 
-        await event.edit(
+        await pika_msg(a, 
             '`"Night before a day off is more satisfying than the actual day off."`'
         )
 
     if x == 76:
 
-        await event.edit('`"We put paper in a folder to keep it from folding."`')
+        await pika_msg(a, '`"We put paper in a folder to keep it from folding."`')
 
     if x == 77:
 
-        await event.edit(
+        await pika_msg(a,
             '`"Somewhere, two best friends are meeting for the first time."`'
         )
 
     if x == 78:
 
-        await event.edit(
+        await pika_msg(a,
             '`"Our brain simultaneously hates us, loves us, doesn\'t care about us, and micromanages our every move."`'
         )
 
     if x == 79:
 
-        await event.edit(
+        await pika_msg(a,
             '`"Being a male is a matter of birth. Being a man is a matter of age. But being a gentleman is a matter of choice."`'
         )
 
     if x == 80:
 
-        await event.edit(
+        await pika_msg(a,
             '`"Soon the parents will be hiding their social account from their kids rather than kids hiding their accounts from the parents."`'
         )
 
     if x == 81:
 
-        await event.edit('`"Wikipedia is what the internet was meant to be."`')
+        await pika_msg(a, '`"Wikipedia is what the internet was meant to be."`')
 
     if x == 82:
 
-        await event.edit(
+        await pika_msg(a, 
             '`"A theme park is the only place that you can hear screams in the distance and not be concerned."`'
         )
 
     if x == 83:
 
-        await event.edit(
+        await pika_msg(a, 
             '`"A wireless phone charger offers less freedom of movement than a wired one."`'
         )
 
     if x == 84:
 
-        await event.edit(
+        await pika_msg(a, 
             "`\"If you repeatedly criticize someone for liking something you don't, they won't stop liking it. They'll stop liking you.\"`"
         )
 
     if x == 85:
 
-        await event.edit(
+        await pika_msg(a,
             '`"Somewhere there is a grandmother, whose grandson really is the most handsome boy in the world."`'
         )
 
     if x == 86:
 
-        await event.edit(
+        await pika_msg(a,
             '`"If someday human teleportation becomes real, people will still be late for work."`'
         )
 
     if x == 87:
 
-        await event.edit(
+        await pika_msg(a, 
             '`"The first humans who ate crabs must have been really hungry to try and eat an armored sea spider"`'
         )
 
     if x == 88:
 
-        await event.edit(
+        await pika_msg(a, 
             '`"Doing something alone is kind of sad, but doing it solo is cool af."`'
         )
 
     if x == 89:
 
-        await event.edit(
+        await pika_msg(a, 
             '`"Your brain suddenly becomes perfect at proofreading after you post something."`'
         )
 
     if x == 90:
 
-        await event.edit(
+        await pika_msg(a,
             '`"There\'s always that one song in your playlist that you always skip but never remove."`'
         )
 
     if x == 91:
 
-        await event.edit(
+        await pika_msg(a,
             '`"Kids next century will probably hate us for taking all the good usernames."`'
         )
 
     if x == 92:
 
-        await event.edit('`"Bubbles are to fish what rain is to humans."`')
+        await pika_msg(a, '`"Bubbles are to fish what rain is to humans."`')
 
     if x == 93:
 
-        await event.edit(
+        await pika_msg(a, 
             '`"The more people you meet, the more you realise and appreciate how well your parents raised you."`'
         )
 
     if x == 94:
 
-        await event.edit('`"A comma is a short pause, a coma is a long pause."`')
+        await pika_msg(a, '`"A comma is a short pause, a coma is a long pause."`')
 
     if x == 95:
 
-        await event.edit('`"Someday you will either not wake up or not go to sleep."`')
+        await pika_msg(a, '`"Someday you will either not wake up or not go to sleep."`')
 
     if x == 96:
 
-        await event.edit(
+        await pika_msg(a, 
             '`"Bermuda Triangle might be the exit portal of this simulation."`'
         )
 
     if x == 97:
 
-        await event.edit(
+        await pika_msg(a, 
             '`"If we put solar panels above parking lots, then our cars wouldn\'t get hot and we would have a lot of clean energy."`'
         )
 
@@ -2305,35 +2287,37 @@ async def belo(event):
 async def bombs(event):
     if event.fwd_from:
         return
-    await event.edit("▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n")
+    _tg= await get_pika_tg(event)
+    a = await await pika_msg(event, "▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n", _tg)
     await asyncio.sleep(0.5)
-    await event.edit("💣💣💣💣 \n▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n")
+    await await pika_msg(a, "💣💣💣💣 \n▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n")
     await asyncio.sleep(0.5)
-    await event.edit("▪️▪️▪️▪️ \n💣💣💣💣 \n▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n")
+    await await pika_msg(a, "▪️▪️▪️▪️ \n💣💣💣💣 \n▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n")
     await asyncio.sleep(0.5)
-    await event.edit("▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n💣💣💣💣 \n▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n")
+    await await pika_msg(a, "▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n💣💣💣💣 \n▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n")
     await asyncio.sleep(0.5)
-    await event.edit("▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n💣💣💣💣 \n▪️▪️▪️▪️ \n")
+    await await pika_msg(a, "▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n💣💣💣💣 \n▪️▪️▪️▪️ \n")
     await asyncio.sleep(0.5)
-    await event.edit("▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n💣💣💣💣 \n")
+    await await pika_msg(a, "▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n💣💣💣💣 \n")
     await asyncio.sleep(1)
-    await event.edit("▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n💥💥💥💥 \n")
+    await await pika_msg(a, "▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n💥💥💥💥 \n")
     await asyncio.sleep(0.5)
-    await event.edit("▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n💥💥💥💥 \n💥💥💥💥 \n")
+    await await pika_msg(a, ▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n💥💥💥💥 \n💥💥💥💥 \n")
     await asyncio.sleep(0.5)
-    await event.edit("▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n😵😵😵😵 \n")
+    await await pika_msg(a, "▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n😵😵😵😵 \n")
     await asyncio.sleep(0.5)
-    await event.edit("`RIP PLOXXX......`")
+    await await pika_msg(a, "`RIP PLOXXX......`")
     await asyncio.sleep(2)
 
 
 async def call(event):
     if event.fwd_from:
         return
+    _tg = await get_pika_tg(event)
     an = await pikaa(event, "ALIVE_NAME")
     animation_interval = 3
     animation_ttl = range(0, 18)
-    await event.edit("Calling")
+    await pika_msg(event, "Calling" _tg)
     animation_chars = [
         "`Connecting To Telegram Headquarters...`",
         "`Call Connected.`",
@@ -2358,7 +2342,7 @@ async def call(event):
     for i in animation_ttl:
 
         await asyncio.sleep(animation_interval)
-        await event.edit(animation_chars[i % 18])
+        await pika_msg(a, animation_chars[i % 18])
 
 
 async def spm_notify(event):
@@ -2382,7 +2366,8 @@ async def spm_notify(event):
 async def _carbon(e):
     if not e.text[0].isalpha() and e.text[0] not in ("/", "#", "@"):
         """ A Wrapper for carbon.now.sh """
-        await e.edit("`Processing..`")
+        _tg = await get_pika_tg(e)
+        a = await pika_msg(e, "`Processing..`", _tg)
         CARBON = "https://carbon.now.sh/?l={lang}&code={code}"
         global CARBONLANG
         textx = await e.get_reply_message()
@@ -2393,7 +2378,7 @@ async def _carbon(e):
             pcode = str(textx.message)
 
         code = quote_plus(pcode)
-        await e.edit("`Meking Carbon...\n25%`")
+        await pika_msg(a, "`Meking Carbon...\n25%`")
         url = CARBON.format(code=code, lang=CARBONLANG)
         chrome_options = Options()
         chrome_options.add_argument("--headless")
@@ -2406,7 +2391,7 @@ async def _carbon(e):
         chrome_options.add_experimental_option("prefs", prefs)
         driver = webdriver.Chrome(executable_path=CHROME_DRIVER, options=chrome_options)
         driver.get(url)
-        await e.edit("`Be Patient...\n50%`")
+        await pika_msg(a, "`Be Patient...\n50%`")
         download_path = "./"
         driver.command_executor._commands["send_command"] = (
             "POST",
@@ -2418,11 +2403,11 @@ async def _carbon(e):
         }
         driver.execute("send_command", params)
         driver.find_element_by_xpath("//button[contains(text(),'Export')]").click()
-        await e.edit("`Processing..\n75%`")
+        await pika_msg(a, "`Processing..\n75%`")
         sleep(1)
-        await e.edit("`Done Dana Done...\n100%`")
+        await pika_msg(a, "`Done Dana Done...\n100%`")
         file = "./carbon.png"
-        await e.edit("`Uploading..`")
+        await pika_msg(a, "`Uploading..`")
         await e.client.send_file(
             e.chat_id,
             file,
