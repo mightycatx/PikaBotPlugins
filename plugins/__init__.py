@@ -1404,7 +1404,7 @@ async def note_incm(getnt):
                 )
             elif note and note.reply:
                 await getnt.client.send_message(
-                    getnt.chat_id, note.reply, reply_to=message_id_to_reply
+                    getnt.chat_id, note.reply, reply_to=message_id_to_reply, link_preview=False,
                 )
     except AttributeError:
         pass
