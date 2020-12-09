@@ -1398,7 +1398,7 @@ async def note_incm(getnt):
                 )
                 await getnt.client.send_message(
                     getnt.chat_id,
-                    msg_o.mesage,
+                    msg_o.message,
                     reply_to=message_id_to_reply,
                     file=msg_o.media,
                 )
