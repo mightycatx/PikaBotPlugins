@@ -626,7 +626,7 @@ async def _promote(promt):
         delete_messages=True,
         pin_messages=True,
     )
-    _tg = await get_pika_tg(promt) 
+    _tg = await get_pika_tg(promt)
     a = await pika_msg(promt, "`Promoting...`", _tg)
     user, rank = await get_user_from_event(promt)
     if not rank:
@@ -668,10 +668,10 @@ async def _demote(dmod):
     if not admin and not creator:
         await dmod.edit(NO_ADMIN)
         return
-    
+
     # If passing, declare that we're going to demote
     _tg = await get_pika_tg(dmod)
-    a=await pika_msg(dmod, "`Demoting...`", _tg)
+    a = await pika_msg(dmod, "`Demoting...`", _tg)
     rank = "admeme"  # dummy rank, lol.
     user = await get_user_from_event(dmod)
     user = user[0]
@@ -784,9 +784,9 @@ async def _unban(unbon):
     if not admin and not creator:
         await unbon.edit(NO_ADMIN)
         return
-    
+
     # If everything goes well...
-    _tg= await get_pika_tg(unbon)
+    _tg = await get_pika_tg(unbon)
     a = await pika_msg(unbon, "`Unbanning...`", _tg)
 
     user = await get_user_from_event(unbon)
@@ -838,11 +838,13 @@ async def _mute(spdr):
     else:
         return
 
-    _tg= await get_pika_tg(unbon)
+    _tg = await get_pika_tg(unbon)
     self_user = await get_pika_id(spdr)
-     
+
     if user.id == self_user:
-        await pika_msg(spdr, "`Hands too short, can't duct tape myself...\n(ヘ･_･)ヘ┳━┳`", _tg)
+        await pika_msg(
+            spdr, "`Hands too short, can't duct tape myself...\n(ヘ･_･)ヘ┳━┳`", _tg
+        )
         return
 
     # If everything goes well, do announcing and mute
@@ -894,7 +896,7 @@ async def _unmute(unmot):
 
     # If admin or creator, inform the user and start unmuting
     pika_id = await get_pika_id(unmot)
-    _tg= await get_pika_tg(unmot)
+    _tg = await get_pika_tg(unmot)
     a = await pika_msg(unmot, "```Unmuting...```", _tg)
     user = await get_user_from_event(unmot)
     user = user[0]
@@ -954,7 +956,7 @@ async def _ungmute(un_gmute):
         return
 
     # If pass, inform and start ungmuting
-    a=await pika_msg(un_gmute, "```Ungmuting...```", _tg)
+    a = await pika_msg(un_gmute, "```Ungmuting...```", _tg)
 
     pikaugmute = ungmute(user.id, _pika_id)
     if pikaugmute is False:
@@ -984,7 +986,7 @@ async def _gmte(gspdr):
     # Admin or creator check
     await gspdr.client.get_me()
     _pika_id = await get_pika_id(gspdr)
-    _tg= await get_pika_tg(gspdr)
+    _tg = await get_pika_tg(gspdr)
     chat = await gspdr.get_chat()
     admin = chat.admin_rights
     creator = chat.creator
@@ -1108,7 +1110,7 @@ async def _gadmin(show):
     """ For .admins command, list all of the admins of the chat. """
     info = await show.client.get_entity(show.chat_id)
     title = info.title if info.title else "this chat"
-    _tg = await get_pika_tg(show)
+    await get_pika_tg(show)
     mentions = f"<b>Admins in {title}:</b> \n"
     try:
         async for user in show.client.iter_participants(
@@ -1136,7 +1138,7 @@ async def _pin(msg):
     if not admin and not creator:
         await msg.edit(NO_ADMIN)
         return
-    _tg= await get_pika_tg(msg)
+    _tg = await get_pika_tg(msg)
     to_pin = msg.reply_to_msg_id
 
     if not to_pin:
@@ -1173,7 +1175,7 @@ async def _pin(msg):
 async def _kick(usr):
     """ For .kick command, kicks the replied/tagged person from the group. """
     # Admin or creator check
-    _tg= await get_pika_tg(usr)
+    _tg = await get_pika_tg(usr)
     chat = await usr.get_chat()
     admin = chat.admin_rights
     creator = chat.creator
@@ -1198,8 +1200,9 @@ async def _kick(usr):
         return
 
     if reason:
-        await pika_msg(a, 
-            f"`Kicked` [{user.first_name}](tg://user?id={user.id})`!`\nReason: {reason}"
+        await pika_msg(
+            a,
+            f"`Kicked` [{user.first_name}](tg://user?id={user.id})`!`\nReason: {reason}",
         )
     else:
         await pika_msg(a, f"`Kicked` [{user.first_name}](tg://user?id={user.id})`!`")
@@ -1296,7 +1299,7 @@ async def _muter(moot):
 async def _allnotes(event):
     if event.fwd_from:
         return
-    _tg= await get_pika_tg(event)
+    _tg = await get_pika_tg(event)
     _pika_id = await get_pika_id(event)
     message = "`There are no saved notes in this chat`"
     notes = get_notes(event.chat_id, _pika_id)
@@ -1312,7 +1315,7 @@ async def _allnotes(event):
 async def _remove_notes(event):
     if event.fwd_from:
         return
-    _tg= await get_pika_tg(event)
+    _tg = await get_pika_tg(event)
     _pika_id = await get_pika_id(event)
     notename = event.pattern_match.group(1)
     if rm_note(event.chat_id, notename, _pika_id) is False:
@@ -1328,7 +1331,7 @@ async def _remove_notes(event):
 async def _add_notes(event):
     if event.fwd_from:
         return
-    _tg= await get_pika_tg(event)
+    _tg = await get_pika_tg(event)
     client_id = await get_pika_id(event)
     keyword = event.pattern_match.group(1)
     string = event.text.partition(keyword)[2]
@@ -1662,7 +1665,7 @@ async def waifu(animu):
 async def _bash(event):
     if event.fwd_from:
         return
-    _tg= await get_pika_tg(event) 
+    _tg = await get_pika_tg(event)
     PROCESS_RUN_TIME = 100
     cmd = event.pattern_match.group(1)
     reply_to_id = event.message.id
@@ -1722,7 +1725,7 @@ async def belo(event):
     if event.fwd_from:
 
         return
-    _tg= await get_pika_tg(event)
+    _tg = await get_pika_tg(event)
     a = await pika_msg(event, "Typing...", _tg)
 
     await asyncio.sleep(2)
@@ -1731,62 +1734,69 @@ async def belo(event):
 
     if x == 1:
 
-        await pika_msg(a,
-            '`"Underwater bubbles and raindrops are total opposites of each other."`'
+        await pika_msg(
+            a, '`"Underwater bubbles and raindrops are total opposites of each other."`'
         )
 
     if x == 2:
 
-        await pika_msg(a, 
-            '`"If you buy an eraser you are literally paying for your mistakes."`'
+        await pika_msg(
+            a, '`"If you buy an eraser you are literally paying for your mistakes."`'
         )
 
     if x == 3:
 
-        await pika_msg(a,
-            '`"The Person you care for most has the potential to destroy you the most."`'
+        await pika_msg(
+            a,
+            '`"The Person you care for most has the potential to destroy you the most."`',
         )
 
     if x == 4:
 
-        await pika_msg(a,
-            '`"If humans colonize the moon, it will probably attract retirement homes as the weaker gravity will allow the elderly to feel stronger."`'
+        await pika_msg(
+            a,
+            '`"If humans colonize the moon, it will probably attract retirement homes as the weaker gravity will allow the elderly to feel stronger."`',
         )
 
     if x == 5:
 
-        await pika_msg(a,
-            '`"Any video with “wait for it” in the title is simply too long."`'
+        await pika_msg(
+            a, '`"Any video with “wait for it” in the title is simply too long."`'
         )
 
     if x == 6:
 
-        await pika_msg(a,
-            '`"Your age in years is how many times you’ve circled the Sun, but your age in months is how many times the Moon has circled you."`'
+        await pika_msg(
+            a,
+            '`"Your age in years is how many times you’ve circled the Sun, but your age in months is how many times the Moon has circled you."`',
         )
 
     if x == 7:
 
-        await pika_msg(a,
-            '`"Biting your tongue while eating is a perfect example of how you can still screw up, even with decades of experience."`'
+        await pika_msg(
+            a,
+            '`"Biting your tongue while eating is a perfect example of how you can still screw up, even with decades of experience."`',
         )
 
     if x == 8:
 
-        await pika_msg(a,
-            '`"Saying that your home is powered by a wireless Nuclear fusion reactor that is 93 Million miles away sounds way cooler than just saying you have solar panels on your roof."`'
+        await pika_msg(
+            a,
+            '`"Saying that your home is powered by a wireless Nuclear fusion reactor that is 93 Million miles away sounds way cooler than just saying you have solar panels on your roof."`',
         )
 
     if x == 9:
 
-        await pika_msg(a,
-            '`"The most crushing feeling is when someone smiles at you on the street and you don’t react fast enough to smile back."`'
+        await pika_msg(
+            a,
+            '`"The most crushing feeling is when someone smiles at you on the street and you don’t react fast enough to smile back."`',
         )
 
     if x == 10:
 
-        await pika_msg(a,
-            '`"Teeth constantly require maintenance to prevent their decay when alive, and yet they manage to survive for thousands of years buried as fossils."`'
+        await pika_msg(
+            a,
+            '`"Teeth constantly require maintenance to prevent their decay when alive, and yet they manage to survive for thousands of years buried as fossils."`',
         )
 
     if x == 11:
@@ -1795,50 +1805,57 @@ async def belo(event):
 
     if x == 12:
 
-        await pika_msg(a,
-            '`"Waking up in the morning sometimes feels like resuming a shitty movie you decided to quit watching."`'
+        await pika_msg(
+            a,
+            '`"Waking up in the morning sometimes feels like resuming a shitty movie you decided to quit watching."`',
         )
 
     if x == 13:
 
-        await pika_msg(a,
-            '`"If everything goes seventhly, you probably won\'t remember today."`'
+        await pika_msg(
+            a, '`"If everything goes seventhly, you probably won\'t remember today."`'
         )
 
     if x == 14:
 
-        await pika_msg(a,
-            '`"When you meet new people in real life, you unlock more characters for your dream world."`'
+        await pika_msg(
+            a,
+            '`"When you meet new people in real life, you unlock more characters for your dream world."`',
         )
 
     if x == 15:
 
-        await pika_msg(a,
-            '`"Maybe if they renamed sunscreen to “anti-cancer cream” more people would wear it."`'
+        await pika_msg(
+            a,
+            '`"Maybe if they renamed sunscreen to “anti-cancer cream” more people would wear it."`',
         )
 
     if x == 16:
 
-        await pika_msg(a,
-            '`"200 years ago, people would never have guessed that humans in the future would communicate by silently tapping on glass."`'
+        await pika_msg(
+            a,
+            '`"200 years ago, people would never have guessed that humans in the future would communicate by silently tapping on glass."`',
         )
 
     if x == 17:
 
-        await pika_msg(a,
-            '`"Parents worry about what their sons download and worry about what their daughters upload."`'
+        await pika_msg(
+            a,
+            '`"Parents worry about what their sons download and worry about what their daughters upload."`',
         )
 
     if x == 18:
 
-        await pika_msg(a,
-            '`"It\'s crazy how you can be the same age as someone, but at a completely different stage in your life."`'
+        await pika_msg(
+            a,
+            '`"It\'s crazy how you can be the same age as someone, but at a completely different stage in your life."`',
         )
 
     if x == 19:
 
-        await pika_msg(a,
-            "`\"When you think you wanna die, you really don't wanna die, you just don't wanna live like this.\"`"
+        await pika_msg(
+            a,
+            "`\"When you think you wanna die, you really don't wanna die, you just don't wanna live like this.\"`",
         )
 
     if x == 20:
@@ -1847,20 +1864,23 @@ async def belo(event):
 
     if x == 21:
 
-        await pika_msg(a,
-            '`"An onion is the bass player of food. You would probably not enjoy it solo, but you’d miss it if it wasn’t there."`'
+        await pika_msg(
+            a,
+            '`"An onion is the bass player of food. You would probably not enjoy it solo, but you’d miss it if it wasn’t there."`',
         )
 
     if x == 22:
 
-        await pika_msg(a,
-            "`\"We run everywhere in videogames because we're too lazy to walk, but In real life we walk everywhere because we're too lazy to run.\"`"
+        await pika_msg(
+            a,
+            "`\"We run everywhere in videogames because we're too lazy to walk, but In real life we walk everywhere because we're too lazy to run.\"`",
         )
 
     if x == 23:
 
-        await pika_msg(a,
-            '`"Every single decision you ever made has brought you to read this sentence."`'
+        await pika_msg(
+            a,
+            '`"Every single decision you ever made has brought you to read this sentence."`',
         )
 
     if x == 24:
@@ -1869,122 +1889,141 @@ async def belo(event):
 
     if x == 25:
 
-        await pika_msg(a,
-            '`"Everybody wants you to work hard, but nobody wants to hear about how hard you work."`'
+        await pika_msg(
+            a,
+            '`"Everybody wants you to work hard, but nobody wants to hear about how hard you work."`',
         )
 
     if x == 26:
 
-        await pika_msg(a,
-            '`"We brush our teeth with hair on a stick and brush our hair with teeth on a stick."`'
+        await pika_msg(
+            a,
+            '`"We brush our teeth with hair on a stick and brush our hair with teeth on a stick."`',
         )
 
     if x == 27:
 
-        await pika_msg(a,
-            '`"No one remembers your awkward moments but they’re too busy remembering their own."`'
+        await pika_msg(
+            a,
+            '`"No one remembers your awkward moments but they’re too busy remembering their own."`',
         )
 
     if x == 28:
 
-        await pika_msg(a,
-            '`"Dumb people try to say simple ideas as complex as possible while smart people try to say complex ideas as simple as possible."`'
+        await pika_msg(
+            a,
+            '`"Dumb people try to say simple ideas as complex as possible while smart people try to say complex ideas as simple as possible."`',
         )
 
     if x == 29:
 
-        await pika_msg(a,
-            "`\"Some people think they're better than you because they grew up richer. Some people think they're better than you because they grew up poorer.\"`"
+        await pika_msg(
+            a,
+            "`\"Some people think they're better than you because they grew up richer. Some people think they're better than you because they grew up poorer.\"`",
         )
 
     if x == 30:
 
-        await pika_msg(a,
-            '`"The biggest irony is that computers & mobiles were invented to save out time!"`'
+        await pika_msg(
+            a,
+            '`"The biggest irony is that computers & mobiles were invented to save out time!"`',
         )
 
     if x == 31:
 
-        await pika_msg(a,
-            '`"After honey was first discovered, there was likely a period where people were taste testing any available slime from insects."`'
+        await pika_msg(
+            a,
+            '`"After honey was first discovered, there was likely a period where people were taste testing any available slime from insects."`',
         )
 
     if x == 32:
 
-        await pika_msg(a,
-            '`"You know you’re getting old when your parents start disappointing you, instead of you disappointing them."`'
+        await pika_msg(
+            a,
+            '`"You know you’re getting old when your parents start disappointing you, instead of you disappointing them."`',
         )
 
     if x == 33:
 
-        await pika_msg(a,
-            '`"Humans are designed to learn through experience yet the education system has made it so we get no experience."`'
+        await pika_msg(
+            a,
+            '`"Humans are designed to learn through experience yet the education system has made it so we get no experience."`',
         )
 
     if x == 34:
 
-        await pika_msg(a,
-            '`"By focusing on blinking, you blink slower... Same for breathing."`'
+        await pika_msg(
+            a, '`"By focusing on blinking, you blink slower... Same for breathing."`'
         )
 
     if x == 35:
 
-        await pika_msg(a,
-            '`"Drivers in a hurry to beat traffic usually cause the accidents which create the traffic they were trying to avoid."`'
+        await pika_msg(
+            a,
+            '`"Drivers in a hurry to beat traffic usually cause the accidents which create the traffic they were trying to avoid."`',
         )
 
     if x == 36:
 
-        await pika_msg(a,
-            '`"Characters that get married in fiction were literally made for each other."`'
+        await pika_msg(
+            a,
+            '`"Characters that get married in fiction were literally made for each other."`',
         )
 
     if x == 37:
 
-        await pika_msg(a,
-            '`"Babies are a clean hard drive that can be programmed with any language."`'
+        await pika_msg(
+            a,
+            '`"Babies are a clean hard drive that can be programmed with any language."`',
         )
 
     if x == 38:
 
-        await pika_msg(a,
-            "`\"There could be a miracle drug that cures every disease to man, that we'll never know about because it doesn't work on rats.\"`"
+        await pika_msg(
+            a,
+            "`\"There could be a miracle drug that cures every disease to man, that we'll never know about because it doesn't work on rats.\"`",
         )
 
     if x == 39:
 
-        await pika_msg(a,
-            "`\"Rhinos evolved to grow a horn for protection, but it's what's making them go extinct.\"`"
+        await pika_msg(
+            a,
+            "`\"Rhinos evolved to grow a horn for protection, but it's what's making them go extinct.\"`",
         )
 
     if x == 40:
 
-        await pika_msg(a,
-            '`"Maybe we don\'t find time travelers because we all die in 25-50 years."`'
+        await pika_msg(
+            a,
+            '`"Maybe we don\'t find time travelers because we all die in 25-50 years."`',
         )
 
     if x == 41:
 
-        await pika_msg(a,
-            '`"Sleep is the trial version of death, It even comes with ads based on your activity."`'
+        await pika_msg(
+            a,
+            '`"Sleep is the trial version of death, It even comes with ads based on your activity."`',
         )
 
     if x == 42:
 
-        await pika_msg(a,
-            '`"The most unrealistic thing about Spy movies is how clean the air ventilation system is!"`'
+        await pika_msg(
+            a,
+            '`"The most unrealistic thing about Spy movies is how clean the air ventilation system is!"`',
         )
 
     if x == 43:
 
-        await pika_msg(a,
-            '`"In games we play through easy modes to unlock hard modes. In life we play through hard modes to unlock easy modes."`'
+        await pika_msg(
+            a,
+            '`"In games we play through easy modes to unlock hard modes. In life we play through hard modes to unlock easy modes."`',
         )
 
     if x == 44:
 
-        await pika_msg(a,
-            '`"Silent people seem smarter than loud people, because they keep their stupid thoughts to themselves."`'
+        await pika_msg(
+            a,
+            '`"Silent people seem smarter than loud people, because they keep their stupid thoughts to themselves."`',
         )
 
     if x == 45:
@@ -1993,20 +2032,23 @@ async def belo(event):
 
     if x == 46:
 
-        await pika_msg(a,
-            '`"If someone says clever things in your dream, it actually shows your own cleverness."`'
+        await pika_msg(
+            a,
+            '`"If someone says clever things in your dream, it actually shows your own cleverness."`',
         )
 
     if x == 47:
 
-        await pika_msg(a,
-            '`"Famous movie quotes are credited to the actor and not the actual writer who wrote them."`'
+        await pika_msg(
+            a,
+            '`"Famous movie quotes are credited to the actor and not the actual writer who wrote them."`',
         )
 
     if x == 48:
 
-        await pika_msg(a,
-            '`"No one actually teaches you how to ride a bicycle. They just hype you up until you work it out."`'
+        await pika_msg(
+            a,
+            '`"No one actually teaches you how to ride a bicycle. They just hype you up until you work it out."`',
         )
 
     if x == 49:
@@ -2015,20 +2057,23 @@ async def belo(event):
 
     if x == 50:
 
-        await pika_msg(a,
-            '`"You’ve probably forgot about 80% of your entire life and most of the memories you do remember are not very accurate to what actually happened."`'
+        await pika_msg(
+            a,
+            '`"You’ve probably forgot about 80% of your entire life and most of the memories you do remember are not very accurate to what actually happened."`',
         )
 
     if x == 51:
 
-        await pika_msg(a,
-            '`"It will be a lot harder for kids to win against their parents in video games in the future."`'
+        await pika_msg(
+            a,
+            '`"It will be a lot harder for kids to win against their parents in video games in the future."`',
         )
 
     if x == 52:
 
-        await pika_msg(a,
-            '`"Everyone has flaws, if you don\'t recognize yours, you have a new one."`'
+        await pika_msg(
+            a,
+            '`"Everyone has flaws, if you don\'t recognize yours, you have a new one."`',
         )
 
     if x == 53:
@@ -2037,44 +2082,51 @@ async def belo(event):
 
     if x == 54:
 
-        await pika_msg(a, 
-            "`\"'O'pen starts with a Closed circle, and 'C'lose starts with an open circle.\"`"
+        await pika_msg(
+            a,
+            "`\"'O'pen starts with a Closed circle, and 'C'lose starts with an open circle.\"`",
         )
 
     if x == 55:
 
-        await pika_msg(a,
-            '`"There\'s always someone who hated you for no reason, and still does."`'
+        await pika_msg(
+            a,
+            '`"There\'s always someone who hated you for no reason, and still does."`',
         )
 
     if x == 56:
 
-        await pika_msg(a,
-            '`"After popcorn was discovered, there must have been a lot of random seeds that were roasted to see if it would have the same effect."`'
+        await pika_msg(
+            a,
+            '`"After popcorn was discovered, there must have been a lot of random seeds that were roasted to see if it would have the same effect."`',
         )
 
     if x == 57:
 
-        await pika_msg(a,
-            '`"The more important a good night\'s sleep is, the harder it is to fall asleep."`'
+        await pika_msg(
+            a,
+            '`"The more important a good night\'s sleep is, the harder it is to fall asleep."`',
         )
 
     if x == 58:
 
-        await pika_msg(a,
-            '`"Blessed are those that can properly describe the type of haircut they want to a new stylist."`'
+        await pika_msg(
+            a,
+            '`"Blessed are those that can properly describe the type of haircut they want to a new stylist."`',
         )
 
     if x == 59:
 
-        await pika_msg(a,
-            "`\"Too many people spend money they haven't earned, to buy things they don't want, to impress people they don't like!\"`"
+        await pika_msg(
+            a,
+            "`\"Too many people spend money they haven't earned, to buy things they don't want, to impress people they don't like!\"`",
         )
 
     if x == 60:
 
-        await pika_msg(a,
-            '`"Theme park employees must be good at telling the difference between screams of horror and excitement."`'
+        await pika_msg(
+            a,
+            '`"Theme park employees must be good at telling the difference between screams of horror and excitement."`',
         )
 
     if x == 61:
@@ -2083,20 +2135,23 @@ async def belo(event):
 
     if x == 62:
 
-        await pika_msg(a,
-            '`"Getting your password right on the last login attempt before lockout is the closest thing to disarming a bomb at the last minute that most of us will experience."`'
+        await pika_msg(
+            a,
+            '`"Getting your password right on the last login attempt before lockout is the closest thing to disarming a bomb at the last minute that most of us will experience."`',
         )
 
     if x == 63:
 
-        await pika_msg(a,
-            '`"Listening to podcasts before bed is the adult version of story-time."`'
+        await pika_msg(
+            a,
+            '`"Listening to podcasts before bed is the adult version of story-time."`',
         )
 
     if x == 64:
 
-        await pika_msg(a,
-            '`"If all criminals stopped robbing then the security industry would fall in which they could then easily go back to robbing."`'
+        await pika_msg(
+            a,
+            '`"If all criminals stopped robbing then the security industry would fall in which they could then easily go back to robbing."`',
         )
 
     if x == 65:
@@ -2105,38 +2160,44 @@ async def belo(event):
 
     if x == 66:
 
-        await pika_msg(a,
-            '`"When you get old, the old you is technically the new you, and your young self is the old you."`'
+        await pika_msg(
+            a,
+            '`"When you get old, the old you is technically the new you, and your young self is the old you."`',
         )
 
     if x == 67:
 
-        await pika_msg(a,
-            '`"You probably won\'t find many negative reviews of parachutes on the Internet."`'
+        await pika_msg(
+            a,
+            '`"You probably won\'t find many negative reviews of parachutes on the Internet."`',
         )
 
     if x == 68:
 
-        await pika_msg(a,
-            '`"We show the most love and admiration for people when they\'re no longer around to appreciate it."`'
+        await pika_msg(
+            a,
+            '`"We show the most love and admiration for people when they\'re no longer around to appreciate it."`',
         )
 
     if x == 69:
 
-        await pika_msg(a,
-            "`\"We've practiced sleeping thousands of times, yet can't do it very well or be consistent.\"`"
+        await pika_msg(
+            a,
+            "`\"We've practiced sleeping thousands of times, yet can't do it very well or be consistent.\"`",
         )
 
     if x == 70:
 
-        await pika_msg(a,
-            '`"Humans are more enthusiastic about moving to another planet with hostile environment than preserving earth - the planet they are perfectly shaped for."`'
+        await pika_msg(
+            a,
+            '`"Humans are more enthusiastic about moving to another planet with hostile environment than preserving earth - the planet they are perfectly shaped for."`',
         )
 
     if x == 71:
 
-        await pika_msg(a,
-            "`\"The happiest stage of most people's lives is when their brains aren't fully developed yet.\"`"
+        await pika_msg(
+            a,
+            "`\"The happiest stage of most people's lives is when their brains aren't fully developed yet.\"`",
         )
 
     if x == 72:
@@ -2145,20 +2206,21 @@ async def belo(event):
 
     if x == 73:
 
-        await pika_msg(a,
-            '`"You probably just synchronized blinks with millions of people."`'
+        await pika_msg(
+            a, '`"You probably just synchronized blinks with millions of people."`'
         )
 
     if x == 74:
 
-        await pika_msg(a,
-            '`"Since we test drugs on animals first, rat medicine must be years ahead of human medicine."`'
+        await pika_msg(
+            a,
+            '`"Since we test drugs on animals first, rat medicine must be years ahead of human medicine."`',
         )
 
     if x == 75:
 
-        await pika_msg(a, 
-            '`"Night before a day off is more satisfying than the actual day off."`'
+        await pika_msg(
+            a, '`"Night before a day off is more satisfying than the actual day off."`'
         )
 
     if x == 76:
@@ -2167,26 +2229,29 @@ async def belo(event):
 
     if x == 77:
 
-        await pika_msg(a,
-            '`"Somewhere, two best friends are meeting for the first time."`'
+        await pika_msg(
+            a, '`"Somewhere, two best friends are meeting for the first time."`'
         )
 
     if x == 78:
 
-        await pika_msg(a,
-            '`"Our brain simultaneously hates us, loves us, doesn\'t care about us, and micromanages our every move."`'
+        await pika_msg(
+            a,
+            '`"Our brain simultaneously hates us, loves us, doesn\'t care about us, and micromanages our every move."`',
         )
 
     if x == 79:
 
-        await pika_msg(a,
-            '`"Being a male is a matter of birth. Being a man is a matter of age. But being a gentleman is a matter of choice."`'
+        await pika_msg(
+            a,
+            '`"Being a male is a matter of birth. Being a man is a matter of age. But being a gentleman is a matter of choice."`',
         )
 
     if x == 80:
 
-        await pika_msg(a,
-            '`"Soon the parents will be hiding their social account from their kids rather than kids hiding their accounts from the parents."`'
+        await pika_msg(
+            a,
+            '`"Soon the parents will be hiding their social account from their kids rather than kids hiding their accounts from the parents."`',
         )
 
     if x == 81:
@@ -2195,62 +2260,71 @@ async def belo(event):
 
     if x == 82:
 
-        await pika_msg(a, 
-            '`"A theme park is the only place that you can hear screams in the distance and not be concerned."`'
+        await pika_msg(
+            a,
+            '`"A theme park is the only place that you can hear screams in the distance and not be concerned."`',
         )
 
     if x == 83:
 
-        await pika_msg(a, 
-            '`"A wireless phone charger offers less freedom of movement than a wired one."`'
+        await pika_msg(
+            a,
+            '`"A wireless phone charger offers less freedom of movement than a wired one."`',
         )
 
     if x == 84:
 
-        await pika_msg(a, 
-            "`\"If you repeatedly criticize someone for liking something you don't, they won't stop liking it. They'll stop liking you.\"`"
+        await pika_msg(
+            a,
+            "`\"If you repeatedly criticize someone for liking something you don't, they won't stop liking it. They'll stop liking you.\"`",
         )
 
     if x == 85:
 
-        await pika_msg(a,
-            '`"Somewhere there is a grandmother, whose grandson really is the most handsome boy in the world."`'
+        await pika_msg(
+            a,
+            '`"Somewhere there is a grandmother, whose grandson really is the most handsome boy in the world."`',
         )
 
     if x == 86:
 
-        await pika_msg(a,
-            '`"If someday human teleportation becomes real, people will still be late for work."`'
+        await pika_msg(
+            a,
+            '`"If someday human teleportation becomes real, people will still be late for work."`',
         )
 
     if x == 87:
 
-        await pika_msg(a, 
-            '`"The first humans who ate crabs must have been really hungry to try and eat an armored sea spider"`'
+        await pika_msg(
+            a,
+            '`"The first humans who ate crabs must have been really hungry to try and eat an armored sea spider"`',
         )
 
     if x == 88:
 
-        await pika_msg(a, 
-            '`"Doing something alone is kind of sad, but doing it solo is cool af."`'
+        await pika_msg(
+            a, '`"Doing something alone is kind of sad, but doing it solo is cool af."`'
         )
 
     if x == 89:
 
-        await pika_msg(a, 
-            '`"Your brain suddenly becomes perfect at proofreading after you post something."`'
+        await pika_msg(
+            a,
+            '`"Your brain suddenly becomes perfect at proofreading after you post something."`',
         )
 
     if x == 90:
 
-        await pika_msg(a,
-            '`"There\'s always that one song in your playlist that you always skip but never remove."`'
+        await pika_msg(
+            a,
+            '`"There\'s always that one song in your playlist that you always skip but never remove."`',
         )
 
     if x == 91:
 
-        await pika_msg(a,
-            '`"Kids next century will probably hate us for taking all the good usernames."`'
+        await pika_msg(
+            a,
+            '`"Kids next century will probably hate us for taking all the good usernames."`',
         )
 
     if x == 92:
@@ -2259,8 +2333,9 @@ async def belo(event):
 
     if x == 93:
 
-        await pika_msg(a, 
-            '`"The more people you meet, the more you realise and appreciate how well your parents raised you."`'
+        await pika_msg(
+            a,
+            '`"The more people you meet, the more you realise and appreciate how well your parents raised you."`',
         )
 
     if x == 94:
@@ -2273,22 +2348,25 @@ async def belo(event):
 
     if x == 96:
 
-        await pika_msg(a, 
-            '`"Bermuda Triangle might be the exit portal of this simulation."`'
+        await pika_msg(
+            a, '`"Bermuda Triangle might be the exit portal of this simulation."`'
         )
 
     if x == 97:
 
-        await pika_msg(a, 
-            '`"If we put solar panels above parking lots, then our cars wouldn\'t get hot and we would have a lot of clean energy."`'
+        await pika_msg(
+            a,
+            '`"If we put solar panels above parking lots, then our cars wouldn\'t get hot and we would have a lot of clean energy."`',
         )
 
 
 async def bombs(event):
     if event.fwd_from:
         return
-    _tg= await get_pika_tg(event)
-    a = await pika_msg(event, "▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n", _tg)
+    _tg = await get_pika_tg(event)
+    a = await pika_msg(
+        event, "▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n", _tg
+    )
     await asyncio.sleep(0.5)
     await pika_msg(a, "💣💣💣💣 \n▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n▪️▪️▪️▪️ \n")
     await asyncio.sleep(0.5)
