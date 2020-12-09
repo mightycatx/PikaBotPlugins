@@ -1122,7 +1122,7 @@ async def _gadmin(show):
                 mentions += f"\nDeleted Account <code>{user.id}</code>"
     except ChatAdminRequiredError as err:
         mentions += " " + str(err) + "\n"
-    await pika_msg(show, mentions, parse_mode="html", _tg)
+    await show.edit(show, mentions, parse_mode="html")
 
 
 async def _pin(msg):
