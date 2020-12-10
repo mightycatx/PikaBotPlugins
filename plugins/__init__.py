@@ -4171,9 +4171,7 @@ assistant_modules = [
     unshort,
     ducgo,
     dump,
-    _eval,
-    aexec,
-    __aexec,
+    _eval,,
     helper,
     inline_handler,
 ]
