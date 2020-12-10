@@ -1704,8 +1704,6 @@ async def _bash(event):
             await event.delete()
     await pika_msg(event, OUTPUT, _tg)
 
-_EvalBash_ = [_bash, 
-
 async def batch_upload(event):
     if event.fwd_from:
         return
