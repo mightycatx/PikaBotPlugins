@@ -1396,6 +1396,7 @@ async def note_incm(getnt):
     except AttributeError:
         pass
 
+_Notes_ = [_add_notes, _allnotes, _remove_notes, admin_cmd, note_incm]
 
 async def get_user_from_event(event):
     """ Get the user from argument or replied message. """
