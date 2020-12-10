@@ -1295,27 +1295,6 @@ async def _muter(moot):
             if i.sender == str(moot.sender_id) and i.pika_id == _pika_id:
                 await moot.delete()
 
-
-_Admin_ = [
-    _ban,
-    _demote,
-    _gadmin,
-    _gmte,
-    _gusers,
-    _invite,
-    _kick,
-    _mute,
-    _muter,
-    _pin,
-    _promote,
-    _rmdacc,
-    _setgpic,
-    _unban,
-    _ungmute,
-    _unmute,
-]
-
-
 async def _allnotes(event):
     if event.fwd_from:
         return
