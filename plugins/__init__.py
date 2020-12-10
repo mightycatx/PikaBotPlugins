@@ -1295,7 +1295,26 @@ async def _muter(moot):
             if i.sender == str(moot.sender_id) and i.pika_id == _pika_id:
                 await moot.delete()
 
-_Admin_ = [ _ban, _demote, _gadmin, _gmte, _gusers, _invite, _kick, _mute, _muter, _pin, _promote, _rmdacc, _setgpic, _unban, _ungmute, _unmute]
+
+_Admin_ = [
+    _ban,
+    _demote,
+    _gadmin,
+    _gmte,
+    _gusers,
+    _invite,
+    _kick,
+    _mute,
+    _muter,
+    _pin,
+    _promote,
+    _rmdacc,
+    _setgpic,
+    _unban,
+    _ungmute,
+    _unmute,
+]
+
 
 async def _allnotes(event):
     if event.fwd_from:
@@ -1703,6 +1722,7 @@ async def _bash(event):
             )
             await event.delete()
     await pika_msg(event, OUTPUT, _tg)
+
 
 async def batch_upload(event):
     if event.fwd_from:
@@ -4104,4 +4124,76 @@ async def _invite(event):
             await event.edit("Invited Successfully")
 
 
-assistant_modules = [pbio,pname,anpfp,avpfp,gmpfp,atnm,atb,_setgpic,_promote,_demote,_ban,_unban,_mute,_unmute,_ungmute,_gmte,_rmdacc,_gadmin,_pin,_kick,_gusers,_muter,_allnotes,_remove_notes,_add_notes,note_incm,get_user_from_event,get_user_sender_id,_alive,magisk,device_info,codename_info,dspecs,twrp,waifu,_bash,batch_upload,belo,bombs,call,spm_notify,_carbon,_chain,get_media,getmedia,_ctg,cflip,findcolour,_congo,_convoqt,decide,_cry,deepfryer,deepfry,check_media,remppic,jon,pay,dict,_ding,dlg,_dns,urlx,unshort,ducgo,dump,_eval,aexec,__aexec,helper,inline_handler]
+assistant_modules = [
+    pbio,
+    pname,
+    anpfp,
+    avpfp,
+    gmpfp,
+    atnm,
+    atb,
+    _setgpic,
+    _promote,
+    _demote,
+    _ban,
+    _unban,
+    _mute,
+    _unmute,
+    _ungmute,
+    _gmte,
+    _rmdacc,
+    _gadmin,
+    _pin,
+    _kick,
+    _gusers,
+    _muter,
+    _allnotes,
+    _remove_notes,
+    _add_notes,
+    note_incm,
+    get_user_from_event,
+    get_user_sender_id,
+    _alive,
+    magisk,
+    device_info,
+    codename_info,
+    dspecs,
+    twrp,
+    waifu,
+    _bash,
+    batch_upload,
+    belo,
+    bombs,
+    call,
+    spm_notify,
+    _carbon,
+    _chain,
+    get_media,
+    getmedia,
+    _ctg,
+    cflip,
+    findcolour,
+    _congo,
+    _convoqt,
+    decide,
+    _cry,
+    deepfryer,
+    deepfry,
+    check_media,
+    remppic,
+    jon,
+    pay,
+    dict,
+    _ding,
+    dlg,
+    _dns,
+    urlx,
+    unshort,
+    ducgo,
+    dump,
+    _eval,
+    aexec,
+    __aexec,
+    helper,
+    inline_handler,
+]
