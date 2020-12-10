@@ -1295,6 +1295,7 @@ async def _muter(moot):
             if i.sender == str(moot.sender_id) and i.pika_id == _pika_id:
                 await moot.delete()
 
+
 async def _allnotes(event):
     if event.fwd_from:
         return
