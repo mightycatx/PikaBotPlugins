@@ -4102,5 +4102,3 @@ async def _invite(event):
                 except Exception as e:
                     await event.reply(str(e))
             await event.edit("Invited Successfully")
-
-
