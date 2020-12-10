@@ -4120,7 +4120,7 @@ __all__ = [
     '_mute',
     '_unmute',
     '_ungmute',
-    '_gmte ,
+    '_gmte',
     '_rmdacc',
     '_gadmin',
     '_pin',
