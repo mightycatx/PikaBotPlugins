@@ -973,7 +973,7 @@ async def _ungmute(un_gmute):
             for _umte in id:
                 try:
                     await un_gmute.client(
-                        EditBannedRequest(_umte.pika_id, user.id, UNBAN_RIGHTS)
+                        EditBannedRequest(int(_umte.pika_id), int(user.id), UNMUTE_RIGHTS)
                     )
                 except BaseException:
                     pass
