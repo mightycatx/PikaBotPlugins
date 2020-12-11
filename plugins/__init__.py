@@ -962,6 +962,7 @@ async def _ungmute(un_gmute):
     if pikaugmute is False:
         await pika_msg(a, "`Error! User probably not gmuted.`")
     else:
+        b=0
         if await is_pikatg(un_gmute):
             from pikabot.sql_helper.chats_sql import (
                 add_pika,
@@ -972,11 +973,13 @@ async def _ungmute(un_gmute):
             id = get_pika_chats()
             for _umte in id:
                 try:
+                    b+=1
                     await un_gmute.client(
                         EditBannedRequest(
                             int(_umte.pika_id), int(user.id), UNMUTE_RIGHTS
                         )
                     )
+                    await pika_msg(a, "Globally UnMuting in {b} Chats") 
                 except BaseException:
                     pass
         else:
@@ -984,12 +987,14 @@ async def _ungmute(un_gmute):
                 if ugmte.is_group:
                     ugchat = ugmte.id
                     try:
+                        b+=1
                         await un_gmute.client(
                             EditBannedRequest(ugchat, user.id, UNMUTE_RIGHTS)
                         )
+                        await pika_msg(a, "Globally UnMuting in {b} Chats")
                     except BaseException:
                         pass
-        await pika_msg(a, "**USER GLOBALLY UNMUTED**")
+        await pika_msg(a, "**Globally UnMuted User in {b} Chats**")
         if BOTLOG:
             await un_gmute.client.send_message(
                 BOTLOG_CHATID,
