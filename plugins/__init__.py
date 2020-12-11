@@ -979,7 +979,7 @@ async def _ungmute(un_gmute):
                             int(_umte.pika_id), int(user.id), UNMUTE_RIGHTS
                         )
                     )
-                    await pika_msg(a, "Globally UnMuting in {b} Chats")
+                    await pika_msg(a, f"Globally UnMuting in {b} Chats")
                 except BaseException:
                     pass
         else:
@@ -991,10 +991,10 @@ async def _ungmute(un_gmute):
                         await un_gmute.client(
                             EditBannedRequest(ugchat, user.id, UNMUTE_RIGHTS)
                         )
-                        await pika_msg(a, "Globally UnMuting in {b} Chats")
+                        await pika_msg(a, f"Globally UnMuting in {b} Chats")
                     except BaseException:
                         pass
-        await pika_msg(a, "**Globally UnMuted User in {b} Chats**")
+        await pika_msg(a, f"**Globally UnMuted User in {b} Chats**")
         if BOTLOG:
             await un_gmute.client.send_message(
                 BOTLOG_CHATID,
