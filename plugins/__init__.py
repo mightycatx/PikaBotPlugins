@@ -962,7 +962,7 @@ async def _ungmute(un_gmute):
     if pikaugmute is False:
         await pika_msg(a, "`Error! User probably not gmuted.`")
     else:
-        if await is_pikatg(unmot):
+        if await is_pikatg(un_gmute):
             from pikabot.sql_helper.chats_sql import (
                 add_pika,
                 get_pika_chats,
