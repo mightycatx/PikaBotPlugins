@@ -4125,3 +4125,44 @@ async def _invite(event):
                 except Exception as e:
                     await event.reply(str(e))
             await event.edit("Invited Successfully")
+
+async def _github(event):
+    if event.fwd_from:
+        return
+    _tg = await get_pika_tg(event)
+    input_str = event.pattern_match.group(1)
+    a = await pika_msg(event, "Searching for {}".format(input_str), _tg)
+    await asyncio.sleep(2)
+    url = "https://api.github.com/users/{}".format(input_str)
+    r = requests.get(url)
+    if r.status_code != 404:
+        b = r.json()
+        avatar_url = b["avatar_url"]
+        html_url = b["html_url"]
+        gh_type = b["type"]
+        name = b["name"]
+        company = b["company"]
+        blog = b["blog"]
+        location = b["location"]
+        bio = b["bio"]
+        created_at = b["created_at"]
+        await event.client.send_file(
+            event.chat_id,
+            caption="""Name: [{}]({})
+Type: {}
+Company: {}
+Blog: {}
+Location: {}
+Bio: {}
+Profile Created: {}""".format(
+                name, html_url, gh_type, company, blog, location, bio, created_at
+            ),
+            file=avatar_url,
+            force_document=False,
+            allow_cache=False,
+            reply_to=event,
+        )
+        await a.delete()
+    else:
+        await pika_msg(a, "`{}`: {}".format(input_str, r.text))
+
