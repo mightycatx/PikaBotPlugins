@@ -963,14 +963,13 @@ async def _ungmute(un_gmute):
         await pika_msg(a, "`Error! User probably not gmuted.`")
     else:
         if await is_pikatg(unmot):
-           try:
-              from pikabot.sql_helper.chats_sql import add_pika, is_pika_exist, get_pika_chats 
-              id = get_pika_chats()
-              for _umte in id:
-                  try: 
-                     await unmot.client(EditBannedRequest(_umte.pika_id, user.id, UNBAN_RIGHTS))
-                  except: 
-                     pass 
+           from pikabot.sql_helper.chats_sql import add_pika, is_pika_exist, get_pika_chats 
+           id = get_pika_chats()
+           for _umte in id:
+              try: 
+                 await unmot.client(EditBannedRequest(_umte.pika_id, user.id, UNBAN_RIGHTS))
+              except: 
+                 pass 
         else:  
            async for ugmte in un_gmute.client.iter_dialogs():
                if ugmte.is_group:
