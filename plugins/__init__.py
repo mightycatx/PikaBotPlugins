@@ -972,7 +972,7 @@ async def _ungmute(un_gmute):
             id = get_pika_chats()
             for _umte in id:
                 try:
-                    await unmot.client(
+                    await un_gmute.client(
                         EditBannedRequest(_umte.pika_id, user.id, UNBAN_RIGHTS)
                     )
                 except BaseException:
