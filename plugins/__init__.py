@@ -972,15 +972,15 @@ async def _ungmute(un_gmute):
                   except: 
                      pass 
         else:  
-            async for ugmte in un_gmute.client.iter_dialogs():
-                if ugmte.is_group:
-                    ugchat = ugmte.id
-                    try:
-                        await un_gmute.client(
-                            EditBannedRequest(ugchat, user.id, UNMUTE_RIGHTS)
-                        )
-                    except BaseException:
-                        pass
+           async for ugmte in un_gmute.client.iter_dialogs():
+               if ugmte.is_group:
+                   ugchat = ugmte.id
+                   try:
+                       await un_gmute.client(
+                           EditBannedRequest(ugchat, user.id, UNMUTE_RIGHTS)
+                       )
+                   except BaseException:
+                       pass
         await pika_msg(a, "**USER GLOBALLY UNMUTED**")
         if BOTLOG:
             await un_gmute.client.send_message(
