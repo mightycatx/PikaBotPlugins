@@ -4126,6 +4126,7 @@ async def _invite(event):
                     await event.reply(str(e))
             await event.edit("Invited Successfully")
 
+
 async def _github(event):
     if event.fwd_from:
         return
@@ -4165,4 +4166,3 @@ Profile Created: {}""".format(
         await a.delete()
     else:
         await pika_msg(a, "`{}`: {}".format(input_str, r.text))
-
