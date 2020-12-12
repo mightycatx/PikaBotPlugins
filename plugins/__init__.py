@@ -5,7 +5,6 @@ import json
 import logging
 import math
 import os
-import bs4
 import random
 import re
 import subprocess
@@ -21,6 +20,7 @@ from subprocess import PIPE, Popen
 from time import sleep
 from urllib.parse import quote_plus
 
+import bs4
 import pyfiglet
 import requests
 from bs4 import BeautifulSoup
