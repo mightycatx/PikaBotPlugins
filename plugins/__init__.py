@@ -22,6 +22,7 @@ from urllib.parse import quote_plus
 
 import bs4
 import pyfiglet
+import pygments
 import requests
 from bs4 import BeautifulSoup
 from geopy.geocoders import Nominatim
@@ -36,6 +37,8 @@ from pikabot.utils import *
 from pikabot.utils import ItzSjDude
 from pikabot.utils import get_readable_time as grt
 from PIL import Image, ImageColor, ImageEnhance, ImageOps
+from pygments.formatters import ImageFormatter
+from pygments.lexers import Python3Lexer
 from requests import get
 from search_engine_parser import GoogleSearch
 from selenium import webdriver
@@ -4709,15 +4712,16 @@ async def _deldog(event):
     else:
         await pika_msg(a, "Deldog: [Here]({})\n**Time Taken**: {}sec".format(url, ms))
 
-import pygments
-from pygments.formatters import ImageFormatter
-from pygments.lexers import Python3Lexer
 
-#© @Buddhhu , dont remove credits bsdk else u gay * 100
+# © @Buddhhu , dont remove credits bsdk else u gay * 100
+
+
 async def _ncode(event):
     input = event.pattern_match.group(1)
     _tg = await get_pika_tg(event)
-    a_= pika_msg(event, "Converting file into beautified code image, Please wait...", _tg)
+    a_ = pika_msg(
+        event, "Converting file into beautified code image, Please wait...", _tg
+    )
     a = await event.client.download_media(
         await event.get_reply_message(), Var.TEMP_DOWNLOAD_DIRECTORY
     )
@@ -4737,4 +4741,3 @@ async def _ncode(event):
     await a_.delete()
     os.remove(a)
     os.remove("out.png")
-
