@@ -4172,7 +4172,7 @@ Profile Created: {}""".format(
     else:
         await pika_msg(a, "`{}`: {}".format(input_str, r.text))
 
-async def _gsearch(event)
+async def _gsearch(event):
     """ For .google command, do a Google search. """
     match = event.pattern_match.group(1)
     _tg = await is_pikatg(event)
@@ -4200,7 +4200,7 @@ async def _gsearch(event)
     await pika_msg(a, finalres, link_preview=False)
 
 langi = "en"
-async def _imdb(e)
+async def _imdb(e):
     _tg = await is_pikatg(e)
     try:
         movie_name = e.pattern_match.group(1)
