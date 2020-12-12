@@ -738,7 +738,11 @@ async def _ban(bon):
         return
     _tg = await get_pika_tg(bon)
     # Announce that we're going to whack the pest
-    a = await pika_msg(bon, _tg, "`Whacking the pest!`",)
+    a = await pika_msg(
+        bon,
+        _tg,
+        "`Whacking the pest!`",
+    )
 
     try:
         await bon.client(EditBannedRequest(bon.chat_id, user.id, BANNED_RIGHTS))
