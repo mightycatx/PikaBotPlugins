@@ -1187,7 +1187,7 @@ async def _pin(msg):
     try:
         await msg.client(UpdatePinnedMessageRequest(msg.to_id, to_pin, is_silent))
     except BadRequestError:
-        await pika_msg(msg, _tg NO_PERM)
+        await pika_msg(msg, _tg, NO_PERM)
         return
 
     await pika_msg(msg, "`Pinned Successfully!`")
