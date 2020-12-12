@@ -9,5 +9,5 @@ from . import _imdb
 # kanged from Blank-x ;---;
 
 @ItzSjDude(outgoing=True, pattern="imdb (.*)")
-async def _imdb(e):
+async def _(e):
     await _imdb(e)
