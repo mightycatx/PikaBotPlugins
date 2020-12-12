@@ -4644,3 +4644,21 @@ async def _rmlocks(event):
     except BaseException as e:
         await pika_msg(a, f"`Do I have proper rights for that ??`\n**Error:** {str(e)}")
         return
+
+async def _pack(event):
+    a = await event.get_reply_message()
+    input_str = event.pattern_match.group(1)
+    b = open(input_str, "w")
+    b.write(str(a.message))
+    b.close()
+    _tg = await get_pika_tg(event)
+    _a= await pika_msg(event, f"**Packing into** `{input_str}`", _tg)
+    await asyncio.sleep(2)
+    await pika_msg(_a, f"**Uploading** `{input_str}`")
+    await asyncio.sleep(1)
+    await event.client.send_file(
+        event.chat_id, input_str, caption="Here is your {}".format(input_str)
+    )
+    await event.delete()
+    os.remove(input_str)
+
