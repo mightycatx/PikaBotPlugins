@@ -4667,12 +4667,14 @@ async def _pack(event):
     await event.delete()
     os.remove(input_str)
 
+
 def progress(current, total):
     logger.info(
         "Downloaded {} of {}\nCompleted {}".format(
             current, total, (current / total) * 100
         )
     )
+
 
 async def _deldog(event):
     if event.fwd_from:
