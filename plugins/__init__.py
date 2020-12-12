@@ -4205,6 +4205,7 @@ async def _imdb(e):
     try:
         movie_name = e.pattern_match.group(1)
         remove_space = movie_name.split(" ")
+        _ax = await pika_msg(e, "Searching For {movie_name}, Please wait...", _tg)
         final_name = "+".join(remove_space)
         page = requests.get(
             "https://www.imdb.com/find?ref_=nv_sr_fn&q=" + final_name + "&s=all"
@@ -4290,9 +4291,9 @@ async def _imdb(e):
             + "\n<b>Story Line : </b>"
             + story_line)
         _html = "HTML"
-        await pika_msg(e, _imdb_dta, link_preview=True, parse_mode=_html, _tg)
+        await pika_msg(_ax, _imdb_dta, link_preview=True, parse_mode=_html)
     except IndexError:
-        await pika_msg(e, "Plox enter **Valid movie name** kthx", _tg)
+        await pika_msg(_ax, "Plox enter **Valid movie name** kthx")
 
 import html
 from telethon.tl.functions.photos import GetUserPhotosRequest
