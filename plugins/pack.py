@@ -4,8 +4,9 @@
 """
 # Made by @ItzSjDude. All Rights reserved
 
-from . import _pack 
+from . import _pack
+
 
 @ItzSjDude(pattern="pack ?(.*)")
 async def _(event):
-     await _pack(event)
+    await _pack(event)
