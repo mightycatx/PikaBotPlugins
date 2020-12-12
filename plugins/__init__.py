@@ -4714,12 +4714,10 @@ async def _deldog(event):
 
 
 # © @Buddhhu , dont remove credits bsdk else u gay * 100
-
-
 async def _ncode(event):
     input = event.pattern_match.group(1)
     _tg = await get_pika_tg(event)
-    a_ = pika_msg(
+    a_ = await pika_msg(
         event, "Converting file into beautified code image, Please wait...", _tg
     )
     a = await event.client.download_media(
@@ -4734,7 +4732,7 @@ async def _ncode(event):
         ImageFormatter(font_name="DejaVu Sans Mono", line_numbers=True),
         "out.png",
     )
-    if "doc" in input:
+    if input == "doc":
         await event.client.send_file(event.chat_id, "out.png", force_document=True)
     else:
         await event.client.send_file(event.chat_id, "out.png")
