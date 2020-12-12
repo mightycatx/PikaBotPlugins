@@ -5,10 +5,9 @@
 # created by @Buddhhu, Rebased by @ItzSjDude. All Rights Reserved
 
 
-from . import _ncode 
+from . import _ncode
+
 
 @ItzSjDude(pattern=r"ncode (.*)")
 async def _(event):
     await _ncode(event)
-
-
