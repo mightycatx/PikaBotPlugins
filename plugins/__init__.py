@@ -5,6 +5,7 @@ import json
 import logging
 import math
 import os
+import bs4
 import random
 import re
 import subprocess
@@ -4209,7 +4210,7 @@ async def _imdb(e):
     try:
         movie_name = e.pattern_match.group(1)
         remove_space = movie_name.split(" ")
-        _ax = await pika_msg(e, "Searching For {movie_name}, Please wait...", _tg)
+        _ax = await pika_msg(e, f"Searching For {movie_name}, Please wait...", _tg)
         final_name = "+".join(remove_space)
         page = requests.get(
             "https://www.imdb.com/find?ref_=nv_sr_fn&q=" + final_name + "&s=all"
