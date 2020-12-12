@@ -636,7 +636,7 @@ async def _promote(promt):
         pin_messages=True,
     )
     _tg = await get_pika_tg(promt)
-    a = await pika_msg(promt, _tg, "`Promoting...`")
+    a = await pika_msg(promt,"`Promoting...`", _tg)
     user, rank = await get_user_from_event(promt)
     if not rank:
         # Just in case.
@@ -910,7 +910,7 @@ async def _unmute(unmot):
     # If admin or creator, inform the user and start unmuting
     pika_id = await get_pika_id(unmot)
     _tg = await get_pika_tg(unmot)
-    a = await pika_msg(unmot, _tg, "```Unmuting...```")
+    a = await pika_msg(unmot, "```Unmuting...```", _tg)
     user = await get_user_from_event(unmot)
     user = user[0]
     if user:
@@ -1046,7 +1046,7 @@ async def _gmte(gspdr):
         return
 
     # If pass, inform and start gmuting
-    a = await pika_msg(gspdr, _tg, "`Grabs a huge, sticky duct tape!`")
+    a = await pika_msg(gspdr, "`Grabs a huge, sticky duct tape!`", _tg)
 
     pikagmute = gmute(user.id, _pika_id)
     if pikagmute is False:
@@ -1081,7 +1081,7 @@ async def _rmdacc(show):
     del_status = "`No deleted accounts found, Group is cleaned as Hell`"
 
     if con != "clean":
-        a = await pika_msg(show, ax, "`Searching for zombie accounts...`")
+        a = await pika_msg(show, "`Searching for zombie accounts...`", _ax)
         async for user in show.client.iter_participants(show.chat_id, aggressive=True):
             if user.deleted:
                 del_u += 1
@@ -1146,7 +1146,8 @@ async def _gadmin(show):
     """ For .admins command, list all of the admins of the chat. """
     info = await show.client.get_entity(show.chat_id)
     title = info.title if info.title else "this chat"
-    await get_pika_tg(show)
+    _tg= await get_pika_tg(show)
+    a = await pika_msg(show, "Getting admins, please wait...", _tg)
     mentions = f"<b>Admins in {title}:</b> \n"
     try:
         async for user in show.client.iter_participants(
@@ -1160,7 +1161,7 @@ async def _gadmin(show):
                 mentions += f"\nDeleted Account <code>{user.id}</code>"
     except ChatAdminRequiredError as err:
         mentions += " " + str(err) + "\n"
-    await show.edit(show, mentions, parse_mode="html")
+    await pika_msg(a, mentions, parse_mode="html")
 
 
 async def _pin(msg):
@@ -1178,7 +1179,7 @@ async def _pin(msg):
     to_pin = msg.reply_to_msg_id
 
     if not to_pin:
-        await pika_msg(msg, _tg, "`Reply to a message to pin it.`", _tg)
+        await pika_msg(msg, "`Reply to a message to pin it.`", _tg)
         return
 
     options = msg.pattern_match.group(1)
@@ -1191,7 +1192,7 @@ async def _pin(msg):
     try:
         await msg.client(UpdatePinnedMessageRequest(msg.to_id, to_pin, is_silent))
     except BadRequestError:
-        await pika_msg(msg, _tg, NO_PERM)
+        await pika_msg(msg, NO_PERM, _tg)
         return
 
     await pika_msg(msg, "`Pinned Successfully!`")
