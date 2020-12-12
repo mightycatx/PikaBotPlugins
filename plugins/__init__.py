@@ -1190,7 +1190,7 @@ async def _pin(msg):
         await pika_msg(msg, _tg NO_PERM)
         return
 
-    await pika_msg(msg, "`Pinned Successfully!`", _tg)
+    await pika_msg(msg, "`Pinned Successfully!`")
 
     user = await get_user_sender_id(msg.sender_id, msg)
 
