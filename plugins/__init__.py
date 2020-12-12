@@ -636,7 +636,7 @@ async def _promote(promt):
         pin_messages=True,
     )
     _tg = await get_pika_tg(promt)
-    a = await pika_msg(promt,"`Promoting...`", _tg)
+    a = await pika_msg(promt, "`Promoting...`", _tg)
     user, rank = await get_user_from_event(promt)
     if not rank:
         # Just in case.
@@ -1146,7 +1146,7 @@ async def _gadmin(show):
     """ For .admins command, list all of the admins of the chat. """
     info = await show.client.get_entity(show.chat_id)
     title = info.title if info.title else "this chat"
-    _tg= await get_pika_tg(show)
+    _tg = await get_pika_tg(show)
     a = await pika_msg(show, "Getting admins, please wait...", _tg)
     mentions = f"<b>Admins in {title}:</b> \n"
     try:
