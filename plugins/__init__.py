@@ -35,6 +35,7 @@ from pikabot.main_plugs.SysRuntime import *
 from pikabot.sql_helper.notes_sql import *
 from pikabot.utils import *
 from pikabot.utils import ItzSjDude
+from datetime import datetime as pikatime
 from pikabot.utils import get_readable_time as grt
 from PIL import Image, ImageColor, ImageEnhance, ImageOps
 from pygments.formatters import ImageFormatter
@@ -4673,7 +4674,7 @@ async def _deldog(event):
     _tg = await get_pika_tg(event)
     a = await pika_msg(event, "Pasting on Deldog, Please wait...", _tg)
     await asyncio.sleep(1)
-    start = datetime.now()
+    start = pikatime.now()
     if not os.path.isdir(Config.TMP_DOWNLOAD_DIRECTORY):
         os.makedirs(Config.TMP_DOWNLOAD_DIRECTORY)
     input_str = event.pattern_match.group(1)
@@ -4702,7 +4703,7 @@ async def _deldog(event):
     url = "https://del.dog/documents"
     r = requests.post(url, data=message.encode("UTF-8")).json()
     url = f"https://del.dog/{r['key']}"
-    end = datetime.now()
+    end = pikatime.now()
     ms = (end - start).seconds
     if r["isUrl"]:
         nurl = f"https://del.dog/v/{r['key']}"
