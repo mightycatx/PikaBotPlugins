@@ -4662,3 +4662,49 @@ async def _pack(event):
     )
     await event.delete()
     os.remove(input_str)
+
+async def _deldog(event):
+    if event.fwd_from:
+        return 
+    _tg = await get_pika_tg(event)
+    a = await pika_msg(event, "Pasting on Deldog, Please wait...", _tg)
+    await asyncio.sleep(1)
+    start = datetime.now()
+    if not os.path.isdir(Config.TMP_DOWNLOAD_DIRECTORY):
+        os.makedirs(Config.TMP_DOWNLOAD_DIRECTORY)
+    input_str = event.pattern_match.group(1)
+    message = "SYNTAX: `.paste <long text to include>`"
+    if input_str:
+        message = input_str
+    elif event.reply_to_msg_id:
+        previous_message = await event.get_reply_message()
+        if previous_message.media:
+            downloaded_file_name = await event.client.download_media(
+                previous_message,
+                Config.TMP_DOWNLOAD_DIRECTORY,
+                progress_callback=progress,
+            )
+            m_list = None
+            with open(downloaded_file_name, "rb") as fd:
+                m_list = fd.readlines()
+            message = ""
+            for m in m_list:
+                message += m.decode("UTF-8") + "\r\n"
+            os.remove(downloaded_file_name)
+        else:
+            message = previous_message.message
+    else:
+        message = "SYNTAX: `.paste <long text to include>`"
+    url = "https://del.dog/documents"
+    r = requests.post(url, data=message.encode("UTF-8")).json()
+    url = f"https://del.dog/{r['key']}"
+    end = datetime.now()
+    ms = (end - start).seconds
+    if r["isUrl"]:
+        nurl = f"https://del.dog/v/{r['key']}"
+        await pika_msg(a, 
+            "Dogged to {} in {} seconds. GoTo Original URL: {}".format(url, ms, nurl)
+        )
+    else:
+        await pika_msg(a, "Deldog: [Here]({})\n**Time Taken**: {}sec".format(url, ms))
+
