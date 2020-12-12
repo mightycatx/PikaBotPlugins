@@ -4645,6 +4645,7 @@ async def _rmlocks(event):
         await pika_msg(a, f"`Do I have proper rights for that ??`\n**Error:** {str(e)}")
         return
 
+
 async def _pack(event):
     a = await event.get_reply_message()
     input_str = event.pattern_match.group(1)
@@ -4652,7 +4653,7 @@ async def _pack(event):
     b.write(str(a.message))
     b.close()
     _tg = await get_pika_tg(event)
-    _a= await pika_msg(event, f"**Packing into** `{input_str}`", _tg)
+    _a = await pika_msg(event, f"**Packing into** `{input_str}`", _tg)
     await asyncio.sleep(2)
     await pika_msg(_a, f"**Uploading** `{input_str}`")
     await asyncio.sleep(1)
@@ -4661,4 +4662,3 @@ async def _pack(event):
     )
     await event.delete()
     os.remove(input_str)
-
