@@ -4268,8 +4268,7 @@ async def _imdb(e):
                 mov_rating = r.strong["title"]
         else:
             mov_rating = "Not available"
-        await pika_msg(e, 
-            "<a href=" + poster + ">&#8203;</a>"
+        imdb_dta= ("<a href=" + poster + ">&#8203;</a>"
             "<b>Title : </b><code>"
             + mov_title
             + "</code>\n<code>"
@@ -4289,11 +4288,9 @@ async def _imdb(e):
             + "</code>\n<b>IMDB Url : </b>"
             + mov_link
             + "\n<b>Story Line : </b>"
-            + story_line,
-            link_preview=True,
-            parse_mode="HTML",
-            _tg,
-        )
+            + story_line)
+        _html = "HTML"
+        await pika_msg(e, _imdb_dta, link_preview=True, parse_mode=_html, _tg)
     except IndexError:
         await pika_msg(e, "Plox enter **Valid movie name** kthx", _tg)
 
