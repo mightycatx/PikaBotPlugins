@@ -10,4 +10,4 @@ from . import _imdb
 
 @ItzSjDude(outgoing=True, pattern="imdb (.*)")
 async def _imdb(e):
-    await _imdb(e):
+    await _imdb(e)
