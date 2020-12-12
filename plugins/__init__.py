@@ -1,4 +1,5 @@
 import asyncio
+import html
 import io
 import json
 import logging
@@ -14,6 +15,7 @@ import urllib.parse
 from asyncio import sleep
 from os import remove
 from random import choice, randint, uniform
+from re import findall
 from subprocess import PIPE, Popen
 from time import sleep
 from urllib.parse import quote_plus
@@ -32,17 +34,9 @@ from pikabot.sql_helper.notes_sql import *
 from pikabot.utils import *
 from pikabot.utils import ItzSjDude
 from pikabot.utils import get_readable_time as grt
-from re import findall
-from pikabot.utils import ItzSjDude
-from search_engine_parser import GoogleSearch
-
-from pikabot.utils import ItzSjDude
-from telethon.tl.functions.messages import EditChatDefaultBannedRightsRequest
-from telethon.tl.types import ChatBannedRights
-from userbot import ALIVE_NAME, CMD_HELP
-
 from PIL import Image, ImageColor, ImageEnhance, ImageOps
 from requests import get
+from search_engine_parser import GoogleSearch
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from telethon import custom, events
@@ -66,8 +60,13 @@ from telethon.tl.functions.channels import (
     EditBannedRequest,
     EditPhotoRequest,
 )
-from telethon.tl.functions.messages import SaveDraftRequest, UpdatePinnedMessageRequest
+from telethon.tl.functions.messages import (
+    EditChatDefaultBannedRightsRequest,
+    SaveDraftRequest,
+    UpdatePinnedMessageRequest,
+)
 from telethon.tl.functions.photos import DeletePhotosRequest, GetUserPhotosRequest
+from telethon.tl.functions.users import GetFullUserRequest
 from telethon.tl.types import (
     ChannelParticipantAdmin,
     ChannelParticipantCreator,
@@ -79,7 +78,8 @@ from telethon.tl.types import (
     MessageEntityMentionName,
     MessageMediaPhoto,
 )
-from telethon.utils import pack_bot_file_id
+from telethon.utils import get_input_location, pack_bot_file_id
+from userbot import ALIVE_NAME, CMD_HELP
 from var import Var
 from var import Var as Config
 
@@ -1427,6 +1427,7 @@ async def note_incm(getnt):
                 )
     except AttributeError:
         pass
+
 
 async def get_user_from_event(event):
     """ Get the user from argument or replied message. """
@@ -4172,12 +4173,13 @@ Profile Created: {}""".format(
     else:
         await pika_msg(a, "`{}`: {}".format(input_str, r.text))
 
+
 async def _gsearch(event):
     """ For .google command, do a Google search. """
     match = event.pattern_match.group(1)
-    _tg = await is_pikatg(event)
+    await is_pikatg(event)
     page = findall(r"page=\d+", match)
-    a = await pika_msg(event, f"Searching for {match}") 
+    a = await pika_msg(event, f"Searching for {match}")
     try:
         page = page[0]
         page = page.replace("page=", "")
@@ -4199,7 +4201,10 @@ async def _gsearch(event):
     finalres = "**Search Query:**\n`" + match + "`\n\n**Results:**\n" + msg
     await pika_msg(a, finalres, link_preview=False)
 
+
 langi = "en"
+
+
 async def _imdb(e):
     _tg = await is_pikatg(e)
     try:
@@ -4269,7 +4274,8 @@ async def _imdb(e):
                 mov_rating = r.strong["title"]
         else:
             mov_rating = "Not available"
-        imdb_dta= ("<a href=" + poster + ">&#8203;</a>"
+        imdb_dta = (
+            "<a href=" + poster + ">&#8203;</a>"
             "<b>Title : </b><code>"
             + mov_title
             + "</code>\n<code>"
@@ -4289,17 +4295,13 @@ async def _imdb(e):
             + "</code>\n<b>IMDB Url : </b>"
             + mov_link
             + "\n<b>Story Line : </b>"
-            + story_line)
+            + story_line
+        )
         _html = "HTML"
         await pika_msg(_ax, _imdb_dta, link_preview=True, parse_mode=_html)
     except IndexError:
         await pika_msg(_ax, "Plox enter **Valid movie name** kthx")
 
-import html
-from telethon.tl.functions.photos import GetUserPhotosRequest
-from telethon.tl.functions.users import GetFullUserRequest
-from telethon.tl.types import MessageEntityMentionName
-from telethon.utils import get_input_location
 
 async def _getinfo(event):
     if event.fwd_from:
@@ -4430,11 +4432,12 @@ async def get_full_user(event):
             except Exception as e:
                 return None, e
 
+
 async def _json(event):
     if event.fwd_from:
         return
     _tg = await is_pikatg(event)
-    a = await pika_msg(event, "Getting message info. Please wait...", _tg)  
+    a = await pika_msg(event, "Getting message info. Please wait...", _tg)
     await asyncio.sleep(2)
     the_real_message = None
     reply_to_id = None
@@ -4458,7 +4461,8 @@ async def _json(event):
             await a.delete()
     else:
         await pika_msg(a, "`{}`".format(the_real_message))
- 
+
+
 async def _locks(event):
     input_str = event.pattern_match.group(1).lower()
     _tg = await is_pikatg(event)
@@ -4546,10 +4550,11 @@ async def _locks(event):
         await pika_msg(a, f"`Do I have proper rights for that ??`\n**Error:** {str(e)}")
         return
 
+
 async def _rmlocks(event):
     input_str = event.pattern_match.group(1).lower()
     _tg = await is_pikatg(event)
-    a=await pika_msg(event, f"Unlocking {input_str}, Please Wait....", _tg)
+    a = await pika_msg(event, f"Unlocking {input_str}, Please Wait....", _tg)
     peer_id = event.chat_id
     msg = None
     media = None
