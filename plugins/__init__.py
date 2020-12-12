@@ -32,6 +32,15 @@ from pikabot.sql_helper.notes_sql import *
 from pikabot.utils import *
 from pikabot.utils import ItzSjDude
 from pikabot.utils import get_readable_time as grt
+from re import findall
+from pikabot.utils import ItzSjDude
+from search_engine_parser import GoogleSearch
+
+from pikabot.utils import ItzSjDude
+from telethon.tl.functions.messages import EditChatDefaultBannedRightsRequest
+from telethon.tl.types import ChatBannedRights
+from userbot import ALIVE_NAME, CMD_HELP
+
 from PIL import Image, ImageColor, ImageEnhance, ImageOps
 from requests import get
 from selenium import webdriver
@@ -1418,10 +1427,6 @@ async def note_incm(getnt):
                 )
     except AttributeError:
         pass
-
-
-_Notes_ = [_add_notes, _allnotes, _remove_notes, admin_cmd, note_incm]
-
 
 async def get_user_from_event(event):
     """ Get the user from argument or replied message. """
@@ -4166,3 +4171,468 @@ Profile Created: {}""".format(
         await a.delete()
     else:
         await pika_msg(a, "`{}`: {}".format(input_str, r.text))
+
+async def _gsearch(event)
+    """ For .google command, do a Google search. """
+    match = event.pattern_match.group(1)
+    _tg = await is_pikatg(event)
+    page = findall(r"page=\d+", match)
+    a = await pika_msg(event, f"Searching for {match}") 
+    try:
+        page = page[0]
+        page = page.replace("page=", "")
+        match = match.replace("page=" + page[0], "")
+    except IndexError:
+        page = 1
+    search_args = (str(match), int(page))
+    gsearch = GoogleSearch()
+    gresults = await gsearch.async_search(*search_args)
+    msg = ""
+    for i in range(len(gresults["links"])):
+        try:
+            title = gresults["titles"][i]
+            link = gresults["links"][i]
+            desc = gresults["descriptions"][i]
+            msg += f"[{title}]({link})\n`{desc}`\n\n"
+        except IndexError:
+            break
+    finalres = "**Search Query:**\n`" + match + "`\n\n**Results:**\n" + msg
+    await pika_msg(a, finalres, link_preview=False)
+
+langi = "en"
+async def _imdb(e)
+    _tg = await is_pikatg(e)
+    try:
+        movie_name = e.pattern_match.group(1)
+        remove_space = movie_name.split(" ")
+        final_name = "+".join(remove_space)
+        page = requests.get(
+            "https://www.imdb.com/find?ref_=nv_sr_fn&q=" + final_name + "&s=all"
+        )
+        str(page.status_code)
+        soup = bs4.BeautifulSoup(page.content, "lxml")
+        odds = soup.findAll("tr", "odd")
+        mov_title = odds[0].findNext("td").findNext("td").text
+        mov_link = (
+            "http://www.imdb.com/" + odds[0].findNext("td").findNext("td").a["href"]
+        )
+        page1 = requests.get(mov_link)
+        soup = bs4.BeautifulSoup(page1.content, "lxml")
+        if soup.find("div", "poster"):
+            poster = soup.find("div", "poster").img["src"]
+        else:
+            poster = ""
+        if soup.find("div", "title_wrapper"):
+            pg = soup.find("div", "title_wrapper").findNext("div").text
+            mov_details = re.sub(r"\s+", " ", pg)
+        else:
+            mov_details = ""
+        credits = soup.findAll("div", "credit_summary_item")
+        if len(credits) == 1:
+            director = credits[0].a.text
+            writer = "Not available"
+            stars = "Not available"
+        elif len(credits) > 2:
+            director = credits[0].a.text
+            writer = credits[1].a.text
+            actors = []
+            for x in credits[2].findAll("a"):
+                actors.append(x.text)
+            actors.pop()
+            stars = actors[0] + "," + actors[1] + "," + actors[2]
+        else:
+            director = credits[0].a.text
+            writer = "Not available"
+            actors = []
+            for x in credits[1].findAll("a"):
+                actors.append(x.text)
+            actors.pop()
+            stars = actors[0] + "," + actors[1] + "," + actors[2]
+        if soup.find("div", "inline canwrap"):
+            story_line = soup.find("div", "inline canwrap").findAll("p")[0].text
+        else:
+            story_line = "Not available"
+        info = soup.findAll("div", "txt-block")
+        if info:
+            mov_country = []
+            mov_language = []
+            for node in info:
+                a = node.findAll("a")
+                for i in a:
+                    if "country_of_origin" in i["href"]:
+                        mov_country.append(i.text)
+                    elif "primary_language" in i["href"]:
+                        mov_language.append(i.text)
+        if soup.findAll("div", "ratingValue"):
+            for r in soup.findAll("div", "ratingValue"):
+                mov_rating = r.strong["title"]
+        else:
+            mov_rating = "Not available"
+        await pika_msg(e, 
+            "<a href=" + poster + ">&#8203;</a>"
+            "<b>Title : </b><code>"
+            + mov_title
+            + "</code>\n<code>"
+            + mov_details
+            + "</code>\n<b>Rating : </b><code>"
+            + mov_rating
+            + "</code>\n<b>Country : </b><code>"
+            + mov_country[0]
+            + "</code>\n<b>Language : </b><code>"
+            + mov_language[0]
+            + "</code>\n<b>Director : </b><code>"
+            + director
+            + "</code>\n<b>Writer : </b><code>"
+            + writer
+            + "</code>\n<b>Stars : </b><code>"
+            + stars
+            + "</code>\n<b>IMDB Url : </b>"
+            + mov_link
+            + "\n<b>Story Line : </b>"
+            + story_line,
+            link_preview=True,
+            parse_mode="HTML",
+            _tg,
+        )
+    except IndexError:
+        await pika_msg(e, "Plox enter **Valid movie name** kthx", _tg)
+
+import html
+from telethon.tl.functions.photos import GetUserPhotosRequest
+from telethon.tl.functions.users import GetFullUserRequest
+from telethon.tl.types import MessageEntityMentionName
+from telethon.utils import get_input_location
+
+async def _getinfo(event):
+    if event.fwd_from:
+        return
+    _tg = await is_pikatg(event)
+    a = await pika_msg(event, "Getting User Info. Please wait....", _tg)
+    replied_user, error_i_a = await get_full_user(event)
+    if replied_user is None:
+        await event.edit(str(error_i_a))
+        return False
+    replied_user_profile_photos = await event.client(
+        GetUserPhotosRequest(
+            user_id=replied_user.user.id, offset=42, max_id=0, limit=80
+        )
+    )
+    replied_user_profile_photos_count = "NaN"
+    try:
+        replied_user_profile_photos_count = replied_user_profile_photos.count
+    except AttributeError:
+        pass
+    user_id = replied_user.user.id
+    first_name = html.escape(replied_user.user.first_name)
+    if first_name is not None:
+        first_name = first_name.replace("\u2060", "")
+    last_name = replied_user.user.last_name
+    last_name = (
+        last_name.replace("\u2060", "") if last_name else ("Last Name not found")
+    )
+    user_bio = replied_user.about
+    if user_bio is not None:
+        user_bio = html.escape(replied_user.about)
+    common_chats = replied_user.common_chats_count
+    try:
+        dc_id, location = get_input_location(replied_user.profile_photo)
+    except Exception as e:
+        dc_id = "`Need a Profile Picture to check **this**`"
+        str(e)
+    caption = """<b>Extracted UserInfo From Telegram Database By PikaBot<b>
+<b>🔥Telegram ID</b>: <code>{}</code>
+<b>🤟Permanent Link</b>: <a href='tg://user?id={}'>Click Here</a>
+<b>🗣️First Name</b>: <code>{}</code>
+<b>🗣️Second Name</b>: <code>{}</code>
+<b>👨🏿‍💻BIO</b>: {}
+<b>🎃DC ID</b>: {}
+<b>⚡NO OF PSS</b> : {}
+<b>🤔IS RESTRICTED</b>: {}
+<b>✅VERIFIED</b>: {}
+<b>🙄IS A BOT</b>: {}
+<b>👥Groups in Common</b>: {}
+""".format(
+        user_id,
+        user_id,
+        first_name,
+        last_name,
+        user_bio,
+        dc_id,
+        replied_user_profile_photos_count,
+        replied_user.user.restricted,
+        replied_user.user.verified,
+        replied_user.user.bot,
+        common_chats,
+    )
+    message_id_to_reply = event.message.reply_to_msg_id
+    if not message_id_to_reply:
+        message_id_to_reply = event.message.id
+    await event.client.send_message(
+        event.chat_id,
+        caption,
+        reply_to=message_id_to_reply,
+        parse_mode="HTML",
+        file=replied_user.profile_photo,
+        force_document=False,
+        silent=True,
+    )
+    await a.delete()
+
+
+async def get_full_user(event):
+    if event.reply_to_msg_id:
+        previous_message = await event.get_reply_message()
+        if previous_message.forward:
+            replied_user = await event.client(
+                GetFullUserRequest(
+                    previous_message.forward.sender_id
+                    or previous_message.forward.channel_id
+                )
+            )
+            return replied_user, None
+        else:
+            replied_user = await event.client(
+                GetFullUserRequest(previous_message.sender_id)
+            )
+            return replied_user, None
+    else:
+        input_str = None
+        try:
+            input_str = event.pattern_match.group(1)
+        except IndexError as e:
+            return None, e
+        if event.message.entities is not None:
+            mention_entity = event.message.entities
+            probable_user_mention_entity = mention_entity[0]
+            if isinstance(probable_user_mention_entity, MessageEntityMentionName):
+                user_id = probable_user_mention_entity.user_id
+                replied_user = await event.client(GetFullUserRequest(user_id))
+                return replied_user, None
+            else:
+                try:
+                    user_object = await event.client.get_entity(input_str)
+                    user_id = user_object.id
+                    replied_user = await event.client(GetFullUserRequest(user_id))
+                    return replied_user, None
+                except Exception as e:
+                    return None, e
+        elif event.is_private:
+            try:
+                user_id = event.chat_id
+                replied_user = await event.client(GetFullUserRequest(user_id))
+                return replied_user, None
+            except Exception as e:
+                return None, e
+        else:
+            try:
+                user_object = await event.client.get_entity(int(input_str))
+                user_id = user_object.id
+                replied_user = await event.client(GetFullUserRequest(user_id))
+                return replied_user, None
+            except Exception as e:
+                return None, e
+
+async def _json(event):
+    if event.fwd_from:
+        return
+    _tg = await is_pikatg(event)
+    a = await pika_msg(event, "Getting message info. Please wait...", _tg)  
+    await asyncio.sleep(2)
+    the_real_message = None
+    reply_to_id = None
+    if event.reply_to_msg_id:
+        previous_message = await event.get_reply_message()
+        the_real_message = previous_message.stringify()
+        reply_to_id = event.reply_to_msg_id
+    else:
+        the_real_message = event.stringify()
+        reply_to_id = event.message.id
+    if len(the_real_message) > Config.MAX_MESSAGE_SIZE_LIMIT:
+        with io.BytesIO(str.encode(the_real_message)) as out_file:
+            out_file.name = "json.text"
+            await event.client.send_file(
+                event.chat_id,
+                out_file,
+                force_document=True,
+                allow_cache=False,
+                reply_to=reply_to_id,
+            )
+            await a.delete()
+    else:
+        await pika_msg(a, "`{}`".format(the_real_message))
+ 
+async def _locks(event):
+    input_str = event.pattern_match.group(1).lower()
+    _tg = await is_pikatg(event)
+    await pika_msg(event, f"Locking {input_str}, Please Wait....", _tg)
+    peer_id = event.chat_id
+    msg = None
+    media = None
+    sticker = None
+    gif = None
+    gamee = None
+    ainline = None
+    gpoll = None
+    adduser = None
+    cpin = None
+    changeinfo = None
+    if input_str == "msg":
+        msg = True
+        what = "messages"
+    elif input_str == "media":
+        media = True
+        what = "media"
+    elif input_str == "sticker":
+        sticker = True
+        what = "stickers"
+    elif input_str == "gif":
+        gif = True
+        what = "GIFs"
+    elif input_str == "game":
+        gamee = True
+        what = "games"
+    elif input_str == "inline":
+        ainline = True
+        what = "inline bots"
+    elif input_str == "poll":
+        gpoll = True
+        what = "polls"
+    elif input_str == "invite":
+        adduser = True
+        what = "invites"
+    elif input_str == "pin":
+        cpin = True
+        what = "pins"
+    elif input_str == "info":
+        changeinfo = True
+        what = "chat info"
+    elif input_str == "all":
+        msg = True
+        media = True
+        sticker = True
+        gif = True
+        gamee = True
+        ainline = True
+        gpoll = True
+        adduser = True
+        cpin = True
+        changeinfo = True
+        what = "everything"
+    else:
+        if not input_str:
+            await pika_msg(a, "`I can't lock nothing !!`")
+            return
+        else:
+            await pika_msg(a, f"`Invalid lock type:` {input_str}")
+            return
+
+    lock_rights = ChatBannedRights(
+        until_date=None,
+        send_messages=msg,
+        send_media=media,
+        send_stickers=sticker,
+        send_gifs=gif,
+        send_games=gamee,
+        send_inline=ainline,
+        send_polls=gpoll,
+        invite_users=adduser,
+        pin_messages=cpin,
+        change_info=changeinfo,
+    )
+    try:
+        await event.client(
+            EditChatDefaultBannedRightsRequest(peer=peer_id, banned_rights=lock_rights)
+        )
+        await pika_msg(a, f"`locked {what} Because its Rest Time Nimba!!`")
+    except BaseException as e:
+        await pika_msg(a, f"`Do I have proper rights for that ??`\n**Error:** {str(e)}")
+        return
+
+async def _rmlocks(event):
+    input_str = event.pattern_match.group(1).lower()
+    _tg = await is_pikatg(event)
+    a=await pika_msg(event, f"Unlocking {input_str}, Please Wait....", _tg)
+    peer_id = event.chat_id
+    msg = None
+    media = None
+    sticker = None
+    gif = None
+    gamee = None
+    ainline = None
+    gpoll = None
+    adduser = None
+    cpin = None
+    changeinfo = None
+    if input_str == "msg":
+        msg = False
+        what = "messages"
+    elif input_str == "media":
+        media = False
+        what = "media"
+    elif input_str == "sticker":
+        sticker = False
+        what = "stickers"
+    elif input_str == "gif":
+        gif = False
+        what = "GIFs"
+    elif input_str == "game":
+        gamee = False
+        what = "games"
+    elif input_str == "inline":
+        ainline = False
+        what = "inline bots"
+    elif input_str == "poll":
+        gpoll = False
+        what = "polls"
+    elif input_str == "invite":
+        adduser = False
+        what = "invites"
+    elif input_str == "pin":
+        cpin = False
+        what = "pins"
+    elif input_str == "info":
+        changeinfo = False
+        what = "chat info"
+    elif input_str == "all":
+        msg = False
+        media = False
+        sticker = False
+        gif = False
+        gamee = False
+        ainline = False
+        gpoll = False
+        adduser = False
+        cpin = False
+        changeinfo = False
+        what = "everything"
+    else:
+        if not input_str:
+            await pika_msg(a, "`I can't unlock nothing !!`")
+            return
+        else:
+            await pika_msg(a, f"`Invalid unlock type:` {input_str}")
+            return
+
+    unlock_rights = ChatBannedRights(
+        until_date=None,
+        send_messages=msg,
+        send_media=media,
+        send_stickers=sticker,
+        send_gifs=gif,
+        send_games=gamee,
+        send_inline=ainline,
+        send_polls=gpoll,
+        invite_users=adduser,
+        pin_messages=cpin,
+        change_info=changeinfo,
+    )
+    try:
+        await event.client(
+            EditChatDefaultBannedRightsRequest(
+                peer=peer_id, banned_rights=unlock_rights
+            )
+        )
+        await pika_msg(a, f"`Unlocked {what} now Start Chit Chat !!`")
+    except BaseException as e:
+        await pika_msg(a, f"`Do I have proper rights for that ??`\n**Error:** {str(e)}")
+        return
