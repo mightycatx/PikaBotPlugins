@@ -13,6 +13,7 @@ import time
 import traceback
 import urllib.parse
 from asyncio import sleep
+from datetime import datetime as pikatime
 from os import remove
 from random import choice, randint, uniform
 from re import findall
@@ -35,7 +36,6 @@ from pikabot.main_plugs.SysRuntime import *
 from pikabot.sql_helper.notes_sql import *
 from pikabot.utils import *
 from pikabot.utils import ItzSjDude
-from datetime import datetime as pikatime
 from pikabot.utils import get_readable_time as grt
 from PIL import Image, ImageColor, ImageEnhance, ImageOps
 from pygments.formatters import ImageFormatter
