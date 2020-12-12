@@ -4708,3 +4708,33 @@ async def _deldog(event):
         )
     else:
         await pika_msg(a, "Deldog: [Here]({})\n**Time Taken**: {}sec".format(url, ms))
+
+import pygments
+from pygments.formatters import ImageFormatter
+from pygments.lexers import Python3Lexer
+
+#© @Buddhhu , dont remove credits bsdk else u gay * 100
+async def _ncode(event):
+    input = event.pattern_match.group(1)
+    _tg = await get_pika_tg(event)
+    a_= pika_msg(event, "Converting file into beautified code image, Please wait...", _tg)
+    a = await event.client.download_media(
+        await event.get_reply_message(), Var.TEMP_DOWNLOAD_DIRECTORY
+    )
+    s = open(a, "r")
+    c = s.read()
+    s.close()
+    pygments.highlight(
+        f"{c}",
+        Python3Lexer(),
+        ImageFormatter(font_name="DejaVu Sans Mono", line_numbers=True),
+        "out.png",
+    )
+    if "doc" in input:
+        await event.client.send_file(event.chat_id, "out.png", force_document=True)
+    else:
+        await event.client.send_file(event.chat_id, "out.png")
+    await a_.delete()
+    os.remove(a)
+    os.remove("out.png")
+
