@@ -4663,9 +4663,10 @@ async def _pack(event):
     await event.delete()
     os.remove(input_str)
 
+
 async def _deldog(event):
     if event.fwd_from:
-        return 
+        return
     _tg = await get_pika_tg(event)
     a = await pika_msg(event, "Pasting on Deldog, Please wait...", _tg)
     await asyncio.sleep(1)
@@ -4702,9 +4703,8 @@ async def _deldog(event):
     ms = (end - start).seconds
     if r["isUrl"]:
         nurl = f"https://del.dog/v/{r['key']}"
-        await pika_msg(a, 
-            "Dogged to {} in {} seconds. GoTo Original URL: {}".format(url, ms, nurl)
+        await pika_msg(
+            a, "Dogged to {} in {} seconds. GoTo Original URL: {}".format(url, ms, nurl)
         )
     else:
         await pika_msg(a, "Deldog: [Here]({})\n**Time Taken**: {}sec".format(url, ms))
-
