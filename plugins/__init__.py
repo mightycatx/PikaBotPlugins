@@ -4298,7 +4298,7 @@ async def _imdb(e):
             + story_line
         )
         _html = "HTML"
-        await pika_msg(_ax, _imdb_dta, link_preview=True, parse_mode=_html)
+        await pika_msg(_ax, imdb_dta, link_preview=True, parse_mode=_html)
     except IndexError:
         await pika_msg(_ax, "Plox enter **Valid movie name** kthx")
 
