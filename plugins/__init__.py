@@ -636,7 +636,7 @@ async def _promote(promt):
         pin_messages=True,
     )
     _tg = await get_pika_tg(promt)
-    a = await pika_msg(promt, "`Promoting...`", _tg)
+    a = await pika_msg(promt, _tg, "`Promoting...`")
     user, rank = await get_user_from_event(promt)
     if not rank:
         # Just in case.
@@ -680,7 +680,7 @@ async def _demote(dmod):
 
     # If passing, declare that we're going to demote
     _tg = await get_pika_tg(dmod)
-    a = await pika_msg(dmod, "`Demoting...`", _tg)
+    a = await pika_msg(dmod, _tg, "`Demoting...`")
     rank = "admeme"  # dummy rank, lol.
     user = await get_user_from_event(dmod)
     user = user[0]
@@ -738,7 +738,7 @@ async def _ban(bon):
         return
     _tg = await get_pika_tg(bon)
     # Announce that we're going to whack the pest
-    a = await pika_msg(bon, "`Whacking the pest!`", _tg)
+    a = await pika_msg(bon, _tg, "`Whacking the pest!`",)
 
     try:
         await bon.client(EditBannedRequest(bon.chat_id, user.id, BANNED_RIGHTS))
@@ -796,7 +796,7 @@ async def _unban(unbon):
 
     # If everything goes well...
     _tg = await get_pika_tg(unbon)
-    a = await pika_msg(unbon, "`Unbanning...`", _tg)
+    a = await pika_msg(unbon, _tg, "`Unbanning...`")
 
     user = await get_user_from_event(unbon)
     user = user[0]
@@ -857,7 +857,7 @@ async def _mute(spdr):
         return
 
     # If everything goes well, do announcing and mute
-    a = await pika_msg(spdr, "`Muting...`", _tg)
+    a = await pika_msg(spdr, _tg, "`Muting...`")
     pikamute = mute(spdr.chat_id, user.id, self_user)
     if pikamute is False:
         return await spdr.edit("`Error! User probably already muted.`")
@@ -906,7 +906,7 @@ async def _unmute(unmot):
     # If admin or creator, inform the user and start unmuting
     pika_id = await get_pika_id(unmot)
     _tg = await get_pika_tg(unmot)
-    a = await pika_msg(unmot, "```Unmuting...```", _tg)
+    a = await pika_msg(unmot, _tg, "```Unmuting...```")
     user = await get_user_from_event(unmot)
     user = user[0]
     if user:
@@ -965,7 +965,7 @@ async def _ungmute(un_gmute):
         return
 
     # If pass, inform and start ungmuting
-    a = await pika_msg(un_gmute, "```Ungmuting...```", _tg)
+    a = await pika_msg(un_gmute, _tg, "```Ungmuting...```")
 
     pikaugmute = ungmute(user.id, _pika_id)
     if pikaugmute is False:
@@ -1042,7 +1042,7 @@ async def _gmte(gspdr):
         return
 
     # If pass, inform and start gmuting
-    a = await pika_msg(gspdr, "`Grabs a huge, sticky duct tape!`", _tg)
+    a = await pika_msg(gspdr, _tg, "`Grabs a huge, sticky duct tape!`")
 
     pikagmute = gmute(user.id, _pika_id)
     if pikagmute is False:
@@ -1077,7 +1077,7 @@ async def _rmdacc(show):
     del_status = "`No deleted accounts found, Group is cleaned as Hell`"
 
     if con != "clean":
-        a = await pika_msg(show, "`Searching for zombie accounts...`", ax)
+        a = await pika_msg(show, ax, "`Searching for zombie accounts...`")
         async for user in show.client.iter_participants(show.chat_id, aggressive=True):
             if user.deleted:
                 del_u += 1
@@ -1174,7 +1174,7 @@ async def _pin(msg):
     to_pin = msg.reply_to_msg_id
 
     if not to_pin:
-        await pika_msg(msg, "`Reply to a message to pin it.`", _tg)
+        await pika_msg(msg, _tg, "`Reply to a message to pin it.`", _tg)
         return
 
     options = msg.pattern_match.group(1)
@@ -1187,7 +1187,7 @@ async def _pin(msg):
     try:
         await msg.client(UpdatePinnedMessageRequest(msg.to_id, to_pin, is_silent))
     except BadRequestError:
-        await pika_msg(msg, NO_PERM, _tg)
+        await pika_msg(msg, _tg NO_PERM)
         return
 
     await pika_msg(msg, "`Pinned Successfully!`", _tg)
@@ -1219,10 +1219,10 @@ async def _kick(usr):
 
     user, reason = await get_user_from_event(usr)
     if not user:
-        await pika_msg(usr, "`Couldn't fetch user.`", _tg)
+        await pika_msg(usr, _tg, "`Couldn't fetch user.`")
         return
 
-    a = await pika_msg(usr, "`Kicking...`", _tg)
+    a = await pika_msg(usr, _tg, "`Kicking...`")
 
     try:
         await usr.client.kick_participant(usr.chat_id, user.id)
@@ -1730,7 +1730,7 @@ async def _bash(event):
                 reply_to=reply_to_id,
             )
             await event.delete()
-    await pika_msg(event, OUTPUT, _tg)
+    await pika_msg(event, _tg, OUTPUT)
 
 
 async def batch_upload(event):
