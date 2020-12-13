@@ -4782,6 +4782,7 @@ async def _rmbg(event):
         output_file_name = ReTrieveURL(input_str)
     else:
         await pika_msg(a, HELP_STR)
+
     contentType = output_file_name.headers.get("content-type")
     if "image" in contentType:
         with io.BytesIO(output_file_name.content) as remove_bg_image:
