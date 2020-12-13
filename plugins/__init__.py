@@ -4770,7 +4770,7 @@ async def _rmbg(event):
         try:
             downloaded_file_name = await event.client.download_media(reply_message, Config.TMP_DOWNLOAD_DIRECTORY)
         except Exception as e:  
-            await pika_msg(a, (str(e))
+            await pika_msg(a, str(e))
             
     if input_str:
         await pika_msg(a, "Sending Image to ReMove.BG, Please wait...")
