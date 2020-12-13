@@ -1,5 +1,4 @@
-import asyncio
-import html
+import asyncio, html
 import io
 import json
 import logging
