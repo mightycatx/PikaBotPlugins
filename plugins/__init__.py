@@ -4778,6 +4778,7 @@ async def _rmbg(event):
                 await pika_msg(a, "Sending Image to ReMove.BG, Please wait...")
                 output_file_name = ReTrieveFile(downloaded_file_name)
                 os.remove(downloaded_file_name)
+            pass
 
     elif input_str:
         await pika_msg(a, "Sending Image to ReMove.BG, Please wait...")
