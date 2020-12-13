@@ -1739,7 +1739,7 @@ async def _bash(event):
                 reply_to=reply_to_id,
             )
             await event.delete()
-    await pika_msg(event, _tg, OUTPUT)
+    await pika_msg(event, OUTPUT, _tg)
 
 
 async def batch_upload(event):
