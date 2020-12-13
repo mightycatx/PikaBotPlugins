@@ -4774,7 +4774,6 @@ async def _rmbg(event):
         except Exception as e:
             if e: 
                 await pika_msg(a, (str(e))
-                pass 
             else: 
                 await pika_msg(a, "Sending Image to ReMove.BG, Please wait...")
                 output_file_name = ReTrieveFile(downloaded_file_name)
