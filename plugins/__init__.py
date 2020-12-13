@@ -4772,11 +4772,14 @@ async def _rmbg(event):
                 reply_message, Config.TMP_DOWNLOAD_DIRECTORY
             )
         except Exception as e:
-            await pika_msg(a, (str(e))
-        else:
-            await pika_msg(a, "Sending Image to ReMove.BG, Please wait...")
-            output_file_name = ReTrieveFile(downloaded_file_name)
-            os.remove(downloaded_file_name)
+            if e: 
+                await pika_msg(a, (str(e))
+                pass 
+            else: 
+                await pika_msg(a, "Sending Image to ReMove.BG, Please wait...")
+                output_file_name = ReTrieveFile(downloaded_file_name)
+                os.remove(downloaded_file_name)
+
     elif input_str:
         await pika_msg(a, "Sending Image to ReMove.BG, Please wait...")
         output_file_name = ReTrieveURL(input_str)
