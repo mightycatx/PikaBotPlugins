@@ -39,7 +39,7 @@ logger = logging.getLogger(__name__)
 #         elif d.is_group:
 #             g += 1
 #         else:
-#             logger.info(d.stringify())
+#             pikalog.info(d.stringify())
 #     end = datetime.now()
 #     ms = (end - start).seconds
 #     await event.edit("""Obtained in {} seconds.

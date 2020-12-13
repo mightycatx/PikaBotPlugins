@@ -76,7 +76,7 @@ async def _(event):
         else:
             await mone.edit("File Not found in local server. Give me a file path :((")
             return False
-    # logger.info(required_file_name)
+    # pikalog.info(required_file_name)
     if required_file_name:
         # Check if token file exists, if not create it by requesting
         # authorization code
@@ -250,7 +250,7 @@ async def create_directory(http, directory_name, parent_id):
     file = drive_service.files().insert(body=file_metadata).execute()
     file_id = file.get("id")
     drive_service.permissions().insert(fileId=file_id, body=permissions).execute()
-    logger.info(
+    pikalog.info(
         "Created Gdrive Folder:\nName: {}\nID: {} ".format(file.get("title"), file_id)
     )
     return file_id
@@ -358,7 +358,7 @@ async def upload_file(http, file_path, file_name, mime_type, event, parent_id):
                     await event.edit(current_message)
                     display_message = current_message
                 except Exception as e:
-                    logger.info(str(e))
+                    pikalog.info(str(e))
     file_id = response.get("id")
     # Insert new permissions
     drive_service.permissions().insert(fileId=file_id, body=permissions).execute()

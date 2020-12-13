@@ -58,7 +58,7 @@ async def _(event):
         else:
             await mone.edit("File Not found in local server. Give me a file path :((")
             return False
-    # logger.info(required_file_name)
+    # pikalog.info(required_file_name)
     if required_file_name:
         # required_file_name will have the full path
         file_name = os.path.basename(required_file_name)
@@ -71,10 +71,10 @@ async def _(event):
         }
         async with aiohttp.ClientSession() as session:
             resp = await session.post(step_one_url, data=step_one_auth_params)
-            # logger.info(resp.status)
+            # pikalog.info(resp.status)
             if resp.status == 200:
                 step_one_response_json = await resp.json()
-                logger.info(step_one_response_json)
+                pikalog.info(step_one_response_json)
                 if step_one_response_json["status"] == "success":
                     await mone.edit("Received Upload URL from MirrorAce. ...")
                     start = datetime.now()
@@ -141,9 +141,9 @@ async def _(event):
                                 data=step_two_params,
                                 # headers=headers
                             )
-                            logger.info(response.content)
+                            pikalog.info(response.content)
 
-                    logger.info(response)
+                    pikalog.info(response)
                     final_response = response.json()
                     if final_response["status"] == "success":
                         end = datetime.now()

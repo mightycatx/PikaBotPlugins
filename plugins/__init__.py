@@ -556,7 +556,7 @@ async def atnm(event):
         DM = time.strftime("%d-%m-%y")
         HM = time.strftime("%H:%M")
         name = f"🕒{HM} ⚡{dname}⚡ 📅{DM}"
-        logger.info(name)
+        pikalog.info(name)
         try:
             await event.client(functions.account.UpdateProfileRequest(first_name=name))
         except FloodWaitError as ex:
@@ -573,7 +573,7 @@ async def atb(event):
         DMY = time.strftime("%d.%m.%Y")
         HM = time.strftime("%H:%M:%S")
         bio = f"📅 {DMY} | {DBIO} | ⌚️ {HM}"
-        logger.info(bio)
+        pikalog.info(bio)
         try:
             await event.client(functions.account.UpdateProfileRequest(about=bio))
         except FloodWaitError as ex:
@@ -4115,7 +4115,7 @@ async def _invite(event):
     if event.is_private:
         await event.edit("`.invite` users to a chat, not to a Private Message")
     else:
-        logger.info(to_add_users)
+        pikalog.info(to_add_users)
         if not event.is_channel and event.is_group:
             # https://lonamiwebs.github.io/Telethon/methods/messages/add_chat_user.html
             for user_id in to_add_users.split(" "):
@@ -4669,7 +4669,7 @@ async def _pack(event):
 
 
 def progress(current, total):
-    logger.info(
+    pikalog.info(
         "Downloaded {} of {}\nCompleted {}".format(
             current, total, (current / total) * 100
         )

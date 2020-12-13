@@ -55,8 +55,8 @@ async def _(event):
     message_text = note_data.strip()
     tl_ib_buttons = build_keyboard(buttons)
 
-    # logger.info(message_text)
-    # logger.info(tl_ib_buttons)
+    # pikalog.info(message_text)
+    # pikalog.info(tl_ib_buttons)
 
     tgbot_reply_message = None
     if reply_message.media is not None:

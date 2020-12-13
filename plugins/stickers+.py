@@ -431,7 +431,7 @@ def resize_image(image, save_locaton):
 
 
 def progress(current, total):
-    logger.info(
+    pikalog.info(
         "Uploaded: {} of {}\nCompleted {}".format(
             current, total, (current / total) * 100
         )

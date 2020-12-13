@@ -25,7 +25,7 @@ async def _(event):
         return
     input_str = event.pattern_match.group(1)
     if input_str:
-        logger.info("TODO: Not yet Implemented")
+        pikalog.info("TODO: Not yet Implemented")
     else:
         if event.is_private:
             return False

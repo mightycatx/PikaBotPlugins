@@ -84,7 +84,7 @@ async def _(event):
             await event.edit("not supported")
             os.remove(downloaded_file_name)
             return
-        logger.info(command_to_run)
+        pikalog.info(command_to_run)
         # TODO: re-write create_subprocess_exec 😉
         process = await asyncio.create_subprocess_exec(
             *command_to_run,
