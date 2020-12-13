@@ -6,5 +6,5 @@ from . import _rmbg
 
 
 @ItzSjDude(outgoing=True, pattern="rmbg ?(.*)")
-async def _rmbg(event):
+async def _(event):
     await _rmbg(event)
