@@ -4749,6 +4749,7 @@ async def _ncode(event):
     os.remove(a)
     os.remove("out.png")
 
+
 async def _rmbg(event):
     HELP_STR = (
         "`.rmbg` as reply to a media, or give a link as an argument to this command"
@@ -4762,16 +4763,20 @@ async def _rmbg(event):
     start = pikatime.now()
     message_id = event.message.id
     _tg = await get_pika_tg(event)
-    a = await pika_msg(event, "Processing image for background Removal, Please wait...", _tg)
+    a = await pika_msg(
+        event, "Processing image for background Removal, Please wait...", _tg
+    )
     if event.reply_to_msg_id:
         message_id = event.reply_to_msg_id
         reply_message = await event.get_reply_message()
         # check if media message
         try:
-            downloaded_file_name = await event.client.download_media(reply_message, Config.TMP_DOWNLOAD_DIRECTORY)
-        except Exception as e:  
+            await event.client.download_media(
+                reply_message, Config.TMP_DOWNLOAD_DIRECTORY
+            )
+        except Exception as e:
             await pika_msg(a, str(e))
-            
+
     if input_str:
         await pika_msg(a, "Sending Image to ReMove.BG, Please wait...")
         output_file_name = ReTrieveURL(input_str)
@@ -4793,16 +4798,18 @@ async def _rmbg(event):
             )
         end = pikatime.now()
         ms = (end - start).seconds
-        await pika_msg(a, 
+        await pika_msg(
+            a,
             "Removed dat annoying Backgroup in {} seconds, powered by Pikachu UserBot".format(
                 ms
-            )
+            ),
         )
-    if not "image" in contentType: 
-        await pika_msg(a, 
+    if "image" not in contentType:
+        await pika_msg(
+            a,
             "ReMove.BG API returned Errors. Please report to @ItzSjDudeSupport\n`{}".format(
                 output_file_name.content.decode("UTF-8")
-            )
+            ),
         )
 
 
@@ -4838,4 +4845,3 @@ def ReTrieveURL(input_url):
         stream=True,
     )
     return r
-
