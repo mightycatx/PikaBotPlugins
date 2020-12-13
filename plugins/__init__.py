@@ -4798,7 +4798,7 @@ async def _rmbg(event):
                 ms
             )
         )
-    else:
+    if not "image" in contentType: 
         await pika_msg(a, 
             "ReMove.BG API returned Errors. Please report to @ItzSjDudeSupport\n`{}".format(
                 output_file_name.content.decode("UTF-8")
