@@ -25,6 +25,7 @@ import bs4
 import pyfiglet
 import pygments
 import requests
+import speedtest
 from bs4 import BeautifulSoup
 from geopy.geocoders import Nominatim
 from humanize import naturalsize
@@ -4846,12 +4847,11 @@ def ReTrieveURL(input_url):
     )
     return r
 
-import speedtest 
 
 async def _speedtest(event):
     if event.fwd_from:
         return
-    _tg = await get_pika_tg(event)
+    await get_pika_tg(event)
     input_str = event.pattern_match.group(1)
     as_text = True
     as_document = False
@@ -4883,7 +4883,8 @@ async def _speedtest(event):
         response = s.results.share()
         speedtest_image = response
         if as_text:
-            await pika_msg(a, 
+            await pika_msg(
+                a,
                 """`SpeedTest completed in {} seconds`
 
 `Download: {}`
@@ -4897,7 +4898,7 @@ async def _speedtest(event):
                     ping_time,
                     i_s_p,
                     i_s_p_rating,
-                )
+                ),
             )
         else:
             await event.client.send_file(
@@ -4910,7 +4911,8 @@ async def _speedtest(event):
             )
             await event.delete()
     except Exception as exc:
-        await pika_msg(a,
+        await pika_msg(
+            a,
             """**SpeedTest** completed in {} seconds
 Download: {}
 Upload: {}
@@ -4923,7 +4925,7 @@ __With the Following ERRORs__
                 convert_from_bytes(upload_speed),
                 ping_time,
                 str(exc),
-            )
+            ),
         )
 
 
