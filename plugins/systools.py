@@ -9,9 +9,6 @@
 **Usage**: Restarts Pikabot"""
 
 
-from . import _dyno, _logs, _restart, _vars
-
-
 @ItzSjDude(outgoing=True, pattern=r"(set|get|del) var(?: |$)(.*)(?: |$)([\s\S]*)")
 async def _(var):
     await _vars(var)
