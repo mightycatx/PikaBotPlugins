@@ -22,6 +22,7 @@ from time import sleep
 from urllib.parse import quote_plus
 
 import bs4
+import heroku3
 import pyfiglet
 import pygments
 import requests
@@ -4938,29 +4939,30 @@ def convert_from_bytes(size):
         n += 1
     return f"{round(size, 2)} {units[n]}"
 
-import heroku3
-import requests
+
 Heroku = heroku3.from_key(Var.HEROKU_API_KEY)
 app = Heroku.app(Var.HEROKU_APP_NAME)
 
 
 heroku_api = "https://api.heroku.com"
+
+
 async def _vars(var):
     _tg = await get_pika_tg(var)
     exe = var.pattern_match.group(1)
     heroku_var = app.config()
     if exe == "get":
-        a= await pika_msg(var, "`Getting information...`", _tg)
+        a = await pika_msg(var, "`Getting information...`", _tg)
         await asyncio.sleep(1.5)
         try:
             variable = var.pattern_match.group(2).split()[0]
             if variable in heroku_var:
-                return await pika_msg(a, 
-                    "**ConfigVars**:" f"\n\n`{variable} = {heroku_var[variable]}`\n"
+                return await pika_msg(
+                    a, "**ConfigVars**:" f"\n\n`{variable} = {heroku_var[variable]}`\n"
                 )
             else:
-                return await pika_msg(a, 
-                    "**ConfigVars**:" f"\n\n`Error:\n-> {variable} don't exists`"
+                return await pika_msg(
+                    a, "**ConfigVars**:" f"\n\n`Error:\n-> {variable} don't exists`"
                 )
         except IndexError:
             configs = prettyjson(heroku_var.to_dict(), indent=2)
@@ -4976,11 +4978,12 @@ async def _vars(var):
                         caption="`Output too large, sending it as a file`",
                     )
                 else:
-                    await pika_msg(a, 
+                    await pika_msg(
+                        a,
                         "`[HEROKU]` ConfigVars:\n\n"
                         "================================"
                         f"\n```{result}```\n"
-                        "================================"
+                        "================================",
                     )
             os.remove("configs.json")
             return
@@ -4998,16 +5001,16 @@ async def _vars(var):
                 return await pika_msg(a, ">`.set var <ConfigVars-name> <value>`")
         await asyncio.sleep(1.5)
         if variable in heroku_var:
-            await pika_msg(a, 
-                f"**{variable}**  `successfully changed to`  ->  **{value}**"
+            await pika_msg(
+                a, f"**{variable}**  `successfully changed to`  ->  **{value}**"
             )
         else:
-            await pika_msg(a, 
-                f"**{variable}**  `successfully added with value`  ->  **{value}**"
+            await pika_msg(
+                a, f"**{variable}**  `successfully added with value`  ->  **{value}**"
             )
         heroku_var[variable] = value
     elif exe == "del":
-        a=await pika_msg(var, "`Getting information to deleting variable...`", _tg)
+        a = await pika_msg(var, "`Getting information to deleting variable...`", _tg)
         try:
             variable = var.pattern_match.group(2).split()[0]
         except IndexError:
@@ -5024,7 +5027,7 @@ async def _dyno(dyno):
     """
     Get your account Dyno Usage
     """
-    a=await pika_msg(dyno, "`Calculating your Dyno Usage`", _tg)
+    a = await pika_msg(dyno, "`Calculating your Dyno Usage`", _tg)
     useragent = (
         "Mozilla/5.0 (Linux; Android 10; SM-G975F) "
         "AppleWebKit/537.36 (KHTML, like Gecko) "
@@ -5039,8 +5042,8 @@ async def _dyno(dyno):
     path = "/accounts/" + user_id + "/actions/get-quota"
     r = requests.get(heroku_api + path, headers=headers)
     if r.status_code != 200:
-        return await pika_msg(a, 
-            "`Error: something bad happened`\n\n" f">.`{r.reason}`\n"
+        return await pika_msg(
+            a, "`Error: something bad happened`\n\n" f">.`{r.reason}`\n"
         )
     result = r.json()
     quota = result["account_quota"]
@@ -5068,7 +5071,8 @@ async def _dyno(dyno):
 
     await asyncio.sleep(1.5)
 
-    return await pika_msg(a, 
+    return await pika_msg(
+        a,
         "**Dyno Usage**:\n\n"
         f" -> `Dyno usage for`  **{Var.HEROKU_APP_NAME}**:\n"
         f"     •  `{AppHours}`**h**  `{AppMinutes}`**m**  "
@@ -5076,8 +5080,9 @@ async def _dyno(dyno):
         "\n"
         " -> `Dyno hours quota remaining this month`:\n"
         f"     •  `{hours}`**h**  `{minutes}`**m**  "
-        f"**|**  [`{percentage}`**%**]"
+        f"**|**  [`{percentage}`**%**]",
     )
+
 
 def prettyjson(obj, indent=2, maxlinelength=80):
     """Renders JSON content with indentation and line splits/concatenations to fit maxlinelength.
@@ -5094,8 +5099,14 @@ def prettyjson(obj, indent=2, maxlinelength=80):
 
 
 async def _restart(rstrt):
-    _tg= await get_pika_tg(rstrt)
-    await pika_msg(rstrt, "**Boss I am restarting!, Please wait for a min after that do {x}ping or {x}help**".format(x=rx), _tg)      
+    _tg = await get_pika_tg(rstrt)
+    await pika_msg(
+        rstrt,
+        "**Boss I am restarting!, Please wait for a min after that do {x}ping or {x}help**".format(
+            x=rx
+        ),
+        _tg,
+    )
     app.restart()
 
 
