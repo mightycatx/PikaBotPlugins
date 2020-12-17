@@ -51,19 +51,19 @@ LWARN = "**This is your last warning. DO NOT send another message else you will 
 
 if bot:
    @bot.on(events.NewMessage(pattern="/start ?(.*)", incoming=True))
-   async def _(event)
+   async def _(event):
      await _pmmenu(event)
 if bot2:
    @bot2.on(events.NewMessage(pattern="/start ?(.*)", incoming=True))
-   async def _(event)
+   async def _(event):
      await _pmmenu(event)
 if bot3:
    @bot3.on(events.NewMessage(pattern="/start ?(.*)", incoming=True))
-   async def _(event)
+   async def _(event):
      await _pmmenu(event)
 if bot4:
    @bot4.on(events.NewMessage(pattern="/start ?(.*)", incoming=True))
-   async def _(event)
+   async def _(event):
      await _pmmenu(event)
 
 async def _pmmenu(event):
