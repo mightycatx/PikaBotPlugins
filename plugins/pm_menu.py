@@ -17,7 +17,6 @@ import pikabot.sql_helper.pmpermit_sql as pmpermit_sql
 from pikabot import ALIVE_NAME
 from pikabot.utils import *
 from telethon import events, functions
-from var import Var
 
 try:
     from pikabot import bot2
@@ -50,26 +49,37 @@ LWARN = "**This is your last warning. DO NOT send another message else you will 
 # -------------------END-----------------------#
 
 if bot:
-   @bot.on(events.NewMessage(pattern="/start ?(.*)", incoming=True))
-   async def _(event):
-     await _pmmenu(event)
+
+    @bot.on(events.NewMessage(pattern="/start ?(.*)", incoming=True))
+    async def _(event):
+        await _pmmenu(event)
+
+
 if bot2:
-   @bot2.on(events.NewMessage(pattern="/start ?(.*)", incoming=True))
-   async def _(event):
-     await _pmmenu(event)
+
+    @bot2.on(events.NewMessage(pattern="/start ?(.*)", incoming=True))
+    async def _(event):
+        await _pmmenu(event)
+
+
 if bot3:
-   @bot3.on(events.NewMessage(pattern="/start ?(.*)", incoming=True))
-   async def _(event):
-     await _pmmenu(event)
+
+    @bot3.on(events.NewMessage(pattern="/start ?(.*)", incoming=True))
+    async def _(event):
+        await _pmmenu(event)
+
+
 if bot4:
-   @bot4.on(events.NewMessage(pattern="/start ?(.*)", incoming=True))
-   async def _(event):
-     await _pmmenu(event)
+
+    @bot4.on(events.NewMessage(pattern="/start ?(.*)", incoming=True))
+    async def _(event):
+        await _pmmenu(event)
+
 
 async def _pmmenu(event):
     chat_id = event.sender_id
     event.sender_id
-    _pika=await get_pika_id(event)
+    await get_pika_id(event)
     if not pmpermit_sql.is_approved(chat_id, _pika_id):
         chat = await event.get_chat()
         if event.fwd_from:
@@ -140,5 +150,3 @@ async def _pmmenu(event):
                             await event.client.send_message(chat, TWO)
                             await asyncio.sleep(3)
                             await event.client(functions.contacts.BlockRequest(chat_id))
-
-
