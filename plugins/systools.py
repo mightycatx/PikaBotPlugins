@@ -8,7 +8,7 @@
 {i}restart
 **Usage**: Restarts Pikabot"""
 
-
+from . import _vars, _dyno, _logs, _restart 
 @ItzSjDude(outgoing=True, pattern=r"(set|get|del) var(?: |$)(.*)(?: |$)([\s\S]*)")
 async def _(var):
     await _vars(var)
