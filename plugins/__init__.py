@@ -5233,13 +5233,13 @@ async def _telegraph(event):
             if downloaded_file_name.endswith((".webp")):
                 resize_image(downloaded_file_name)
             try:
-                start = datetime.now()
+                start = pikatime.now()
                 media_urls = upload_file(downloaded_file_name)
             except exceptions.TelegraphException as exc:
                 await pika_msg(a, "ERROR: " + str(exc))
                 os.remove(downloaded_file_name)
             else:
-                end = datetime.now()
+                end = pikatime.now()
                 ms_two = (end - start).seconds
                 os.remove(downloaded_file_name)
                 await pika_msg(
