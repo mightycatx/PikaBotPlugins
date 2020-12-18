@@ -5111,8 +5111,10 @@ async def _restart(rstrt):
     )
     app.restart()
 
+
 Heroku = heroku3.from_key(Var.HEROKU_API_KEY)
 app = Heroku.app(Var.HEROKU_APP_NAME)
+
 
 async def _logs(dyno):
     _tg = await get_pika_tg(dyno)
