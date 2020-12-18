@@ -46,6 +46,8 @@ from requests import get
 from search_engine_parser import GoogleSearch
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from telegraph import Telegraph, exceptions, upload_file
+from telethon import *
 from telethon import custom, events
 from telethon.errors import (
     BadRequestError,
@@ -5109,16 +5111,6 @@ async def _restart(rstrt):
     )
     app.restart()
 
-import os
-import bs4
-import requests
-from pikabot.utils import ItzSjDude
-from PIL import Image
-from telegraph import Telegraph, exceptions, upload_file
-from telethon import *
-from telethon.errors.rpcerrorlist import YouBlockedUserError
-
-
 
 async def _logs(dyno):
     _tg = await get_pika_tg(dyno)
@@ -5142,13 +5134,16 @@ async def _logs(dyno):
     await asyncio.sleep(1)
     await a.delete()
 
+
 async def apk(e):
-    try: 
+    try:
         app_name = e.pattern_match.group(1)
         remove_space = app_name.split(" ")
         final_name = "+".join(remove_space)
         _tg = await get_pika_tg(e)
-        a = await pika_msg(e, f"Searching for {app_name} on PlayStore, Please Wait...", _tg)
+        a = await pika_msg(
+            e, f"Searching for {app_name} on PlayStore, Please Wait...", _tg
+        )
         page = requests.get(
             "https://play.google.com/store/search?q=" + final_name + "&c=apps"
         )
@@ -5210,6 +5205,7 @@ async def apk(e):
     except Exception as err:
         await pika_msg(a, "Exception Occured:- " + str(err))
 
+
 async def _telegraph(event):
     telegraph = Telegraph()
     r = telegraph.create_account(short_name=Config.TELEGRAPH_SHORT_NAME)
@@ -5228,7 +5224,7 @@ async def _telegraph(event):
         start = pikatime.now()
         r_message = await event.get_reply_message()
         input_str = event.pattern_match.group(1)
-        _tg = await get_pika_tg(event)
+        await get_pika_tg(event)
         if input_str == "m":
             downloaded_file_name = await event.client.download_media(
                 r_message, Config.TMP_DOWNLOAD_DIRECTORY
@@ -5247,7 +5243,8 @@ async def _telegraph(event):
                 end = datetime.now()
                 ms_two = (end - start).seconds
                 os.remove(downloaded_file_name)
-                await pika_msg(a,
+                await pika_msg(
+                    a,
                     "𝐓𝐞𝐥𝐞𝐠𝐫𝐚𝐩𝐡.𝐩𝐡 𝐋𝐢𝐧𝐤 👉 `https://telegra.ph{}`".format(
                         media_urls[0], (ms + ms_two)
                     ),
@@ -5276,7 +5273,11 @@ async def _telegraph(event):
             response = telegraph.create_page(title_of_page, html_content=page_content)
             end = datetime.now()
             ms = (end - start).seconds
-            await pika_msg(a, "𝐓𝐞𝐥𝐞𝐠𝐫𝐚𝐩𝐡.𝐩𝐡 𝐋𝐢𝐧𝐤 👉 `https://telegra.ph{}`".format(response["path"]),link_preview=True)
+            await pika_msg(
+                a,
+                "𝐓𝐞𝐥𝐞𝐠𝐫𝐚𝐩𝐡.𝐩𝐡 𝐋𝐢𝐧𝐤 👉 `https://telegra.ph{}`".format(response["path"]),
+                link_preview=True,
+            )
     else:
         await pika_msg(a, "Reply to a msg/media to get a permanent telegra.ph link.")
 
@@ -5284,6 +5285,7 @@ async def _telegraph(event):
 def resize_image(image):
     im = Image.open(image)
     im.save(image, "PNG")
+
 
 async def _invite(event):
     if event.fwd_from:
@@ -5317,4 +5319,3 @@ async def _invite(event):
                 except Exception as e:
                     await event.reply(str(e))
             await event.edit("Invited Successfully")
-
