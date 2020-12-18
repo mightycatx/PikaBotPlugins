@@ -7,7 +7,7 @@ Available Commands:
 from . import apk, _invite, _telegraph
 
 @ItzSjDude(outgoing=True, pattern="app (.*)")
-async def _(e)
+async def _(e):
     await apk(e)
 
 @ItzSjDude(outgoing=True, pattern="invite ?(.*)")
