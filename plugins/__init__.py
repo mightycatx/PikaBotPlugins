@@ -5216,7 +5216,7 @@ async def _telegraph(event):
             auth_url
         ),
     )
-    _tg= await get_pika_tg(event)
+    _tg = await get_pika_tg(event)
     a = await pika_msg(event, "Generating Telegraph Link, Please wait...", _tg)
     optional_title = event.pattern_match.group(2)
     if event.reply_to_msg_id:
