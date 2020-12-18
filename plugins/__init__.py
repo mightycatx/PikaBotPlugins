@@ -5111,17 +5111,13 @@ async def _restart(rstrt):
     )
     app.restart()
 
+Heroku = heroku3.from_key(Var.HEROKU_API_KEY)
+app = Heroku.app(Var.HEROKU_APP_NAME)
 
 async def _logs(dyno):
     _tg = await get_pika_tg(dyno)
-    try:
-        Heroku = heroku3.from_key(Var.HEROKU_API_KEY)
-        app = Heroku.app(Var.HEROKU_APP_NAME)
-    except BaseException:
-        return await dyno.reply(
-            " Please make sure your Heroku API Key, Your App name are configured correctly in the heroku Please Join @ItzSjDudeSupport For Any Issue"
-        )
     await pika_msg(dyno, "Getting Logs....", _tg)
+    await asyncio.sleep(1)
     with open("logs.txt", "w") as log:
         log.write(app.get_log())
     await dyno.client.send_file(
