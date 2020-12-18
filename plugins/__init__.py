@@ -5248,7 +5248,7 @@ async def _telegraph(event):
                 ms_two = (end - start).seconds
                 os.remove(downloaded_file_name)
                 await pika_msg(a,
-                    "𝐓𝐞𝐥𝐞𝐠𝐫𝐚𝐩𝐡.𝐩𝐡 𝐋𝐢𝐧𝐤 👉 "`https://telegra.ph{}`".format(
+                    "𝐓𝐞𝐥𝐞𝐠𝐫𝐚𝐩𝐡.𝐩𝐡 𝐋𝐢𝐧𝐤 👉 `https://telegra.ph{}`".format(
                         media_urls[0], (ms + ms_two)
                     ),
                     link_preview=false,
@@ -5276,7 +5276,7 @@ async def _telegraph(event):
             response = telegraph.create_page(title_of_page, html_content=page_content)
             end = datetime.now()
             ms = (end - start).seconds
-            await pika_msg(a, "𝐓𝐞𝐥𝐞𝐠𝐫𝐚𝐩𝐡.𝐩𝐡 𝐋𝐢𝐧𝐤 👉 "`https://telegra.ph{}".format(response["path"]),link_preview=True)
+            await pika_msg(a, "𝐓𝐞𝐥𝐞𝐠𝐫𝐚𝐩𝐡.𝐩𝐡 𝐋𝐢𝐧𝐤 👉 `https://telegra.ph{}`".format(response["path"]),link_preview=True)
     else:
         await pika_msg(a, "Reply to a msg/media to get a permanent telegra.ph link.")
 
