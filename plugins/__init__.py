@@ -4061,7 +4061,7 @@ async def _getid(event):
                 )
             )
         else:
-            await pika_msg(a
+            await pika_msg(a, 
                 "Current Chat ID: `{}`\nFrom User ID: `{}`".format(
                     str(event.chat_id), str(r_msg.sender_id)
                 )
