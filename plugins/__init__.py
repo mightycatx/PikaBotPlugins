@@ -2794,4 +2794,2527 @@ async def _convoqt(event):
 
     if x == 14:
 
-        await event.edit('`"How many kids do you want to have in the 
+        await event.edit('`"How many kids do you want to have in the future?"`')
+
+    if x == 15:
+
+        await event.edit(
+            '`"Who in this group would be the worst person to date? Why?"`'
+        )
+
+    if x == 16:
+
+        await event.edit('`"What does your dream boy or girl look like?"`')
+
+    if x == 17:
+
+        await event.edit(
+            '`"What would be in your web history that you’d be embarrassed if someone saw?"`'
+        )
+
+    if x == 18:
+
+        await event.edit('`"Do you sing in the shower?"`')
+
+    if x == 19:
+
+        await event.edit('`"What’s the right age to get married?"`')
+
+    if x == 20:
+
+        await event.edit('`"What are your top 5 rules for life?"`')
+
+    if x == 21:
+
+        await event.edit(
+            '`"If given an option, would you choose a holiday at the beach or in the mountains?"`'
+        )
+
+    if x == 22:
+
+        await event.edit(
+            '`"If you are made the president of your country, what would be the first thing that you will do?"`'
+        )
+
+    if x == 23:
+
+        await event.edit(
+            '`"If given a chance to meet 3 most famous people on the earth, who would it be, answer in order of preference."`'
+        )
+
+    if x == 24:
+
+        await event.edit(
+            '`"Have you ever wished to have a superpower, if so, what superpower you would like to have?"`'
+        )
+
+    if x == 25:
+
+        await event.edit(
+            '`"Can you spend an entire day without phone and internet? If yes, what would you do?"`'
+        )
+
+    if x == 26:
+
+        await event.edit('`"Live-in relation or marriage, what do you prefer?"`')
+
+    if x == 27:
+
+        await event.edit('`"What is your favorite cuisine or type of food?"`')
+
+    if x == 28:
+
+        await event.edit(
+            '`"What are some good and bad things about the education system in your country?"`'
+        )
+
+    if x == 29:
+
+        await event.edit('`"What do you think of online education?"`')
+
+    if x == 30:
+
+        await event.edit('`"What are some goals you have failed to accomplish?"`')
+
+    if x == 31:
+
+        await event.edit('`"Will technology save the human race or destroy it?"`')
+
+    if x == 32:
+
+        await event.edit('`"What was the best invention of the last 50 years?"`')
+
+    if x == 33:
+
+        await event.edit(
+            '`"Have you travelled to any different countries? Which ones?"`'
+        )
+
+    if x == 34:
+
+        await event.edit(
+            '`"Which sport is the most exciting to watch? Which is the most boring to watch?"`'
+        )
+
+    if x == 35:
+
+        await event.edit('`"What’s the most addictive mobile game you have played?"`')
+
+    if x == 36:
+
+        await event.edit('`"How many apps do you have on your phone?"`')
+
+    if x == 37:
+
+        await event.edit('`"What was the last song you listened to?"`')
+
+    if x == 38:
+
+        await event.edit(
+            '`"Do you prefer to watch movies in the theater or in the comfort of your own home?"`'
+        )
+
+    if x == 39:
+
+        await event.edit('`"Do you like horror movies? Why or why not?"`')
+
+    if x == 40:
+
+        await event.edit(
+            '`"How often do you help others? Who do you help? How do you help?"`'
+        )
+
+    if x == 41:
+
+        await event.edit('`"What song do you play most often?"`')
+
+    if x == 42:
+
+        await event.edit('`"Suggest a new rule that should be added in this group!"`')
+
+    if x == 43:
+
+        await event.edit('`"What app on your phone do you think I should get?"`')
+
+    if x == 44:
+
+        await event.edit(
+            '`"What website or app has completely changed your life for better or for worse?"`'
+        )
+
+    if x == 45:
+
+        await event.edit('`"What isn’t real but you desperately wish it was?"`')
+
+    if x == 46:
+
+        await event.edit('`"What thing do you really wish you could buy right now?"`')
+
+    if x == 47:
+
+        await event.edit(
+            '`"If you could ban an admin from this group. Who would you prefer ?"`'
+        )
+
+    if x == 48:
+
+        await event.edit(
+            '`"What would you do if someone left a duffle bag filled with $2,000,000 on your back porch?"`'
+        )
+
+    if x == 49:
+
+        await event.edit('`"Who is the luckiest person you know?"`')
+
+    if x == 50:
+
+        await event.edit(
+            '`"If you could visit someone\'s house in this group, who would it be ?"`'
+        )
+
+    if x == 51:
+
+        await event.edit('`"What are you tired of hearing about?"`')
+
+    if x == 52:
+
+        await event.edit(
+            '`"If you died today, what would your greatest achievement be?"`'
+        )
+
+    if x == 53:
+
+        await event.edit('`"What method will you choose to kill yourself?"`')
+
+    if x == 54:
+
+        await event.edit('`"What’s the best news you\'ve heard in the last 24 hours?"`')
+
+    if x == 55:
+
+        await event.edit(
+            '`"What is the most important change that should be made to your country’s education system?"`'
+        )
+
+    if x == 56:
+
+        await event.edit('`"Send your favourite sticker pack."`')
+
+    if x == 57:
+
+        await event.edit('`"Send your favourite animated sticker pack."`')
+
+    if x == 58:
+
+        await event.edit('`"Send your favourite video or gif."`')
+
+    if x == 59:
+
+        await event.edit('`"Send your favourite emojies"`')
+
+    if x == 60:
+
+        await event.edit(
+            '`"What’s something you misunderstood as a child and only realized much later was wrong?"`'
+        )
+
+
+async def decide(event):
+    if event.fwd_from:
+        return
+    message_id = event.message.id
+    if event.reply_to_msg_id:
+        message_id = event.reply_to_msg_id
+    r = requests.get("https://yesno.wtf/api").json()
+    await event.client.send_message(
+        event.chat_id, r["answer"], reply_to=message_id, file=r["image"]
+    )
+    await event.delete()
+
+
+async def _cry(event):
+    if event.fwd_from:
+        return
+    animation_interval = 1
+    animation_ttl = range(0, 103)
+    await event.edit("crying")
+    animation_chars = [
+        ";__",
+        ";___",
+        ";____",
+        ";_____",
+        ";______",
+        ";_______",
+        ";________",
+        ";__________",
+        ";____________",
+        ";______________",
+        ";________________",
+        ";__________________",
+        ";____________________",
+        ";______________________",
+        ";________________________",
+        ";_________________________",
+        ";_________________________",
+        ";________________________",
+        ";_______________________",
+        ";______________________",
+        ";_____________________",
+        ";____________________",
+        ";___________________",
+        ";__________________",
+        ";_________________",
+        ";________________",
+        ";_______________",
+        ";_____________",
+        ";___________",
+        ";_________",
+        ";_______",
+        ";_____",
+        ";____",
+        ";___",
+        ";__",
+        ";You made me `CRY`",
+    ]
+
+    for i in animation_ttl:
+
+        await asyncio.sleep(animation_interval)
+        await event.edit(animation_chars[i % 35])
+
+
+async def deepfryer(event):
+    try:
+        frycount = int(event.pattern_match.group(1))
+        if frycount < 1:
+            raise ValueError
+    except ValueError:
+        frycount = 1
+
+    if event.is_reply:
+        reply_message = await event.get_reply_message()
+        data = await check_media(reply_message)
+
+        if isinstance(data, bool):
+            await event.edit("`I can't deep fry that!`")
+            return
+    else:
+        await event.edit("`Reply to an image or sticker to deep fry it!`")
+        return
+
+    # download last photo (highres) as byte array
+    await event.edit("`Downloading media…`")
+    image = io.BytesIO()
+    await event.client.download_media(data, image)
+    image = Image.open(image)
+
+    # fry the image
+    await event.edit("`Deep frying media…`")
+    for _ in range(frycount):
+        image = await deepfry(image)
+
+    fried_io = io.BytesIO()
+    fried_io.name = "image.jpeg"
+    image.save(fried_io, "JPEG")
+    fried_io.seek(0)
+
+    await event.reply(file=fried_io)
+
+
+async def deepfry(img: Image) -> Image:
+    colours = (
+        (randint(50, 200), randint(40, 170), randint(40, 190)),
+        (randint(190, 255), randint(170, 240), randint(180, 250)),
+    )
+
+    img = img.copy().convert("RGB")
+
+    # Crush image to hell and back
+    img = img.convert("RGB")
+    width, height = img.width, img.height
+    img = img.resize(
+        (int(width ** uniform(0.8, 0.9)), int(height ** uniform(0.8, 0.9))),
+        resample=Image.LANCZOS,
+    )
+    img = img.resize(
+        (int(width ** uniform(0.85, 0.95)), int(height ** uniform(0.85, 0.95))),
+        resample=Image.BILINEAR,
+    )
+    img = img.resize(
+        (int(width ** uniform(0.89, 0.98)), int(height ** uniform(0.89, 0.98))),
+        resample=Image.BICUBIC,
+    )
+    img = img.resize((width, height), resample=Image.BICUBIC)
+    img = ImageOps.posterize(img, randint(3, 7))
+
+    # Generate colour overlay
+    overlay = img.split()[0]
+    overlay = ImageEnhance.Contrast(overlay).enhance(uniform(1.0, 2.0))
+    overlay = ImageEnhance.Brightness(overlay).enhance(uniform(1.0, 2.0))
+
+    overlay = ImageOps.colorize(overlay, colours[0], colours[1])
+
+    # Overlay red and yellow onto main image and sharpen the hell out of it
+    img = Image.blend(img, overlay, uniform(0.1, 0.4))
+    img = ImageEnhance.Sharpness(img).enhance(randint(5, 300))
+
+    return img
+
+
+async def check_media(reply_message):
+    if reply_message and reply_message.media:
+        if reply_message.photo:
+            data = reply_message.photo
+        elif reply_message.document:
+            if (
+                DocumentAttributeFilename(file_name="AnimatedSticker.tgs")
+                in reply_message.media.document.attributes
+            ):
+                return False
+            if (
+                reply_message.gif
+                or reply_message.video
+                or reply_message.audio
+                or reply_message.voice
+            ):
+                return False
+            data = reply_message.media.document
+        else:
+            return False
+    else:
+        return False
+
+    if not data or data is None:
+        return False
+    else:
+        return data
+
+
+async def remppic(delpfp):
+    """ For .delpfp command, delete your current profile picture in Telegram. """
+    group = delpfp.text[8:]
+    if group == "all":
+        lim = 0
+    elif group.isdigit():
+        lim = int(group)
+    else:
+        lim = 1
+
+    pfplist = await delpfp.client(
+        GetUserPhotosRequest(user_id=delpfp.sender_id, offset=0, max_id=0, limit=lim)
+    )
+    input_photos = []
+    for sep in pfplist.photos:
+        input_photos.append(
+            InputPhoto(
+                id=sep.id,
+                access_hash=sep.access_hash,
+                file_reference=sep.file_reference,
+            )
+        )
+    await delpfp.client(DeletePhotosRequest(id=input_photos))
+    await delpfp.edit(f"`Successfully deleted {len(input_photos)} profile picture(s).`")
+
+
+async def jon(event):
+    if event.fwd_from:
+        return
+    mentions = "`━━━━━┓ \n┓┓┓┓┓┃\n┓┓┓┓┓┃　ヽ○ノ ⇦ Me When You Joined \n┓┓┓┓┓┃.     /　 \n┓┓┓┓┓┃ ノ) \n┓┓┓┓┓┃\n┓┓┓┓┓┃\n┓┓┓┓┓┃\n┓┓┓┓┓┃\n┓┓┓┓┓┃\n┓┓┓┓┓┃\n┓┓┓┓┓┃\n┓┓┓┓┓┃\n┓┓┓┓┓┃\n┓┓┓┓┓┃\n┓┓┓┓┓┃\n┓┓┓┓┓┃\n┓┓┓┓┓┃\n┓┓┓┓┓┃\n┓┓┓┓┓┃\n┓┓┓┓┓┃`"
+    chat = await event.get_input_chat()
+    async for x in event.client.iter_participants(
+        chat, filter=ChannelParticipantsAdmins
+    ):
+        mentions += f""
+    reply_message = None
+    if event.reply_to_msg_id:
+        reply_message = await event.get_reply_message()
+        await reply_message.reply(mentions)
+    else:
+        await event.reply(mentions)
+    await event.delete()
+
+
+async def pay(event):
+    if event.fwd_from:
+        return
+    mentions = "`█▀▀▀▀▀█░▀▀░░░█░░░░█▀▀▀▀▀█\n█░███░█░█▄░█▀▀░▄▄░█░███░█\n█░▀▀▀░█░▀█▀▀▄▀█▀▀░█░▀▀▀░█\n▀▀▀▀▀▀▀░▀▄▀▄▀▄█▄▀░▀▀▀▀▀▀▀\n█▀█▀▄▄▀░█▄░░░▀▀░▄█░▄▀█▀░▀\n░█▄▀░▄▀▀░░░▄▄▄█░▀▄▄▄▀▄▄▀▄\n░░▀█░▀▀▀▀▀▄█░▄░████ ██▀█▄\n▄▀█░░▄▀█▀█▀░█▄▀░▀█▄██▀░█▄\n░░▀▀▀░▀░█▄▀▀▄▄░▄█▀▀▀█░█▀▀\n█▀▀▀▀▀█░░██▀█░░▄█░▀░█▄░██\n█░███░█░▄▀█▀██▄▄▀▀█▀█▄░▄▄\n█░▀▀▀░█░█░░▀▀▀░█░▀▀▀▀▄█▀░\n▀▀▀▀▀▀▀░▀▀░░▀░▀░░░▀▀░▀▀▀▀`"
+    chat = await event.get_input_chat()
+    async for x in event.client.iter_participants(
+        chat, filter=ChannelParticipantsAdmins
+    ):
+        mentions += f""
+    reply_message = None
+    if event.reply_to_msg_id:
+        reply_message = await event.get_reply_message()
+        await reply_message.reply(mentions)
+    else:
+        await event.reply(mentions)
+    await event.delete()
+
+
+async def dict(event):
+    if event.fwd_from:
+        return
+    input_str = event.pattern_match.group(1)
+    input_url = "https://bots.shrimadhavuk.me/dictionary/?s={}".format(input_str)
+    headers = {"USER-AGENT": "PikaBot"}
+    caption_str = f"Meaning of __{input_str}__\n"
+    try:
+        response = requests.get(input_url, headers=headers).json()
+        pronounciation = response.get("p")
+        meaning_dict = response.get("lwo")
+        for current_meaning in meaning_dict:
+            current_meaning_type = current_meaning.get("type")
+            current_meaning_definition = current_meaning.get("definition")
+            caption_str += (
+                f"**{current_meaning_type}**: {current_meaning_definition}\n\n"
+            )
+    except Exception as e:
+        caption_str = str(e)
+    reply_msg_id = event.message.id
+    if event.reply_to_msg_id:
+        reply_msg_id = event.reply_to_msg_id
+    try:
+        await event.client.send_file(
+            event.chat_id,
+            pronounciation,
+            caption=f"Pronounciation of __{input_str}__",
+            force_document=False,
+            reply_to=reply_msg_id,
+            allow_cache=True,
+            voice_note=True,
+            silent=True,
+            supports_streaming=True,
+        )
+    except BaseException:
+        pass
+    await event.edit(caption_str)
+
+
+async def _ding(event):
+    if event.fwd_from:
+        return
+    animation_interval = 0.5
+    animation_ttl = range(0, 10)
+    await event.edit("dong")
+    animation_chars = [
+        "🔴⬛⬛⬜⬜\n⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬜",
+        "⬜⬜⬛⬜⬜\n⬜⬛⬜⬜⬜\n🔴⬜⬜⬜⬜",
+        "⬜⬜⬛⬜⬜\n⬜⬜⬛⬜⬜\n⬜⬜🔴⬜⬜",
+        "⬜⬜⬛⬜⬜\n⬜⬜⬜⬛⬜\n⬜⬜⬜⬜🔴",
+        "⬜⬜⬛⬛🔴\n⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬜",
+        "⬜⬜⬛⬜⬜\n⬜⬜⬜⬛⬜\n⬜⬜⬜⬜🔴",
+        "⬜⬜⬛⬜⬜\n⬜⬜⬛⬜⬜\n⬜⬜🔴⬜⬜",
+        "⬜⬜⬛⬜⬜\n⬜⬛⬜⬜⬜\n🔴⬜⬜⬜⬜",
+        "🔴⬛⬛⬜⬜\n⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬜",
+        "⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜\n⬜[I Am Here mdafuk'in Bitch](t.me/PikachuUserbot) ⬜\n⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜",
+    ]
+
+    for i in animation_ttl:
+
+        await asyncio.sleep(animation_interval)
+
+        await event.edit(animation_chars[i % 10])
+
+
+async def dlg(request):
+    """ direct links generator """
+    await request.edit("`Processing...`")
+    textx = await request.get_reply_message()
+    message = request.pattern_match.group(1)
+    if message:
+        pass
+    elif textx:
+        message = textx.text
+    else:
+        await request.edit("`Usage: .direct <url>`")
+        return
+    reply = ""
+    links = re.findall(r"\bhttps?://.*\.\S+", message)
+    if not links:
+        reply = "`No links found!`"
+        await request.edit(reply)
+    for link in links:
+        if "drive.google.com" in link:
+            reply += gdrive(link)
+        elif "zippyshare.com" in link:
+            reply += zippy_share(link)
+        elif "yadi.sk" in link:
+            reply += yandex_disk(link)
+        elif "cloud.mail.ru" in link:
+            reply += cm_ru(link)
+        elif "mediafire.com" in link:
+            reply += mediafire(link)
+        elif "sourceforge.net" in link:
+            reply += sourceforge(link)
+        elif "osdn.net" in link:
+            reply += osdn(link)
+        elif "androidfilehost.com" in link:
+            reply += androidfilehost(link)
+        else:
+            reply += re.findall(r"\bhttps?://(.*?[^/]+)", link)[0] + "is not supported"
+    await request.edit(reply)
+
+
+async def _dns(event):
+    if event.fwd_from:
+        return
+    input_str = event.pattern_match.group(1)
+    sample_url = "https://da.gd/dns/{}".format(input_str)
+    response_api = requests.get(sample_url).text
+    if response_api:
+        await event.edit("DNS records of {} are \n{}".format(input_str, response_api))
+    else:
+        await event.edit("i can't seem to find {} on the internet".format(input_str))
+
+
+async def urlx(event):
+    if event.fwd_from:
+        return
+    input_str = event.pattern_match.group(1)
+    sample_url = "https://da.gd/s?url={}".format(input_str)
+    response_api = requests.get(sample_url).text
+    if response_api:
+        await event.edit("Generated {} for {}.".format(response_api, input_str))
+    else:
+        await event.edit("something is wrong. please try again later.")
+
+
+async def unshort(event):
+    if event.fwd_from:
+        return
+    input_str = event.pattern_match.group(1)
+    if not input_str.startswith("http"):
+        input_str = "http://" + input_str
+    r = requests.get(input_str, allow_redirects=False)
+    if str(r.status_code).startswith("3"):
+        await event.edit(
+            "Input URL: {}\nReDirected URL: {}".format(input_str, r.headers["Location"])
+        )
+    else:
+        await event.edit(
+            "Input URL {} returned status_code {}".format(input_str, r.status_code)
+        )
+
+
+async def ducgo(event):
+    if event.fwd_from:
+        return
+    input_str = event.pattern_match.group(1)
+    sample_url = "https://duckduckgo.com/?q={}".format(input_str.replace(" ", "+"))
+    if sample_url:
+        link = sample_url.rstrip()
+        await event.edit(
+            "Let me 🦆 DuckDuckGo that for you:\n🔎 [{}]({})".format(input_str, link)
+        )
+    else:
+        await event.edit("something is wrong. please try again later.")
+
+
+async def dump(message):
+    try:
+        obj = message.pattern_match.group(1)
+        if len(obj) != 3:
+            raise IndexError
+        inp = " ".join(obj)
+    except IndexError:
+        inp = "🥞 🎂 🍫"
+    u, t, g, o, s, n = inp.split(), "🗑", "<(^_^ <)", "(> ^_^)>", "⠀ ", "\n"
+    h = [(u[0], u[1], u[2]), (u[0], u[1], ""), (u[0], "", "")]
+    for something in reversed(
+        [
+            y
+            for y in (
+                [
+                    "".join(x)
+                    for x in (
+                        f + (s, g, s + s * f.count(""), t),
+                        f + (g, s * 2 + s * f.count(""), t),
+                        f[:i] + (o, f[i], s * 2 + s * f.count(""), t),
+                        f[:i] + (s + s * f.count(""), o, f[i], s, t),
+                        f[:i] + (s * 2 + s * f.count(""), o, f[i], t),
+                        f[:i] + (s * 3 + s * f.count(""), o, t),
+                        f[:i] + (s * 3 + s * f.count(""), g, t),
+                    )
+                ]
+                for i, f in enumerate(reversed(h))
+            )
+        ]
+    ):
+        for something_else in something:
+            await asyncio.sleep(0.3)
+            try:
+                await message.edit(something_else)
+            except errors.MessageIdInvalidError:
+                return
+
+
+async def _eval(event):
+    _tg = await event.client.get_me()
+    if _tg.id == tgbot.uid:
+        ax = True
+    else:
+        ax = None
+    if event.fwd_from:
+        return
+    ax_ = await pika_msg(event, "Processing ...", ax)
+    cmd = event.text.split(" ", maxsplit=1)[1]
+    reply_to_id = event.message.id
+    if event.reply_to_msg_id:
+        reply_to_id = event.reply_to_msg_id
+
+    old_stderr = sys.stderr
+    old_stdout = sys.stdout
+    redirected_output = sys.stdout = io.StringIO()
+    redirected_error = sys.stderr = io.StringIO()
+    stdout, stderr, exc = None, None, None
+
+    try:
+        await aexec(cmd, event)
+    except Exception:
+        exc = traceback.format_exc()
+
+    stdout = redirected_output.getvalue()
+    stderr = redirected_error.getvalue()
+    sys.stdout = old_stdout
+    sys.stderr = old_stderr
+
+    evaluation = ""
+    if exc:
+        evaluation = exc
+    elif stderr:
+        evaluation = stderr
+    elif stdout:
+        evaluation = stdout
+    else:
+        evaluation = "Success"
+
+    final_output = "**EVAL**: `{}` \n\n **OUTPUT**: \n`{}` \n".format(cmd, evaluation)
+
+    if len(final_output) > Config.MAX_MESSAGE_SIZE_LIMIT:
+        with io.BytesIO(str.encode(final_output)) as out_file:
+            out_file.name = "eval.text"
+            await event.client.send_file(
+                event.chat_id,
+                out_file,
+                force_document=True,
+                allow_cache=False,
+                caption=cmd,
+                reply_to=reply_to_id,
+            )
+            await event.delete()
+    else:
+        await pika_msg(ax_, final_output)
+
+
+async def aexec(code, event):
+    exec(f"async def __aexec(event): " + "".join(f"\n {l}" for l in code.split("\n")))
+    return await locals()["__aexec"](event)
+
+
+async def helper(event):
+    if not event.text[0].isalpha() and event.text[0] not in ("/", "#", "@"):
+        tgbotusername = Var.TG_BOT_USER_NAME_BF_HER
+        event.pattern_match.group(1)
+        if tgbotusername:
+            help_string = f"""Pïkå¢hµ Úsêrßð† {helpstr}"""
+            results = await event.client.inline_query(  # pylint:disable=E0602
+                tgbotusername, help_string
+            )
+            await results[0].click(
+                event.chat_id, reply_to=event.reply_to_msg_id, hide_via=True
+            )
+            await event.delete()
+        else:
+            await event.edit("**ERROR:** Set Var TG_BOT_USER_NAME_BF_HER")
+
+
+if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
+
+    @tgbot.on(events.InlineQuery)  # pylint:disable=E0602
+    async def inline_handler(pika_):
+        builder = pika_.builder
+        result = None
+        query = pika_.text
+        _pikaa_ = (pika_.query).user_id
+        if (
+            _pikaa_ == pika_id1
+            or _pikaa_ == pika_id2
+            or _pikaa_ == pika_id3
+            or _pikaa_ == pika_id4
+            and query.startswith("Pïkå¢hµ")
+        ):
+            rev_text = query[::-1]
+            buttons = paginate_help(0, CMD_LIST, "helpme")
+            result = builder.article(
+                "©Pikachu Userbot Help",
+                text="{}\nCurrently Loaded Plugins: {}".format(query, len(CMD_LIST)),
+                buttons=buttons,
+                link_preview=False,
+            )
+        await pika_.answer([result] if result else None)
+
+    @tgbot.on(Pika_CallBack(data=re.compile(rb"helpme_next\((.+?)\)")))
+    async def _pikacallback(pika_):
+        _pikaa_ = (pika_.query).user_id
+        if (
+            _pikaa_ == pika_id1
+            or _pikaa_ == pika_id2
+            or _pikaa_ == pika_id3
+            or _pikaa_ == pika_id4
+        ):
+            c_p_n = int(pika_.data_match.group(1).decode("UTF-8"))
+            buttons = paginate_help(c_p_n + 1, CMD_LIST, "helpme")
+            # https://t.me/TelethonChat/115200
+            await pika_.edit(buttons=buttons)
+
+        else:
+            _alert_ = "Please get your own PikaBot, and don't use mine!"
+            await pika_.answer(_alert_, cache_time=0, alert=True)
+
+    @tgbot.on(Pika_CallBack(data=re.compile(rb"helpme_prev\((.+?)\)")))
+    async def _pikacallback(pika_):
+        _pikaa_ = (pika_.query).user_id
+        if (
+            _pikaa_ == pika_id1
+            or _pikaa_ == pika_id2
+            or _pikaa_ == pika_id3
+            or _pikaa_ == pika_id4
+        ):
+            c_p_n = int(pika_.data_match.group(1).decode("UTF-8"))
+            buttons = paginate_help(
+                c_p_n - 1, CMD_LIST, "helpme"  # pylint:disable=E0602
+            )
+            await pika_.edit(buttons=buttons)
+
+        else:
+            _alert_ = "Please get your own PikaBot, and don't use mine!"
+            await pika_.answer(_alert_, cache_time=0, alert=True)
+
+    @tgbot.on(Pika_CallBack(data=re.compile(b"restart")))
+    async def _pikacallback(pika_):
+        _pikaa_ = (pika_.query).user_id
+        if (
+            _pikaa_ == pika_id1
+            or _pikaa_ == pika_id2
+            or _pikaa_ == pika_id3
+            or _pikaa_ == pika_id4
+        ):
+            await pika_.edit("Pika Pi! Restarting wait for 1 Min!")
+            await asyncio.sleep(4)
+            await pika_.delete()
+            pika_start()
+        else:
+            _alert_ = "You can't Restart me, Get your own Pikachu Userbot"
+            await pika_.answer(_alert_, cache_time=0, alert=True)
+
+    @tgbot.on(Pika_CallBack(data=re.compile(b"close")))
+    async def _pikacallback(pika_):
+        _pikaa_ = (pika_.query).user_id
+        if (
+            _pikaa_ == pika_id1
+            or _pikaa_ == pika_id2
+            or _pikaa_ == pika_id3
+            or _pikaa_ == pika_id4
+        ):
+            _a_ = await pika_.edit("Pika Pi! Menu Closed!")
+            await asyncio.sleep(3)
+            await _a_.delete()
+        else:
+            _alert_ = "You can't close this menu ploxx, Get your own Pikachu Userbot"
+            await pika_.answer(_alert_, cache_time=0, alert=True)
+
+    @tgbot.on(Pika_CallBack(data=re.compile(b"us_plugin_(.*)")))
+    async def _pikacallback(pika_):
+        _pikaa_ = (pika_.query).user_id
+        if (
+            _pikaa_ == pika_id1
+            or _pikaa_ == pika_id2
+            or _pikaa_ == pika_id3
+            or _pikaa_ == pika_id4
+        ):
+
+            a = randint(0, 9)
+            _rx_ = f"{_emo_[a]}" + f" {rx}"
+            _pika_ = pika_.data_match.group(1).decode("UTF-8")
+            _pika = CMD_LIST[_pika_].__doc__.format(i=_rx_)
+            _pikaB = [(custom.Button.inline("⫷BacK", data="pikab"))]
+            await pika_.edit(_pika, buttons=_pikaB)
+
+        else:
+            ax = os.environ.get("ALIVE_NAME")
+            iq = await pika_.client.get_me()
+            if iq.id == pika_id1:
+                ax[0]
+                _alert_ = "Hi My Peru Master's bot here ,\n\nWhy r u clicking this this.Please get your own PikaBot, and don't use mine!"
+                await pika_.answer(_alert_, cache_time=0, alert=True)
+
+    @tgbot.on(Pika_CallBack(data=re.compile(b"pikab(.*)")))
+    async def _pikacallback(pika_):
+        _pikaa_ = (pika_.query).user_id
+        if (
+            _pikaa_ == pika_id1
+            or _pikaa_ == pika_id2
+            or _pikaa_ == pika_id3
+            or _pikaa_ == pika_id4
+        ):
+            _pika = f"""Pïkå¢hµ Úsêrßð† {helpstr}"""
+            _pika += "\n**Currently Loaded Plugins**: {}".format(len(CMD_LIST))
+            _pika_ = paginate_help(0, CMD_LIST, "helpme")
+            await pika_.edit(_pika, buttons=_pika_, link_preview=False)
+        else:
+            _alert_ = "Please get your own PikaBot, and don't use mine!"
+            await pika_.answer(_alert_, cache_time=0, alert=True)
+
+    @tgbot.on(Pika_CallBack(data=re.compile(b"tools(.*)")))
+    async def _pikacallback(pika_):
+        _pikaa_ = (pika_.query).user_id
+        if (
+            _pikaa_ == pika_id1
+            or _pikaa_ == pika_id2
+            or _pikaa_ == pika_id3
+            or _pikaa_ == pika_id4
+        ):
+
+            a = randint(0, 9)
+            _rx_ = f"{_emo_[a]}" + f" {rx}"
+            pika_.data_match.group(1).decode("UTF-8")
+            _pika = CMD_LIST["systools"].__doc__.format(i=_rx_)
+            _pikaB = [(custom.Button.inline("⫷BacK", data="pikab"))]
+            await pika_.edit(_pika, buttons=_pikaB)
+
+
+def paginate_help(page_number, loaded_plugins, prefix):
+
+    number_of_rows = pikrws
+    number_of_cols = pikcl
+    helpable_plugins = []
+    for p in loaded_plugins:
+        if not p.startswith("_"):
+            helpable_plugins.append(p)
+
+    helpable_plugins = sorted(helpable_plugins)
+    modules = [
+        custom.Button.inline(
+            "{} {} {}".format(xl, x, xl), data="us_plugin_{}".format(x)
+        )
+        for x in helpable_plugins
+    ]
+    if number_of_cols == 1:
+        pairs = list(zip(modules[::number_of_cols]))
+    elif number_of_cols == 2:
+        pairs = list(zip(modules[::number_of_cols], modules[1::number_of_cols]))
+    elif number_of_cols == 3:
+        pairs = list(
+            zip(
+                modules[::number_of_cols],
+                modules[1::number_of_cols],
+                modules[2::number_of_cols],
+            )
+        )
+    elif number_of_cols == 4:
+        pairs = list(
+            zip(
+                modules[::number_of_cols],
+                modules[1::number_of_cols],
+                modules[2::number_of_cols],
+                modules[3::number_of_cols],
+            )
+        )
+    else:
+        pairs = list(
+            zip(
+                modules[::number_of_cols],
+                modules[1::number_of_cols],
+                modules[2::number_of_cols],
+                modules[3::number_of_cols],
+            )
+        )
+    max_num_pages = math.ceil(len(pairs) / number_of_rows)
+    modulo_page = page_number % max_num_pages
+    if len(pairs) > number_of_rows:
+        pairs = (
+            [
+                (
+                    custom.Button.inline(
+                        "«]", data="{}_prev({})".format(prefix, modulo_page)
+                    ),
+                    custom.Button.inline("Close🙅‍♀️", data="close"),
+                    custom.Button.inline(
+                        "[»", data="{}_next({})".format(prefix, modulo_page)
+                    ),
+                )
+            ]
+            + pairs[modulo_page * number_of_rows : number_of_rows * (modulo_page + 1)]
+            + [(custom.Button.inline("🤖Restart Me", data="restart"),)]
+            + [(custom.Button.inline("⚔️Tools", data="tools"),)]
+        )
+
+    return pairs
+
+
+async def _currency(event):
+    if event.fwd_from:
+        return
+    start = datetime.now()
+    input_str = event.pattern_match.group(1)
+    input_sgra = input_str.split(" ")
+    if len(input_sgra) == 3:
+        try:
+            number = float(input_sgra[0])
+            currency_from = input_sgra[1].upper()
+            currency_to = input_sgra[2].upper()
+            request_url = "https://api.exchangeratesapi.io/latest?base={}".format(
+                currency_from
+            )
+            current_response = requests.get(request_url).json()
+            if currency_to in current_response["rates"]:
+                current_rate = float(current_response["rates"][currency_to])
+                rebmun = round(number * current_rate, 2)
+                await event.edit(
+                    "{} {} = {} {}".format(number, currency_from, rebmun, currency_to)
+                )
+            else:
+                await event.edit("IDEKNOWTDWTT")
+        except e:
+            await event.edit(str(e))
+    else:
+        await event.edit("`.currency number from to`")
+    end = datetime.now()
+    (end - start).seconds
+
+
+async def _figlet(event):
+    if event.fwd_from:
+        return
+    CMD_FIG = {
+        "slant": "slant",
+        "3D": "3-d",
+        "5line": "5lineoblique",
+        "alpha": "alphabet",
+        "banner": "banner3-D",
+        "doh": "doh",
+        "iso": "isometric1",
+        "letter": "letters",
+        "allig": "alligator",
+        "dotm": "dotmatrix",
+        "bubble": "bubble",
+        "bulb": "bulbhead",
+        "digi": "digital",
+    }
+    input_str = event.pattern_match.group(1)
+    if "|" in input_str:
+        text, cmd = input_str.split("|", maxsplit=1)
+    elif input_str is not None:
+        cmd = None
+        text = input_str
+    else:
+        await event.edit("Please add some text to figlet")
+        return
+    if cmd is not None:
+        try:
+            font = CMD_FIG[cmd]
+        except KeyError:
+            await event.edit("Invalid selected font.")
+            return
+        result = pyfiglet.figlet_format(text, font=font)
+    else:
+        result = pyfiglet.figlet_format(text)
+    await event.respond("‌‌‎`{}`".format(result))
+    await event.delete()
+
+
+async def _getfilext(event):
+    if event.fwd_from:
+        return
+    await event.edit("Processing ...")
+    sample_url = "https://www.fileext.com/file-extension/{}.html"
+    input_str = event.pattern_match.group(1).lower()
+    response_api = requests.get(sample_url.format(input_str))
+    status_code = response_api.status_code
+    if status_code == 200:
+        raw_html = response_api.content
+        soup = BeautifulSoup(raw_html, "html.parser")
+        ext_details = soup.find_all("td", {"colspan": "3"})[-1].text
+        await event.edit(
+            "**File Extension**: `{}`\n**Description**: `{}`".format(
+                input_str, ext_details
+            )
+        )
+    else:
+        await event.edit(
+            "https://www.fileext.com/ responded with {} for query: {}".format(
+                status_code, input_str
+            )
+        )
+
+
+async def _fleave(event):
+    if event.fwd_from:
+
+        return
+
+    animation_interval = 1
+
+    animation_ttl = range(0, 17)
+
+    # input_str = event.pattern_match.group(1)
+
+    # if input_str == "fleave":
+
+    await event.edit("fleave")
+
+    animation_chars = [
+        "⬛⬛⬛\n⬛⬛⬛\n⬛⬛⬛",
+        "⬛⬛⬛\n⬛🔄⬛\n⬛⬛⬛",
+        "⬛⬆️⬛\n⬛🔄⬛\n⬛⬛⬛",
+        "⬛⬆️↗️\n⬛🔄⬛\n⬛⬛⬛",
+        "⬛⬆️↗️\n⬛🔄➡️\n⬛⬛⬛",
+        "⬛⬆️↗️\n⬛🔄➡️\n⬛⬛↘️",
+        "⬛⬆️↗️\n⬛🔄➡️\n⬛⬇️↘️",
+        "⬛⬆️↗️\n⬛🔄➡️\n↙️⬇️↘️",
+        "⬛⬆️↗️\n⬅️🔄➡️\n↙️⬇️↘️",
+        "↖️⬆️↗️\n⬅️🔄➡️\n↙️⬇️↘️",
+        "**Chat Message Exported To** `./Inpu/`",
+        "**Chat Message Exported To** `./Inpu/homework/`",
+        "**Chat Message Exported To** `./Inpu/homework/groupchat.txt`",
+        "__Legend is leaving this chat.....! ",
+        "__Legend is leaving this chat.....!",
+    ]
+
+    for i in animation_ttl:
+
+        await asyncio.sleep(animation_interval)
+
+        await event.edit(animation_chars[i % 17])
+
+
+async def _ftext(event):
+    input_str = event.pattern_match.group(1)
+    if input_str:
+        paytext = input_str
+        pay = "{}\n{}\n{}\n{}\n{}\n{}\n{}\n{}\n{}\n{}\n{}\n{}".format(
+            paytext * 8,
+            paytext * 8,
+            paytext * 2,
+            paytext * 2,
+            paytext * 2,
+            paytext * 6,
+            paytext * 6,
+            paytext * 2,
+            paytext * 2,
+            paytext * 2,
+            paytext * 2,
+            paytext * 2,
+        )
+    else:
+        pay = "╭━━━╮\n┃╭━━╯\n┃╰━━╮\n┃╭━━╯\n┃┃\n╰╯\n"
+    # pay = "{}\n{}\n{}\n{}\n{}\n{}\n{}\n{}\n{}\n{}\n{}\n{}".format(paytext*8, paytext*8, paytext*2, paytext*2, paytext*2, paytext*6, paytext*6, paytext*2, paytext*2, paytext*2, paytext*2, paytext*2)
+    await event.edit(pay)
+
+
+async def _fuck(event):
+    if event.fwd_from:
+        return
+    animation_interval = 1
+    animation_ttl = range(0, 101)
+    input_str = event.pattern_match.group(1)
+    if input_str == "fuck":
+        await event.edit("fuck")
+        animation_chars = ["👉       ✊️", "👉     ✊️", "👉  ✊️", "👉✊️💦"]
+        for i in animation_ttl:
+            await asyncio.sleep(animation_interval)
+            await event.edit(animation_chars[i % 4])
+
+    if input_str == "kiss":
+        await event.edit("kiss")
+        animation_chars = ["🤵       👰", "🤵     👰", "🤵  👰", "🤵💋👰"]
+        for i in animation_ttl:
+            await asyncio.sleep(animation_interval)
+            await event.edit(animation_chars[i % 4])
+
+    if input_str == "sux":
+        await event.edit("sux")
+        animation_chars = ["🤵       👰", "🤵     👰", "🤵  👰", "🤵👼👰"]
+        for i in animation_ttl:
+            await asyncio.sleep(animation_interval)
+            await event.edit(animation_chars[i % 4])
+
+
+async def _fwd(event):
+    if event.fwd_from:
+        return
+    if Config.BOTLOG_CHATID is None:
+        await event.edit(
+            "Please set the required environment variable `BOTLOG_CHATID` for this plugin to work"
+        )
+    else:
+        re_message = await event.get_reply_message()
+        # https://t.me/telethonofftopic/78166
+        fwd_message = await event.client.forward_messages(e, re_message, silent=True)
+        await event.client.forward_messages(event.chat_id, fwd_message)
+        await fwd_message.delete()
+        await event.delete()
+
+
+async def _gbot(event):
+    if event.fwd_from:
+        return
+    mentions = "**🤖Bots in this Chat**: \n"
+    input_str = event.pattern_match.group(1)
+    to_write_chat = await event.get_input_chat()
+    chat = None
+    if not input_str:
+        chat = to_write_chat
+    else:
+        mentions = "🤖Bots in {} : \n".format(input_str)
+        try:
+            chat = await event.client.get_entity(input_str)
+        except Exception as e:
+            await event.edit(str(e))
+            return None
+    try:
+        async for x in event.client.iter_participants(
+            chat, filter=ChannelParticipantsBots
+        ):
+            if isinstance(x.participant, ChannelParticipantAdmin):
+                mentions += "\n 🔥 [{}](tg://user?id={}) `{}`".format(
+                    x.first_name, x.id, x.id
+                )
+            else:
+                mentions += "\n [{}](tg://user?id={}) `{}`".format(
+                    x.first_name, x.id, x.id
+                )
+    except Exception as e:
+        mentions += " " + str(e) + "\n"
+    await event.edit(mentions)
+
+
+async def _gadmins(event):
+    if event.fwd_from:
+        return
+    mentions = "**Admins in this Channel**: \n"
+    should_mention_admins = False
+    reply_message = None
+    pattern_match_str = event.pattern_match.group(1)
+    if "m" in pattern_match_str:
+        should_mention_admins = True
+        if event.reply_to_msg_id:
+            reply_message = await event.get_reply_message()
+    input_str = event.pattern_match.group(2)
+    to_write_chat = await event.get_input_chat()
+    chat = None
+    if not input_str:
+        chat = to_write_chat
+    else:
+        mentions_heading = "Admins in {} channel: \n".format(input_str)
+        mentions = mentions_heading
+        try:
+            chat = await event.client.get_entity(input_str)
+        except Exception as e:
+            await event.edit(str(e))
+            return None
+    try:
+        async for x in event.client.iter_participants(
+            chat, filter=ChannelParticipantsAdmins
+        ):
+            if not x.deleted:
+                if isinstance(x.participant, ChannelParticipantCreator):
+                    mentions += "\n 🔱 [{}](tg://user?id={}) `{}`".format(
+                        x.first_name, x.id, x.id
+                    )
+        mentions += "\n"
+        async for x in event.client.iter_participants(
+            chat, filter=ChannelParticipantsAdmins
+        ):
+            if not x.deleted:
+                if isinstance(x.participant, ChannelParticipantAdmin):
+                    mentions += "\n 🥇 [{}](tg://user?id={}) `{}`".format(
+                        x.first_name, x.id, x.id
+                    )
+            else:
+                mentions += "\n `{}`".format(x.id)
+    except Exception as e:
+        mentions += " " + str(e) + "\n"
+    if should_mention_admins:
+        if reply_message:
+            await reply_message.reply(mentions)
+        else:
+            await event.reply(mentions)
+        await event.delete()
+    else:
+        await event.edit(mentions)
+
+
+async def _getid(event):
+    if event.fwd_from:
+        return
+    if event.reply_to_msg_id:
+        await event.get_input_chat()
+        r_msg = await event.get_reply_message()
+        if r_msg.media:
+            bot_api_file_id = pack_bot_file_id(r_msg.media)
+            await event.edit(
+                "Current Chat ID: `{}`\nFrom User ID: `{}`\nBot API File ID: `{}`".format(
+                    str(event.chat_id), str(r_msg.sender_id), bot_api_file_id
+                )
+            )
+        else:
+            await event.edit(
+                "Current Chat ID: `{}`\nFrom User ID: `{}`".format(
+                    str(event.chat_id), str(r_msg.sender_id)
+                )
+            )
+    else:
+        await event.edit("Current Chat ID: `{}`".format(str(event.chat_id)))
+
+
+async def _gps(event):
+    if event.fwd_from:
+        return
+    reply_to_id = event.message
+    if event.reply_to_msg_id:
+        reply_to_id = await event.get_reply_message()
+    input_str = event.pattern_match.group(1)
+
+    if not input_str:
+        return await event.edit("Boss ! Give A Place To Search 😔 !.")
+
+    await event.edit("Finding This Location In Maps Server.....")
+
+    geolocator = Nominatim(user_agent="Pikachu Userbot")
+    geoloc = geolocator.geocode(input_str)
+
+    if geoloc:
+        lon = geoloc.longitude
+        lat = geoloc.latitude
+        await reply_to_id.reply(
+            input_str, file=types.InputMediaGeoPoint(types.InputGeoPoint(lat, lon))
+        )
+        await event.delete()
+    else:
+        await event.edit("i coudn't find it")
+
+
+async def _ggl(event):
+    if event.fwd_from:
+        return
+    input_str = event.pattern_match.group(1)
+    sample_url = "https://da.gd/s?url=https://lmgtfy.com/?q={}%26iie=1".format(
+        input_str.replace(" ", "+")
+    )
+    response_api = requests.get(sample_url).text
+    if response_api:
+        await event.edit(
+            "[{}]({})\n`Thank me Later 🙃` ".format(input_str, response_api.rstrip())
+        )
+    else:
+        await event.edit("something is wrong. please try again later.")
+
+
+async def _invite(event):
+    if event.fwd_from:
+        return
+    to_add_users = event.pattern_match.group(1)
+    if event.is_private:
+        await event.edit("`.invite` users to a chat, not to a Private Message")
+    else:
+        pikalog.info(to_add_users)
+        if not event.is_channel and event.is_group:
+            # https://lonamiwebs.github.io/Telethon/methods/messages/add_chat_user.html
+            for user_id in to_add_users.split(" "):
+                try:
+                    await event.client(
+                        functions.messages.AddChatUserRequest(
+                            chat_id=event.chat_id, user_id=user_id, fwd_limit=1000000
+                        )
+                    )
+                except Exception as e:
+                    await event.reply(str(e))
+            await event.edit("Invited Successfully")
+        else:
+            # https://lonamiwebs.github.io/Telethon/methods/channels/invite_to_channel.html
+            for user_id in to_add_users.split(" "):
+                try:
+                    await event.client(
+                        functions.channels.InviteToChannelRequest(
+                            channel=event.chat_id, users=[user_id]
+                        )
+                    )
+                except Exception as e:
+                    await event.reply(str(e))
+            await event.edit("Invited Successfully")
+
+
+async def _github(event):
+    if event.fwd_from:
+        return
+    _tg = await get_pika_tg(event)
+    input_str = event.pattern_match.group(1)
+    a = await pika_msg(event, "Searching for {}".format(input_str), _tg)
+    await asyncio.sleep(2)
+    url = "https://api.github.com/users/{}".format(input_str)
+    r = requests.get(url)
+    if r.status_code != 404:
+        b = r.json()
+        avatar_url = b["avatar_url"]
+        html_url = b["html_url"]
+        gh_type = b["type"]
+        name = b["name"]
+        company = b["company"]
+        blog = b["blog"]
+        location = b["location"]
+        bio = b["bio"]
+        created_at = b["created_at"]
+        await event.client.send_file(
+            event.chat_id,
+            caption="""Name: [{}]({})
+Type: {}
+Company: {}
+Blog: {}
+Location: {}
+Bio: {}
+Profile Created: {}""".format(
+                name, html_url, gh_type, company, blog, location, bio, created_at
+            ),
+            file=avatar_url,
+            force_document=False,
+            allow_cache=False,
+            reply_to=event,
+        )
+        await a.delete()
+    else:
+        await pika_msg(a, "`{}`: {}".format(input_str, r.text))
+
+
+async def _gsearch(event):
+    """ For .google command, do a Google search. """
+    match = event.pattern_match.group(1)
+    await is_pikatg(event)
+    page = findall(r"page=\d+", match)
+    a = await pika_msg(event, f"Searching for {match}")
+    try:
+        page = page[0]
+        page = page.replace("page=", "")
+        match = match.replace("page=" + page[0], "")
+    except IndexError:
+        page = 1
+    search_args = (str(match), int(page))
+    gsearch = GoogleSearch()
+    gresults = await gsearch.async_search(*search_args)
+    msg = ""
+    for i in range(len(gresults["links"])):
+        try:
+            title = gresults["titles"][i]
+            link = gresults["links"][i]
+            desc = gresults["descriptions"][i]
+            msg += f"[{title}]({link})\n`{desc}`\n\n"
+        except IndexError:
+            break
+    finalres = "**Search Query:**\n`" + match + "`\n\n**Results:**\n" + msg
+    await pika_msg(a, finalres, link_preview=False)
+
+
+langi = "en"
+
+
+async def _imdb(e):
+    _tg = await is_pikatg(e)
+    try:
+        movie_name = e.pattern_match.group(1)
+        remove_space = movie_name.split(" ")
+        _ax = await pika_msg(e, f"Searching For {movie_name}, Please wait...", _tg)
+        final_name = "+".join(remove_space)
+        page = requests.get(
+            "https://www.imdb.com/find?ref_=nv_sr_fn&q=" + final_name + "&s=all"
+        )
+        str(page.status_code)
+        soup = bs4.BeautifulSoup(page.content, "lxml")
+        odds = soup.findAll("tr", "odd")
+        mov_title = odds[0].findNext("td").findNext("td").text
+        mov_link = (
+            "http://www.imdb.com/" + odds[0].findNext("td").findNext("td").a["href"]
+        )
+        page1 = requests.get(mov_link)
+        soup = bs4.BeautifulSoup(page1.content, "lxml")
+        if soup.find("div", "poster"):
+            poster = soup.find("div", "poster").img["src"]
+        else:
+            poster = ""
+        if soup.find("div", "title_wrapper"):
+            pg = soup.find("div", "title_wrapper").findNext("div").text
+            mov_details = re.sub(r"\s+", " ", pg)
+        else:
+            mov_details = ""
+        credits = soup.findAll("div", "credit_summary_item")
+        if len(credits) == 1:
+            director = credits[0].a.text
+            writer = "Not available"
+            stars = "Not available"
+        elif len(credits) > 2:
+            director = credits[0].a.text
+            writer = credits[1].a.text
+            actors = []
+            for x in credits[2].findAll("a"):
+                actors.append(x.text)
+            actors.pop()
+            stars = actors[0] + "," + actors[1] + "," + actors[2]
+        else:
+            director = credits[0].a.text
+            writer = "Not available"
+            actors = []
+            for x in credits[1].findAll("a"):
+                actors.append(x.text)
+            actors.pop()
+            stars = actors[0] + "," + actors[1] + "," + actors[2]
+        if soup.find("div", "inline canwrap"):
+            story_line = soup.find("div", "inline canwrap").findAll("p")[0].text
+        else:
+            story_line = "Not available"
+        info = soup.findAll("div", "txt-block")
+        if info:
+            mov_country = []
+            mov_language = []
+            for node in info:
+                a = node.findAll("a")
+                for i in a:
+                    if "country_of_origin" in i["href"]:
+                        mov_country.append(i.text)
+                    elif "primary_language" in i["href"]:
+                        mov_language.append(i.text)
+        if soup.findAll("div", "ratingValue"):
+            for r in soup.findAll("div", "ratingValue"):
+                mov_rating = r.strong["title"]
+        else:
+            mov_rating = "Not available"
+        imdb_dta = (
+            "<a href=" + poster + ">&#8203;</a>"
+            "<b>Title : </b><code>"
+            + mov_title
+            + "</code>\n<code>"
+            + mov_details
+            + "</code>\n<b>Rating : </b><code>"
+            + mov_rating
+            + "</code>\n<b>Country : </b><code>"
+            + mov_country[0]
+            + "</code>\n<b>Language : </b><code>"
+            + mov_language[0]
+            + "</code>\n<b>Director : </b><code>"
+            + director
+            + "</code>\n<b>Writer : </b><code>"
+            + writer
+            + "</code>\n<b>Stars : </b><code>"
+            + stars
+            + "</code>\n<b>IMDB Url : </b>"
+            + mov_link
+            + "\n<b>Story Line : </b>"
+            + story_line
+        )
+        _html = "HTML"
+        await pika_msg(_ax, imdb_dta, link_preview=True, parse_mode=_html)
+    except IndexError:
+        await pika_msg(_ax, "Plox enter **Valid movie name** kthx")
+
+
+async def _getinfo(event):
+    if event.fwd_from:
+        return
+    _tg = await is_pikatg(event)
+    a = await pika_msg(event, "Getting User Info. Please wait....", _tg)
+    replied_user, error_i_a = await get_full_user(event)
+    if replied_user is None:
+        await event.edit(str(error_i_a))
+        return False
+    replied_user_profile_photos = await event.client(
+        GetUserPhotosRequest(
+            user_id=replied_user.user.id, offset=42, max_id=0, limit=80
+        )
+    )
+    replied_user_profile_photos_count = "NaN"
+    try:
+        replied_user_profile_photos_count = replied_user_profile_photos.count
+    except AttributeError:
+        pass
+    user_id = replied_user.user.id
+    first_name = html.escape(replied_user.user.first_name)
+    if first_name is not None:
+        first_name = first_name.replace("\u2060", "")
+    last_name = replied_user.user.last_name
+    last_name = (
+        last_name.replace("\u2060", "") if last_name else ("Last Name not found")
+    )
+    user_bio = replied_user.about
+    if user_bio is not None:
+        user_bio = html.escape(replied_user.about)
+    common_chats = replied_user.common_chats_count
+    try:
+        dc_id, location = get_input_location(replied_user.profile_photo)
+    except Exception as e:
+        dc_id = "`Need a Profile Picture to check **this**`"
+        str(e)
+    caption = """<b>Extracted UserInfo From Telegram Database By PikaBot<b>
+<b>🔥Telegram ID</b>: <code>{}</code>
+<b>🤟Permanent Link</b>: <a href='tg://user?id={}'>Click Here</a>
+<b>🗣️First Name</b>: <code>{}</code>
+<b>🗣️Second Name</b>: <code>{}</code>
+<b>👨🏿‍💻BIO</b>: {}
+<b>🎃DC ID</b>: {}
+<b>⚡NO OF PSS</b> : {}
+<b>🤔IS RESTRICTED</b>: {}
+<b>✅VERIFIED</b>: {}
+<b>🙄IS A BOT</b>: {}
+<b>👥Groups in Common</b>: {}
+""".format(
+        user_id,
+        user_id,
+        first_name,
+        last_name,
+        user_bio,
+        dc_id,
+        replied_user_profile_photos_count,
+        replied_user.user.restricted,
+        replied_user.user.verified,
+        replied_user.user.bot,
+        common_chats,
+    )
+    message_id_to_reply = event.message.reply_to_msg_id
+    if not message_id_to_reply:
+        message_id_to_reply = event.message.id
+    await event.client.send_message(
+        event.chat_id,
+        caption,
+        reply_to=message_id_to_reply,
+        parse_mode="HTML",
+        file=replied_user.profile_photo,
+        force_document=False,
+        silent=True,
+    )
+    await a.delete()
+
+
+async def get_full_user(event):
+    if event.reply_to_msg_id:
+        previous_message = await event.get_reply_message()
+        if previous_message.forward:
+            replied_user = await event.client(
+                GetFullUserRequest(
+                    previous_message.forward.sender_id
+                    or previous_message.forward.channel_id
+                )
+            )
+            return replied_user, None
+        else:
+            replied_user = await event.client(
+                GetFullUserRequest(previous_message.sender_id)
+            )
+            return replied_user, None
+    else:
+        input_str = None
+        try:
+            input_str = event.pattern_match.group(1)
+        except IndexError as e:
+            return None, e
+        if event.message.entities is not None:
+            mention_entity = event.message.entities
+            probable_user_mention_entity = mention_entity[0]
+            if isinstance(probable_user_mention_entity, MessageEntityMentionName):
+                user_id = probable_user_mention_entity.user_id
+                replied_user = await event.client(GetFullUserRequest(user_id))
+                return replied_user, None
+            else:
+                try:
+                    user_object = await event.client.get_entity(input_str)
+                    user_id = user_object.id
+                    replied_user = await event.client(GetFullUserRequest(user_id))
+                    return replied_user, None
+                except Exception as e:
+                    return None, e
+        elif event.is_private:
+            try:
+                user_id = event.chat_id
+                replied_user = await event.client(GetFullUserRequest(user_id))
+                return replied_user, None
+            except Exception as e:
+                return None, e
+        else:
+            try:
+                user_object = await event.client.get_entity(int(input_str))
+                user_id = user_object.id
+                replied_user = await event.client(GetFullUserRequest(user_id))
+                return replied_user, None
+            except Exception as e:
+                return None, e
+
+
+async def _json(event):
+    if event.fwd_from:
+        return
+    _tg = await is_pikatg(event)
+    a = await pika_msg(event, "Getting message info. Please wait...", _tg)
+    await asyncio.sleep(2)
+    the_real_message = None
+    reply_to_id = None
+    if event.reply_to_msg_id:
+        previous_message = await event.get_reply_message()
+        the_real_message = previous_message.stringify()
+        reply_to_id = event.reply_to_msg_id
+    else:
+        the_real_message = event.stringify()
+        reply_to_id = event.message.id
+    if len(the_real_message) > Config.MAX_MESSAGE_SIZE_LIMIT:
+        with io.BytesIO(str.encode(the_real_message)) as out_file:
+            out_file.name = "json.text"
+            await event.client.send_file(
+                event.chat_id,
+                out_file,
+                force_document=True,
+                allow_cache=False,
+                reply_to=reply_to_id,
+            )
+            await a.delete()
+    else:
+        await pika_msg(a, "`{}`".format(the_real_message))
+
+
+async def _locks(event):
+    input_str = event.pattern_match.group(1).lower()
+    _tg = await is_pikatg(event)
+    await pika_msg(event, f"Locking {input_str}, Please Wait....", _tg)
+    peer_id = event.chat_id
+    msg = None
+    media = None
+    sticker = None
+    gif = None
+    gamee = None
+    ainline = None
+    gpoll = None
+    adduser = None
+    cpin = None
+    changeinfo = None
+    if input_str == "msg":
+        msg = True
+        what = "messages"
+    elif input_str == "media":
+        media = True
+        what = "media"
+    elif input_str == "sticker":
+        sticker = True
+        what = "stickers"
+    elif input_str == "gif":
+        gif = True
+        what = "GIFs"
+    elif input_str == "game":
+        gamee = True
+        what = "games"
+    elif input_str == "inline":
+        ainline = True
+        what = "inline bots"
+    elif input_str == "poll":
+        gpoll = True
+        what = "polls"
+    elif input_str == "invite":
+        adduser = True
+        what = "invites"
+    elif input_str == "pin":
+        cpin = True
+        what = "pins"
+    elif input_str == "info":
+        changeinfo = True
+        what = "chat info"
+    elif input_str == "all":
+        msg = True
+        media = True
+        sticker = True
+        gif = True
+        gamee = True
+        ainline = True
+        gpoll = True
+        adduser = True
+        cpin = True
+        changeinfo = True
+        what = "everything"
+    else:
+        if not input_str:
+            await pika_msg(a, "`I can't lock nothing !!`")
+            return
+        else:
+            await pika_msg(a, f"`Invalid lock type:` {input_str}")
+            return
+
+    lock_rights = ChatBannedRights(
+        until_date=None,
+        send_messages=msg,
+        send_media=media,
+        send_stickers=sticker,
+        send_gifs=gif,
+        send_games=gamee,
+        send_inline=ainline,
+        send_polls=gpoll,
+        invite_users=adduser,
+        pin_messages=cpin,
+        change_info=changeinfo,
+    )
+    try:
+        await event.client(
+            EditChatDefaultBannedRightsRequest(peer=peer_id, banned_rights=lock_rights)
+        )
+        await pika_msg(a, f"`locked {what} Because its Rest Time Nimba!!`")
+    except BaseException as e:
+        await pika_msg(a, f"`Do I have proper rights for that ??`\n**Error:** {str(e)}")
+        return
+
+
+async def _rmlocks(event):
+    input_str = event.pattern_match.group(1).lower()
+    _tg = await is_pikatg(event)
+    a = await pika_msg(event, f"Unlocking {input_str}, Please Wait....", _tg)
+    peer_id = event.chat_id
+    msg = None
+    media = None
+    sticker = None
+    gif = None
+    gamee = None
+    ainline = None
+    gpoll = None
+    adduser = None
+    cpin = None
+    changeinfo = None
+    if input_str == "msg":
+        msg = False
+        what = "messages"
+    elif input_str == "media":
+        media = False
+        what = "media"
+    elif input_str == "sticker":
+        sticker = False
+        what = "stickers"
+    elif input_str == "gif":
+        gif = False
+        what = "GIFs"
+    elif input_str == "game":
+        gamee = False
+        what = "games"
+    elif input_str == "inline":
+        ainline = False
+        what = "inline bots"
+    elif input_str == "poll":
+        gpoll = False
+        what = "polls"
+    elif input_str == "invite":
+        adduser = False
+        what = "invites"
+    elif input_str == "pin":
+        cpin = False
+        what = "pins"
+    elif input_str == "info":
+        changeinfo = False
+        what = "chat info"
+    elif input_str == "all":
+        msg = False
+        media = False
+        sticker = False
+        gif = False
+        gamee = False
+        ainline = False
+        gpoll = False
+        adduser = False
+        cpin = False
+        changeinfo = False
+        what = "everything"
+    else:
+        if not input_str:
+            await pika_msg(a, "`I can't unlock nothing !!`")
+            return
+        else:
+            await pika_msg(a, f"`Invalid unlock type:` {input_str}")
+            return
+
+    unlock_rights = ChatBannedRights(
+        until_date=None,
+        send_messages=msg,
+        send_media=media,
+        send_stickers=sticker,
+        send_gifs=gif,
+        send_games=gamee,
+        send_inline=ainline,
+        send_polls=gpoll,
+        invite_users=adduser,
+        pin_messages=cpin,
+        change_info=changeinfo,
+    )
+    try:
+        await event.client(
+            EditChatDefaultBannedRightsRequest(
+                peer=peer_id, banned_rights=unlock_rights
+            )
+        )
+        await pika_msg(a, f"`Unlocked {what} now Start Chit Chat !!`")
+    except BaseException as e:
+        await pika_msg(a, f"`Do I have proper rights for that ??`\n**Error:** {str(e)}")
+        return
+
+
+async def _pack(event):
+    a = await event.get_reply_message()
+    input_str = event.pattern_match.group(1)
+    b = open(input_str, "w")
+    b.write(str(a.message))
+    b.close()
+    _tg = await get_pika_tg(event)
+    _a = await pika_msg(event, f"**Packing into** `{input_str}`", _tg)
+    await asyncio.sleep(2)
+    await pika_msg(_a, f"**Uploading** `{input_str}`")
+    await asyncio.sleep(1)
+    await event.client.send_file(
+        event.chat_id, input_str, caption="Here is your {}".format(input_str)
+    )
+    await event.delete()
+    os.remove(input_str)
+
+
+def progress(current, total):
+    pikalog.info(
+        "Downloaded {} of {}\nCompleted {}".format(
+            current, total, (current / total) * 100
+        )
+    )
+
+
+async def _deldog(event):
+    if event.fwd_from:
+        return
+    _tg = await get_pika_tg(event)
+    a = await pika_msg(event, "Pasting on Deldog, Please wait...", _tg)
+    await asyncio.sleep(1)
+    start = pikatime.now()
+    if not os.path.isdir(Config.TMP_DOWNLOAD_DIRECTORY):
+        os.makedirs(Config.TMP_DOWNLOAD_DIRECTORY)
+    input_str = event.pattern_match.group(1)
+    message = "SYNTAX: `.paste <long text to include>`"
+    if input_str:
+        message = input_str
+    elif event.reply_to_msg_id:
+        previous_message = await event.get_reply_message()
+        if previous_message.media:
+            downloaded_file_name = await event.client.download_media(
+                previous_message,
+                Config.TMP_DOWNLOAD_DIRECTORY,
+                progress_callback=progress,
+            )
+            m_list = None
+            with open(downloaded_file_name, "rb") as fd:
+                m_list = fd.readlines()
+            message = ""
+            for m in m_list:
+                message += m.decode("UTF-8") + "\r\n"
+            os.remove(downloaded_file_name)
+        else:
+            message = previous_message.message
+    else:
+        message = "SYNTAX: `.paste <long text to include>`"
+    url = "https://del.dog/documents"
+    r = requests.post(url, data=message.encode("UTF-8")).json()
+    url = f"https://del.dog/{r['key']}"
+    end = pikatime.now()
+    ms = (end - start).seconds
+    if r["isUrl"]:
+        nurl = f"https://del.dog/v/{r['key']}"
+        await pika_msg(
+            a, "Dogged to {} in {} seconds. GoTo Original URL: {}".format(url, ms, nurl)
+        )
+    else:
+        await pika_msg(a, "Deldog: [Here]({})\n**Time Taken**: {}sec".format(url, ms))
+
+
+# © @Buddhhu , dont remove credits bsdk else u gay * 100
+async def _ncode(event):
+    input = event.pattern_match.group(1)
+    _tg = await get_pika_tg(event)
+    a_ = await pika_msg(
+        event, "Converting file into beautified code image, Please wait...", _tg
+    )
+    a = await event.client.download_media(
+        await event.get_reply_message(), Var.TEMP_DOWNLOAD_DIRECTORY
+    )
+    s = open(a, "r")
+    c = s.read()
+    s.close()
+    pygments.highlight(
+        f"{c}",
+        Python3Lexer(),
+        ImageFormatter(font_name="DejaVu Sans Mono", line_numbers=True),
+        "out.png",
+    )
+    if input == "doc":
+        await event.client.send_file(event.chat_id, "out.png", force_document=True)
+    else:
+        await event.client.send_file(event.chat_id, "out.png")
+    await a_.delete()
+    os.remove(a)
+    os.remove("out.png")
+
+
+async def _rmbg(event):
+    HELP_STR = (
+        "`.rmbg` as reply to a media, or give a link as an argument to this command"
+    )
+    if event.fwd_from:
+        return
+    if Var.REM_BG_API_KEY is None:
+        await event.edit("You need API token from remove.bg to use this plugin.")
+        return False
+    input_str = event.pattern_match.group(1)
+    start = pikatime.now()
+    message_id = event.message.id
+    _tg = await get_pika_tg(event)
+    a = await pika_msg(
+        event, "Processing image for background Removal, Please wait...", _tg
+    )
+    if event.reply_to_msg_id:
+        message_id = event.reply_to_msg_id
+        reply_message = await event.get_reply_message()
+        # check if media message
+        try:
+            await event.client.download_media(
+                reply_message, Config.TMP_DOWNLOAD_DIRECTORY
+            )
+        except Exception as e:
+            await pika_msg(a, str(e))
+
+    if input_str:
+        await pika_msg(a, "Sending Image to ReMove.BG, Please wait...")
+        output_file_name = ReTrieveURL(input_str)
+
+    if not input_str and event.reply_to_msg_id:
+        await pika_msg(a, HELP_STR)
+
+    contentType = output_file_name.headers.get("content-type")
+    if "image" in contentType:
+        with io.BytesIO(output_file_name.content) as remove_bg_image:
+            remove_bg_image.name = "@PikaBot.png"
+            await event.client.send_file(
+                event.chat_id,
+                remove_bg_image,
+                force_document=True,
+                supports_streaming=False,
+                allow_cache=False,
+                reply_to=message_id,
+            )
+        end = pikatime.now()
+        ms = (end - start).seconds
+        await pika_msg(
+            a,
+            "Removed dat annoying Backgroup in {} seconds, powered by Pikachu UserBot".format(
+                ms
+            ),
+        )
+    if "image" not in contentType:
+        await pika_msg(
+            a,
+            "ReMove.BG API returned Errors. Please report to @ItzSjDudeSupport\n`{}".format(
+                output_file_name.content.decode("UTF-8")
+            ),
+        )
+
+
+# this method will call the API, and return in the appropriate format
+# with the name provided.
+def ReTrieveFile(input_file_name):
+    headers = {
+        "X-API-Key": Var.REM_BG_API_KEY,
+    }
+    files = {
+        "image_file": (input_file_name, open(input_file_name, "rb")),
+    }
+    r = requests.post(
+        "https://api.remove.bg/v1.0/removebg",
+        headers=headers,
+        files=files,
+        allow_redirects=True,
+        stream=True,
+    )
+    return r
+
+
+def ReTrieveURL(input_url):
+    headers = {
+        "X-API-Key": Var.REM_BG_API_KEY,
+    }
+    data = {"image_url": input_url}
+    r = requests.post(
+        "https://api.remove.bg/v1.0/removebg",
+        headers=headers,
+        data=data,
+        allow_redirects=True,
+        stream=True,
+    )
+    return r
+
+
+async def _speedtest(event):
+    if event.fwd_from:
+        return
+    await get_pika_tg(event)
+    input_str = event.pattern_match.group(1)
+    as_text = True
+    as_document = False
+    if input_str == "image":
+        as_document = False
+    elif input_str == "file":
+        as_document = True
+    elif input_str == "text":
+        as_text = True
+    a = await pika_msg(event, "`Calculating my internet speed. Please wait!`")
+    start = datetime.now()
+    s = speedtest.Speedtest()
+    s.get_best_server()
+    s.download()
+    s.upload()
+    end = datetime.now()
+    ms = (end - start).microseconds / 1000
+    response = s.results.dict()
+    download_speed = response.get("download")
+    upload_speed = response.get("upload")
+    ping_time = response.get("ping")
+    client_infos = response.get("client")
+    i_s_p = client_infos.get("isp")
+    i_s_p_rating = client_infos.get("isprating")
+    reply_msg_id = event.message.id
+    if event.reply_to_msg_id:
+        reply_msg_id = event.reply_to_msg_id
+    try:
+        response = s.results.share()
+        speedtest_image = response
+        if as_text:
+            await pika_msg(
+                a,
+                """`SpeedTest completed in {} seconds`
+
+`Download: {}`
+`Upload: {}`
+`Ping: {}`
+`Internet Service Provider: {}`
+`ISP Rating: {}`""".format(
+                    ms,
+                    convert_from_bytes(download_speed),
+                    convert_from_bytes(upload_speed),
+                    ping_time,
+                    i_s_p,
+                    i_s_p_rating,
+                ),
+            )
+        else:
+            await event.client.send_file(
+                event.chat_id,
+                speedtest_image,
+                caption="**SpeedTest** completed in {} seconds".format(ms),
+                force_document=as_document,
+                reply_to=reply_msg_id,
+                allow_cache=False,
+            )
+            await event.delete()
+    except Exception as exc:
+        await pika_msg(
+            a,
+            """**SpeedTest** completed in {} seconds
+Download: {}
+Upload: {}
+Ping: {}
+
+__With the Following ERRORs__
+{}""".format(
+                ms,
+                convert_from_bytes(download_speed),
+                convert_from_bytes(upload_speed),
+                ping_time,
+                str(exc),
+            ),
+        )
+
+
+def convert_from_bytes(size):
+    power = 2 ** 10
+    n = 0
+    units = {0: "", 1: "kilobytes", 2: "megabytes", 3: "gigabytes", 4: "terabytes"}
+    while size > power:
+        size /= power
+        n += 1
+    return f"{round(size, 2)} {units[n]}"
+
+
+Heroku = heroku3.from_key(Var.HEROKU_API_KEY)
+app = Heroku.app(Var.HEROKU_APP_NAME)
+
+
+heroku_api = "https://api.heroku.com"
+
+
+async def _vars(var):
+    _tg = await get_pika_tg(var)
+    exe = var.pattern_match.group(1)
+    heroku_var = app.config()
+    if exe == "get":
+        a = await pika_msg(var, "`Getting information...`", _tg)
+        await asyncio.sleep(1.5)
+        try:
+            variable = var.pattern_match.group(2).split()[0]
+            if variable in heroku_var:
+                return await pika_msg(
+                    a, "**ConfigVars**:" f"\n\n`{variable} = {heroku_var[variable]}`\n"
+                )
+            else:
+                return await pika_msg(
+                    a, "**ConfigVars**:" f"\n\n`Error:\n-> {variable} don't exists`"
+                )
+        except IndexError:
+            configs = prettyjson(heroku_var.to_dict(), indent=2)
+            with open("configs.json", "w") as fp:
+                fp.write(configs)
+            with open("configs.json", "r") as fp:
+                result = fp.read()
+                if len(result) >= 4096:
+                    await var.client.send_file(
+                        var.chat_id,
+                        "configs.json",
+                        reply_to=var.id,
+                        caption="`Output too large, sending it as a file`",
+                    )
+                else:
+                    await pika_msg(
+                        a,
+                        "`[HEROKU]` ConfigVars:\n\n"
+                        "================================"
+                        f"\n```{result}```\n"
+                        "================================",
+                    )
+            os.remove("configs.json")
+            return
+    elif exe == "set":
+        a = await pika_msg(var, "`Setting information...`", _tg)
+        variable = var.pattern_match.group(2)
+        if not variable:
+            return await pika_msg(a, ">`.set var <ConfigVars-name> <value>`")
+        value = var.pattern_match.group(3)
+        if not value:
+            variable = variable.split()[0]
+            try:
+                value = var.pattern_match.group(2).split()[1]
+            except IndexError:
+                return await pika_msg(a, ">`.set var <ConfigVars-name> <value>`")
+        await asyncio.sleep(1.5)
+        if variable in heroku_var:
+            await pika_msg(
+                a, f"**{variable}**  `successfully changed to`  ->  **{value}**"
+            )
+        else:
+            await pika_msg(
+                a, f"**{variable}**  `successfully added with value`  ->  **{value}**"
+            )
+        heroku_var[variable] = value
+    elif exe == "del":
+        a = await pika_msg(var, "`Getting information to deleting variable...`", _tg)
+        try:
+            variable = var.pattern_match.group(2).split()[0]
+        except IndexError:
+            return await pika_msg(a, "`Please specify ConfigVars you want to delete`")
+        await asyncio.sleep(1.5)
+        if variable in heroku_var:
+            await pika_msg(a, f"**{variable}**  `successfully deleted`")
+            del heroku_var[variable]
+        else:
+            return await pika_msg(a, f"**{variable}**  `is not exists`")
+
+
+async def _dyno(dyno):
+    """
+    Get your account Dyno Usage
+    """
+    a = await pika_msg(dyno, "`Calculating your Dyno Usage`", _tg)
+    useragent = (
+        "Mozilla/5.0 (Linux; Android 10; SM-G975F) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/80.0.3987.149 Mobile Safari/537.36"
+    )
+    user_id = Heroku.account().id
+    headers = {
+        "User-Agent": useragent,
+        "Authorization": f"Bearer {Var.HEROKU_API_KEY}",
+        "Accept": "application/vnd.heroku+json; version=3.account-quotas",
+    }
+    path = "/accounts/" + user_id + "/actions/get-quota"
+    r = requests.get(heroku_api + path, headers=headers)
+    if r.status_code != 200:
+        return await pika_msg(
+            a, "`Error: something bad happened`\n\n" f">.`{r.reason}`\n"
+        )
+    result = r.json()
+    quota = result["account_quota"]
+    quota_used = result["quota_used"]
+
+    """ - Used - """
+    remaining_quota = quota - quota_used
+    percentage = math.floor(remaining_quota / quota * 100)
+    minutes_remaining = remaining_quota / 60
+    hours = math.floor(minutes_remaining / 60)
+    minutes = math.floor(minutes_remaining % 60)
+
+    """ - Current - """
+    App = result["apps"]
+    try:
+        App[0]["quota_used"]
+    except IndexError:
+        AppQuotaUsed = 0
+        AppPercentage = 0
+    else:
+        AppQuotaUsed = App[0]["quota_used"] / 60
+        AppPercentage = math.floor(App[0]["quota_used"] * 100 / quota)
+    AppHours = math.floor(AppQuotaUsed / 60)
+    AppMinutes = math.floor(AppQuotaUsed % 60)
+
+    await asyncio.sleep(1.5)
+
+    return await pika_msg(
+        a,
+        "**Dyno Usage**:\n\n"
+        f" -> `Dyno usage for`  **{Var.HEROKU_APP_NAME}**:\n"
+        f"     •  `{AppHours}`**h**  `{AppMinutes}`**m**  "
+        f"**|**  [`{AppPercentage}`**%**]"
+        "\n"
+        " -> `Dyno hours quota remaining this month`:\n"
+        f"     •  `{hours}`**h**  `{minutes}`**m**  "
+        f"**|**  [`{percentage}`**%**]",
+    )
+
+
+def prettyjson(obj, indent=2, maxlinelength=80):
+    """Renders JSON content with indentation and line splits/concatenations to fit maxlinelength.
+    Only dicts, lists and basic types are supported"""
+
+    items, _ = getsubitems(
+        obj,
+        itemkey="",
+        islast=True,
+        maxlinelength=maxlinelength - indent,
+        indent=indent,
+    )
+    return indentitems(items, indent, level=0)
+
+
+async def _restart(rstrt):
+    _tg = await get_pika_tg(rstrt)
+    await pika_msg(
+        rstrt,
+        "**Boss I am restarting!, Please wait for a min after that do {x}ping or {x}help**".format(
+            x=rx
+        ),
+        _tg,
+    )
+    app.restart()
+
+
+Heroku = heroku3.from_key(Var.HEROKU_API_KEY)
+app = Heroku.app(Var.HEROKU_APP_NAME)
+
+
+async def _logs(dyno):
+    _tg = await get_pika_tg(dyno)
+    await pika_msg(dyno, "Getting Logs....", _tg)
+    await asyncio.sleep(1)
+    with open("logs.txt", "w") as log:
+        log.write(app.get_log())
+    await dyno.client.send_file(
+        dyno.chat_id,
+        "logs.txt",
+        reply_to=dyno.id,
+        caption="logs of 100+ lines",
+    )
+    await pika_msg(a, "Sending in Progress.......")
+    await asyncio.sleep(1)
+    await a.delete()
+
+
+async def apk(e):
+    try:
+        app_name = e.pattern_match.group(1)
+        remove_space = app_name.split(" ")
+        final_name = "+".join(remove_space)
+        _tg = await get_pika_tg(e)
+        a = await pika_msg(
+            e, f"Searching for {app_name} on PlayStore, Please Wait...", _tg
+        )
+        page = requests.get(
+            "https://play.google.com/store/search?q=" + final_name + "&c=apps"
+        )
+        str(page.status_code)
+        soup = bs4.BeautifulSoup(page.content, "lxml", from_encoding="utf-8")
+        results = soup.findAll("div", "ZmHEEd")
+        app_name = (
+            results[0].findNext("div", "Vpfmgd").findNext("div", "WsMG1c nnK0zc").text
+        )
+        app_dev = results[0].findNext("div", "Vpfmgd").findNext("div", "KoLSrc").text
+        app_dev_link = (
+            "https://play.google.com"
+            + results[0].findNext("div", "Vpfmgd").findNext("a", "mnKHRc")["href"]
+        )
+        app_rating = (
+            results[0]
+            .findNext("div", "Vpfmgd")
+            .findNext("div", "pf5lIe")
+            .find("div")["aria-label"]
+        )
+        app_link = (
+            "https://play.google.com"
+            + results[0]
+            .findNext("div", "Vpfmgd")
+            .findNext("div", "vU6FJ p63iDd")
+            .a["href"]
+        )
+        app_icon = (
+            results[0]
+            .findNext("div", "Vpfmgd")
+            .findNext("div", "uzcko")
+            .img["data-src"]
+        )
+        app_details = "<a href='" + app_icon + "'>📲&#8203;</a>"
+        app_details += " <b>" + app_name + "</b>"
+        app_details += (
+            "\n\n<code>Developer :</code> <a href='"
+            + app_dev_link
+            + "'>"
+            + app_dev
+            + "</a>"
+        )
+        app_details += "\n<code>Rating :</code> " + app_rating.replace(
+            "Rated ", "⭐ "
+        ).replace(" out of ", "/").replace(" stars", "", 1).replace(
+            " stars", "⭐ "
+        ).replace(
+            "five", "5"
+        )
+        app_details += (
+            "\n<code>Features :</code> <a href='"
+            + app_link
+            + "'>View in Play Store</a>"
+        )
+        app_details += "\n\n•••> **Pikabot** <•••"
+        await pika_msg(a, app_details, link_preview=True, parse_mode="HTML")
+    except IndexError:
+        await pika_msg(a, "No result found in search. Please enter **Valid app name**")
+    except Exception as err:
+        await pika_msg(a, "Exception Occured:- " + str(err))
+
+
+async def _telegraph(event):
+    telegraph = Telegraph()
+    r = telegraph.create_account(short_name=Config.TELEGRAPH_SHORT_NAME)
+    auth_url = r["auth_url"]
+    if not os.path.isdir(Config.TMP_DOWNLOAD_DIRECTORY):
+        os.makedirs(Config.TMP_DOWNLOAD_DIRECTORY)
+    await event.client.send_message(
+        Config.PLUGIN_CHANNEL,
+        "Created New Telegraph account {} for the current session. \n**Do not give this url to anyone, even if they say they are from Telegram!**".format(
+            auth_url
+        ),
+    )
+    _tg = await get_pika_tg(event)
+    a = await pika_msg(event, "Generating Telegraph Link, Please wait...", _tg)
+    optional_title = event.pattern_match.group(2)
+    if event.reply_to_msg_id:
+        start = pikatime.now()
+        r_message = await event.get_reply_message()
+        input_str = event.pattern_match.group(1)
+        await get_pika_tg(event)
+        if input_str == "m":
+            downloaded_file_name = await event.client.download_media(
+                r_message, Config.TMP_DOWNLOAD_DIRECTORY
+            )
+            end = pikatime.now()
+            ms = (end - start).seconds
+            if downloaded_file_name.endswith((".webp")):
+                resize_image(downloaded_file_name)
+            try:
+                start = pikatime.now()
+                media_urls = upload_file(downloaded_file_name)
+            except exceptions.TelegraphException as exc:
+                await pika_msg(a, "ERROR: " + str(exc))
+                os.remove(downloaded_file_name)
+            else:
+                end = pikatime.now()
+                ms_two = (end - start).seconds
+                os.remove(downloaded_file_name)
+                await pika_msg(
+                    a,
+                    "𝐓𝐞𝐥𝐞𝐠𝐫𝐚𝐩𝐡.𝐩𝐡 𝐋𝐢𝐧𝐤 👉 `https://telegra.ph{}`".format(
+                        media_urls[0], (ms + ms_two)
+                    ),
+                    link_preview=false,
+                )
+        elif input_str == "t":
+            user_object = await event.client.get_entity(r_message.sender_id)
+            title_of_page = user_object.first_name  # + " " + user_object.last_name
+            # apparently, all Users do not have last_name field
+            if optional_title:
+                title_of_page = optional_title
+            page_content = r_message.message
+            if r_message.media:
+                if page_content != "":
+                    title_of_page = page_content
+                downloaded_file_name = await event.client.download_media(
+                    r_message, Config.TMP_DOWNLOAD_DIRECTORY
+                )
+                m_list = None
+                with open(downloaded_file_name, "rb") as fd:
+                    m_list = fd.readlines()
+                for m in m_list:
+                    page_content += m.decode("UTF-8") + "\n"
+                os.remove(downloaded_file_name)
+            page_content = page_content.replace("\n", "<br>")
+            response = telegraph.create_page(title_of_page, html_content=page_content)
+            end = datetime.now()
+            ms = (end - start).seconds
+            await pika_msg(
+                a,
+                "𝐓𝐞𝐥𝐞𝐠𝐫𝐚𝐩𝐡.𝐩𝐡 𝐋𝐢𝐧𝐤 👉 `https://telegra.ph{}`".format(response["path"]),
+                link_preview=True,
+            )
+    else:
+        await pika_msg(a, "Reply to a msg/media to get a permanent telegra.ph link.")
+
+
+def resize_image(image):
+    im = Image.open(image)
+    im.save(image, "PNG")
+
+
+async def _invite(event):
+    if event.fwd_from:
+        return
+    to_add_users = event.pattern_match.group(1)
+    if event.is_private:
+        await event.edit("`.invite` users to a chat, not to a Private Message")
+    else:
+        pikalog.info(to_add_users)
+        if not event.is_channel and event.is_group:
+            # https://lonamiwebs.github.io/Telethon/methods/messages/add_chat_user.html
+            for user_id in to_add_users.split(" "):
+                try:
+                    await event.client(
+                        functions.messages.AddChatUserRequest(
+                            chat_id=event.chat_id, user_id=user_id, fwd_limit=1000000
+                        )
+                    )
+                except Exception as e:
+                    await event.reply(str(e))
+            await event.edit("Invited Successfully ji")
+        else:
+            # https://lonamiwebs.github.io/Telethon/methods/channels/invite_to_channel.html
+            for user_id in to_add_users.split(" "):
+                try:
+                    await event.client(
+                        functions.channels.InviteToChannelRequest(
+                            channel=event.chat_id, users=[user_id]
+                        )
+                    )
+                except Exception as e:
+                    await event.reply(str(e))
+            await event.edit("Invited Successfully")
