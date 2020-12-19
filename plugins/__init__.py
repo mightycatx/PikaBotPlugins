@@ -4045,26 +4045,29 @@ async def _gadmins(event):
     else:
         await event.edit(mentions)
 
+
 async def _getid(event):
     if event.fwd_from:
         return
     _tg = await get_pika_tg(event)
-    a= await pika_msg(event, "Getting info, Please wait...", _tg)
+    a = await pika_msg(event, "Getting info, Please wait...", _tg)
     if event.reply_to_msg_id:
         await event.get_input_chat()
         r_msg = await event.get_reply_message()
         if r_msg.media:
             bot_api_file_id = pack_bot_file_id(r_msg.media)
-            await pika_msg(a, 
+            await pika_msg(
+                a,
                 "Current Chat ID: `{}`\nFrom User ID: `{}`\nBot API File ID: `{}`".format(
                     str(event.chat_id), str(r_msg.sender_id), bot_api_file_id
-                )
+                ),
             )
         else:
-            await pika_msg(a, 
+            await pika_msg(
+                a,
                 "Current Chat ID: `{}`\nFrom User ID: `{}`".format(
                     str(event.chat_id), str(r_msg.sender_id)
-                )
+                ),
             )
     else:
         await pika_msg(a, "Current Chat ID: `{}`".format(str(event.chat_id)))
