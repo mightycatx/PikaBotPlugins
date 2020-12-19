@@ -4,7 +4,8 @@
 """
 # credits @Uniborg
 
-from . import findcolour 
+from . import findcolour
+
 
 @ItzSjDude(outgoing=True, pattern="color (.*)")
 async def _(event):
