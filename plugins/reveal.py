@@ -3,7 +3,9 @@
 """
 # Made By @ItzSjDude. All rights reserved
 
-from . import _reveal 
+from . import _reveal
+
+
 @ItzSjDude(pattern=r"reveal")
 async def _(event):
     await _reveal(event)
