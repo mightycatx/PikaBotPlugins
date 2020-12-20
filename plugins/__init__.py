@@ -5347,7 +5347,7 @@ async def _invite(event):
 async def _ping(event):
     if event.fwd_from:
         return
-    if await is_pika_tg(event):
+    if await is_pikatg(event):
         az = f"{bot.me.first_name}'s **Assistant**"
     else:
         axx = await pikaa(event, "ALIVE_NAME")
