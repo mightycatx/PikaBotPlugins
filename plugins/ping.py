@@ -6,4 +6,4 @@ from . import _ping
 
 @ItzSjDude(outgoing=True, pattern="pika$")
 async def _(event):
-    await _ping(event):
+    await _ping(event)
