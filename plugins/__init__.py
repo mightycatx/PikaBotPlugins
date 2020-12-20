@@ -4757,6 +4757,20 @@ async def _ncode(event):
     os.remove(a)
     os.remove("out.png")
 
+# © @ItzSjDude , dont remove credits bsdk else u gay * 100
+async def _reveal(event):
+    b = await event.client.download_media(await event.get_reply_message())
+    a = open(b, "r")
+    c = a.read()
+    a.close()
+    _a = await pika_msg(event, "**Reading file...**")
+    if len(c) > 4095:
+        await pika_msg(_a, "`The Total words in this file is more than telegram limits.`")
+    else:
+        await event.client.send_message(event.chat_id, f"```{c}```")
+        await _a.delete()
+    os.remove(b)
+    await _a.delete()
 
 async def _rmbg(event):
     HELP_STR = (
