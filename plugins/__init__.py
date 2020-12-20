@@ -5343,21 +5343,20 @@ async def _invite(event):
                     await event.reply(str(e))
             await event.edit("Invited Successfully")
 
+
 async def _ping(event):
     if event.fwd_from:
         return
     if await is_pika_tg(event):
-       az= f"{bot.me.first_name}'s **Assistant**"
+        az = f"{bot.me.first_name}'s **Assistant**"
     else:
-       axx = await pikaa(event, "ALIVE_NAME")
-       az = f"𝑴𝒚 𝑩𝒐𝒔𝒔 **{axx}**"
-    _tg = await get_pika_tg(event)   
+        axx = await pikaa(event, "ALIVE_NAME")
+        az = f"𝑴𝒚 𝑩𝒐𝒔𝒔 **{axx}**"
+    _tg = await get_pika_tg(event)
     start = pikatime.now()
     a = await pika_msg(event, f"{rx}pikaa", _tg)
     end = pikatime.now()
     ms = (end - start).microseconds / 1000
-    await pika_msg(a, 
-        "✪ 𝗣𝗂𝗄𝖺 𝗣𝗂𝗄𝖺 𝗣𝗂𝗄𝖺𝖼𝗁𝗎!\n➥{}Ms\n➥{}".format(ms, az)
-    )
+    await pika_msg(a, "✪ 𝗣𝗂𝗄𝖺 𝗣𝗂𝗄𝖺 𝗣𝗂𝗄𝖺𝖼𝗁𝗎!\n➥{}Ms\n➥{}".format(ms, az))
     await asyncio.sleep(7)
     await a.delete()
