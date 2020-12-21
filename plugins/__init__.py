@@ -63,6 +63,7 @@ from telethon.errors.rpcerrorlist import (
     UserIdInvalidError,
     YouBlockedUserError,
 )
+from telethon.events import ChatAction
 from telethon.events.callbackquery import CallbackQuery as Pika_CallBack
 from telethon.tl import functions, types
 from telethon.tl.functions.channels import (
@@ -75,7 +76,6 @@ from telethon.tl.functions.messages import (
     SaveDraftRequest,
     UpdatePinnedMessageRequest,
 )
-from telethon.events import ChatAction
 from telethon.tl.functions.photos import DeletePhotosRequest, GetUserPhotosRequest
 from telethon.tl.functions.users import GetFullUserRequest
 from telethon.tl.types import (
