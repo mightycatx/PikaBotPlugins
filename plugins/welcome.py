@@ -1,7 +1,7 @@
 # © Itzsjdude
 
 
-from . import _welcome, del_welcm, get_welcm, set_wlcm, ChatAction
+from . import ChatAction, _welcome, del_welcm, get_welcm, set_wlcm
 
 
 @bot.on(ChatAction)
