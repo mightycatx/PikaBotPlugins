@@ -5273,7 +5273,7 @@ async def _welcome(_pika):
                 file_media = pikamsg.media
                 current_saved_welcome_message = pikamsg.message
             elif pika_wel and pika_wel.cust_wc:
-                current_saved_welcome_message = pika_wel.prev_wc
+                current_saved_welcome_message = pika_wel.cust_wc
             current_message = await _pika.reply(
                 current_saved_welcome_message.format(
                     mention=mention,
