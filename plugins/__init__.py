@@ -75,6 +75,7 @@ from telethon.tl.functions.messages import (
     SaveDraftRequest,
     UpdatePinnedMessageRequest,
 )
+from telethon.events import ChatAction
 from telethon.tl.functions.photos import DeletePhotosRequest, GetUserPhotosRequest
 from telethon.tl.functions.users import GetFullUserRequest
 from telethon.tl.types import (
