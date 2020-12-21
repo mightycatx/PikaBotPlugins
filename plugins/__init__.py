@@ -5228,6 +5228,133 @@ async def apk(e):
         await pika_msg(a, "Exception Occured:- " + str(err))
 
 
+async def _welcome(_pika):
+    _pika_id = await get_pika_id(_pika)
+    pika_wel = get_welcome(_pika.chat_id, _pika_id)
+    if pika_wel:
+        if (_pika.user_joined or _pika.user_added) and not (await _pika.get_user()).bot:
+            if pika_wel.cl_wc:
+                try:
+                    await _pika.client.delete_messages(
+                        _pika.chat_id, pika_wel.prev_wc
+                    )
+                except Exception as e:
+                    pikalog.warn(str(e))
+            pika1 = await _pika.get_user()
+            chat = await _pika.get_chat()
+            me = await _pika.client.get_me()
+
+            title = chat.title if chat.title else "this chat"
+            participants = await _pika.client.get_participants(chat)
+            count = len(participants)
+            mention = "[{}](tg://user?id={})".format(pika1.first_name, pika1.id)
+            my_mention = "[{}](tg://user?id={})".format(me.first_name, me.id)
+            first = pika1.first_name
+            last = pika1.last_name
+            if last:
+                fullname = f"{first} {last}"
+            else:
+                fullname = first
+            username = f"@{pika1.username}" if pika1.username else mention
+            userid = pika1.id
+            my_first = me.first_name
+            my_last = me.last_name
+            if my_last:
+                my_fullname = f"{my_first} {my_last}"
+            else:
+                my_fullname = my_first
+            my_username = f"@{me.username}" if me.username else my_mention
+            file_media = None
+            current_saved_welcome_message = None
+            if pika_wel and pika_wel.mf_id:
+                pikamsg = await _pika.client.get_messages(
+                    entity=BOTLOG_CHATID, ids=int(pika_wel.mf_id)
+                )
+                file_media = pikamsg.media
+                current_saved_welcome_message = pikamsg.message
+            elif pika_wel and pika_wel.reply:
+                current_saved_welcome_message = pika_wel.reply
+            current_message = await _pika.reply(
+                current_saved_welcome_message.format(
+                    mention=mention,
+                    title=title,
+                    count=count,
+                    first=first,
+                    last=last,
+                    fullname=fullname,
+                    username=username,
+                    userid=userid,
+                    my_first=my_first,
+                    my_last=my_last,
+                    my_fullname=my_fullname,
+                    my_username=my_username,
+                    my_mention=my_mention,
+                ),
+                file=file_media,
+            )
+            upd_prev_welcome(_pika.chat_id,_pika_id, current_message.id)
+
+async def set_wlcm(_pika):
+    _pika_id = await get_pika_id(_pika)
+    _tg = await is_pikatg(_pika)
+    msg = await _pika.get_reply_message()
+    string = _pika.pattern_match.group(1)
+    pikaa_id = None
+    cln_wc = False 
+    a= await pika_msg(_pika, "Setting Up Welcome Note, Please Wait...", _tg)
+    if msg and msg.media and not string:
+        if BOTLOG_CHATID:
+            await _pika.client.send_message(
+                BOTLOG_CHATID,
+                f"#WELCOME_NOTE\
+            \nCHAT ID: {_pika.chat_id}\
+            \nThe following message is saved as the new welcome note for the chat, please do NOT delete it !!",
+            )
+            pikamsg = await _pika.client.forward_messages(
+                entity=BOTLOG_CHATID, messages=msg, from_peer=_pika.chat_id, silent=True
+            )
+            pikaa_id = pikamsg.id
+        else:
+            await pika_msg(a, 
+                "`Saving media as part of the welcome note requires the BOTLOG_CHATID to be set.`"
+            )
+            return
+    elif _pika.reply_to_msg_id and not string:
+        rep_msg = await _pika.get_reply_message()
+        string = rep_msg.text
+    success = "`Welcome note {} for this chat.`"
+    if add_welcome(_pika.chat_id, _pika_id, string, cln_wc, 0, pikaa_id) is True:
+        await pika_msg(a, success.format("saved"))
+    else:
+        await pika_msg(a, success.format("updated"))
+
+async def get_welcm(_pika):
+    _pika_id = await get_pika_id(_pika)
+    pika_wel = get_welcome(_pika.chat_id, _pika_id)
+    _tg = await is_pikatg(_pika)
+    a= await pika_msg(_pika, "Getting Current Welcome Message, Please Wait...", _tg)
+    if not pika_wel:
+        await pika_msg(a, "`No welcome message saved here.`")
+        return
+    elif pika_wel and pika_wel.mf_id:
+        pikamsg = await _pika.client.get_messages(
+            entity=BOTLOG_CHATID, ids=int(pika_wel.mf_id)
+        )
+        await pika_msg(a, "`I am currently welcoming new users with this welcome note.`")
+        await _pika.reply(pikamsg.message, file=pikamsg.media)
+    elif pika_wel and pika_wel.reply:
+        await pika_msg(a, "`I am currently welcoming new users with this welcome note.`")
+        await _pika.reply(pika_wel.reply)
+
+async def del_welcm(_pika):
+    _tg = await is_pikatg(_pika)
+    _pika_id = await get_pika_id(_pika)
+    a = await pika_msg(_pika, "Deleting Welcome Note, Please wait...", _tg)
+    if remove_welcome(_pika.chat_id, _pika_id) is True:
+        await pika_msg(a, "`Welcome note deleted for this chat.`")
+    else:
+        await pika_msg(a, "`Do I have a welcome note here ?`")
+
 async def _telegraph(event):
     telegraph = Telegraph()
     r = telegraph.create_account(short_name=Config.TELEGRAPH_SHORT_NAME)
