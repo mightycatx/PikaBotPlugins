@@ -5363,12 +5363,16 @@ async def del_welcm(_pika):
     else:
         await pika_msg(a, "`Do I have a welcome note here ?`")
 
+
 async def clean_welcm(_pika):
     _tg = await is_pikatg(_pika)
     _pika_id = await get_pika_id(_pika)
-    a = await pika_msg(_pika, "Turning On Welcome Note Auto cleaning AI, Please wait...", _tg)
+    a = await pika_msg(
+        _pika, "Turning On Welcome Note Auto cleaning AI, Please wait...", _tg
+    )
     clean_welcome(_pika.chat_id, _pika_id, True)
     await pika_msg(a, "**Sucessfully Turned on Welcome Note Auto cleaning**")
+
 
 async def _telegraph(event):
     telegraph = Telegraph()
