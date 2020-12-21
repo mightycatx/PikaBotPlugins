@@ -5235,9 +5235,7 @@ async def _welcome(_pika):
         if (_pika.user_joined or _pika.user_added) and not (await _pika.get_user()).bot:
             if pika_wel.cl_wc:
                 try:
-                    await _pika.client.delete_messages(
-                        _pika.chat_id, pika_wel.prev_wc
-                    )
+                    await _pika.client.delete_messages(_pika.chat_id, pika_wel.prev_wc)
                 except Exception as e:
                     pikalog.warn(str(e))
             pika1 = await _pika.get_user()
@@ -5292,7 +5290,8 @@ async def _welcome(_pika):
                 ),
                 file=file_media,
             )
-            upd_prev_welcome(_pika.chat_id,_pika_id, current_message.id)
+            upd_prev_welcome(_pika.chat_id, _pika_id, current_message.id)
+
 
 async def set_wlcm(_pika):
     _pika_id = await get_pika_id(_pika)
@@ -5300,8 +5299,8 @@ async def set_wlcm(_pika):
     msg = await _pika.get_reply_message()
     string = _pika.pattern_match.group(1)
     pikaa_id = None
-    cln_wc = False 
-    a= await pika_msg(_pika, "Setting Up Welcome Note, Please Wait...", _tg)
+    cln_wc = False
+    a = await pika_msg(_pika, "Setting Up Welcome Note, Please Wait...", _tg)
     if msg and msg.media and not string:
         if BOTLOG_CHATID:
             await _pika.client.send_message(
@@ -5315,8 +5314,9 @@ async def set_wlcm(_pika):
             )
             pikaa_id = pikamsg.id
         else:
-            await pika_msg(a, 
-                "`Saving media as part of the welcome note requires the BOTLOG_CHATID to be set.`"
+            await pika_msg(
+                a,
+                "`Saving media as part of the welcome note requires the BOTLOG_CHATID to be set.`",
             )
             return
     elif _pika.reply_to_msg_id and not string:
@@ -5328,11 +5328,12 @@ async def set_wlcm(_pika):
     else:
         await pika_msg(a, success.format("updated"))
 
+
 async def get_welcm(_pika):
     _pika_id = await get_pika_id(_pika)
     pika_wel = get_welcome(_pika.chat_id, _pika_id)
     _tg = await is_pikatg(_pika)
-    a= await pika_msg(_pika, "Getting Current Welcome Message, Please Wait...", _tg)
+    a = await pika_msg(_pika, "Getting Current Welcome Message, Please Wait...", _tg)
     if not pika_wel:
         await pika_msg(a, "`No welcome message saved here.`")
         return
@@ -5340,11 +5341,16 @@ async def get_welcm(_pika):
         pikamsg = await _pika.client.get_messages(
             entity=BOTLOG_CHATID, ids=int(pika_wel.mf_id)
         )
-        await pika_msg(a, "`I am currently welcoming new users with this welcome note.`")
+        await pika_msg(
+            a, "`I am currently welcoming new users with this welcome note.`"
+        )
         await _pika.reply(pikamsg.message, file=pikamsg.media)
     elif pika_wel and pika_wel.reply:
-        await pika_msg(a, "`I am currently welcoming new users with this welcome note.`")
+        await pika_msg(
+            a, "`I am currently welcoming new users with this welcome note.`"
+        )
         await _pika.reply(pika_wel.reply)
+
 
 async def del_welcm(_pika):
     _tg = await is_pikatg(_pika)
@@ -5354,6 +5360,7 @@ async def del_welcm(_pika):
         await pika_msg(a, "`Welcome note deleted for this chat.`")
     else:
         await pika_msg(a, "`Do I have a welcome note here ?`")
+
 
 async def _telegraph(event):
     telegraph = Telegraph()
