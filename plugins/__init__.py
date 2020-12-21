@@ -5351,7 +5351,7 @@ async def get_welcm(_pika):
         await pika_msg(
             a, "`I am currently welcoming new users with this welcome note.`"
         )
-        await _pika.reply(pika_wel.reply)
+        await _pika.reply(pika_wel.cust_wc)
 
 
 async def del_welcm(_pika):
