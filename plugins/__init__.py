@@ -5272,8 +5272,8 @@ async def _welcome(_pika):
                 )
                 file_media = pikamsg.media
                 current_saved_welcome_message = pikamsg.message
-            elif pika_wel and pika_wel.reply:
-                current_saved_welcome_message = pika_wel.reply
+            elif pika_wel and pika_wel.prev_wc:
+                current_saved_welcome_message = pika_wel.prev_wc
             current_message = await _pika.reply(
                 current_saved_welcome_message.format(
                     mention=mention,
@@ -5347,7 +5347,7 @@ async def get_welcm(_pika):
             a, "`I am currently welcoming new users with this welcome note.`"
         )
         await _pika.reply(pikamsg.message, file=pikamsg.media)
-    elif pika_wel and pika_wel.reply:
+    elif pika_wel and pika_wel.prev_wc:
         await pika_msg(
             a, "`I am currently welcoming new users with this welcome note.`"
         )
