@@ -77,6 +77,7 @@ if bot4:
 
 
 async def _pmmenu(event):
+    _pika_id = await get_pika_id(event)
     chat_id = event.sender_id
     event.sender_id
     await get_pika_id(event)
