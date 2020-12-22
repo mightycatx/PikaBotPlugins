@@ -21,7 +21,6 @@ opener.addheaders = [("User-agent", useragent)]
 
 
 @ItzSjDude(outgoing=True, pattern=r"imgsearch(?: |$)(\d*)")
-
 async def okgoogle(img):
     """ For .reverse command, Google search images and stickers. """
     if os.path.isfile("okgoogle.png"):

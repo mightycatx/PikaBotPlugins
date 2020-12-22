@@ -12,9 +12,7 @@ import pybase64
 from pikabot import CMD_HELP
 
 
-
 @ItzSjDude(outgoing=True, pattern="hash (.*)")
-
 async def gethash(hash_q):
     """ For .hash command, find the md5, sha1, sha256, sha512 of the string. """
     hashtxt_ = hash_q.pattern_match.group(1)
@@ -59,7 +57,6 @@ async def gethash(hash_q):
 
 
 @ItzSjDude(outgoing=True, pattern="hbase (en|de) (.*)")
-
 async def endecrypt(query):
     """ For .base64 command, find the base64 encoding of the given string. """
     if query.pattern_match.group(1) == "en":
