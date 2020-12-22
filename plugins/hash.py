@@ -10,7 +10,7 @@ from subprocess import run as runapp
 
 import pybase64
 from pikabot import CMD_HELP
-from pikabot.events import errors_handler
+
 
 
 @ItzSjDude(outgoing=True, pattern="hash (.*)")
