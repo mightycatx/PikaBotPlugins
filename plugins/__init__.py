@@ -3547,10 +3547,10 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
             and query.startswith("Pïkå¢hµ")
         ):
             rev_text = query[::-1]
-            buttons = paginate_help(0, CMD_LIST, "helpme")
+            buttons = paginate_help(0, bot.pika_cmd, "helpme")
             result = builder.article(
                 "©Pikachu Userbot Help",
-                text="{}\nCurrently Loaded Plugins: {}".format(query, len(CMD_LIST)),
+                text="{}\nCurrently Loaded Plugins: {}".format(query, len(bot.pika_cmd)),
                 buttons=buttons,
                 link_preview=False,
             )
@@ -3566,7 +3566,7 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
             or _pikaa_ == pika_id4
         ):
             c_p_n = int(pika_.data_match.group(1).decode("UTF-8"))
-            buttons = paginate_help(c_p_n + 1, CMD_LIST, "helpme")
+            buttons = paginate_help(c_p_n + 1, bot.pika_cmd, "helpme")
             # https://t.me/TelethonChat/115200
             await pika_.edit(buttons=buttons)
 
@@ -3585,7 +3585,7 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
         ):
             c_p_n = int(pika_.data_match.group(1).decode("UTF-8"))
             buttons = paginate_help(
-                c_p_n - 1, CMD_LIST, "helpme"  # pylint:disable=E0602
+                c_p_n - 1, bot.pika_cmd, "helpme"  # pylint:disable=E0602
             )
             await pika_.edit(buttons=buttons)
 
@@ -3639,7 +3639,7 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
             a = randint(0, 9)
             _rx_ = f"{_emo_[a]}" + f" {rx}"
             _pika_ = pika_.data_match.group(1).decode("UTF-8")
-            _pika = CMD_LIST[_pika_].__doc__.format(i=_rx_)
+            _pika = bot.pika_cmd[_pika_].__doc__.format(i=_rx_)
             _pikaB = [(custom.Button.inline("⫷BacK", data="pikab"))]
             await pika_.edit(_pika, buttons=_pikaB)
 
@@ -3661,8 +3661,8 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
             or _pikaa_ == pika_id4
         ):
             _pika = f"""Pïkå¢hµ Úsêrßð† {helpstr}"""
-            _pika += "\n**Currently Loaded Plugins**: {}".format(len(CMD_LIST))
-            _pika_ = paginate_help(0, CMD_LIST, "helpme")
+            _pika += "\n**Currently Loaded Plugins**: {}".format(len(bot.pika_cmd))
+            _pika_ = paginate_help(0, bot.pika_cmd, "helpme")
             await pika_.edit(_pika, buttons=_pika_, link_preview=False)
         else:
             _alert_ = "Please get your own PikaBot, and don't use mine!"
@@ -3681,7 +3681,7 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
             a = randint(0, 9)
             _rx_ = f"{_emo_[a]}" + f" {rx}"
             pika_.data_match.group(1).decode("UTF-8")
-            _pika = CMD_LIST["systools"].__doc__.format(i=_rx_)
+            _pika = bot.pika_cmd["systools"].__doc__.format(i=_rx_)
             _pikaB = [(custom.Button.inline("⫷BacK", data="pikab"))]
             await pika_.edit(_pika, buttons=_pikaB)
 
