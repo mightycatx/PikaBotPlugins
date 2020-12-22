@@ -9,7 +9,7 @@ import json
 from datetime import datetime
 
 import requests
-from pikabot.utils import ItzSjDude, errors_handler
+from pikabot.utils import ItzSjDude
 from pytz import country_names as c_n
 from pytz import country_timezones as c_tz
 from pytz import timezone as tz
