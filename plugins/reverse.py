@@ -12,7 +12,7 @@ import urllib
 
 import requests
 from bs4 import BeautifulSoup
-from pikabot.utils import errors_handler
+
 from PIL import Image
 from userbot import CMD_HELP
 
