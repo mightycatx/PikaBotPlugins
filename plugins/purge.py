@@ -7,7 +7,7 @@
 
 from asyncio import sleep
 
-from pikabot.utils import ItzSjDude, errors_handler
+from pikabot.utils import ItzSjDude
 from telethon.errors import rpcbaseerrors
 from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP
 
