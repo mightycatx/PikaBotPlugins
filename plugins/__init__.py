@@ -3550,7 +3550,9 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
             buttons = paginate_help(0, bot.pika_cmd, "helpme")
             result = builder.article(
                 "©Pikachu Userbot Help",
-                text="{}\nCurrently Loaded Plugins: {}".format(query, len(bot.pika_cmd)),
+                text="{}\nCurrently Loaded Plugins: {}".format(
+                    query, len(bot.pika_cmd)
+                ),
                 buttons=buttons,
                 link_preview=False,
             )
