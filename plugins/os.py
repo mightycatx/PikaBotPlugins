@@ -1,7 +1,7 @@
 import asyncio
 
 
-@ItzSjDude(pattern=r"macos")
+@ItzSjDude(pattern=r"macos", outgoing=True)
 async def _(event):
 
     if event.fwd_from:
@@ -35,7 +35,7 @@ async def _(event):
         await event.edit(animation_chars[i % 11])
 
 
-@ItzSjDude(pattern=r"windows")
+@ItzSjDude(pattern=r"windows", outgoing=True)
 async def _(event):
 
     if event.fwd_from:
@@ -69,7 +69,7 @@ async def _(event):
         await event.edit(animation_chars[i % 11])
 
 
-@ItzSjDude(pattern=r"linux")
+@ItzSjDude(pattern=r"linux", outgoing=True)
 async def _(event):
 
     if event.fwd_from:
@@ -103,7 +103,7 @@ async def _(event):
         await event.edit(animation_chars[i % 11])
 
 
-@ItzSjDude(pattern=r"stock")
+@ItzSjDude(pattern=r"stock", outgoing=True)
 async def _(event):
 
     if event.fwd_from:
@@ -137,7 +137,7 @@ async def _(event):
         await event.edit(animation_chars[i % 11])
 
 
-@ItzSjDude(pattern=r"os")
+@ItzSjDude(pattern=r"os", outgoing=True)
 async def _(event):
 
     if event.fwd_from:
