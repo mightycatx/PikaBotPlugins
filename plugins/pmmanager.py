@@ -58,11 +58,11 @@ if LOGBOT is not None:
         try:
             replied_user = await event.client(GetFullUserRequest(event.chat_id))
             firstname = replied_user.user.first_name
-            res = event.pattern_match.group(1)
             chat = await event.get_chat()
         except BaseException:
             pass
-        if res is None:
+        res = event.pattern_match.group(1)
+        if not res:
             res = "None"
         if event.is_private:
             _pika_id = await get_pika_id(event)
