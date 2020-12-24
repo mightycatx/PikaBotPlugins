@@ -3567,7 +3567,7 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
             or _pikaa_ == pika_id3
             or _pikaa_ == pika_id4
         ):
-            pikacmds = await pika_cmds(event)
+            pikacmds = bot.pika_cmd
             c_p_n = int(pika_.data_match.group(1).decode("UTF-8"))
             buttons = paginate_help(c_p_n + 1, pikacmds, "helpme")
             # https://t.me/TelethonChat/115200
@@ -3586,7 +3586,7 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
             or _pikaa_ == pika_id3
             or _pikaa_ == pika_id4
         ):
-            pikacmds = await pika_cmds(event)
+            pikacmds = bot.pika_cmd
             c_p_n = int(pika_.data_match.group(1).decode("UTF-8"))
             buttons = paginate_help(
                 c_p_n - 1, pikacmds, "helpme"  # pylint:disable=E0602
@@ -3642,7 +3642,7 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
 
             a = randint(0, 9)
             _rx_ = f"{_emo_[a]}" + f" {rx}"
-            _pikacmds = await pika_cmds(pika_)
+            _pikacmds = bot.pika_cmd
             _pika_ = pika_.data_match.group(1).decode("UTF-8")
             _pika = _pikacmds[_pika_].__doc__.format(i=_rx_)
             _pikaB = [(custom.Button.inline("⫷BacK", data="pikab"))]
@@ -3666,7 +3666,7 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
             or _pikaa_ == pika_id4
         ):
             _pika = f"""Pïkå¢hµ Úsêrßð† {helpstr}"""
-            _pikacmds = await pika_cmds(pika_)
+            _pikacmds = bot.pika_cmd
             _pika += "\n**Currently Loaded Plugins**: {}".format(len(_pikacmds))
             _pika_ = paginate_help(0, _pikacmds, "helpme")
             await pika_.edit(_pika, buttons=_pika_, link_preview=False)
@@ -3686,7 +3686,7 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
 
             a = randint(0, 9)
             _rx_ = f"{_emo_[a]}" + f" {rx}"
-            _pikacmds = await pika_cmds(pika_)
+            _pikacmds = bot.pika_cmd
             pika_.data_match.group(1).decode("UTF-8")
             _pika = _pikacmds["systools"].__doc__.format(i=_rx_)
             _pikaB = [(custom.Button.inline("⫷BacK", data="pikab"))]
