@@ -9,8 +9,8 @@ jobs:
       - name: Find and Replace
         uses: jacobtomlinson/gha-find-replace@master
         with:
-          find: "pikabot.events"
-          replace: "pikabot.utils"
+          find: "await pika_cmds(event)"
+          replace: "bot.pika_cmd"
       - name: Create Pull Request
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
