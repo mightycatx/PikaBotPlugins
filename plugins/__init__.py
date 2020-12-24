@@ -3683,7 +3683,7 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
             or _pikaa_ == pika_id3
             or _pikaa_ == pika_id4
         ):
-       
+
             a = randint(0, 9)
             _rx_ = f"{_emo_[a]}" + f" {rx}"
             _pikacmds = await pika_cmds(pika_)
