@@ -3697,29 +3697,30 @@ async def _pikacallback1(pika_):
     pikacmds = tgbot.PikaAsst
     c_p_n = int(pika_.data_match.group(1).decode("UTF-8"))
     buttons = paginate_help(c_p_n + 1, pikacmds, "helpme")
-    
+
     # https://t.me/TelethonChat/115200
     await pika_.edit(buttons=buttons)
+
 
 async def _pikacallback2(pika_):
     pikacmds = tgbot.PikaAsst
     c_p_n = int(pika_.data_match.group(1).decode("UTF-8"))
-    buttons = paginate_help(
-    c_p_n - 1, pikacmds, "helpme"  # pylint:disable=E0602
-        )
+    buttons = paginate_help(c_p_n - 1, pikacmds, "helpme")  # pylint:disable=E0602
     await pika_.edit(buttons=buttons)
+
 
 async def _pikacallback3(pika_):
     await pika_.edit("Pika Pi! Restarting wait for 1 Min!")
     await asyncio.sleep(4)
     await pika_.delete()
     pika_start()
- 
+
 
 async def _pikacallback4(pika_):
     _a_ = await pika_.edit("Pika Pi! Menu Closed!")
     await asyncio.sleep(3)
     await _a_.delete()
+
 
 async def _pikacallback5(pika_):
     a = randint(0, 9)
@@ -3737,9 +3738,6 @@ async def _pikacallback6(pika_):
     _pika += "\n**Currently Loaded Plugins**: {}".format(len(_pikacmds))
     _pika_ = paginate_help(0, _pikacmds, "helpme")
     await pika_.edit(_pika, buttons=_pika_, link_preview=False)
-    
-
-
 
 
 def paginate_help(page_number, loaded_plugins, prefix):
