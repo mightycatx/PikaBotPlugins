@@ -3751,18 +3751,16 @@ def paginate_help(page_number, loaded_plugins, prefix):
 
     helpable_plugins = sorted(helpable_plugins)
     if loaded_plugins == bot.pika_cmd:
-       _data1 = f"us_plugin_{const}"
-       _data2 = f"{const}_prev({const})" 
-       _data3 = f"{const}_next({const})"
-    else: 
-       _data1 = f"pika5{const}" 
-       _data2 = f"{const}pika1({const})" 
-       _data3 = f"{const}pika2({const})"
+        _data1 = f"us_plugin_{const}"
+        _data2 = f"{const}_prev({const})"
+        _data3 = f"{const}_next({const})"
+    else:
+        _data1 = f"pika5{const}"
+        _data2 = f"{const}pika1({const})"
+        _data3 = f"{const}pika2({const})"
 
     modules = [
-        custom.Button.inline(
-            "{} {} {}".format(xl, x, xl), data=_data1.format(x)
-        )
+        custom.Button.inline("{} {} {}".format(xl, x, xl), data=_data1.format(x))
         for x in helpable_plugins
     ]
     if number_of_cols == 1:
@@ -3801,13 +3799,9 @@ def paginate_help(page_number, loaded_plugins, prefix):
         pairs = (
             [
                 (
-                    custom.Button.inline(
-                        "«]", data=_data2.format(prefix, modulo_page)
-                    ),
+                    custom.Button.inline("«]", data=_data2.format(prefix, modulo_page)),
                     custom.Button.inline("Close🙅‍♀️", data="close"),
-                    custom.Button.inline(
-                        "[»", data=_data3.format(prefix, modulo_page)
-                    ),
+                    custom.Button.inline("[»", data=_data3.format(prefix, modulo_page)),
                 )
             ]
             + pairs[modulo_page * number_of_rows : number_of_rows * (modulo_page + 1)]
