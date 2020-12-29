@@ -3728,7 +3728,7 @@ async def _pikacallback5(pika_):
     _pikacmds = tgbot.PikaAsst
     _pika_ = pika_.data_match.group(1).decode("UTF-8")
     _pika = _pikacmds[_pika_].__doc__.format(i=_rx_)
-    _pikaB = [(custom.Button.inline("⫷BacK", data="_pikab"))]
+    _pikaB = [(custom.Button.inline("⫷BacK", data="pika6"))]
     await pika_.edit(_pika, buttons=_pikaB)
 
 
@@ -3750,9 +3750,18 @@ def paginate_help(page_number, loaded_plugins, prefix):
             helpable_plugins.append(p)
 
     helpable_plugins = sorted(helpable_plugins)
+    if loaded_plugins == bot.pika_cmd:
+       _data1 = f"us_plugin_{const}"
+       _data2 = f"{const}_prev({const})" 
+       _data3 = f"{const}_next({const})"
+    else: 
+       _data1 = f"pika5{const}" 
+       _data2 = f"{const}pika1({const})" 
+       _data3 = f"{const}pika2({const})"
+
     modules = [
         custom.Button.inline(
-            "{} {} {}".format(xl, x, xl), data="us_plugin_{}".format(x)
+            "{} {} {}".format(xl, x, xl), data=_data1.format(x)
         )
         for x in helpable_plugins
     ]
@@ -3793,11 +3802,11 @@ def paginate_help(page_number, loaded_plugins, prefix):
             [
                 (
                     custom.Button.inline(
-                        "«]", data="{}_prev({})".format(prefix, modulo_page)
+                        "«]", data=_data2.format(prefix, modulo_page)
                     ),
                     custom.Button.inline("Close🙅‍♀️", data="close"),
                     custom.Button.inline(
-                        "[»", data="{}_next({})".format(prefix, modulo_page)
+                        "[»", data=_data3.format(prefix, modulo_page)
                     ),
                 )
             ]
