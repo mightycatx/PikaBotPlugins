@@ -3692,6 +3692,7 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
             _pikaB = [(custom.Button.inline("⫷BacK", data="pikab"))]
             await pika_.edit(_pika, buttons=_pikaB)
 
+
 def assistent_help(page_number, loaded_plugins, prefix):
 
     number_of_rows = pikrws
@@ -3702,7 +3703,7 @@ def assistent_help(page_number, loaded_plugins, prefix):
             helpable_plugins.append(p)
 
     helpable_plugins = sorted(helpable_plugins)
-    
+
     _data1 = f"pika5{const}"
     _data2 = f"{const}pika1({const})"
     _data3 = f"{const}pika2({const})"
@@ -3758,7 +3759,6 @@ def assistent_help(page_number, loaded_plugins, prefix):
         )
 
     return pairs
-
 
 
 def paginate_help(page_number, loaded_plugins, prefix):
