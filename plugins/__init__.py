@@ -3696,7 +3696,7 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
 @tgbot.on(Pika_CallBack(data=re.compile(rb"pika1\((.+?)\)")))
 async def _(_pika):
     pikacmds = tgbot.PikaAsst
-    c_p_n = int(pika_.data_match.group(1).decode("UTF-8"))
+    c_p_n = int(_pika.data_match.group(1).decode("UTF-8"))
     buttons = assistent_help(c_p_n + 1, pikacmds, "helpme")
     await pika_.edit(buttons=buttons)
 
