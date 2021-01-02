@@ -27,5 +27,5 @@ async def _(rstrt):
 
 
 @ItzSjDude(outgoing=True, pattern=r"logs")
-async def _logs(dyno):
+async def _(dyno):
     await _logs(dyno)
