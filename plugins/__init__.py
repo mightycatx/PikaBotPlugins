@@ -5184,6 +5184,7 @@ async def _dyno(dyno):
     """
     Get your account Dyno Usage
     """
+    _tg = await get_pika_tg(dyno)
     a = await pika_msg(dyno, "`Calculating your Dyno Usage`", _tg)
     useragent = (
         "Mozilla/5.0 (Linux; Android 10; SM-G975F) "
