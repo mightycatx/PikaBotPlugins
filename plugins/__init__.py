@@ -750,8 +750,8 @@ async def _ban(bon):
     # Announce that we're going to whack the pest
     a = await pika_msg(
         bon,
-        _tg,
         "`Whacking the pest!`",
+        _tg,
     )
 
     try:
@@ -810,7 +810,7 @@ async def _unban(unbon):
 
     # If everything goes well...
     _tg = await get_pika_tg(unbon)
-    a = await pika_msg(unbon, _tg, "`Unbanning...`")
+    a = await pika_msg(unbon, "`Unbanning...`", _tg)
 
     user = await get_user_from_event(unbon)
     user = user[0]
