@@ -5274,7 +5274,7 @@ app = Heroku.app(Var.HEROKU_APP_NAME)
 
 async def _logs(dyno):
     _tg = await get_pika_tg(dyno)
-    await pika_msg(dyno, "Getting Logs....", _tg)
+    a= await pika_msg(dyno, "Getting Logs....", _tg)
     await asyncio.sleep(1)
     with open("logs.txt", "w") as log:
         log.write(app.get_log())
