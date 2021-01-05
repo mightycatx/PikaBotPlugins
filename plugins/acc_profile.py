@@ -26,21 +26,21 @@ async def _(event):
     await pbio(event)
 
 if bot2: 
-   @bot2.on(pika_sudo(from_client=2, pattern=pbio (.*)"))
+   @bot2.on(pika_sudo(from_client=2, pattern="pbio (.*)"))
    async def _(event):
        await pbio(event)
 
 if bot3: 
-   @bot3.on(pika_sudo(from_client=3, pattern=pbio (.*)"))
+   @bot3.on(pika_sudo(from_client=3, pattern="pbio (.*)"))
    async def _(event):
        await pbio(event)
 
 if bot4: 
-   @bot4.on(pika_sudo(from_client=4, pattern=pbio (.*)"))
+   @bot4.on(pika_sudo(from_client=4, pattern="pbio (.*)"))
    async def _(event):
        await pbio(event)
 
-@bot.on(pika_sudo(from_client=1, pattern=pname ((.|\n)*)"))
+@bot.on(pika_sudo(from_client=1, pattern="pname ((.|\n)*)"))
 @ItzSjDude(outgoing=True, pattern="pname ((.|\n)*)")
 async def _(event):
     await pname(event)
