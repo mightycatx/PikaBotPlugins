@@ -46,17 +46,17 @@ async def _(event):
     await pname(event)
 
 if bot2: 
-   @bot2.on(pika_sudo(from_client=2, pattern=pname ((.|\n)*)"))
+   @bot2.on(pika_sudo(from_client=2, pattern="pname ((.|\n)*)"))
    async def _(event):
        await pname(event)
 
 if bot3: 
-   @bot3.on(pika_sudo(from_client=3, pattern=pname ((.|\n)*)"))
+   @bot3.on(pika_sudo(from_client=3, pattern="pname ((.|\n)*)"))
    async def _(event):
        await pname(event)
 
 if bot4: 
-   @bot4.on(pika_sudo(from_client=4, pattern=pname ((.|\n)*)"))
+   @bot4.on(pika_sudo(from_client=4, pattern="pname ((.|\n)*)"))
    async def _(event):
        await pname(event)
 
