@@ -1,4 +1,4 @@
-from . import helper, pika_sudo
+from . import helper, pika_sudo, bot, bot2, bot3, bot4
 
 # ____Sudo____
 if bot:
