@@ -18,7 +18,7 @@
 {i}ppic <Reply to pic>
 **Usage**: sets Profile pic\n
 """
-from . import anpfp, atb, atnm, avpfp, gmpfp, pbio, pname
+from . import anpfp, atb, atnm, avpfp, gmpfp, pbio, pname, pika_sudo, bot, bot2, bot3, bot4
 
 
 @bot.on(pika_sudo(from_client=1, pattern="pbio (.*)"))
