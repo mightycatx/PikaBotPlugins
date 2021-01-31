@@ -108,7 +108,7 @@ if bot3:
         await anpfp(event)
 
 
-if bot3:
+if bot4:
 
     @bot4.on(pika_sudo(from_client=4, pattern="animepfp ?(.*)"))
     async def _(event):
