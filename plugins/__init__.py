@@ -5630,7 +5630,7 @@ async def _ping(event):
         az = f"𝑴𝒚 𝑩𝒐𝒔𝒔 **{axx}**"
     _tg = await get_pika_tg(event)
     start = pikatime.now()
-    a = await pika_msg(event, f"{rx}pikaa", _tg)
+    a = await pika_msg(event, f"{rx}pikaa"), false)
     end = pikatime.now()
     ms = (end - start).microseconds / 1000
     await pika_msg(a, "✪ 𝗣𝗂𝗄𝖺 𝗣𝗂𝗄𝖺 𝗣𝗂𝗄𝖺𝖼𝗁𝗎!\n➥{}Ms\n➥{}".format(ms, az))
