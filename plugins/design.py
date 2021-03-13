@@ -1,7 +1,8 @@
 """Design plugin
 {i}join
 {i}pay"""
-from . import jon, pay 
+from . import jon, pay
+
 
 @ItzSjDude(outgoing=True, pattern="join")
 async def _(event):
