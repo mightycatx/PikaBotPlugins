@@ -8,7 +8,7 @@ from googletrans import Translator
 from pikabot.utils import ItzSjDude
 
 
-@ItzSjDude(outgoing=True, pattern="tr ?(.*)")
+@ItzSjDude(outgoing=True, pattern="tr")
 async def _(event):
     if event.fwd_from:
         return
@@ -16,11 +16,14 @@ async def _(event):
         # https://t.me/c/1220993104/192075
         return
     input_str = event.text[4:6]
+    txt = event.text[7:] 
     if event.reply_to_msg_id:
-        text = event.text[7:]
-        lan = input_str or "gu"
-    elif "|" in input_str:
-        lan, text = input_str.split("|")
+        previous_message = await event.get_reply_message()
+        text = previous_message.message
+        lan = input_str or "en"
+    
+    elif input_str:
+        text = txt; lan = input_str or "en"
     else:
         await event.edit("`.tr LanguageCode` as reply to a message")
         return
