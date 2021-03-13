@@ -37,8 +37,6 @@ async def _(event):
     # either here, or before translation
     output_str = """**Translated By Pikabot**\n\nSource **( {} )**\n\nTranslation **( {} )**
          {}""".format(
-            translated.src, lan, after_tr_text
-        )
+        translated.src, lan, after_tr_text
+    )
     await event.edit(output_str)
-   
-
