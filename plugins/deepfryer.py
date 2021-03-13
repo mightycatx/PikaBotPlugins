@@ -5,6 +5,7 @@
 """
 from . import deepfryer
 
+
 @ItzSjDude(outgoing=True, pattern="deepfry(?: |$)(.*)")
 async def _(event):
     await deepfryer(event)
