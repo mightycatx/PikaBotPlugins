@@ -16,14 +16,15 @@ async def _(event):
         # https://t.me/c/1220993104/192075
         return
     input_str = event.text[4:6]
-    txt = event.text[7:] 
+    txt = event.text[7:]
     if event.reply_to_msg_id:
         previous_message = await event.get_reply_message()
         text = previous_message.message
         lan = input_str or "en"
-    
+
     elif input_str:
-        text = txt; lan = input_str or "en"
+        text = txt
+        lan = input_str or "en"
     else:
         await event.edit("`.tr LanguageCode` as reply to a message")
         return
