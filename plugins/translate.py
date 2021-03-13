@@ -31,16 +31,14 @@ async def _(event):
     text = emoji.demojize(text.strip())
     lan = lan.strip()
     translator = Translator()
-    try:
-        translated = translator.translate(text, dest=lan)
-        after_tr_text = translated.text
-        # TODO: emojify the :
-        # either here, or before translation
-        output_str = """**Translated By Pikabot**\n\nSource **( {} )**\n\nTranslation **( {} )**
+    translated = translator.translate(text, dest=lan)
+    after_tr_text = translated.text
+    # TODO: emojify the :
+    # either here, or before translation
+    output_str = """**Translated By Pikabot**\n\nSource **( {} )**\n\nTranslation **( {} )**
          {}""".format(
             translated.src, lan, after_tr_text
         )
+    await event.edit(output_str)
+   
 
-        await event.edit(output_str)
-    except Exception as exc:
-        await event.edit(str(exc))
