@@ -15,10 +15,9 @@ async def _(event):
     if "trim" in event.raw_text:
         # https://t.me/c/1220993104/192075
         return
-    input_str = event.pattern_match.group(1)
+    input_str = event.text[4:6]
     if event.reply_to_msg_id:
-        previous_message = await event.get_reply_message()
-        text = previous_message.message
+        text = event.text[7:]
         lan = input_str or "gu"
     elif "|" in input_str:
         lan, text = input_str.split("|")
@@ -33,12 +32,11 @@ async def _(event):
         after_tr_text = translated.text
         # TODO: emojify the :
         # either here, or before translation
-        output_str = """**Translated By Pikabot**
-         Source **( {} )**
-         Translation **( {} )**
+        output_str = """**Translated By Pikabot**\n\nSource **( {} )**\n\nTranslation **( {} )**
          {}""".format(
             translated.src, lan, after_tr_text
-        )
+
         await event.edit(output_str)
     except Exception as exc:
         await event.edit(str(exc))
+
