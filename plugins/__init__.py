@@ -1078,20 +1078,16 @@ async def _gmte(gspdr):
 
 async def _rmdacc(show):
     """ For .delusers command, list all the ghost/deleted accounts in a chat. """
-    _tg = await tgbot.get_me()
-    if _tg.id == tgbot.uid:
-        ax = True
-    else:
-        ax = None
+    _tg = await get_pika_tg(show)
     if not show.is_group:
-        await pika_msg(show, "`I don't think this is a group.`", ax)
+        await pika_msg(show, "`I don't think this is a group.`", _tg)
         return
     con = show.pattern_match.group(1)
     del_u = 0
     del_status = "`No deleted accounts found, Group is cleaned as Hell`"
 
     if con != "clean":
-        a = await pika_msg(show, "`Searching for zombie accounts...`", _ax)
+        a = await pika_msg(show, "`Searching for zombie accounts...`", _tg)
         async for user in show.client.iter_participants(show.chat_id, aggressive=True):
             if user.deleted:
                 del_u += 1
