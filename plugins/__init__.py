@@ -1363,28 +1363,28 @@ async def gban(event):
         await pika_msg(a, "**I Can't Gban You Master ☹️**")
         return
     if gban_sql.is_gbanned(user.id, pika_id):
-        await pika_msg(a, "**This User Is Already Gbanned.**")
-        return
-    gban_sql.gban(user.id, pika_id, rson)
-
-    await pika_msg(a, f"**Trying To GBan [{user.first_name}](tg://user?id={user.id})**")
-    async for pik in event.client.iter_dialogs():
-        try:
-            await event.client.edit_permissions(pik.id, user.id, view_messages=False)
-            suc += 1
-        except BaseException:
-            bd += 0
-    et = pikatime()
-    tott = round(et - st)
-    await pika_msg(
-        a,
-        f"**GBanned Successfully !** \n\n"
-        f"**User :** [{user.first_name}](tg://user?id={user.id}) \n"
-        f"**Affected Chats :** {suc} \n"
-        f"**Due to :** {rson} \n"
-        f"**Time Taken :** {tott} \n"
-        f"[{user.first_name}](tg://user?id={user.id}) Will be banned whenever he/she will join any group where you are admin",
-    )
+        return await pika_msg(a, "**This User Is Already Gbanned.**")
+    else:    
+        gban_sql.gban(user.id, pika_id, rson)
+        await pika_msg(a, f"**Trying To GBan [{user.first_name}](tg://user?id={user.id})**")
+        async for pik in event.client.iter_dialogs():
+            if pik.is_group or pik.is_channel:
+                try:             
+                   await event.client.edit_permissions(pik.id, user.id, view_messages=False)
+                   suc += 1
+                except BaseException:
+                   bd += 0
+        et = pikatime()
+        tott = round(et - st)
+        await pika_msg(
+            a,
+            f"**GBanned Successfully !** \n\n"
+            f"**User :** [{user.first_name}](tg://user?id={user.id}) \n"
+            f"**Affected Chats :** {suc} \n"
+            f"**Due to :** {rson} \n"
+            f"**Time Taken :** {tott} \n"
+            f"[{user.first_name}](tg://user?id={user.id}) Will be banned whenever he/she will join any group where you are admin",
+        )
 
 
 async def _allnotes(event):
