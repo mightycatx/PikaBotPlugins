@@ -19,10 +19,12 @@ from random import choice, randint, uniform
 from re import findall
 from subprocess import PIPE, Popen
 from time import sleep
+from time import time as pikatime
 from urllib.parse import quote_plus
 
 import bs4
 import heroku3
+import pikabot.sql_helper.gmute_sql as gban_sql
 import pyfiglet
 import pygments
 import requests
@@ -1338,17 +1340,17 @@ async def _muter(moot):
             if i.sender == str(moot.sender_id) and i.pika_id == _pika_id:
                 await moot.delete()
 
-import  pikabot.sql_helper.gmute_sql as gban_sql
-from time import time as pikatime
+
 async def gban(event):
     if event.fwd_from:
         return
     _tg = await get_pika_tg(event)
     pika_id = await get_pika_id(event)
     st = pikatime()
-    a = await pika_msg(event,"**GBanning This User !**", _tg)
-    suc = 0; bd = 0
- 
+    a = await pika_msg(event, "**GBanning This User !**", _tg)
+    suc = 0
+    bd = 0
+
     user, reason = await get_user_from_event(event)
     if not user:
         await pika_msg(a, "Kindly, Mention A User To Gban")
@@ -1364,22 +1366,26 @@ async def gban(event):
         await pika_msg(a, "**This User Is Already Gbanned.**")
         return
     gmute_sql.gban(user.id, pika_id, rson)
-    
+
     await pika_msg(a, f"**Trying To GBan [{user.first_name}](tg://user?id={user.id})**")
     async for pik in event.client.iter_dialogs():
         try:
-          await event.client.edit_permissions(pik.id, user.id, view_messages=False)
-          suc += 1
-        except:
-          bd += 0
+            await event.client.edit_permissions(pik.id, user.id, view_messages=False)
+            suc += 1
+        except BaseException:
+            bd += 0
     et = pikatime()
-    tott = round(et-st)
-    await pika_msg(a, f"**GBanned Successfully !** \n\n"
-                     f"**User :** [{user.first_name}](tg://user?id={user.id}) \n"
-                     f"**Affected Chats :** {suc} \n"
-                     f"**Due to :** {rson} \n"
-                     f"**Time Taken :** {tott} \n"
-                     f"[{user.first_name}](tg://user?id={user.id}) Will be banned whenever he/she will join any group where you are admin")
+    tott = round(et - st)
+    await pika_msg(
+        a,
+        f"**GBanned Successfully !** \n\n"
+        f"**User :** [{user.first_name}](tg://user?id={user.id}) \n"
+        f"**Affected Chats :** {suc} \n"
+        f"**Due to :** {rson} \n"
+        f"**Time Taken :** {tott} \n"
+        f"[{user.first_name}](tg://user?id={user.id}) Will be banned whenever he/she will join any group where you are admin",
+    )
+
 
 async def _allnotes(event):
     if event.fwd_from:
