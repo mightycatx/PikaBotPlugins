@@ -1362,10 +1362,10 @@ async def gban(event):
     if user.id == bot.uid:
         await pika_msg(a, "**I Can't Gban You Master ☹️**")
         return
-    if gmute_sql.is_gbanned(user.id, pika_id):
+    if gban_sql.is_gbanned(user.id, pika_id):
         await pika_msg(a, "**This User Is Already Gbanned.**")
         return
-    gmute_sql.gban(user.id, pika_id, rson)
+    gban_sql.gban(user.id, pika_id, rson)
 
     await pika_msg(a, f"**Trying To GBan [{user.first_name}](tg://user?id={user.id})**")
     async for pik in event.client.iter_dialogs():
@@ -3496,14 +3496,10 @@ async def dump(message):
 
 
 async def _eval(event):
-    _tg = await event.client.get_me()
-    if _tg.id == tgbot.uid:
-        ax = True
-    else:
-        ax = None
+    _tg = await get_pika_tg(event)
     if event.fwd_from:
         return
-    ax_ = await pika_msg(event, "Processing ...", ax)
+    ax_ = await pika_msg(event, "Processing ...", _tg)
     cmd = event.text.split(" ", maxsplit=1)[1]
     reply_to_id = event.message.id
     if event.reply_to_msg_id:
@@ -4369,9 +4365,9 @@ Profile Created: {}""".format(
 async def _gsearch(event):
     """ For .google command, do a Google search. """
     match = event.pattern_match.group(1)
-    await is_pikatg(event)
+    _tg = await get_pika_tg(event)
     page = findall(r"page=\d+", match)
-    a = await pika_msg(event, f"Searching for {match}")
+    a = await pika_msg(event, f"Searching for {match}", _tg)
     try:
         page = page[0]
         page = page.replace("page=", "")
@@ -4398,7 +4394,7 @@ langi = "en"
 
 
 async def _imdb(e):
-    _tg = await is_pikatg(e)
+    _tg = await get_pika_tg(e)
     try:
         movie_name = e.pattern_match.group(1)
         remove_space = movie_name.split(" ")
@@ -4498,7 +4494,7 @@ async def _imdb(e):
 async def _getinfo(event):
     if event.fwd_from:
         return
-    _tg = await is_pikatg(event)
+    _tg = await get_pika_tg(event)
     a = await pika_msg(event, "Getting User Info. Please wait....", _tg)
     replied_user, error_i_a = await get_full_user(event)
     if replied_user is None:
@@ -4657,7 +4653,7 @@ async def _json(event):
 
 async def _locks(event):
     input_str = event.pattern_match.group(1).lower()
-    _tg = await is_pikatg(event)
+    _tg = await get_pika_tg(event)
     await pika_msg(event, f"Locking {input_str}, Please Wait....", _tg)
     peer_id = event.chat_id
     msg = None
@@ -4745,7 +4741,7 @@ async def _locks(event):
 
 async def _rmlocks(event):
     input_str = event.pattern_match.group(1).lower()
-    _tg = await is_pikatg(event)
+    _tg = await get_pika_tg(event)
     a = await pika_msg(event, f"Unlocking {input_str}, Please Wait....", _tg)
     peer_id = event.chat_id
     msg = None
@@ -4941,7 +4937,8 @@ async def _reveal(event):
     a = open(b, "r")
     c = a.read()
     a.close()
-    _a = await pika_msg(event, "**Reading file...**")
+    _tg = await get_pika_tg(event)
+    _a = await pika_msg(event, "**Reading file...**", _tg)
     if len(c) > 4095:
         await pika_msg(
             _a, "`The Total words in this file is more than telegram limits.`"
@@ -5053,7 +5050,7 @@ def ReTrieveURL(input_url):
 async def _speedtest(event):
     if event.fwd_from:
         return
-    await get_pika_tg(event)
+    _tg=await get_pika_tg(event)
     input_str = event.pattern_match.group(1)
     as_text = True
     as_document = False
@@ -5063,7 +5060,7 @@ async def _speedtest(event):
         as_document = True
     elif input_str == "text":
         as_text = True
-    a = await pika_msg(event, "`Calculating my internet speed. Please wait!`")
+    a = await pika_msg(event, "`Calculating my internet speed. Please wait!`", _tg)
     start = datetime.now()
     s = speedtest.Speedtest()
     s.get_best_server()
