@@ -5050,7 +5050,7 @@ def ReTrieveURL(input_url):
 async def _speedtest(event):
     if event.fwd_from:
         return
-    _tg=await get_pika_tg(event)
+    _tg = await get_pika_tg(event)
     input_str = event.pattern_match.group(1)
     as_text = True
     as_document = False
