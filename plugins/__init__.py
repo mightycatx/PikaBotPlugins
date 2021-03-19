@@ -1364,16 +1364,20 @@ async def gban(event):
         return
     if gban_sql.is_gbanned(user.id, pika_id):
         return await pika_msg(a, "**This User Is Already Gbanned.**")
-    else:    
+    else:
         gban_sql.gban(user.id, pika_id, rson)
-        await pika_msg(a, f"**Trying To GBan [{user.first_name}](tg://user?id={user.id})**")
+        await pika_msg(
+            a, f"**Trying To GBan [{user.first_name}](tg://user?id={user.id})**"
+        )
         async for pik in event.client.iter_dialogs():
             if pik.is_group or pik.is_channel:
-                try:             
-                   await event.client.edit_permissions(pik.id, user.id, view_messages=False)
-                   suc += 1
+                try:
+                    await event.client.edit_permissions(
+                        pik.id, user.id, view_messages=False
+                    )
+                    suc += 1
                 except BaseException:
-                   bd += 0
+                    bd += 0
         et = pikatime()
         tott = round(et - st)
         await pika_msg(
