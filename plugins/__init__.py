@@ -4864,7 +4864,7 @@ async def _deldog(event):
     _tg = await get_pika_tg(event)
     a = await pika_msg(event, "Pasting on Deldog, Please wait...", _tg)
     await asyncio.sleep(1)
-    start = pikatime()()
+    start = pikatime()
     if not os.path.isdir(Config.TMP_DOWNLOAD_DIRECTORY):
         os.makedirs(Config.TMP_DOWNLOAD_DIRECTORY)
     input_str = event.pattern_match.group(1)
@@ -4893,7 +4893,7 @@ async def _deldog(event):
     url = "https://del.dog/documents"
     r = requests.post(url, data=message.encode("UTF-8")).json()
     url = f"https://del.dog/{r['key']}"
-    end = pikatime()()
+    end = pikatime()
     ms = (end - start).seconds
     if r["isUrl"]:
         nurl = f"https://del.dog/v/{r['key']}"
@@ -4963,7 +4963,7 @@ async def _rmbg(event):
         await event.edit("You need API token from remove.bg to use this plugin.")
         return False
     input_str = event.pattern_match.group(1)
-    start = pikatime()()
+    start = pikatime()
     message_id = event.message.id
     _tg = await get_pika_tg(event)
     a = await pika_msg(
@@ -4999,7 +4999,7 @@ async def _rmbg(event):
                 allow_cache=False,
                 reply_to=message_id,
             )
-        end = pikatime()()
+        end = pikatime()
         ms = (end - start).seconds
         await pika_msg(
             a,
@@ -5564,7 +5564,7 @@ async def _telegraph(event):
     a = await pika_msg(event, "Generating Telegraph Link, Please wait...", _tg)
     optional_title = event.pattern_match.group(2)
     if event.reply_to_msg_id:
-        start = pikatime()()
+        start = pikatime()
         r_message = await event.get_reply_message()
         input_str = event.pattern_match.group(1)
         await get_pika_tg(event)
@@ -5572,18 +5572,18 @@ async def _telegraph(event):
             downloaded_file_name = await event.client.download_media(
                 r_message, Config.TMP_DOWNLOAD_DIRECTORY
             )
-            end = pikatime()()
+            end = pikatime()
             ms = (end - start).seconds
             if downloaded_file_name.endswith((".webp")):
                 resize_image(downloaded_file_name)
             try:
-                start = pikatime()()
+                start = pikatime()
                 media_urls = upload_file(downloaded_file_name)
             except exceptions.TelegraphException as exc:
                 await pika_msg(a, "ERROR: " + str(exc))
                 os.remove(downloaded_file_name)
             else:
-                end = pikatime()()
+                end = pikatime()
                 ms_two = (end - start).seconds
                 os.remove(downloaded_file_name)
                 await pika_msg(
@@ -5673,9 +5673,9 @@ async def _ping(event):
         axx = await pikaa(event, "ALIVE_NAME")
         az = f"𝑴𝒚 𝑩𝒐𝒔𝒔 **{axx}**"
     _tg = await get_pika_tg(event)
-    start = pikatime()()
+    start = pikatime()
     a = await pika_msg(event, f"{rx}pikaa", _tg)
-    end = pikatime()()
+    end = pikatime()
     ms = (end - start).microseconds / 1000
     await pika_msg(a, "✪ 𝗣𝗂𝗄𝖺 𝗣𝗂𝗄𝖺 𝗣𝗂𝗄𝖺𝖼𝗁𝗎!\n➥{}Ms\n➥{}".format(ms, az))
     await asyncio.sleep(7)
