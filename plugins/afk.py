@@ -6,7 +6,7 @@ you telling them that you are AFK(reason)\n
 **Switches off AFK when you type back anything, anywhere**
 """
 import asyncio
-import datetime
+from . import pikatime 
 
 from telethon import events
 from telethon.tl import functions, types
