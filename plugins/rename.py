@@ -52,7 +52,7 @@ async def _(event):
     if not os.path.isdir(Config.TMP_DOWNLOAD_DIRECTORY):
         os.makedirs(Config.TMP_DOWNLOAD_DIRECTORY)
     if event.reply_to_msg_id:
-        start = datetime.now()
+        start = pikatime()
         file_name = input_str
         reply_message = await event.get_reply_message()
         # c_time = time.time()
@@ -61,7 +61,7 @@ async def _(event):
         downloaded_file_name = await event.client.download_media(
             reply_message, downloaded_file_name
         )
-        end = datetime.now()
+        end = pikatime()
         ms = (end - start).seconds
         if os.path.exists(downloaded_file_name):
             await event.edit(
@@ -87,7 +87,7 @@ async def _(event):
     if not os.path.isdir(Config.TMP_DOWNLOAD_DIRECTORY):
         os.makedirs(Config.TMP_DOWNLOAD_DIRECTORY)
     if event.reply_to_msg_id:
-        start = datetime.now()
+        start = pikatime()
         file_name = input_str
         reply_message = await event.get_reply_message()
         to_download_directory = Config.TMP_DOWNLOAD_DIRECTORY
@@ -95,7 +95,7 @@ async def _(event):
         downloaded_file_name = await event.client.download_media(
             reply_message, downloaded_file_name
         )
-        end = datetime.now()
+        end = pikatime()
         ms_one = (end - start).seconds
         if os.path.exists(downloaded_file_name):
             time.time()
@@ -108,7 +108,7 @@ async def _(event):
                 reply_to=event.message.id,
                 thumb=thumb,
             )
-            end_two = datetime.now()
+            end_two = pikatime()
             os.remove(downloaded_file_name)
             ms_two = (end_two - end).seconds
             await event.edit(
@@ -133,7 +133,7 @@ async def _(event):
     if not os.path.isdir(Config.TMP_DOWNLOAD_DIRECTORY):
         os.makedirs(Config.TMP_DOWNLOAD_DIRECTORY)
     if event.reply_to_msg_id:
-        start = datetime.now()
+        start = pikatime()
         file_name = input_str
         reply_message = await event.get_reply_message()
         time.time()
@@ -142,7 +142,7 @@ async def _(event):
         downloaded_file_name = await event.client.download_media(
             reply_message, downloaded_file_name
         )
-        end_one = datetime.now()
+        end_one = pikatime()
         ms_one = (end_one - start).seconds
         if os.path.exists(downloaded_file_name):
             thumb = None
@@ -157,7 +157,7 @@ async def _(event):
                 thumb = thumb_image_path
             else:
                 thumb = get_video_thumb(downloaded_file_name, thumb_image_path)
-            start = datetime.now()
+            start = pikatime()
             metadata = extractMetadata(createParser(downloaded_file_name))
             duration = 0
             width = 0
@@ -196,7 +196,7 @@ async def _(event):
             except Exception as e:
                 await event.edit(str(e))
             else:
-                end = datetime.now()
+                end = pikatime()
                 os.remove(downloaded_file_name)
                 ms_two = (end - end_one).seconds
                 await event.edit(

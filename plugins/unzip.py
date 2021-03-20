@@ -26,7 +26,7 @@ async def _(event):
     if not os.path.isdir(Config.TMP_DOWNLOAD_DIRECTORY):
         os.makedirs(Config.TMP_DOWNLOAD_DIRECTORY)
     if event.reply_to_msg_id:
-        start = datetime.now()
+        start = pikatime()
         reply_message = await event.get_reply_message()
         try:
             time.time()
@@ -37,7 +37,7 @@ async def _(event):
         except Exception as e:  # pylint:disable=C0103,W0703
             await mone.edit(str(e))
         else:
-            end = datetime.now()
+            end = pikatime()
             ms = (end - start).seconds
             await mone.edit(
                 "Stored the zip to `{}` in {} seconds.".format(downloaded_file_name, ms)

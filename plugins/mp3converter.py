@@ -22,7 +22,7 @@ async def _(event):
         return
     await event.edit("trying to download media file, to my local")
     try:
-        start = datetime.now()
+        start = pikatime()
         c_time = time.time()
         downloaded_file_name = await event.client.download_media(
             reply_message,
@@ -34,7 +34,7 @@ async def _(event):
     except Exception as e:  # pylint:disable=C0103,W0703
         await event.edit(str(e))
     else:
-        end = datetime.now()
+        end = pikatime()
         ms = (end - start).seconds
         await event.edit(
             "Downloaded to `{}` in {} seconds.".format(downloaded_file_name, ms)
@@ -98,7 +98,7 @@ async def _(event):
         stdout.decode().strip()
         os.remove(downloaded_file_name)
         if os.path.exists(new_required_file_name):
-            end_two = datetime.now()
+            end_two = pikatime()
             await event.client.send_file(
                 entity=event.chat_id,
                 file=new_required_file_name,

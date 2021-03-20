@@ -3930,7 +3930,7 @@ def paginate_help(page_number, loaded_plugins, prefix):
 async def _currency(event):
     if event.fwd_from:
         return
-    start = datetime.now()
+    start = pikatime()
     input_str = event.pattern_match.group(1)
     input_sgra = input_str.split(" ")
     if len(input_sgra) == 3:
@@ -3954,7 +3954,7 @@ async def _currency(event):
             await event.edit(str(e))
     else:
         await event.edit("`.currency number from to`")
-    end = datetime.now()
+    end = pikatime()
     (end - start).seconds
 
 
@@ -5064,12 +5064,12 @@ async def _speedtest(event):
     elif input_str == "text":
         as_text = True
     a = await pika_msg(event, "`Calculating my internet speed. Please wait!`", _tg)
-    start = datetime.now()
+    start = pikatime()
     s = speedtest.Speedtest()
     s.get_best_server()
     s.download()
     s.upload()
-    end = datetime.now()
+    end = pikatime()
     ms = (end - start).microseconds / 1000
     response = s.results.dict()
     download_speed = response.get("download")
@@ -5614,7 +5614,7 @@ async def _telegraph(event):
                 os.remove(downloaded_file_name)
             page_content = page_content.replace("\n", "<br>")
             response = telegraph.create_page(title_of_page, html_content=page_content)
-            end = datetime.now()
+            end = pikatime()
             ms = (end - start).seconds
             await pika_msg(
                 a,
