@@ -10,8 +10,7 @@
 {i}twrp <codename>
 **Usage**: Get latest twrp download for android device.\n
 """
-
-
+from . import magisk, device_info, codename_info, dspecs, twrp
 @ItzSjDude(outgoing=True, pattern="magisk$")
 async def _(request):
     await magisk(request)
