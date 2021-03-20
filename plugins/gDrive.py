@@ -46,7 +46,7 @@ async def _(event):
     if not os.path.isdir(Var.TEMP_DOWNLOAD_DIRECTORY):
         os.makedirs(Var.TEMP_DOWNLOAD_DIRECTORY)
     required_file_name = None
-    start = datetime.now()
+    start = pikatime.now()
     if event.reply_to_msg_id and not input_str:
         reply_message = await event.get_reply_message()
         try:
@@ -59,7 +59,7 @@ async def _(event):
             await mone.edit(str(e))
             return False
         else:
-            end = datetime.now()
+            end = pikatime.now()
             ms = (end - start).seconds
             required_file_name = downloaded_file_name
             await mone.edit(
@@ -68,7 +68,7 @@ async def _(event):
     elif input_str:
         input_str = input_str.strip()
         if os.path.exists(input_str):
-            end = datetime.now()
+            end = pikatime.now()
             ms = (end - start).seconds
             required_file_name = input_str
             await mone.edit("Found `{}` in {} seconds.".format(input_str, ms))

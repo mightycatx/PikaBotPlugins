@@ -6,7 +6,7 @@ from uniborg.util import ItzSjDude
 async def _(event):
     if event.fwd_from:
         return
-    start = datetime.now()
+    start = pikatime.now()
     u = 0
     g = 0
     c = 0
@@ -29,7 +29,7 @@ async def _(event):
                 c += 1
         else:
             print(d)
-    end = datetime.now()
+    end = pikatime.now()
     ms = (end - start).seconds
     await event.edit(
         """`Your Stats Obtained in {} seconds`

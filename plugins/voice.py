@@ -16,7 +16,7 @@ async def _(event):
     if event.fwd_from:
         return
     input_str = event.pattern_match.group(1)
-    start = datetime.now()
+    start = pikatime.now()
     if event.reply_to_msg_id:
         previous_message = await event.get_reply_message()
         text = previous_message.message
@@ -59,7 +59,7 @@ async def _(event):
         else:
             os.remove(required_file_name)
             required_file_name = required_file_name + ".opus"
-        end = datetime.now()
+        end = pikatime.now()
         ms = (end - start).seconds
         await event.client.send_file(
             event.chat_id,

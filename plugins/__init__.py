@@ -1345,7 +1345,7 @@ async def gban(event):
         return
     _tg = await get_pika_tg(event)
     pika_id = await get_pika_id(event)
-    st = datetime.now()
+    st = pikatime.now()
     a = await pika_msg(event, "**GBanning This User !**", _tg)
     suc = 0
     bd = 0
@@ -1376,7 +1376,7 @@ async def gban(event):
                 suc += 1
             except BaseException:
                 bd += 0
-    et = datetime.now()
+    et = pikatime.now()
     tott = round(et - st)
     await pika_msg(
         a,
@@ -3929,7 +3929,7 @@ def paginate_help(page_number, loaded_plugins, prefix):
 async def _currency(event):
     if event.fwd_from:
         return
-    start = datetime.now()
+    start = pikatime.now()
     input_str = event.pattern_match.group(1)
     input_sgra = input_str.split(" ")
     if len(input_sgra) == 3:
@@ -3953,7 +3953,7 @@ async def _currency(event):
             await event.edit(str(e))
     else:
         await event.edit("`.currency number from to`")
-    end = datetime.now()
+    end = pikatime.now()
     (end - start).seconds
 
 
@@ -4863,7 +4863,7 @@ async def _deldog(event):
     _tg = await get_pika_tg(event)
     a = await pika_msg(event, "Pasting on Deldog, Please wait...", _tg)
     await asyncio.sleep(1)
-    start = datetime.now()
+    start = pikatime.now()
     if not os.path.isdir(Config.TMP_DOWNLOAD_DIRECTORY):
         os.makedirs(Config.TMP_DOWNLOAD_DIRECTORY)
     input_str = event.pattern_match.group(1)
@@ -4892,7 +4892,7 @@ async def _deldog(event):
     url = "https://del.dog/documents"
     r = requests.post(url, data=message.encode("UTF-8")).json()
     url = f"https://del.dog/{r['key']}"
-    end = datetime.now()
+    end = pikatime.now()
     ms = (end - start).seconds
     if r["isUrl"]:
         nurl = f"https://del.dog/v/{r['key']}"
@@ -4962,7 +4962,7 @@ async def _rmbg(event):
         await event.edit("You need API token from remove.bg to use this plugin.")
         return False
     input_str = event.pattern_match.group(1)
-    start = datetime.now()
+    start = pikatime.now()
     message_id = event.message.id
     _tg = await get_pika_tg(event)
     a = await pika_msg(
@@ -4998,7 +4998,7 @@ async def _rmbg(event):
                 allow_cache=False,
                 reply_to=message_id,
             )
-        end = datetime.now()
+        end = pikatime.now()
         ms = (end - start).seconds
         await pika_msg(
             a,
@@ -5063,12 +5063,12 @@ async def _speedtest(event):
     elif input_str == "text":
         as_text = True
     a = await pika_msg(event, "`Calculating my internet speed. Please wait!`", _tg)
-    start = datetime.now()
+    start = pikatime.now()
     s = speedtest.Speedtest()
     s.get_best_server()
     s.download()
     s.upload()
-    end = datetime.now()
+    end = pikatime.now()
     ms = (end - start).microseconds / 1000
     response = s.results.dict()
     download_speed = response.get("download")
@@ -5563,7 +5563,7 @@ async def _telegraph(event):
     a = await pika_msg(event, "Generating Telegraph Link, Please wait...", _tg)
     optional_title = event.pattern_match.group(2)
     if event.reply_to_msg_id:
-        start = datetime.now()
+        start = pikatime.now()
         r_message = await event.get_reply_message()
         input_str = event.pattern_match.group(1)
         await get_pika_tg(event)
@@ -5571,18 +5571,18 @@ async def _telegraph(event):
             downloaded_file_name = await event.client.download_media(
                 r_message, Config.TMP_DOWNLOAD_DIRECTORY
             )
-            end = datetime.now()
+            end = pikatime.now()
             ms = (end - start).seconds
             if downloaded_file_name.endswith((".webp")):
                 resize_image(downloaded_file_name)
             try:
-                start = datetime.now()
+                start = pikatime.now()
                 media_urls = upload_file(downloaded_file_name)
             except exceptions.TelegraphException as exc:
                 await pika_msg(a, "ERROR: " + str(exc))
                 os.remove(downloaded_file_name)
             else:
-                end = datetime.now()
+                end = pikatime.now()
                 ms_two = (end - start).seconds
                 os.remove(downloaded_file_name)
                 await pika_msg(
@@ -5613,7 +5613,7 @@ async def _telegraph(event):
                 os.remove(downloaded_file_name)
             page_content = page_content.replace("\n", "<br>")
             response = telegraph.create_page(title_of_page, html_content=page_content)
-            end = datetime.now()
+            end = pikatime.now()
             ms = (end - start).seconds
             await pika_msg(
                 a,
@@ -5672,9 +5672,9 @@ async def _ping(event):
         axx = await pikaa(event, "ALIVE_NAME")
         az = f"𝑴𝒚 𝑩𝒐𝒔𝒔 **{axx}**"
     _tg = await get_pika_tg(event)
-    start = datetime.now()
+    start = pikatime.now()
     a = await pika_msg(event, f"{rx}pikaa", _tg)
-    end = datetime.now()
+    end = pikatime.now()
     ms = (end - start).microseconds / 1000
     await pika_msg(a, "✪ 𝗣𝗂𝗄𝖺 𝗣𝗂𝗄𝖺 𝗣𝗂𝗄𝖺𝖼𝗁𝗎!\n➥{}Ms\n➥{}".format(ms, az))
     await asyncio.sleep(7)

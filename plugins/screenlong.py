@@ -16,7 +16,7 @@ async def _(event):
         await event.edit("need to install Google Chrome. Module Stopping.")
         return
     await event.edit("Processing ...")
-    start = datetime.now()
+    start = pikatime.now()
     try:
         chrome_options = webdriver.ChromeOptions()
         chrome_options.add_argument("--ignore-certificate-errors")
@@ -59,7 +59,7 @@ async def _(event):
                 allow_cache=False,
                 silent=True,
             )
-        end = datetime.now()
+        end = pikatime.now()
         ms = (end - start).seconds
         await event.edit(f"Completed screencapture Process in {ms} seconds")
     except Exception:
