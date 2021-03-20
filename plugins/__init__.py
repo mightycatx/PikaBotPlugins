@@ -19,7 +19,7 @@ from random import choice, randint, uniform
 from re import findall
 from subprocess import PIPE, Popen
 from time import sleep
-from time import time as datetime.now
+import datetime
 from urllib.parse import quote_plus
 
 import bs4
