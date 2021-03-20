@@ -13,7 +13,7 @@ import time
 import traceback
 import urllib.parse
 from asyncio import sleep
-from datetime import datetime
+from datetime import datetime as pikatime
 from os import remove
 from random import choice, randint, uniform
 from re import findall
