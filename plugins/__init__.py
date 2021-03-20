@@ -1365,11 +1365,9 @@ async def gban(event):
     if gban_sql.is_gbanned(user.id, pika_id):
         await pika_msg(a, "**This User Is Already Gbanned.**")
         return
-   
+
     gban_sql.gban(user.id, pika_id, rson)
-    await pika_msg(
-        a, f"**Trying To GBan [{user.first_name}](tg://user?id={user.id})**"
-    )
+    await pika_msg(a, f"**Trying To GBan [{user.first_name}](tg://user?id={user.id})**")
     async for pik in event.client.iter_dialogs():
         if pik.is_group or pik.is_channel:
             try:
