@@ -4,7 +4,6 @@
 import asyncio
 import os
 import time
-from datetime import datetime
 
 from pikabot.utils import ItzSjDude, progress
 

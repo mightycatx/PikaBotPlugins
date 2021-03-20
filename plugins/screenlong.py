@@ -3,7 +3,6 @@ Syntax: .screenlong <Website URL>"""
 
 import io
 import traceback
-from datetime import datetime
 
 from pikabot.utils import ItzSjDude
 from selenium import webdriver

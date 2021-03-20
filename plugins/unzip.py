@@ -6,7 +6,6 @@ code rewritten my SnapDragon7410
 import os
 import time
 import zipfile
-from datetime import datetime
 
 from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser

@@ -7,7 +7,6 @@ By @Ck_ATR"""
 import os
 import subprocess
 import time
-from datetime import datetime
 
 from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser

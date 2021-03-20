@@ -1,7 +1,6 @@
 """Speech to Text
 Syntax: .sttext <Language Code> as reply to a speech message"""
 import os
-from datetime import datetime
 
 import requests
 from pikabot.utils import ItzSjDude
