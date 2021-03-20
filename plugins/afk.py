@@ -51,7 +51,7 @@ async def _(event):
             functions.account.GetPrivacyRequest(types.InputPrivacyKeyStatusTimestamp())
         )
         if isinstance(last_seen_status.rules, types.PrivacyValueAllowAll):
-            afk_time = datetime.pikatime()  # pylint:disable=E0602
+            afk_time = datetime.datetime.now()  # pylint:disable=E0602
         USER_AFK = f"yes: {reason}"  # pylint:disable=E0602
         if reason:
             await event.edit(f"**I'm AFK**\n👉Reason:{reason}")
@@ -86,7 +86,7 @@ async def on_afk(event):
         return False
     if USER_AFK and not (await event.get_sender()).bot:  # pylint:disable=E0602
         if afk_time:  # pylint:disable=E0602
-            now = datetime.pikatime()
+            now = datetime.datetime.now()
             datime_since_afk = now - afk_time  # pylint:disable=E0602
             time = float(datime_since_afk.seconds)
             days = time // (24 * 3600)

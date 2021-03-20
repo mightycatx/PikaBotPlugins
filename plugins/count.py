@@ -18,7 +18,7 @@ logger = logging.getLogger(__name__)
 # async def _(event):
 #     if event.fwd_from:
 #         return
-#     start = pikatime()
+#     start = datetime.now()
 #     u = 0 # number of users
 #     g = 0 # number of basic groups
 #     c = 0 # number of super groups
@@ -40,7 +40,7 @@ logger = logging.getLogger(__name__)
 #             g += 1
 #         else:
 #             pikalog.info(d.stringify())
-#     end = pikatime()
+#     end = datetime.now()
 #     ms = (end - start).seconds
 #     await event.edit("""Obtained in {} seconds.
 # Users:\t{}
