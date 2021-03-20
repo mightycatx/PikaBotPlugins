@@ -1009,7 +1009,7 @@ async def _ungmute(un_gmute):
                     pass
         else:
             async for ugmte in un_gmute.client.iter_dialogs():
-                if ugmte.is_group:
+                if ugmte.is_group or ugmte.is_channel:
                     ugchat = ugmte.id
                     try:
                         b += 1
@@ -1227,15 +1227,15 @@ async def _kick(usr):
 
     # If not admin and not creator, return
     if not admin and not creator:
-        await usr.edit(NO_ADMIN)
+        await usr.edit(NO_ADMIN, _tg)
         return
 
     user, reason = await get_user_from_event(usr)
     if not user:
-        await pika_msg(usr, _tg, "`Couldn't fetch user.`")
+        await pika_msg(usr, "`Couldn't fetch user.`", _tg)
         return
 
-    a = await pika_msg(usr, _tg, "`Kicking...`")
+    a = await pika_msg(usr, "`Kicking...`", _tg)
 
     try:
         await usr.client.kick_participant(usr.chat_id, user.id)
@@ -1363,32 +1363,33 @@ async def gban(event):
         await pika_msg(a, "**I Can't Gban You Master ☹️**")
         return
     if gban_sql.is_gbanned(user.id, pika_id):
-        return await pika_msg(a, "**This User Is Already Gbanned.**")
-    else:
-        gban_sql.gban(user.id, pika_id, rson)
-        await pika_msg(
-            a, f"**Trying To GBan [{user.first_name}](tg://user?id={user.id})**"
-        )
-        async for pik in event.client.iter_dialogs():
-            if pik.is_group or pik.is_channel:
-                try:
-                    await event.client.edit_permissions(
-                        pik.id, user.id, view_messages=False
-                    )
-                    suc += 1
-                except BaseException:
-                    bd += 0
-        et = pikatime()
-        tott = round(et - st)
-        await pika_msg(
-            a,
-            f"**GBanned Successfully !** \n\n"
-            f"**User :** [{user.first_name}](tg://user?id={user.id}) \n"
-            f"**Affected Chats :** {suc} \n"
-            f"**Due to :** {rson} \n"
-            f"**Time Taken :** {tott} \n"
-            f"[{user.first_name}](tg://user?id={user.id}) Will be banned whenever he/she will join any group where you are admin",
-        )
+        await pika_msg(a, "**This User Is Already Gbanned.**")
+        return
+   
+    gban_sql.gban(user.id, pika_id, rson)
+    await pika_msg(
+        a, f"**Trying To GBan [{user.first_name}](tg://user?id={user.id})**"
+    )
+    async for pik in event.client.iter_dialogs():
+        if pik.is_group or pik.is_channel:
+            try:
+                await event.client.edit_permissions(
+                    pik.id, user.id, view_messages=False
+                )
+                suc += 1
+            except BaseException:
+                bd += 0
+    et = pikatime()
+    tott = round(et - st)
+    await pika_msg(
+        a,
+        f"**GBanned Successfully !** \n\n"
+        f"**User :** [{user.first_name}](tg://user?id={user.id}) \n"
+        f"**Affected Chats :** {suc} \n"
+        f"**Due to :** {rson} \n"
+        f"**Time Taken :** {tott} \n"
+        f"[{user.first_name}](tg://user?id={user.id}) Will be banned whenever he/she will join any group where you are admin",
+    )
 
 
 async def _allnotes(event):
