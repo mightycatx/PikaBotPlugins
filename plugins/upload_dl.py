@@ -83,7 +83,7 @@ async def download(target_file):
                 await target_file.get_reply_message(),
                 TEMP_DOWNLOAD_DIRECTORY,
                 progress_callback=lambda d, t: asyncio.get_event_loop().create_task(
-                    progress(d, t, a, c_time, "Downloading...")
+                    progress(d, t, pik, c_time, "Downloading...")
                 ),
             )
         except Exception as e:  # pylint:disable=C0103,W0703
