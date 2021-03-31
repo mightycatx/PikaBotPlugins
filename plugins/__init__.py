@@ -1343,9 +1343,10 @@ async def _muter(moot):
 async def gban(event):
     if event.fwd_from:
         return
+    import time 
     _tg = await get_pika_tg(event)
     pika_id = await get_pika_id(event)
-    st = pikatime.now()
+    st = time.time()
     a = await pika_msg(event, "**GBanning This User !**", _tg)
     suc = 0
     bd = 0
@@ -1376,7 +1377,7 @@ async def gban(event):
                 suc += 1
             except BaseException:
                 bd += 0
-    et = pikatime.now()
+    et = time.time()
     tott = round(et - st)
     await pika_msg(
         a,
