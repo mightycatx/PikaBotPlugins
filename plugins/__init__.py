@@ -4710,7 +4710,7 @@ async def _locks(event):
         cpin = True
         changeinfo = True
         what = "everything"
- 
+
     lock_rights = ChatBannedRights(
         until_date=None,
         send_messages=msg,
