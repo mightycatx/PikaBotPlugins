@@ -1343,7 +1343,8 @@ async def _muter(moot):
 async def gban(event):
     if event.fwd_from:
         return
-    import time 
+    import time
+
     _tg = await get_pika_tg(event)
     pika_id = await get_pika_id(event)
     st = time.time()
