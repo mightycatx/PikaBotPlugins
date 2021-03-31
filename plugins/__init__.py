@@ -4656,7 +4656,7 @@ async def _json(event):
 async def _locks(event):
     input_str = event.pattern_match.group(1).lower()
     _tg = await get_pika_tg(event)
-    kk=await pika_msg(event, f"Locking {input_str}, Please Wait....", _tg)
+    kk = await pika_msg(event, f"Locking {input_str}, Please Wait....", _tg)
     peer_id = event.chat_id
     msg = None
     media = None
@@ -4730,7 +4730,9 @@ async def _locks(event):
         )
         await pika_msg(kk, "`locked` {} `Because its Rest Time Nimba!!`".format(what))
     except BaseException as e:
-        await pika_msg(kk, f"`Do I have proper rights for that ??`\n**Error:** {str(e)}")
+        await pika_msg(
+            kk, f"`Do I have proper rights for that ??`\n**Error:** {str(e)}"
+        )
         return
 
 
