@@ -4671,34 +4671,34 @@ async def _locks(event):
     if input_str == "msg":
         msg = True
         what = "messages"
-    elif input_str == "media":
+    if input_str == "media":
         media = True
         what = "media"
-    elif input_str == "sticker":
+    if input_str == "sticker":
         sticker = True
         what = "stickers"
-    elif input_str == "gif":
+    if input_str == "gif":
         gif = True
         what = "GIFs"
-    elif input_str == "game":
+    if input_str == "game":
         gamee = True
         what = "games"
-    elif input_str == "inline":
+    if input_str == "inline":
         ainline = True
         what = "inline bots"
-    elif input_str == "poll":
+    if input_str == "poll":
         gpoll = True
         what = "polls"
-    elif input_str == "invite":
+    if input_str == "invite":
         adduser = True
         what = "invites"
-    elif input_str == "pin":
+    if input_str == "pin":
         cpin = True
         what = "pins"
-    elif input_str == "info":
+    if input_str == "info":
         changeinfo = True
         what = "chat info"
-    elif input_str == "all":
+    if input_str == "all":
         msg = True
         media = True
         sticker = True
@@ -4710,14 +4710,7 @@ async def _locks(event):
         cpin = True
         changeinfo = True
         what = "everything"
-    else:
-        if not input_str:
-            await pika_msg(a, "`I can't lock nothing !!`")
-            return
-        else:
-            await pika_msg(a, f"`Invalid lock type:` {input_str}")
-            return
-
+ 
     lock_rights = ChatBannedRights(
         until_date=None,
         send_messages=msg,
