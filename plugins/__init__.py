@@ -1544,10 +1544,10 @@ async def get_user_sender_id(user, event):
 async def _alive(event):
     pupt = grt((time.time() - UpTime))
     try:
-        pic = await auto_var(event, "alivepic")
+        pic = await pikaa(event, "ALIVE_PIC")
     except BaseException:
         pic = apic
-    az = await auto_var(event, "alivename")
+    az = await pikaa(event, "ALIVENAME")
     await event.delete()
     a = await event.client.send_file(
         event.chat_id, pic, caption=alivestr.format(pupt, az)
