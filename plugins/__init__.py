@@ -5137,13 +5137,6 @@ def convert_from_bytes(size):
     return f"{round(size, 2)} {units[n]}"
 
 
-Heroku = heroku3.from_key(Var.HEROKU_API_KEY)
-app = Heroku.app(Var.HEROKU_APP_NAME)
-
-
-heroku_api = "https://api.heroku.com"
-
-
 async def _vars(var):
     _tg = await get_pika_tg(var)
     exe = var.pattern_match.group(1)
