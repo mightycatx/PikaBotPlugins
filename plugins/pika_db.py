@@ -14,7 +14,7 @@
 **Usage**: Resets pmpermit, filter, notes, snips and Other Db Plugins """
 import asyncio
 
-from pikabot.Event_Handlers.pika_db import pika_db_reset
+# from pikabot.Event_Handlers.pika_db import pika_db_reset
 
 
 @ItzSjDude(pattern="resetdb$", outgoing=True)
