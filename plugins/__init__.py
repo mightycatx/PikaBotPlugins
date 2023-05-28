@@ -23,7 +23,6 @@ from urllib.parse import quote_plus
 
 import bs4
 import heroku3
-import pikabot.sql_helper.gmute_sql as gban_sql
 import pyfiglet
 import pygments
 import requests
@@ -33,11 +32,8 @@ from geopy.geocoders import Nominatim
 from humanize import naturalsize
 from pikabot import *
 from pikabot.handler import *
-from pikabot.main_plugs.pfpdata import *
-from pikabot.main_plugs.plug import *
-from pikabot.main_plugs.SysRuntime import *
-from pikabot.sql_helper.notes_sql import *
-from pikabot.sql_helper.welcome_sql import *
+from pikabot.core.database *
+
 from pikabot.utils import *
 from pikabot.utils import ItzSjDude
 from pikabot.utils import get_readable_time as grt
