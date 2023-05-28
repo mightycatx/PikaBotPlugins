@@ -9,9 +9,8 @@ Available Commands:
 import io
 import re
 
-import pikabot.sql_helper.blacklist_sql as sql
-import pikabot.sql_helper.blacklistx_sql as sqlx
-from uniborg.util import admin_cmd
+
+from uniborg.util import ItzSjDude
 from var import Var
 
 try:
