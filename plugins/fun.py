@@ -1,7 +1,5 @@
 import random
 
-from uniborg.util import ItzSjDude
-
 METOOSTR = [
     "`Me too thanks`",
     "`Haha yes, me too`",
