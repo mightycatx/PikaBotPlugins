@@ -31,7 +31,7 @@ from bs4 import BeautifulSoup
 from geopy.geocoders import Nominatim
 from humanize import naturalsize
 from pikabot import *
-from pikabot.handler import *
+
 from pikabot.core.database import *
 
 from pikabot.utils import *
