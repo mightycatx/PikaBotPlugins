@@ -22,7 +22,7 @@ Usage: Gives you Gendgster Feeling
 
 import asyncio
 
-BOTLOG = Var.BOTLOG_CHATID
+BOTLOG = False
 
 
 @ItzSjDude(outgoing=True, pattern="spam (.*)")
